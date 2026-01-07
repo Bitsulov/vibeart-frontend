@@ -1,4 +1,4 @@
-import { createTag } from "entities/tag/model/createTag.js";
+import { createTag } from "entities/tag/model/createTag";
 
 export const tagsMocks = [
     createTag({ id: 1, name: "digital" }),

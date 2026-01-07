@@ -1,9 +1,9 @@
 import classes from "./galleryItem.module.scss";
 import { Link } from "react-router-dom";
-import { checkDateYear } from "shared/lib/dates.js";
-import { LikeButton } from "features/likeButton/index.js";
-import { ShareButton } from "features/shareButton/index.js";
-import { CommentButton } from "features/commentButton/index.js";
+import { checkDateYear } from "shared/lib/dates";
+import { LikeButton } from "features/likeButton";
+import { ShareButton } from "features/shareButton";
+import { CommentButton } from "features/commentButton";
 
 interface GalleryItemProps {
     id: number;

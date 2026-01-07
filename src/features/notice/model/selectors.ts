@@ -1,4 +1,4 @@
-import type { RootState } from "app/store/index.js";
+import type { RootState } from "app/store";
 
 export const selectIsNewNotice = (state: RootState) => state.notice.isNewNotice;
 export const selectNoticeMessage = (state: RootState) => state.notice.noticeMessageNew;

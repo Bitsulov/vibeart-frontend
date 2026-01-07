@@ -1,1 +1,1 @@
-export { CommunityAdminsList } from "./ui/communityAdminsList.js";
+export { CommunityAdminsList } from "./ui/communityAdminsList";

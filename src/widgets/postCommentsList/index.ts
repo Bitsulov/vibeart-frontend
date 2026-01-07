@@ -1,1 +1,1 @@
-export { PostCommentsList } from "./ui/postCommentsList.jsx";
+export { PostCommentsList } from "./ui/postCommentsList";

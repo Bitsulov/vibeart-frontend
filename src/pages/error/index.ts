@@ -1,1 +1,1 @@
-export { Error } from "./ui/error.jsx";
+export { Error } from "./ui/error";

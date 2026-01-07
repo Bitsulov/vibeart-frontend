@@ -1,2 +1,3 @@
-export { useLoadPageStatus } from "./hooks/useLoadPageStatus.jsx";
-export { setStatusPage } from "./lib/setStatusPage.js";
+export { useLoadPageStatus } from "./hooks/useLoadPageStatus";
+export { setStatusPage } from "./lib/setStatusPage";
+export { pageStatsReducer } from "./model/pageStatsSlice";

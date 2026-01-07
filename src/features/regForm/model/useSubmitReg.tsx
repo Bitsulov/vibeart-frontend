@@ -1,8 +1,8 @@
 import type React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import useValidationReg from "./useValidationReg.jsx";
-import type { RootState } from "app/store/index.js";
-import { setPasswordRegError, setPasswordAgainRegError, setErrorText } from "./regSlice.js";
+import useValidationReg from "./useValidationReg";
+import type { RootState } from "app/store";
+import { setPasswordRegError, setPasswordAgainRegError, setErrorText } from "./regSlice";
 
 const useSubmitReg = () => {
     const { validateRegForm } = useValidationReg();

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import classes from "./communitySearchForm.module.scss";
-import { useWindowWidth } from "shared/hooks/useWindowWidth.js";
-import type { CommunityType } from "entities/community/index.js";
-import { globalOnChangeHandler } from "shared/lib/globalOnChangeHandler.js";
-import { closeSearchHandler } from "../model/closeSearchHandler.js";
-import { searchButtonHandler } from "../model/searchButtonHandler.js";
+import { useWindowWidth } from "shared/hooks/useWindowWidth";
+import type { CommunityType } from "entities/community";
+import { globalOnChangeHandler } from "shared/lib/globalOnChangeHandler";
+import { closeSearchHandler } from "../model/closeSearchHandler";
+import { searchButtonHandler } from "../model/searchButtonHandler";
 import { useTranslation } from "react-i18next";
 
 interface CommunitySearchFormPropsType {

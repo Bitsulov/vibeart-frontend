@@ -1,6 +1,6 @@
-import type { CommunityType } from "entities/community/index.js";
+import type { CommunityType } from "entities/community";
 import classes from "./communitiesList.module.scss";
-import { CommunitiesItem } from "features/communitiesItem/index.js";
+import { CommunitiesItem } from "features/communitiesItem";
 
 interface CommunitiesListPropsType {
     communitiesList: CommunityType[];

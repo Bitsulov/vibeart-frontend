@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import classes from "./chatContainer.module.scss";
-import { MessageItem } from "features/messageItem/index.js";
-import { formatTime2Nums } from "shared/lib/formatTime2Nums.js";
-import { formatDate } from "shared/lib/formatDate.js";
-import { checkShowDate } from "../helpers/checkShowDate.js";
-import { useScrollTo } from "shared/hooks/useScrollTo.jsx";
-import { ChatForm } from "features/chatForm/index.js";
-import { sendMessageHandler } from "../model/sendMessageHandler.js";
-import { ChatSettingsButton } from "features/chatSettingsButton/index.js";
-import type { MessageType } from "entities/message/index.js";
-import type { UserType } from "entities/user/index.js";
+import { MessageItem } from "features/messageItem";
+import { formatTime2Nums } from "shared/lib/formatTime2Nums";
+import { formatDate } from "shared/lib/formatDate";
+import { checkShowDate } from "../helpers/checkShowDate";
+import { useScrollTo } from "shared/hooks/useScrollTo";
+import { ChatForm } from "features/chatForm";
+import { sendMessageHandler } from "../model/sendMessageHandler";
+import { ChatSettingsButton } from "features/chatSettingsButton";
+import type { MessageType } from "entities/message";
+import type { UserType } from "entities/user";
 import { ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

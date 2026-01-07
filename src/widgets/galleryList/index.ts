@@ -1,1 +1,1 @@
-export { GalleryList } from "./ui/galleryList.jsx";
+export { GalleryList } from "./ui/galleryList";

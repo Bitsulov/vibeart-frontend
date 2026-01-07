@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { ModalTypes } from "./types.js";
+import type { ModalTypes } from "./types";
 
 export interface initialStateType {
     show: boolean;

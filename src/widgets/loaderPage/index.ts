@@ -1,1 +1,1 @@
-export { LoaderPage } from "./ui/loaderPage.jsx";
+export { LoaderPage } from "./ui/loaderPage";

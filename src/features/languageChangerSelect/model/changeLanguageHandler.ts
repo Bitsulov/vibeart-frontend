@@ -1,5 +1,5 @@
 import type { i18n } from "i18next";
-import type { LanguagesType } from "../config/languages.js";
+import type { LanguagesType } from "../config/languages";
 
 export function changeLanguageHandler(
     e: React.MouseEvent,

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import classes from "./contactSection.module.scss";
-import { ContactForm } from "features/contactForm/index.js";
+import { ContactForm } from "features/contactForm";
 
 const ContactSection = () => {
 	const { t } = useTranslation();

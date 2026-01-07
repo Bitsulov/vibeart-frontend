@@ -1,7 +1,7 @@
 import classes from "./about.module.scss";
-import { Layout } from "widgets/layout/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
-import { AboutInner } from "widgets/aboutInner/index.js";
+import { Layout } from "widgets/layout";
+import { useLoadPageStatus } from "entities/pageStats";
+import { AboutInner } from "widgets/aboutInner";
 
 const About = () => {
     const isPageLoaded = useLoadPageStatus();

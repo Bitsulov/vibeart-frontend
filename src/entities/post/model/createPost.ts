@@ -1,4 +1,4 @@
-import type { PostType } from "./type.js";
+import type { PostType } from "./type";
 
 export function createPost({
     id = Date.now(),

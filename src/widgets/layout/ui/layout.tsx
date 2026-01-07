@@ -1,9 +1,9 @@
 import type React from "react";
 import classes from "./layout.module.scss";
-import { Header } from "../../header/index.js";
-import { Footer } from "../../footer/index.js";
-import { LoaderPage } from "../../loaderPage/index.js";
-import { Notice } from "features/notice/index.js";
+import { Header } from "../../header";
+import { Footer } from "../../footer";
+import { LoaderPage } from "../../loaderPage";
+import { Notice } from "features/notice";
 
 interface LayoutPropsType {
     children: React.ReactNode;

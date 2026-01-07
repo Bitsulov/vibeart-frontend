@@ -1,4 +1,4 @@
-import { setPasswordValueReg } from "./regSlice.js";
+import { setPasswordValueReg } from "./regSlice";
 import type { Dispatch } from "@reduxjs/toolkit";
 
 function passwordChangeHandler(e: React.ChangeEvent<HTMLInputElement>, dispatch: Dispatch) {

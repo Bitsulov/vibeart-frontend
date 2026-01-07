@@ -1,10 +1,10 @@
-import { Layout } from "widgets/layout/index.js";
+import { Layout } from "widgets/layout";
 import classes from "./communities.module.scss";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
-import { CommunitiesListOver } from "widgets/communitiesListOver/index.js";
+import { useLoadPageStatus } from "entities/pageStats";
+import { CommunitiesListOver } from "widgets/communitiesListOver";
 import { useState } from "react";
-import { communitiesMock } from "entities/community/index.js";
-import { CommunitiesList } from "widgets/communitiesList/index.js";
+import { communitiesMock } from "entities/community";
+import { CommunitiesList } from "widgets/communitiesList";
 
 export const Communities = () => {
 	const isPageLoaded = useLoadPageStatus();

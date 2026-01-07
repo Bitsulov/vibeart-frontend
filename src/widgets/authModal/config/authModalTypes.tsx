@@ -1,6 +1,6 @@
-import { AuthForm } from "features/authForm/index.js";
-import { RegForm } from "features/regForm/index.js";
-import type { ModalTypes } from "../model/types.js";
+import { AuthForm } from "features/authForm";
+import { RegForm } from "features/regForm";
+import type { ModalTypes } from "../model/types";
 
 export const types: ModalTypes = {
     sign: AuthForm,

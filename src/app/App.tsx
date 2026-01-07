@@ -1,9 +1,9 @@
 import "./App.scss";
-import { StoreProvider } from "./providers/storeProvider.js";
-import RouterProvider from "./providers/routerProvider.js";
-import { InitProvider } from "./providers/initProvider.js";
+import { StoreProvider } from "./providers/storeProvider";
+import RouterProvider from "./providers/routerProvider";
+import { InitProvider } from "./providers/initProvider";
 import type { ReactNode } from "react";
-import { I18nProvider } from "./providers/I18nProvider.js";
+import { I18nProvider } from "./providers/I18nProvider";
 
 function App(): ReactNode {
     return (

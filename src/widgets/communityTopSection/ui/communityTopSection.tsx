@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { formatSubscribersRu } from "shared/lib/formatSubscribersRu.js";
+import { formatSubscribersRu } from "shared/lib/formatSubscribersRu";
 import classes from "./communityTopSection.module.scss";
-import { formatWorksRu } from "shared/lib/formatWorksRu.js";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { formatWorksRu } from "shared/lib/formatWorksRu";
+import { parseNumber } from "shared/lib/parseNumber";
 import { Users, Image, Copy } from "lucide-react";
-import { subscribeHandler } from "../model/subscribeHandler.js";
+import { subscribeHandler } from "../model/subscribeHandler";
 import { useDispatch } from "react-redux";
-import { communityTagClickHandler } from "../model/communityTagHandler.js";
+import { communityTagClickHandler } from "../model/communityTagHandler";
 import { useTranslation } from "react-i18next";
 
 interface CommunityTopSectionPropsType {

@@ -1,5 +1,5 @@
 import classes from "./authButton.module.scss";
-import { authButtonHandler } from "../model/authButtonHandler.js";
+import { authButtonHandler } from "../model/authButtonHandler";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 

@@ -1,6 +1,6 @@
 import type React from "react";
-import type { ErrorTextType } from "./types.js";
-import { contactFormValidation } from "./contactFormValidation.js";
+import type { ErrorTextType } from "./types";
+import { contactFormValidation } from "./contactFormValidation";
 
 export function contactFormSubmitHandler(
     e: React.FormEvent,

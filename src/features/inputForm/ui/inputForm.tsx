@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import classes from "./inputForm.module.scss";
-import { buttonTypes } from "../config/buttonTypes.js";
-import { onChangeValue } from "../model/onChangeValue.js";
-import { toggleButtonHandler } from "../model/toggleButtonHandler.js";
+import { buttonTypes } from "../config/buttonTypes";
+import { onChangeValue } from "../model/onChangeValue";
+import { toggleButtonHandler } from "../model/toggleButtonHandler";
 
 interface InputFormType {
     placeholder: string;

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./profileButtonsUser.module.scss";
-import { toggleSubscribeHandler } from "../model/toggleSubscribeHandler.js";
+import { toggleSubscribeHandler } from "../model/toggleSubscribeHandler";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";

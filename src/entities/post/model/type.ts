@@ -1,4 +1,4 @@
-import type { TagType } from "entities/tag/index.js";
+import type { TagType } from "entities/tag";
 
 export interface PostType {
     id: number;

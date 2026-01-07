@@ -1,4 +1,4 @@
-import type { HrefTypesParametersType } from "../model/types.js";
+import type { HrefTypesParametersType } from "../model/types";
 
 export const hrefTypes = {
     comment: ({ authorId, postId }: HrefTypesParametersType) => `/post/${postId}`,

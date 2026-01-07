@@ -1,1 +1,1 @@
-export { ChatsItem } from "./ui/chatsItem.jsx";
+export { ChatsItem } from "./ui/chatsItem";

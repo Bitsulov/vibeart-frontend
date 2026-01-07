@@ -1,1 +1,1 @@
-export { Footer } from "./ui/footer.jsx";
+export { Footer } from "./ui/footer";

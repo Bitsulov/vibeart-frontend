@@ -1,4 +1,4 @@
-import { setPasswordValueSign } from "./authSlice.js";
+import { setPasswordValueSign } from "./authSlice";
 import type React from "react";
 import type { Dispatch } from "@reduxjs/toolkit";
 

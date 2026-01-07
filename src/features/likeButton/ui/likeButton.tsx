@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./likeButton.module.scss";
-import { likeHandler } from "../model/likeHandler.js";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { likeHandler } from "../model/likeHandler";
+import { parseNumber } from "shared/lib/parseNumber";
 
 interface LikeButtonType {
     count: number;

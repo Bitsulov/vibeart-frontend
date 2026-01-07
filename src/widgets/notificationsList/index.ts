@@ -1,1 +1,1 @@
-export { NotificationsList } from "./ui/notificationsList.jsx";
+export { NotificationsList } from "./ui/notificationsList";

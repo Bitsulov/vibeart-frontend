@@ -1,4 +1,4 @@
-import { monthesRu } from "./monthesRu.js";
+import { monthesRu } from "./monthesRu";
 
 export function checkDateYear(date: string) {
     const currentDate = new Date(date);

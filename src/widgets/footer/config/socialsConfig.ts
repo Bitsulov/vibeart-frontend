@@ -1,6 +1,6 @@
-import { DiscordIcon } from "../ui/discordIcon.jsx";
-import { TgIcon } from "../ui/tgIcon.jsx";
-import { VkIcon } from "../ui/vkIcon.jsx";
+import { DiscordIcon } from "../ui/discordIcon";
+import { TgIcon } from "../ui/tgIcon";
+import { VkIcon } from "../ui/vkIcon";
 
 export const socialsConfig = {
     vk: {

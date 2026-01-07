@@ -1,1 +1,1 @@
-export { InDevelopment } from "./ui/inDevelopment.jsx";
+export { InDevelopment } from "./ui/inDevelopment";

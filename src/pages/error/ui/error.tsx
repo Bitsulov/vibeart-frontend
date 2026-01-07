@@ -1,9 +1,9 @@
 import classes from "./error.module.scss";
-import { useGetErrorCode } from "../hooks/useGetErrorCode.jsx";
-import { getErrorMessage } from "../lib/getErrorMessage.js";
-import { Layout } from "widgets/layout/index.js";
-import { ErrorInfo } from "widgets/errorInfo/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
+import { useGetErrorCode } from "../hooks/useGetErrorCode";
+import { getErrorMessage } from "../lib/getErrorMessage";
+import { Layout } from "widgets/layout";
+import { ErrorInfo } from "widgets/errorInfo";
+import { useLoadPageStatus } from "entities/pageStats";
 import { useTranslation } from "react-i18next";
 
 const Error = () => {

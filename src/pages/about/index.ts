@@ -1,1 +1,1 @@
-export { About } from "./ui/about.jsx";
+export { About } from "./ui/about";

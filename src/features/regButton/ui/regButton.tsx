@@ -1,5 +1,5 @@
 import classes from "./regButton.module.scss";
-import { regButtonHandler } from "../model/regButtonHandler.js";
+import { regButtonHandler } from "../model/regButtonHandler";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 

@@ -1,5 +1,5 @@
 import type { Dispatch } from "@reduxjs/toolkit";
-import { setVisibility } from "../../modalWindow/model/modalSlice.js";
+import { setVisibility } from "../../modalWindow/model/modalSlice";
 import type React from "react";
 
 function authButtonHandler(e: React.MouseEvent, dispatch: Dispatch) {

@@ -1,4 +1,4 @@
-import { createNotification } from "../model/createNotification.js";
+import { createNotification } from "../model/createNotification";
 import ava2 from "@/shared/icons/pivo.jpg";
 
 export const noticesMock = [

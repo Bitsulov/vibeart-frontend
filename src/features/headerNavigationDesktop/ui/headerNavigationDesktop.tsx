@@ -1,10 +1,10 @@
 import classes from "./headerNavigationDesktop.module.scss";
 import { useSelector } from "react-redux";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { parseNumber } from "shared/lib/parseNumber";
 import {
     selectNotificationsPageNotices,
     selectMessagesPageNotices
-} from "entities/notificationsPages/model/selectors.js";
+} from "entities/notificationsPages/model/selectors";
 import { Link } from "react-router-dom";
 import { Images } from "lucide-react";
 

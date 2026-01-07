@@ -1,10 +1,10 @@
-import { CommunityCountriesList } from "features/communityCountriesList/index.js";
-import { ModalWindow } from "features/modalWindow/index.js";
-import { TagList } from "features/tagList/index.js";
-import { checkDateYear } from "shared/lib/dates.js";
+import { CommunityCountriesList } from "features/communityCountriesList";
+import { ModalWindow } from "features/modalWindow";
+import { TagList } from "features/tagList";
+import { checkDateYear } from "shared/lib/dates";
 import classes from "./communityModal.module.scss";
-import type { TagType } from "entities/tag/index.js";
-import type { countriesKeys } from "shared/lib/countriesKeys.js";
+import type { TagType } from "entities/tag";
+import type { countriesKeys } from "shared/lib/countriesKeys";
 import { useTranslation } from "react-i18next";
 
 interface CommunityModalPropsType {

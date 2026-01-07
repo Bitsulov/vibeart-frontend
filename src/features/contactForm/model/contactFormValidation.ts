@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ErrorTextType } from "./types.js";
+import type { ErrorTextType } from "./types";
 
 export function contactFormValidation(
     nameValue: string,

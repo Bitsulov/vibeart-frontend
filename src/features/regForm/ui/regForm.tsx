@@ -1,11 +1,11 @@
 import classes from "./regForm.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import useSubmitReg from "../model/useSubmitReg.jsx";
-import { emailChangeHandler } from "../model/emailChangeHandler.js";
-import { passwordChangeHandler } from "../model/passwordChangeHandler.js";
-import { passwordAgainChangeHandler } from "../model/passwordAgainChangeHandler.js";
-import { InputForm } from "../../inputForm/index.js";
-import type { RootState } from "app/store/index.js";
+import useSubmitReg from "../model/useSubmitReg";
+import { emailChangeHandler } from "../model/emailChangeHandler";
+import { passwordChangeHandler } from "../model/passwordChangeHandler";
+import { passwordAgainChangeHandler } from "../model/passwordAgainChangeHandler";
+import { InputForm } from "../../inputForm";
+import type { RootState } from "app/store";
 import { useTranslation } from "react-i18next";
 
 const RegForm = () => {

@@ -1,6 +1,6 @@
 import classes from "./welcomeMain.module.scss";
-import { AuthButton } from "features/authButton/index.js";
-import { RegButton } from "features/regButton/index.js";
+import { AuthButton } from "features/authButton";
+import { RegButton } from "features/regButton";
 import { useTranslation } from "react-i18next";
 
 const WelcomeMain = () => {

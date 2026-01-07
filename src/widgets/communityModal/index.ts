@@ -1,1 +1,1 @@
-export { CommunityModal } from "./ui/communityModal.js";
+export { CommunityModal } from "./ui/communityModal";

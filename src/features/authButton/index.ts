@@ -1,1 +1,1 @@
-export { AuthButton } from "./ui/authButton.jsx";
+export { AuthButton } from "./ui/authButton";

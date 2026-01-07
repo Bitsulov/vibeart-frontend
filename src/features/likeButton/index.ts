@@ -1,1 +1,1 @@
-export { LikeButton } from "./ui/likeButton.jsx";
+export { LikeButton } from "./ui/likeButton";

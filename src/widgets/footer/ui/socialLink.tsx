@@ -1,4 +1,4 @@
-import type { SocialLinkType } from "../model/types.js";
+import type { SocialLinkType } from "../model/types";
 import classes from "./socialLink.module.scss";
 import { Link } from "react-router-dom";
 

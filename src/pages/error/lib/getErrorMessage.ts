@@ -1,4 +1,4 @@
-import { errorsConfig } from "../config/errorsConfig.js";
+import { errorsConfig } from "../config/errorsConfig";
 
 function getErrorMessage(status: number) {
     return errorsConfig[status] || errorsConfig[Math.floor(status / 100) * 100];

@@ -1,4 +1,4 @@
-import type { UserType } from "entities/user/index.js";
+import type { UserType } from "entities/user";
 import classes from "./communityAdminsList.module.scss";
 import { Link } from "react-router-dom";
 

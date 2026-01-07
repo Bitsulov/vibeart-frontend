@@ -1,1 +1,1 @@
-export { ContactSection } from "./ui/contactSection.js";
+export { ContactSection } from "./ui/contactSection";

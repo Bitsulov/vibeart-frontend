@@ -1,5 +1,5 @@
 import type React from "react";
-import useValidationAuth from "./useValidationAuth.jsx";
+import useValidationAuth from "./useValidationAuth";
 
 const useSubmitSign = () => {
     const { validateAuthForm } = useValidationAuth();

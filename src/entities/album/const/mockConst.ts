@@ -1,4 +1,4 @@
-import { createAlbum } from "../model/createAlbum.js";
+import { createAlbum } from "../model/createAlbum";
 import post1 from "@/shared/icons/pivo.jpg";
 
 export const profileAlbumsMock = [

@@ -1,5 +1,5 @@
-import type { RootState } from "app/store/index.js";
-import { setEmailRegError, setPasswordRegError, setPasswordAgainRegError, setErrorText } from "./regSlice.js";
+import type { RootState } from "app/store";
+import { setEmailRegError, setPasswordRegError, setPasswordAgainRegError, setErrorText } from "./regSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 

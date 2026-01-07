@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import classes from "./galleryList.module.scss";
-import { GalleryItem } from "features/galleryItem/index.js";
+import { GalleryItem } from "features/galleryItem";
 import { Link } from "react-router-dom";
-import type { PostType } from "entities/post/index.js";
+import type { PostType } from "entities/post";
 import { useTranslation } from "react-i18next";
 
 interface GalleryListPropsType {

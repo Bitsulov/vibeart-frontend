@@ -1,1 +1,1 @@
-export { CommunitySearchForm } from "./ui/communitySearchForm.js";
+export { CommunitySearchForm } from "./ui/communitySearchForm";

@@ -1,7 +1,7 @@
 import type React from "react";
 import classes from "./communitiesListOver.module.scss";
-import type { CommunityType } from "entities/community/index.js";
-import { CommunitySearchForm } from "features/communitySearchForm/index.js";
+import type { CommunityType } from "entities/community";
+import { CommunitySearchForm } from "features/communitySearchForm";
 import { useTranslation } from "react-i18next";
 
 interface CommunitiesListOverPropsType {

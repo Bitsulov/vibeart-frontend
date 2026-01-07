@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Layout } from "widgets/layout/index.js";
+import { Layout } from "widgets/layout";
 import classes from "./community.module.scss";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
-import { communitieMock } from "entities/community/const/mockConst.js";
-import { userCommunityMock } from "entities/user/index.js";
-import { communityWithAdminsMock } from "entities/communityWithAdmins/index.js";
-import { communityPostsMock } from "entities/post/index.js";
-import { communityAlbumsWithPostsMock } from "entities/albumsWithPosts/index.js";
-import { CommunityTopSection } from "widgets/communityTopSection/index.js";
-import { CommunityBottomSection } from "widgets/communityBottomSection/index.js";
-import { communityAlbumsMock } from "entities/album/index.js";
-import { communityTagsMocks } from "entities/tag/index.js";
-import { CommunityModal } from "widgets/communityModal/index.js";
+import { useLoadPageStatus } from "entities/pageStats";
+import { communitieMock } from "entities/community";
+import { userCommunityMock } from "entities/user";
+import { communityWithAdminsMock } from "entities/communityWithAdmins";
+import { communityPostsMock } from "entities/post";
+import { communityAlbumsWithPostsMock } from "entities/albumsWithPosts";
+import { CommunityTopSection } from "widgets/communityTopSection";
+import { CommunityBottomSection } from "widgets/communityBottomSection";
+import { communityAlbumsMock } from "entities/album";
+import { communityTagsMocks } from "entities/tag";
+import { CommunityModal } from "widgets/communityModal";
 
 export const Community = () => {
     const isPageLoaded = useLoadPageStatus();

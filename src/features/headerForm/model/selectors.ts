@@ -1,3 +1,3 @@
-import type { RootState } from "app/store/index.js";
+import type { RootState } from "app/store";
 
 export const selectSearchText = (state: RootState) => state.headerForm.searchText;

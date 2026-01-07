@@ -1,4 +1,4 @@
-import type { CommunityType } from "./types.js";
+import type { CommunityType } from "./types";
 
 export function createCommunity({
     id,

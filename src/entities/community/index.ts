@@ -1,2 +1,2 @@
-export type { CommunityType } from "./model/types.js";
-export { communitiesMock } from "./const/mockConst.js";
+export type { CommunityType } from "./model/types";
+export { communitiesMock, communitieMock } from "./const/mockConst";

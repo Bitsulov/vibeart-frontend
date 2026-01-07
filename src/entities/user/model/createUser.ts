@@ -1,4 +1,4 @@
-import type { UserType } from "./types.js";
+import type { UserType } from "./types";
 
 export function createUser({
     id = Date.now(),

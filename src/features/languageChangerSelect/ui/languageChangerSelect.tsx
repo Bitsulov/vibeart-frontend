@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import c from "./languageChangerSelect.module.scss";
 import { useTranslation } from "react-i18next";
-import { languages } from "../config/languages.js";
-import { selectButtonHandler } from "../model/selectButtonHandler.js";
-import { changeLanguageHandler } from "../model/changeLanguageHandler.js";
+import { languages } from "../config/languages";
+import { selectButtonHandler } from "../model/selectButtonHandler";
+import { changeLanguageHandler } from "../model/changeLanguageHandler";
 
 export const LanguageChangerSelect = ({ ...props }) => {
     const { i18n } = useTranslation();

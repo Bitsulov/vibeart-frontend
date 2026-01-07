@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import { modalReducer } from "features/modalWindow/model/modalSlice.js";
-import { authReducer } from "features/authForm/model/authSlice.js";
-import { regReducer } from "features/regForm/model/regSlice.js";
-import { headerFormReducer } from "features/headerForm/model/headerFormSlice.js";
-import { notificationsPagesReducer } from "entities/notificationsPages/index.js";
-import { burgerReducer } from "features/burger/model/burgerSlice.js";
-import { footerLinksReducer } from "features/footerLinksList/model/footerLinksSlice.js";
-import { pageStatsReducer } from "entities/pageStats/model/pageStatsSlice.js";
-import { noticeReducer } from "features/notice/model/noticeSlice.js";
-import { userReducer } from "entities/user/model/userSlice.js";
+import { modalReducer } from "features/modalWindow";
+import { authReducer } from "features/authForm";
+import { regReducer } from "features/regForm";
+import { headerFormReducer } from "features/headerForm";
+import { notificationsPagesReducer } from "entities/notificationsPages";
+import { burgerReducer } from "features/burger";
+import { footerLinksReducer } from "features/footerLinksList";
+import { pageStatsReducer } from "entities/pageStats";
+import { noticeReducer } from "features/notice";
+import { userReducer } from "entities/user";
 
 export const rootReducer = combineReducers({
     user: userReducer,

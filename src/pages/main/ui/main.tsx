@@ -1,7 +1,7 @@
-import { Layout } from "widgets/layout/index.js";
+import { Layout } from "widgets/layout";
 import "./main.scss";
 import img from "shared/icons/pivo.jpg";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
+import { useLoadPageStatus } from "entities/pageStats";
 import { useTranslation } from "react-i18next";
 
 export const Main = () => {

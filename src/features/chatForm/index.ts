@@ -1,1 +1,1 @@
-export { ChatForm } from "./ui/chatForm.jsx";
+export { ChatForm } from "./ui/chatForm";

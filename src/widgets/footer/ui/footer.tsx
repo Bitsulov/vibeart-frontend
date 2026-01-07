@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import classes from "./footer.module.scss";
 import logoWhite from "shared/icons/logo-white.png";
-import { socialsConfig } from "../config/socialsConfig.js";
-import SocialLink from "./socialLink.jsx";
-import { FooterLinksList } from "features/footerLinksList/index.js";
+import { socialsConfig } from "../config/socialsConfig";
+import SocialLink from "./socialLink";
+import { FooterLinksList } from "features/footerLinksList";
 
 const Footer = () => {
     return (

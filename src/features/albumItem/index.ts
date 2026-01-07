@@ -1,1 +1,1 @@
-export { AlbumItem } from "./ui/albumItem.jsx";
+export { AlbumItem } from "./ui/albumItem";

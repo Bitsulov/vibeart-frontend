@@ -1,4 +1,4 @@
-import type { AlbumType } from "./types.js";
+import type { AlbumType } from "./types";
 
 export function createAlbum({
     id = Date.now(),

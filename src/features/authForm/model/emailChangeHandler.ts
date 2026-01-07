@@ -1,4 +1,4 @@
-import { setEmailValueSign } from "./authSlice.js";
+import { setEmailValueSign } from "./authSlice";
 import type React from "react";
 import type { Dispatch } from "@reduxjs/toolkit";
 

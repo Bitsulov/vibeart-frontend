@@ -1,1 +1,1 @@
-export { Layout } from "./ui/layout.jsx";
+export { Layout } from "./ui/layout";

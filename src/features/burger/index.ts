@@ -1,1 +1,2 @@
-export { Burger } from "./ui/burger.jsx";
+export { Burger } from "./ui/burger";
+export { burgerReducer } from "./model/burgerSlice";

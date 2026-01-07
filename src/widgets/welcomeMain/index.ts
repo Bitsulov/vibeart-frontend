@@ -1,1 +1,1 @@
-export { WelcomeMain } from "./ui/welcomeMain.jsx";
+export { WelcomeMain } from "./ui/welcomeMain";

@@ -1,4 +1,4 @@
-import type { CommentType } from "entities/comment/index.js";
+import type { CommentType } from "entities/comment";
 import classes from "./postCommentsList.module.scss";
 import { Link } from "react-router-dom";
 import type React from "react";

@@ -1,6 +1,6 @@
 import classes from "./tagList.module.scss";
-import { Tag } from "./tag.jsx";
-import type { TagType } from "entities/tag/index.js";
+import { Tag } from "./tag";
+import type { TagType } from "entities/tag";
 
 interface TagListType {
     tags: TagType[];

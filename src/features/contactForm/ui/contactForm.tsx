@@ -1,8 +1,8 @@
 import { useState } from "react";
 import classes from "./contactForm.module.scss";
-import { InputForm } from "features/inputForm/index.js";
-import { globalOnChangeHandler } from "shared/lib/globalOnChangeHandler.js";
-import { contactFormSubmitHandler } from "../model/contactFormSubmitHandler.js";
+import { InputForm } from "features/inputForm";
+import { globalOnChangeHandler } from "shared/lib/globalOnChangeHandler";
+import { contactFormSubmitHandler } from "../model/contactFormSubmitHandler";
 import { AlertCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

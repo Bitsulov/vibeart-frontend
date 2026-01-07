@@ -1,12 +1,12 @@
 import { useRef, useEffect } from "react";
 import classes from "./footerLinksList.module.scss";
 import { Link } from "react-router-dom";
-import { toggleLinksHandler } from "../model/toggleLinksHandler.js";
+import { toggleLinksHandler } from "../model/toggleLinksHandler";
 import { useSelector, useDispatch } from "react-redux";
-import { selectFooterLinksHeight, selectIsFooterLinksOpen, selectOPENFOOTERLINKSHEIGHT } from "../model/selectors.js";
-import { setOpenFooterLinksHeight, setFooterLinksHeight, setIsFooterLinksOpen } from "../model/footerLinksSlice.js";
-import { footerLinksWrapperHandler } from "../model/footerLinksWrapperHandler.js";
-import { footerLinksConfig as links } from "../config/footerLinksConfig.js";
+import { selectFooterLinksHeight, selectIsFooterLinksOpen, selectOPENFOOTERLINKSHEIGHT } from "../model/selectors";
+import { setOpenFooterLinksHeight, setFooterLinksHeight, setIsFooterLinksOpen } from "../model/footerLinksSlice";
+import { footerLinksWrapperHandler } from "../model/footerLinksWrapperHandler";
+import { footerLinksConfig as links } from "../config/footerLinksConfig";
 import { useTranslation } from "react-i18next";
 
 const FooterLinksList = () => {

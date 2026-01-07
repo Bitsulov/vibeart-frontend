@@ -1,4 +1,4 @@
-import type { ChatType } from "./types.js";
+import type { ChatType } from "./types";
 
 export function createChat({
     id = Date.now(),

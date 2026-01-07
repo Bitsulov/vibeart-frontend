@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import classes from "./albumListButtons.module.scss";
-import { slideLeft } from "../model/clickHandlers.js";
+import { slideLeft } from "../model/clickHandlers";
 import type Swiper from "swiper";
 
 interface AlbumListButtonLeftProps {

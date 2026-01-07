@@ -1,1 +1,1 @@
-export { ChatSettingsButton } from "./ui/chatSettingsButton.jsx";
+export { ChatSettingsButton } from "./ui/chatSettingsButton";

@@ -1,4 +1,4 @@
-import { createSubscription } from "../model/createSubscription.js";
+import { createSubscription } from "../model/createSubscription";
 
 export const subscriptionMock = createSubscription({
     id: 1,

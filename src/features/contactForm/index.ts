@@ -1,1 +1,1 @@
-export { ContactForm } from "./ui/contactForm.js";
+export { ContactForm } from "./ui/contactForm";

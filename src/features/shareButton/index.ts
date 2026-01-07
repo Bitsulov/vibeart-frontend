@@ -1,1 +1,1 @@
-export { ShareButton } from "./ui/shareButton.jsx";
+export { ShareButton } from "./ui/shareButton";

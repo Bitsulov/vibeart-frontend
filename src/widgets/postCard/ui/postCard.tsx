@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import classes from "./postCard.module.scss";
-import { postLikeHandler } from "../model/postLikeHandler.js";
-import { postShareHandler } from "../model/postShareHandler.js";
-import { TagList } from "features/tagList/index.js";
-import { LikeButton } from "features/likeButton/index.js";
-import { ShareButton } from "features/shareButton/index.js";
-import { checkDateYear } from "shared/lib/dates.js";
+import { postLikeHandler } from "../model/postLikeHandler";
+import { postShareHandler } from "../model/postShareHandler";
+import { TagList } from "features/tagList";
+import { LikeButton } from "features/likeButton";
+import { ShareButton } from "features/shareButton";
+import { checkDateYear } from "shared/lib/dates";
 import { Link } from "react-router-dom";
-import type { TagType } from "entities/tag/index.js";
-import type { AlbumType } from "entities/album/index.js";
+import type { TagType } from "entities/tag";
+import type { AlbumType } from "entities/album";
 import { useTranslation } from "react-i18next";
 
 interface PostCardPropsType {

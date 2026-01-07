@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import classes from "./burger.module.scss";
-import { toggleBurgerHandler } from "../model/toggleBurgerHandler.js";
+import { toggleBurgerHandler } from "../model/toggleBurgerHandler";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBURGEROPENLINKSHEIGHT, selectBurgerLinksHeight, selectIsBurgerOpen } from "../model/selectors.js";
-import { setBurgerOpenLinksHeight, setBurgerLinksHeight, setIsBurgerOpen } from "../model/burgerSlice.js";
-import { navigationBurgerClickHandler } from "../model/navigationBurgerClickHandler.js";
-import { BurgerNavigationList } from "../../burgerNavigationList/index.js";
-import { useBurgerNavigationOptions } from "../config/useBurgerNavigationOptions.jsx";
+import { selectBURGEROPENLINKSHEIGHT, selectBurgerLinksHeight, selectIsBurgerOpen } from "../model/selectors";
+import { setBurgerOpenLinksHeight, setBurgerLinksHeight, setIsBurgerOpen } from "../model/burgerSlice";
+import { navigationBurgerClickHandler } from "../model/navigationBurgerClickHandler";
+import { BurgerNavigationList } from "../../burgerNavigationList";
+import { useBurgerNavigationOptions } from "../config/useBurgerNavigationOptions";
 import { useLocation } from "react-router-dom";
 
 const Burger = ({ ...props }) => {

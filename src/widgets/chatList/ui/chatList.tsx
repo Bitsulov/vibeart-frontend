@@ -1,6 +1,6 @@
-import type { ChatType } from "entities/chats/index.js";
+import type { ChatType } from "entities/chats";
 import classes from "./chatList.module.scss";
-import { ChatsItem } from "features/chatsItem/index.js";
+import { ChatsItem } from "features/chatsItem";
 
 interface ChatListPropsType {
     list: ChatType[];

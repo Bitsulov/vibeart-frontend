@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsNewNotice, selectNoticeMessage, selectNoticesQueue, selectShowNotice } from "../model/selectors.js";
-import { resetNewNotice, setCurrentMessageNotice, setNoticesQueue } from "../model/noticeSlice.js";
+import { selectIsNewNotice, selectNoticeMessage, selectNoticesQueue, selectShowNotice } from "../model/selectors";
+import { resetNewNotice, setCurrentMessageNotice, setNoticesQueue } from "../model/noticeSlice";
 import { useEffect, useState } from "react";
-import { showNoticeFunc } from "../lib/showNotice.js";
+import { showNoticeFunc } from "../lib/showNotice";
 
 const useNoticeQueue = () => {
     const [loaded, setLoaded] = useState(false);

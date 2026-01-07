@@ -1,1 +1,1 @@
-export { CommunityCountriesList } from "./ui/communityCountriesList.js";
+export { CommunityCountriesList } from "./ui/communityCountriesList";

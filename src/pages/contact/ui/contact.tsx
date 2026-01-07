@@ -1,7 +1,7 @@
 import classes from "./contact.module.scss";
-import { Layout } from "widgets/layout/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
-import { ContactSection } from "widgets/contactSection/index.js";
+import { Layout } from "widgets/layout";
+import { useLoadPageStatus } from "entities/pageStats";
+import { ContactSection } from "widgets/contactSection";
 
 const Contact = () => {
     const isPageLoaded = useLoadPageStatus();

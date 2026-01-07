@@ -1,3 +1,3 @@
-export { createTag } from "./model/createTag.js";
-export type { TagType } from "./model/types.js";
-export { tagsMocks, communityTagsMocks } from "./const/mockConst.js";
+export { createTag } from "./model/createTag";
+export type { TagType } from "./model/types";
+export { tagsMocks, communityTagsMocks } from "./const/mockConst";

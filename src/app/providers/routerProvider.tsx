@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home } from "pages/home/index.js";
-import { Gallery } from "pages/gallery/index.js";
-import { Profile } from "pages/profile/index.js";
-import { Post } from "pages/post/index.js";
-import { Messages } from "pages/messages/index.js";
-import { Chat } from "pages/chat/index.js";
-import { Notifications } from "pages/notifications/index.js";
-import { About } from "pages/about/index.js";
-import { Contact } from "pages/contact/index.js";
-import { Error } from "pages/error/index.js";
+import { Home } from "pages/home";
+import { Gallery } from "pages/gallery";
+import { Profile } from "pages/profile";
+import { Post } from "pages/post";
+import { Messages } from "pages/messages";
+import { Chat } from "pages/chat";
+import { Notifications } from "pages/notifications";
+import { About } from "pages/about";
+import { Contact } from "pages/contact";
+import { Error } from "pages/error";
 import type { ReactNode } from "react";
-import { Communities } from "pages/communities/index.js";
-import { Community } from "pages/community/index.js";
-import { Main } from "pages/main/index.js";
+import { Communities } from "pages/communities";
+import { Community } from "pages/community";
+import { Main } from "pages/main";
 
 const RouterProvider = (): ReactNode => {
     return (

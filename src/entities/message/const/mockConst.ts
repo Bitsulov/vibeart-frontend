@@ -1,4 +1,4 @@
-import { createMessage } from "../model/createMessage.js";
+import { createMessage } from "../model/createMessage";
 
 export const chatMessagesMock = [
     createMessage({

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import type React from "react";
 import classes from "./modalWindow.module.scss";
-import { closeModalHandler } from "../model/closeModalHandler.js";
-import { modalClickHandler } from "../model/modalClickHandler.js";
+import { closeModalHandler } from "../model/closeModalHandler";
+import { modalClickHandler } from "../model/modalClickHandler";
 import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "app/store/index.js";
+import type { RootState } from "app/store";
 
 interface ModalWindowType {
     children: React.ReactNode;

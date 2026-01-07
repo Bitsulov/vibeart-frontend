@@ -1,5 +1,5 @@
 import type React from "react";
-import { setIsFooterLinksOpen, setFooterLinksHeight } from "./footerLinksSlice.js";
+import { setIsFooterLinksOpen, setFooterLinksHeight } from "./footerLinksSlice";
 import type { Dispatch } from "@reduxjs/toolkit";
 
 type FooterLinksHeightType = number | string | null;

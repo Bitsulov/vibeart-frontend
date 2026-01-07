@@ -1,5 +1,5 @@
-export { userProfileMock, userChatMock, userCommunityMock } from "./const/mockConst.js";
-export { createUser } from "./model/createUser.js";
-export * from "./model/selectors.js";
-export { setUserInfo } from "./model/userSlice.js";
-export type { UserType } from "./model/types.js";
+export { userProfileMock, userChatMock, userCommunityMock, userMock } from "./const/mockConst";
+export { createUser } from "./model/createUser";
+export * from "./model/selectors";
+export { setUserInfo, userReducer } from "./model/userSlice";
+export type { UserType } from "./model/types";

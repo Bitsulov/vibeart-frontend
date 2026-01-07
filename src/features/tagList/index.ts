@@ -1,1 +1,1 @@
-export { TagList } from "./ui/tagList.jsx";
+export { TagList } from "./ui/tagList";

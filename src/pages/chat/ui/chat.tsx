@@ -1,10 +1,10 @@
 import { useState } from "react";
 import classes from "./chat.module.scss";
-import { userChatMock } from "entities/user/index.js";
-import { chatMessagesMock } from "entities/message/index.js";
-import { ChatContainer } from "widgets/chatContainer/index.js";
-import { Layout } from "widgets/layout/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
+import { userChatMock } from "entities/user";
+import { chatMessagesMock } from "entities/message";
+import { ChatContainer } from "widgets/chatContainer";
+import { Layout } from "widgets/layout";
+import { useLoadPageStatus } from "entities/pageStats";
 
 const Chat = () => {
     const isPageLoaded = useLoadPageStatus();

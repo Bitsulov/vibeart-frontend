@@ -1,10 +1,10 @@
 import classes from "./gallery.module.scss";
-import { GalleryList } from "widgets/galleryList/index.js";
-import { PageTitle } from "widgets/pageTitle/index.js";
-import { useQueryParam } from "shared/hooks/useQueryParam.js";
-import { galleryPostsMock } from "entities/post/index.js";
-import { Layout } from "widgets/layout/index.js";
-import { useLoadPageStatus } from "entities/pageStats/hooks/useLoadPageStatus.js";
+import { GalleryList } from "widgets/galleryList";
+import { PageTitle } from "widgets/pageTitle";
+import { useQueryParam } from "shared/hooks/useQueryParam";
+import { galleryPostsMock } from "entities/post";
+import { Layout } from "widgets/layout";
+import { useLoadPageStatus } from "entities/pageStats";
 import { useTranslation } from "react-i18next";
 
 const Gallery = () => {

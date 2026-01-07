@@ -1,18 +1,18 @@
 import { useState } from "react";
 import classes from "./profile.module.scss";
-import { subscriptionMock } from "entities/subscription/index.js";
+import { subscriptionMock } from "entities/subscription";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "entities/user/index.js";
-import { AlbumList } from "widgets/albumList/index.js";
-import { ProfilePostList } from "widgets/profilePostList/index.js";
-import { ProfileUserInfo } from "widgets/profileUserInfo/index.js";
-import { userProfileMock } from "entities/user/index.js";
-import { Layout } from "widgets/layout/index.js";
-import { profileAlbumsWithPostsMock } from "entities/albumsWithPosts/index.js";
-import { profileAlbumsMock } from "entities/album/index.js";
-import { profilePostsMock, type PostType } from "entities/post/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
+import { selectUserInfo } from "entities/user";
+import { AlbumList } from "widgets/albumList";
+import { ProfilePostList } from "widgets/profilePostList";
+import { ProfileUserInfo } from "widgets/profileUserInfo";
+import { userProfileMock } from "entities/user";
+import { Layout } from "widgets/layout";
+import { profileAlbumsWithPostsMock } from "entities/albumsWithPosts";
+import { profileAlbumsMock } from "entities/album";
+import { profilePostsMock, type PostType } from "entities/post";
+import { useLoadPageStatus } from "entities/pageStats";
 
 const Profile = () => {
 

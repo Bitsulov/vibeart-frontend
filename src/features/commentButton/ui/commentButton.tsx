@@ -1,5 +1,5 @@
 import classes from "./commentButton.module.scss";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { parseNumber } from "shared/lib/parseNumber";
 import { Link } from "react-router-dom";
 
 interface CommentButtonProps {

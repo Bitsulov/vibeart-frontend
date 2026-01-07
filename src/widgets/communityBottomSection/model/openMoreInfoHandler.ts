@@ -1,5 +1,5 @@
 import type { Dispatch } from "@reduxjs/toolkit";
-import { setVisibility } from "features/modalWindow/model/modalSlice.js";
+import { setVisibility } from "features/modalWindow/model/modalSlice";
 import type React from "react";
 
 export function openMoreInfoHandler(e: React.MouseEvent, dispatch: Dispatch) {

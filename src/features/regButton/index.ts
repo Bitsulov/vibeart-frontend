@@ -1,1 +1,1 @@
-export { RegButton } from "./ui/regButton.jsx";
+export { RegButton } from "./ui/regButton";

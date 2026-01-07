@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import classes from "./profilePostItem.module.scss";
-import { LikeButton } from "features/likeButton/index.js";
-import { CommentButton } from "features/commentButton/index.js";
-import { ShareButton } from "features/shareButton/index.js";
-import { checkDateYear } from "shared/lib/dates.js";
+import { LikeButton } from "features/likeButton";
+import { CommentButton } from "features/commentButton";
+import { ShareButton } from "features/shareButton";
+import { checkDateYear } from "shared/lib/dates";
 import { Link } from "react-router-dom";
-import type { TagType } from "entities/tag/index.js";
+import type { TagType } from "entities/tag";
 
 interface ProfilePostItemType {
     id: number;

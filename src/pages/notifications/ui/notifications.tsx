@@ -1,9 +1,9 @@
 import classes from "./notifications.module.scss";
-import { PageTitle } from "widgets/pageTitle/index.js";
-import { NotificationsList } from "widgets/notificationsList/index.js";
-import { Layout } from "widgets/layout/index.js";
-import { noticesMock } from "entities/notification/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
+import { PageTitle } from "widgets/pageTitle";
+import { NotificationsList } from "widgets/notificationsList";
+import { Layout } from "widgets/layout";
+import { noticesMock } from "entities/notification";
+import { useLoadPageStatus } from "entities/pageStats";
 import { useTranslation } from "react-i18next";
 
 const Notifications = () => {

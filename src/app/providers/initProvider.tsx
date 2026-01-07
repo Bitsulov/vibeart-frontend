@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "entities/user/index.js";
-import { userMock } from "entities/user/const/mockConst.js";
+import { setUserInfo } from "entities/user";
+import { userMock } from "entities/user";
 
 type Props = {
     children: ReactNode;

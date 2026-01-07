@@ -1,1 +1,1 @@
-export { default as BurgerNavigationList } from "./ui/burgerNavigationList.jsx";
+export { default as BurgerNavigationList } from "./ui/burgerNavigationList";

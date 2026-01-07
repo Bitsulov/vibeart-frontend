@@ -1,4 +1,4 @@
-import { createComment } from "../model/createComment.js";
+import { createComment } from "../model/createComment";
 import ava2 from "@/shared/icons/pivo.jpg";
 
 export const commentsMock = [

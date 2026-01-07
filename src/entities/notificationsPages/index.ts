@@ -1,2 +1,2 @@
-export { notificationsPagesReducer } from "./model/notificationsPagesSlice.js";
-export { selectNotificationsPageNotices, selectMessagesPageNotices } from "./model/selectors.js";
+export { notificationsPagesReducer } from "./model/notificationsPagesSlice";
+export { selectNotificationsPageNotices, selectMessagesPageNotices } from "./model/selectors";

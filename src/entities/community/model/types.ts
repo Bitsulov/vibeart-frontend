@@ -1,4 +1,4 @@
-import type { countriesKeys } from "shared/lib/countriesKeys.js";
+import type { countriesKeys } from "shared/lib/countriesKeys";
 
 export interface CommunityType {
     id: number;

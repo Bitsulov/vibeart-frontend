@@ -1,6 +1,6 @@
 import classes from "../ui/chatContainer.module.scss";
 import type React from "react";
-import type { MessageType } from "entities/message/index.js";
+import type { MessageType } from "entities/message";
 
 export function sendMessageHandler(
     e: React.FormEvent,

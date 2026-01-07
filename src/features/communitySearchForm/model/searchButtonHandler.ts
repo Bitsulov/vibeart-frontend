@@ -1,4 +1,4 @@
-import type { CommunityType } from "entities/community/index.js";
+import type { CommunityType } from "entities/community";
 import type React from "react";
 
 export function searchButtonHandler(

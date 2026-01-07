@@ -1,4 +1,4 @@
-import type { RootState } from "app/store/index.js";
+import type { RootState } from "app/store";
 
 export const selectBURGEROPENLINKSHEIGHT = (state: RootState) => state.burger.BURGEROPENLINKSHEIGHT;
 export const selectBurgerLinksHeight = (state: RootState) => state.burger.burgerLinksHeight;

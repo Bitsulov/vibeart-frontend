@@ -1,4 +1,4 @@
-import type { NoticeType } from "../model/types.js";
+import type { NoticeType } from "../model/types";
 
 export const noticeTypes: Record<NoticeType, string> = {
 	comment: "notice.comment",

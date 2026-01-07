@@ -1,1 +1,1 @@
-export { Contact } from "./ui/contact.jsx";
+export { Contact } from "./ui/contact";

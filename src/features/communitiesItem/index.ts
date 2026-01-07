@@ -1,1 +1,1 @@
-export { CommunitiesItem } from "./ui/communitiesItem.jsx";
+export { CommunitiesItem } from "./ui/communitiesItem";

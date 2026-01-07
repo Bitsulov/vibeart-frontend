@@ -1,18 +1,18 @@
 import type React from "react";
 import { useDispatch } from "react-redux";
-import { TagList } from "features/tagList/index.js";
+import { TagList } from "features/tagList";
 import classes from "./communityBottomSection.module.scss";
-import { AlbumList } from "widgets/albumList/index.js";
-import { ProfilePostList } from "widgets/profilePostList/index.js";
-import type { AlbumType } from "entities/album/index.js";
-import type { PostType } from "entities/post/index.js";
-import type { UserType } from "entities/user/index.js";
-import type { TagType } from "entities/tag/index.js";
-import type { countriesKeys } from "shared/lib/countriesKeys.js";
-import { CommunityAdminsList } from "features/communityAdminsList/index.js";
-import { CommunityCountriesList } from "features/communityCountriesList/index.js";
-import { checkDateYear } from "shared/lib/dates.js";
-import { openMoreInfoHandler } from "../model/openMoreInfoHandler.js";
+import { AlbumList } from "widgets/albumList";
+import { ProfilePostList } from "widgets/profilePostList";
+import type { AlbumType } from "entities/album";
+import type { PostType } from "entities/post";
+import type { UserType } from "entities/user";
+import type { TagType } from "entities/tag";
+import type { countriesKeys } from "shared/lib/countriesKeys";
+import { CommunityAdminsList } from "features/communityAdminsList";
+import { CommunityCountriesList } from "features/communityCountriesList";
+import { checkDateYear } from "shared/lib/dates";
+import { openMoreInfoHandler } from "../model/openMoreInfoHandler";
 import { useTranslation } from "react-i18next";
 
 interface CommunityBottomSectionPropsType {

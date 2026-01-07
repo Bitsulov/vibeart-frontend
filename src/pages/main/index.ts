@@ -1,1 +1,1 @@
-export { Main } from "./ui/main.js";
+export { Main } from "./ui/main";

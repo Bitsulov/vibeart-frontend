@@ -1,1 +1,1 @@
-export { Communities } from "./ui/communities.js";
+export { Communities } from "./ui/communities";

@@ -1,2 +1,2 @@
-export { AlbumListButtonLeft } from "./ui/albumListButtonLeft.jsx";
-export { AlbumListButtonRight } from "./ui/albumListButtonRight.jsx";
+export { AlbumListButtonLeft } from "./ui/albumListButtonLeft";
+export { AlbumListButtonRight } from "./ui/albumListButtonRight";

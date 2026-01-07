@@ -1,1 +1,1 @@
-export { CommentButton } from "./ui/commentButton.jsx";
+export { CommentButton } from "./ui/commentButton";

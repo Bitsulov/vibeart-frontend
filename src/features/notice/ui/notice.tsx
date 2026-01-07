@@ -1,6 +1,6 @@
 import classes from "./notice.module.scss";
-import { useNoticeQueue } from "../hooks/useNoticeQueue.jsx";
-import { selectClassesNotice, selectCurrentMessageNotice } from "../model/selectors.js";
+import { useNoticeQueue } from "../hooks/useNoticeQueue";
+import { selectClassesNotice, selectCurrentMessageNotice } from "../model/selectors";
 import { useSelector } from "react-redux";
 
 const Notice = () => {

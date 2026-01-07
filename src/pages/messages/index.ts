@@ -1,1 +1,1 @@
-export { Messages } from "./ui/messages.jsx";
+export { Messages } from "./ui/messages";

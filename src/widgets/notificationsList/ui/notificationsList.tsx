@@ -1,7 +1,7 @@
 import classes from "./notificationsList.module.scss";
-import { formatTime } from "shared/lib/formatTime.js";
-import { NotificationItem } from "features/notificationItem/index.js";
-import type { NotificationType } from "entities/notification/index.js";
+import { formatTime } from "shared/lib/formatTime";
+import { NotificationItem } from "features/notificationItem";
+import type { NotificationType } from "entities/notification";
 import { useTranslation } from "react-i18next";
 
 interface NotificationsListPropsType {

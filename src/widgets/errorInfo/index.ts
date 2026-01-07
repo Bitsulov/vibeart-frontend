@@ -1,1 +1,1 @@
-export { ErrorInfo } from "./ui/errorInfo.jsx";
+export { ErrorInfo } from "./ui/errorInfo";

@@ -1,1 +1,1 @@
-export { LanguageChangerSelect } from "./ui/languageChangerSelect.js";
+export { LanguageChangerSelect } from "./ui/languageChangerSelect";

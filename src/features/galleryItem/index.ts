@@ -1,1 +1,1 @@
-export { GalleryItem } from "./ui/galleryItem.jsx";
+export { GalleryItem } from "./ui/galleryItem";

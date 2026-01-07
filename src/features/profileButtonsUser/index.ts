@@ -1,1 +1,1 @@
-export { ProfileButtonsUser } from "./ui/profileButtonsUser.jsx";
+export { ProfileButtonsUser } from "./ui/profileButtonsUser";

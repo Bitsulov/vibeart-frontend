@@ -1,4 +1,4 @@
-import { createUser } from "../model/createUser.js";
+import { createUser } from "../model/createUser";
 import ava1 from "@/shared/icons/pivo.jpg";
 import ava2 from "@/shared/icons/pivo.jpg";
 

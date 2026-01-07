@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsLoaded } from "../model/selectors.js";
+import { selectIsLoaded } from "../model/selectors";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { setIsLoaded } from "../model/pageStatsSlice.js";
+import { setIsLoaded } from "../model/pageStatsSlice";
 
 export const useLoadPageStatus = () => {
     const isLoadedPage = useSelector(selectIsLoaded);

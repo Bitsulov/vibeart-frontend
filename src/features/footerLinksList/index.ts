@@ -1,1 +1,2 @@
-export { FooterLinksList } from "./ui/footerLinksList.jsx";
+export { FooterLinksList } from "./ui/footerLinksList";
+export { footerLinksReducer } from "./model/footerLinksSlice";

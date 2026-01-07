@@ -1,4 +1,4 @@
-import { monthesRu } from "./monthesRu.js";
+import { monthesRu } from "./monthesRu";
 import { t } from "i18next";
 
 export function formatDate(date: Date) {

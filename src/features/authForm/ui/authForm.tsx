@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./authForm.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import useSubmitSign from "../model/useSubmitSign.jsx";
-import { emailChangeHandler } from "../model/emailChangeHandler.js";
-import { passwordChangeHandler } from "../model/passwordChangeHandler.js";
-import { InputForm } from "../../inputForm/index.js";
-import type { RootState } from "app/store/index.js";
+import useSubmitSign from "../model/useSubmitSign";
+import { emailChangeHandler } from "../model/emailChangeHandler";
+import { passwordChangeHandler } from "../model/passwordChangeHandler";
+import { InputForm } from "../../inputForm";
+import type { RootState } from "app/store";
 import { useTranslation } from "react-i18next";
 
 const AuthForm = () => {

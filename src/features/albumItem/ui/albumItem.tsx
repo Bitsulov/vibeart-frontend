@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./albumItem.module.scss";
-import { albumClickHandler } from "../model/albumClickHandler.js";
+import { albumClickHandler } from "../model/albumClickHandler";
 
 interface AlbumItem {
     id: number;

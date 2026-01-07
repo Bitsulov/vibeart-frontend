@@ -1,7 +1,7 @@
-import HideButton from "../ui/hideButton.jsx";
-import ShowButton from "../ui/showButton.jsx";
-import type { HideButtonType } from "../ui/hideButton.jsx";
-import type { ShowButtonType } from "../ui/showButton.jsx";
+import HideButton from "../ui/hideButton";
+import ShowButton from "../ui/showButton";
+import type { HideButtonType } from "../ui/hideButton";
+import type { ShowButtonType } from "../ui/showButton";
 import type { FC } from "react";
 
 interface buttonTypesType {

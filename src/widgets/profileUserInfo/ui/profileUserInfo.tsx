@@ -1,8 +1,8 @@
 import type React from "react";
 import classes from "./profileUserInfo.module.scss";
-import { ProfileUserTag } from "features/profileUserTag/index.js";
-import { ProfileButtonsUser } from "features/profileButtonsUser/index.js";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { ProfileUserTag } from "features/profileUserTag";
+import { ProfileButtonsUser } from "features/profileButtonsUser";
+import { parseNumber } from "shared/lib/parseNumber";
 import { useTranslation } from "react-i18next";
 
 interface ProfileUserInfoPropsType {

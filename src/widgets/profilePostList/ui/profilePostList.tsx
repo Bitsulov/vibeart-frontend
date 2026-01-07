@@ -1,6 +1,6 @@
-import type { PostType } from "entities/post/index.js";
+import type { PostType } from "entities/post";
 import classes from "./profilePostList.module.scss";
-import { ProfilePostItem } from "features/profilePostItem/index.js";
+import { ProfilePostItem } from "features/profilePostItem";
 import { useTranslation } from "react-i18next";
 
 interface ProfilePostListPropsType {

@@ -1,1 +1,1 @@
-export { ProfileUserTag } from "./ui/profileUserTag.jsx";
+export { ProfileUserTag } from "./ui/profileUserTag";

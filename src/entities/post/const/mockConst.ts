@@ -1,5 +1,5 @@
-import { createPost } from "../model/createPost.js";
-import { tagsMocks } from "entities/tag/index.js";
+import { createPost } from "../model/createPost";
+import { tagsMocks } from "entities/tag";
 import post1 from "@/shared/icons/pivo.jpg";
 import post2 from "@/shared/icons/pivo.jpg";
 import post3 from "@/shared/icons/pivo.jpg";

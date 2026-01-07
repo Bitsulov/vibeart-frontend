@@ -1,5 +1,5 @@
-import type { RootState } from "app/store/index.js";
-import { setEmailSignError, setPasswordSignError, setErrorText } from "./authSlice.js";
+import type { RootState } from "app/store";
+import { setEmailSignError, setPasswordSignError, setErrorText } from "./authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 

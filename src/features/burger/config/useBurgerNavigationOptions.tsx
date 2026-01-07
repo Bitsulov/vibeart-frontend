@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { selectNotificationsPageNotices, selectMessagesPageNotices } from "entities/notificationsPages/index.js";
-import { selectUserInfo } from "entities/user/index.js";
+import { selectNotificationsPageNotices, selectMessagesPageNotices } from "entities/notificationsPages";
+import { selectUserInfo } from "entities/user";
 
 export const useBurgerNavigationOptions = () => {
     const noticesLength = useSelector(selectNotificationsPageNotices);

@@ -1,1 +1,1 @@
-export { ProfilePostItem } from "./ui/profilePostItem.jsx";
+export { ProfilePostItem } from "./ui/profilePostItem";

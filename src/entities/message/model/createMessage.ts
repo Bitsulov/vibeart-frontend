@@ -1,4 +1,4 @@
-import type { MessageType } from "./types.js";
+import type { MessageType } from "./types";
 
 export function createMessage({
     id = Date.now(),

@@ -1,4 +1,4 @@
-import { getNewNotice } from "features/notice/model/noticeSlice.js";
+import { getNewNotice } from "features/notice/model/noticeSlice";
 import type { Dispatch } from "@reduxjs/toolkit";
 import type React from "react";
 

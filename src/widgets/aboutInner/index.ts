@@ -1,1 +1,1 @@
-export { AboutInner } from "./ui/aboutInner.js";
+export { AboutInner } from "./ui/aboutInner";

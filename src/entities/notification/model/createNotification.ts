@@ -1,4 +1,4 @@
-import type { NotificationType } from "./types.js";
+import type { NotificationType } from "./types";
 import logoBlack from "shared/icons/logo-black.png";
 
 export function createNotification({

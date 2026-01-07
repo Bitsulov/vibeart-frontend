@@ -1,5 +1,5 @@
 import classes from "./profileUserTag.module.scss";
-import { tagClickHandler } from "../model/tagClickHandler.js";
+import { tagClickHandler } from "../model/tagClickHandler";
 import { useDispatch } from "react-redux";
 
 interface ProfileUserTagType {

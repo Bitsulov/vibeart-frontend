@@ -1,20 +1,20 @@
 import { useEffect } from "react";
-import { ModalWindow } from "features/modalWindow/index.js";
+import { ModalWindow } from "features/modalWindow";
 import {
     setEmailSignError,
     setPasswordSignError,
     setErrorText as setAuthErrorText
-} from "features/authForm/model/authSlice.js";
+} from "features/authForm";
 import {
     setEmailRegError,
     setPasswordRegError,
     setPasswordAgainRegError,
     setErrorText as setRegErrorText
-} from "features/regForm/model/regSlice.js";
-import { setVisibility } from "features/modalWindow/model/modalSlice.js";
-import { types } from "../config/authModalTypes.jsx";
+} from "features/regForm";
+import { setVisibility } from "features/modalWindow";
+import { types } from "../config/authModalTypes";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "app/store/index.js";
+import type { RootState } from "app/store";
 
 const AuthModal = ({ ...props }) => {
     const type = useSelector((state: RootState) => state.modal.type);

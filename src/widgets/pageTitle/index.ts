@@ -1,1 +1,1 @@
-export { PageTitle } from "./ui/pageTitle.jsx";
+export { PageTitle } from "./ui/pageTitle";

@@ -1,1 +1,1 @@
-export { subscriptionMock } from "./const/mockConst.js";
+export { subscriptionMock } from "./const/mockConst";

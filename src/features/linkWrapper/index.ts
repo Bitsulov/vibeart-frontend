@@ -1,1 +1,1 @@
-export { LinkWrapper } from "./ui/linkWrapper.jsx";
+export { LinkWrapper } from "./ui/linkWrapper";

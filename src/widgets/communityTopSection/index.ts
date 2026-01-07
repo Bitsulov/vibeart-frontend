@@ -1,1 +1,1 @@
-export { CommunityTopSection } from "./ui/communityTopSection.js";
+export { CommunityTopSection } from "./ui/communityTopSection";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./shareButton.module.scss";
-import { shareHandler } from "../model/shareHandler.js";
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { shareHandler } from "../model/shareHandler";
+import { parseNumber } from "shared/lib/parseNumber";
 
 interface ShareButtonType {
     count: number;

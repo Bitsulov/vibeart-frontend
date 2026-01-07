@@ -1,18 +1,18 @@
 import { useState } from "react";
 import classes from "./post.module.scss";
-import { PostCommentsList } from "widgets/postCommentsList/index.js";
-import { useHashScroll } from "shared/hooks/useHashScroll.js";
-import { PostCard } from "widgets/postCard/index.js";
-import { PostCommentsForm } from "features/postCommentsForm/index.js";
-import { submitPostCommentsFormHandler } from "../model/submitFormHandler.js";
-import { postMock } from "entities/post/index.js";
-import { commentsMock } from "entities/comment/index.js";
+import { PostCommentsList } from "widgets/postCommentsList";
+import { useHashScroll } from "shared/hooks/useHashScroll";
+import { PostCard } from "widgets/postCard";
+import { PostCommentsForm } from "features/postCommentsForm";
+import { submitPostCommentsFormHandler } from "../model/submitFormHandler";
+import { postMock } from "entities/post";
+import { commentsMock } from "entities/comment";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "entities/user/index.js";
-import { Layout } from "widgets/layout/index.js";
-import { useLoadPageStatus } from "entities/pageStats/index.js";
-import { postAlbumMock } from "entities/album/index.js";
-import { postAlbumsWithPostsMock } from "entities/albumsWithPosts/index.js";
+import { selectUserInfo } from "entities/user";
+import { Layout } from "widgets/layout";
+import { useLoadPageStatus } from "entities/pageStats";
+import { postAlbumMock } from "entities/album";
+import { postAlbumsWithPostsMock } from "entities/albumsWithPosts";
 
 const Post = () => {
     useHashScroll();

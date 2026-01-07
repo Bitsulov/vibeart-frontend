@@ -1,1 +1,1 @@
-export { CommunitiesListOver } from "./ui/communitiesListOver.js";
+export { CommunitiesListOver } from "./ui/communitiesListOver";

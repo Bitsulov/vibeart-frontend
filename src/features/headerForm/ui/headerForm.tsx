@@ -3,10 +3,10 @@ import classes from "./headerForm.module.scss";
 import searchIcon from "shared/icons/search-white.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { headerFormHandler } from "../model/headerFormHandler.js";
-import { headerInputHandler } from "../model/headerInputHandler.js";
-import { headerButtonHandler } from "../model/headerButtonHandler.js";
-import { selectSearchText } from "../model/selectors.js";
+import { headerFormHandler } from "../model/headerFormHandler";
+import { headerInputHandler } from "../model/headerInputHandler";
+import { headerButtonHandler } from "../model/headerButtonHandler";
+import { selectSearchText } from "../model/selectors";
 import { useTranslation } from "react-i18next";
 
 const HeaderForm = () => {

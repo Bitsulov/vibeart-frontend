@@ -1,6 +1,6 @@
-import type { CommentType } from "entities/comment/index.js";
+import type { CommentType } from "entities/comment";
 import type React from "react";
-import type { defaultAddedObjectType } from "./types.js";
+import type { defaultAddedObjectType } from "./types";
 
 export function submitPostCommentsFormHandler(
     e: React.FormEvent,

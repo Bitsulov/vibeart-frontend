@@ -1,7 +1,7 @@
-import { parseNumber } from "shared/lib/parseNumber.js";
+import { parseNumber } from "shared/lib/parseNumber";
 import classes from "./communitiesItem.module.scss";
 import { Link } from "react-router-dom";
-import { formatSubscribersRu } from "shared/lib/formatSubscribersRu.js";
+import { formatSubscribersRu } from "shared/lib/formatSubscribersRu";
 import { useTranslation } from "react-i18next";
 
 interface CommunitiesItemPropsType {

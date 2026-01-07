@@ -1,4 +1,4 @@
-import type { countriesKeys } from "shared/lib/countriesKeys.js";
+import type { countriesKeys } from "shared/lib/countriesKeys";
 import classes from "./communityCountriesList.module.scss";
 import { useTranslation } from "react-i18next";
 

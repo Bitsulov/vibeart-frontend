@@ -1,5 +1,5 @@
 import type { Dispatch } from "@reduxjs/toolkit";
-import { setIsBurgerOpen, setBurgerLinksHeight } from "./burgerSlice.js";
+import { setIsBurgerOpen, setBurgerLinksHeight } from "./burgerSlice";
 import type React from "react";
 
 type BurgerLinksHeightType = number | string | null;

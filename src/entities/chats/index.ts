@@ -1,2 +1,2 @@
-export { chatsMock } from "./const/mockConst.js";
-export type { ChatType } from "./model/types.js";
+export { chatsMock } from "./const/mockConst";
+export type { ChatType } from "./model/types";

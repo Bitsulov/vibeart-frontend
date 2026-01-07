@@ -1,1 +1,1 @@
-export { Notifications } from "./ui/notifications.jsx";
+export { Notifications } from "./ui/notifications";

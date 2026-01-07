@@ -1,9 +1,9 @@
 import classes from "./notificationItem.module.scss";
-import { LinkWrapper } from "features/linkWrapper/index.js";
+import { LinkWrapper } from "features/linkWrapper";
 import { Trans, useTranslation } from "react-i18next";
-import { noticeTypes } from "../config/noticeTypes.js";
-import { hrefTypes } from "../config/hrefTypes.js";
-import type { NotificationType } from "entities/notification/index.js";
+import { noticeTypes } from "../config/noticeTypes";
+import { hrefTypes } from "../config/hrefTypes";
+import type { NotificationType } from "entities/notification";
 
 const NotificationItem = ({
 	authorName,
