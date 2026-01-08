@@ -14,7 +14,7 @@ import { Communities } from "pages/communities";
 import { Community } from "pages/community";
 import { Main } from "pages/main";
 
-const RouterProvider = (): ReactNode => {
+export const RouterProvider = (): ReactNode => {
     return (
         <Router>
             <Routes>
@@ -48,5 +48,3 @@ const RouterProvider = (): ReactNode => {
         </Router>
     );
 };
-
-export default RouterProvider;
