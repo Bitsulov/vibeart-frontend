@@ -11,6 +11,7 @@ const initialState: UserType = {
     worksCount: 0,
     subscribersCount: 0,
     subscribesCount: 0,
+    albumList: [],
     createdAt: new Date().toISOString(),
     trustStatus: "trust",
     isBlocked: false,
@@ -33,6 +34,7 @@ export const userSlice = createSlice({
             if(action.payload.worksCount !== undefined) state.worksCount = action.payload.worksCount;
             if(action.payload.subscribersCount !== undefined) state.subscribersCount = action.payload.subscribersCount;
             if(action.payload.subscribesCount !== undefined) state.subscribesCount = action.payload.subscribesCount;
+            if(action.payload.albumList !== undefined) state.albumList = action.payload.albumList;
             if(action.payload.createdAt !== undefined) state.createdAt = action.payload.createdAt;
             if(action.payload.trustStatus !== undefined) state.trustStatus = action.payload.trustStatus;
             if(action.payload.isBlocked !== undefined) state.isBlocked = action.payload.isBlocked;

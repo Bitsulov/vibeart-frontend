@@ -14,6 +14,7 @@ export const selectUserInfo = createSelector([selectUser], user => {
         worksCount: user.worksCount,
         subscribersCount: user.subscribersCount,
         subscribesCount: user.subscribesCount,
+        albumList: user.albumList,
         createdAt: user.createdAt,
         trustStatus: user.trustStatus,
         isBlocked: user.isBlocked,

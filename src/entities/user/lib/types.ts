@@ -1,4 +1,5 @@
 import type {Roles} from "entities/role";
+import type {AlbumType} from "entities/album";
 
 export interface UserType {
     id: number;
@@ -10,6 +11,7 @@ export interface UserType {
     worksCount: number;
     subscribersCount: number;
     subscribesCount: number;
+    albumList: AlbumType[];
     createdAt: string;
     trustStatus: "trust" | "untrust";
     isBlocked: boolean;
