@@ -5,11 +5,7 @@ export function createAlbum({
     ULID,
     name = "",
     description = "",
-    likes = 0,
-    comments = 0,
-    reports = 0,
-    checkStatus = "unchecked",
-    AIStatus = "good",
+    postCount = 0,
     imageUrl,
     createdAt = new Date().toISOString()
 }: AlbumType) {
@@ -18,11 +14,7 @@ export function createAlbum({
         ULID,
         name,
         description,
-        likes,
-        comments,
-        reports,
-        checkStatus,
-        AIStatus,
+        postCount,
         imageUrl,
         createdAt
     }
