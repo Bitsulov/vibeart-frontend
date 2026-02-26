@@ -1,3 +1,5 @@
+import type {TagType} from "entities/tag";
+
 export interface PostType {
     id: number;
     ULID: string;
@@ -6,6 +8,7 @@ export interface PostType {
     likes: number;
     comments: number;
     reports: number;
+    tagsList: TagType[],
     checkStatus: "checked" | "unchecked";
     AIStatus: "problem" | "good";
     imageUrl: string;
