@@ -1,4 +1,5 @@
 import type {UserType} from "entities/user";
+import type {AlbumType} from "entities/album";
 
 export interface CommunityType {
     id: number;
@@ -7,6 +8,7 @@ export interface CommunityType {
     username: string;
     title: string;
     description: string;
+    albumsList: AlbumType[];
     posts: number;
     subscribers: number;
     subscribes: number;
