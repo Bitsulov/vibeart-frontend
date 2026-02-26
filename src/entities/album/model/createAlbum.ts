@@ -6,6 +6,7 @@ export function createAlbum({
     name = "",
     description = "",
     postCount = 0,
+    postsList = [],
     imageUrl,
     createdAt = new Date().toISOString()
 }: AlbumType) {
@@ -15,6 +16,7 @@ export function createAlbum({
         name,
         description,
         postCount,
+        postsList,
         imageUrl,
         createdAt
     }
