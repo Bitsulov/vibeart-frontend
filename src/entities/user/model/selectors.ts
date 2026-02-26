@@ -9,7 +9,7 @@ export const selectUserInfo = createSelector([selectUser], user => {
         ULID: user.ULID,
         email: user.email,
         name: user.name,
-        tag: user.tag,
+        username: user.username,
         description: user.description,
         worksCount: user.worksCount,
         subscribersCount: user.subscribersCount,

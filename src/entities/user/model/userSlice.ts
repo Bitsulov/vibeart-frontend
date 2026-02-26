@@ -6,7 +6,7 @@ const initialState: UserType = {
     ULID: "",
     email: "",
     name: "",
-    tag: "",
+    username: "",
     description: "",
     worksCount: 0,
     subscribersCount: 0,
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
             if(action.payload.ULID !== undefined) state.ULID = action.payload.ULID;
             if(action.payload.email !== undefined) state.email = action.payload.email;
             if(action.payload.name !== undefined) state.name = action.payload.name;
-            if(action.payload.tag !== undefined) state.tag = action.payload.tag;
+            if(action.payload.username !== undefined) state.username = action.payload.username;
             if(action.payload.description !== undefined) state.description = action.payload.description;
             if(action.payload.worksCount !== undefined) state.worksCount = action.payload.worksCount;
             if(action.payload.subscribersCount !== undefined) state.subscribersCount = action.payload.subscribersCount;

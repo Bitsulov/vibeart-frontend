@@ -6,7 +6,7 @@ export interface UserType {
     ULID: string;
     email: string;
     name: string;
-    tag: string;
+    username: string;
     description: string;
     worksCount: number;
     subscribersCount: number;
