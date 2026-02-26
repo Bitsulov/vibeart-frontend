@@ -9,10 +9,11 @@ export function createPost({
     comments = 0,
     reports = 0,
     tagsList = [],
+    commentList = [],
     checkStatus = "unchecked",
     AIStatus = "good",
     imageUrl,
-    createdAt = new Date().toISOString(),
+    createdAt = new Date().toISOString()
 }: PostType) {
     return {
         id,
@@ -23,6 +24,7 @@ export function createPost({
         comments,
         reports,
         tagsList,
+        commentList,
         checkStatus,
         AIStatus,
         imageUrl,

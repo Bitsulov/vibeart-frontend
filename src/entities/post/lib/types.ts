@@ -1,4 +1,5 @@
 import type {TagType} from "entities/tag";
+import type {CommentType} from "entities/comment";
 
 export interface PostType {
     id: number;
@@ -9,6 +10,7 @@ export interface PostType {
     comments: number;
     reports: number;
     tagsList: TagType[],
+    commentList: CommentType[];
     checkStatus: "checked" | "unchecked";
     AIStatus: "problem" | "good";
     imageUrl: string;
