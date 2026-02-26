@@ -3,7 +3,7 @@ import type {MessageType} from "../lib/types";
 export function createMessage({
     id = 0,
     text = "",
-    createdAt = Date.now(),
+    createdAt = new Date().toISOString(),
     isYour,
     status = "save"
 }: MessageType) {

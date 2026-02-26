@@ -1,7 +1,7 @@
 export interface MessageType {
     id: number;
     text: string;
-    createdAt: number;
+    createdAt: string;
     isYour: boolean;
     status: "save" | "sent" | "read"
 }
