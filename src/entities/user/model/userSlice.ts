@@ -14,6 +14,7 @@ const initialState: UserType = {
     albumList: [],
     createdAt: new Date().toISOString(),
     trustStatus: "trust",
+    isAuthenticated: false,
     isBlocked: false,
     onlineStatus: "offline",
     role: "user",
