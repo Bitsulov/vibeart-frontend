@@ -1,3 +1,39 @@
 {
-
+  "loading...": "Loading...",
+  "alt-logo": "VibeArt Logo",
+  "ariaLabel": {
+    "openBurgerMenu": "Open navigation menu",
+    "goToHome": "Go to home page",
+    "goToProfile": "Go to profile",
+    "goToGallery": "Go to gallery",
+    "goToChats": "Go to chats",
+    "goToNotifications": "Go to notifications",
+    "goToCommunities": "Go to communities",
+    "goToAdmin": "Go to admin panel",
+    "goToAuth": "Go to authentication",
+    "goToUserAgreement": "Go to user agreement",
+    "goToPolicy": "Go to privacy policy"
+  },
+  "pages": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "settings": "Settings",
+    "profile": "Profile",
+    "gallery": "Gallery",
+    "chats": "Chats",
+    "notifications": "Notifications",
+    "communities": "Communities",
+    "contactsWithUs": "Contact Us",
+    "contacts": "Contact",
+    "admin": "Admin",
+    "agreement": "",
+    "policy": "",
+    "rules": "Rules",
+    "error": "$#!%^&*!$@#"
+  },
+  "languages": {
+    "altRu": "Russian",
+    "altEn": "English"
+  }
 }

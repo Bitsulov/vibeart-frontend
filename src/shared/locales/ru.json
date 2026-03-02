@@ -1,3 +1,39 @@
 {
-
+  "loading...": "Загрузка...",
+  "alt-logo": "Логотип VibeArt",
+  "ariaLabel": {
+    "openBurgerMenu": "Открыть навигацию",
+    "goToHome": "Перейти на главную страницу",
+    "goToProfile": "Перейти в профиль",
+    "goToGallery": "Перейти в галерею",
+    "goToChats": "Перейти в чаты",
+    "goToNotifications": "Перейти к уведомлениям",
+    "goToCommunities": "Перейти к сообществам",
+    "goToAdmin": "Перейти в панель админа",
+    "goToAuth": "Перейти к авторизации",
+    "goToUserAgreement": "Перейти к пользовательскому соглашению",
+    "goToPolicy": "Перейти к политике конфиденциальности"
+  },
+  "pages": {
+    "home": "Главная",
+    "login": "Войти",
+    "register": "Регистрация",
+    "settings": "Настройки",
+    "profile": "Профиль",
+    "gallery": "Галерея",
+    "chats": "Чаты",
+    "notifications": "Уведомления",
+    "communities": "Сообщества",
+    "contactsWithUs": "Связь с нами",
+    "contacts": "Связь",
+    "admin": "Админ",
+    "agreement": "Пользовательское соглашение",
+    "policy": "Политика конфиденциальности",
+    "rules": "Правила",
+    "error": "$#!%^&*!$@#"
+  },
+  "languages": {
+    "altRu": "Русский",
+    "altEn": "Английский"
+  }
 }

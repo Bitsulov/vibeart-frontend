@@ -1,0 +1,23 @@
+@use "@/index.scss" as global;
+
+.menu_burger_nav {
+    margin-top: clamp(9.4rem, 30vw, 24rem);
+    gap: clamp(1rem, 5vw - 1rem, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    .nav_burger_item {
+        width: 100%;
+        font-weight: 600;
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        border-right: .1rem solid global.$active-color;
+        padding: clamp(0rem, 1vw - .5rem, .5rem) clamp(1rem, 3vw - .5rem, 1.5rem);
+        text-align: end;
+
+        &.active {
+            font-weight: 800;
+            border-right: .2rem solid global.$active-color;
+        }
+    }
+}

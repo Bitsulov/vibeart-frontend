@@ -1,0 +1,10 @@
+.button_language {
+    border-radius: 50%;
+    height: clamp(1.9rem, 3vw, 3.5rem);
+    width: clamp(1.9rem, 3vw, 3.5rem);
+
+    .flag_img {
+        width: 100%;
+        height: 100%;
+    }
+}
