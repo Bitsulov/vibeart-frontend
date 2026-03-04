@@ -1,0 +1,11 @@
+.link {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+
+    .avatar_img {
+        overflow: hidden;
+    }
+}

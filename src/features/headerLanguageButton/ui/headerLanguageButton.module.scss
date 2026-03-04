@@ -1,0 +1,30 @@
+@use "@/index.scss" as global;
+
+.button_language {
+    border-radius: 50%;
+    height: clamp(1.9rem, 3vw, 3.5rem);
+    width: clamp(1.9rem, 3vw, 3.5rem);
+    cursor: pointer;
+    user-select: none;
+    transition: global.$transition-time;
+    animation: appearing global.$transition-time;
+
+    &.hiding {
+        opacity: 0;
+    }
+
+    .flag_img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

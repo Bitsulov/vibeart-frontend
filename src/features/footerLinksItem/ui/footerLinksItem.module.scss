@@ -1,0 +1,38 @@
+@use "@/index.scss" as global;
+
+.link {
+    position: relative;
+    font-size: clamp(1.2rem, 1.8vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: 0.12rem;
+    align-self: flex-start;
+
+    &::after {
+        content: "";
+        position: absolute;
+        height: 0.1rem;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background-color: global.$active-color;
+
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform global.$transition-time * 2;
+    }
+
+    &:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    &:not(:hover)::after {
+        transform-origin: right;
+    }
+}
+
+@media (min-width: 1500px) and (max-width: 1700px) {
+    .link {
+        font-size: 2rem;
+    }
+}

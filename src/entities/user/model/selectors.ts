@@ -3,6 +3,7 @@ import type {RootState} from "app/store";
 import {createSelector} from "@reduxjs/toolkit";
 
 export const selectUser = (state: RootState): UserType => state.user;
+export const selectIsAuthenticated = (state: RootState): boolean => state.user.isAuthenticated;
 export const selectUserInfo = createSelector([selectUser], user => {
     return {
         id: user.id,
@@ -17,6 +18,7 @@ export const selectUserInfo = createSelector([selectUser], user => {
         albumList: user.albumList,
         createdAt: user.createdAt,
         trustStatus: user.trustStatus,
+        isAuthenticated: user.isAuthenticated,
         isBlocked: user.isBlocked,
         onlineStatus: user.onlineStatus,
         role: user.role,

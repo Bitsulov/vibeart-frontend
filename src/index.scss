@@ -1,15 +1,35 @@
+$block-color: #1E1E1E;
+$bright-background: #1D1D1D;
+$dark-background: #121212;
+$active-color: #C1B7D5;
+$second-active-color: #9E96AD;
+$transition-time: 250ms;
+$negative-background: #2D1616;
+$negative-active: #C40000;
+$other-text-color: #fff;
+$footer-bg: #1F1F1F;
+
+
 *, *::before, *::after {
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
     margin: 0;
     padding: 0;
     border: 0;
+    font-size: 10px;
+    --transition-time: #{$transition-time}
 }
 
 html,
 body,
 div#root {
     height: 100%;
+}
+
+body {
+    background: linear-gradient(-12deg, $bright-background, $dark-background);
+    color: $active-color;
+    overflow-x: hidden;
 }
 
 a {
@@ -19,7 +39,8 @@ a {
 input,
 button,
 textarea,
-select {
+select,
+a {
     font: inherit;
     color: inherit;
 }
@@ -32,4 +53,32 @@ ol {
 img {
     max-width: 100%;
     display: block;
+}
+
+::selection {
+    color: $dark-background;
+    background: $active-color;
+}
+
+div#root {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 clamp(2.6rem, 8vw, 37.5rem);
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 clamp(2.6rem, 12vw, 37.5rem);
+    }
+}
+
+@media (min-width: 1500px) {
+    .container {
+        padding: 0 clamp(2.6rem, 19.6vw, 37.5rem);
+    }
 }
