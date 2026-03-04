@@ -1,0 +1,13 @@
+.logo_link {
+    .logo_img {
+        width: clamp(10rem, 15vw, 20rem);
+        height: auto;
+        user-select: none;
+    }
+}
+
+@media (min-width: 800px) {
+    .logo_link {
+        margin-bottom: 1rem;
+    }
+}

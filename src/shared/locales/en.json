@@ -1,6 +1,12 @@
 {
   "loading...": "Loading...",
   "alt-logo": "VibeArt Logo",
+  "choosingLanguage": "Language selection",
+  "Close": "Close",
+  "Information": "Information",
+  "Email": "Email",
+  "Status": "Status",
+  "Copy": "Copy",
   "ariaLabel": {
     "openBurgerMenu": "Open navigation menu",
     "goToHome": "Go to home page",
@@ -10,9 +16,16 @@
     "goToNotifications": "Go to notifications",
     "goToCommunities": "Go to communities",
     "goToAdmin": "Go to admin panel",
-    "goToAuth": "Go to authentication",
+    "goToAuth": "Go to authorization",
     "goToUserAgreement": "Go to user agreement",
-    "goToPolicy": "Go to privacy policy"
+    "goToPolicy": "Go to privacy policy",
+    "goToContacts": "Go to contact us page",
+    "goToRules": "Go to rules",
+    "goToEmail": "Open email client",
+    "closeLanguageModal": "Close modal window",
+    "chooseRussian": "Choose Russian language",
+    "chooseEnglish": "Choose English language",
+    "copy": "Copy"
   },
   "pages": {
     "home": "Home",
@@ -24,16 +37,21 @@
     "chats": "Chats",
     "notifications": "Notifications",
     "communities": "Communities",
-    "contactsWithUs": "Contact Us",
-    "contacts": "Contact",
+    "contactsWithUs": "Contact us",
+    "contacts": "Contacts",
     "admin": "Admin",
-    "agreement": "",
-    "policy": "",
+    "agreement": "User Agreement",
+    "policy": "Privacy Policy",
     "rules": "Rules",
     "error": "$#!%^&*!$@#"
   },
   "languages": {
     "altRu": "Russian",
     "altEn": "English"
+  },
+  "serverStatus": {
+    "good": "🟢 Operational",
+    "problem": "🟡 Issues",
+    "bad": "🔴 Down"
   }
 }

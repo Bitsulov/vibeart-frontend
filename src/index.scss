@@ -4,6 +4,10 @@ $dark-background: #121212;
 $active-color: #C1B7D5;
 $second-active-color: #9E96AD;
 $transition-time: 250ms;
+$negative-background: #2D1616;
+$negative-active: #C40000;
+$other-text-color: #fff;
+$footer-bg: #1F1F1F;
 
 
 *, *::before, *::after {
@@ -13,6 +17,7 @@ $transition-time: 250ms;
     padding: 0;
     border: 0;
     font-size: 10px;
+    --transition-time: #{$transition-time}
 }
 
 html,

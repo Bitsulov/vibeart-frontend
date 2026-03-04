@@ -1,6 +1,12 @@
 {
   "loading...": "Загрузка...",
   "alt-logo": "Логотип VibeArt",
+  "choosingLanguage": "Выбор языка",
+  "Close": "Закрыть",
+  "Information": "Информация",
+  "Email": "Почта",
+  "Status": "Статус",
+  "Copy": "Копировать",
   "ariaLabel": {
     "openBurgerMenu": "Открыть навигацию",
     "goToHome": "Перейти на главную страницу",
@@ -12,7 +18,14 @@
     "goToAdmin": "Перейти в панель админа",
     "goToAuth": "Перейти к авторизации",
     "goToUserAgreement": "Перейти к пользовательскому соглашению",
-    "goToPolicy": "Перейти к политике конфиденциальности"
+    "goToPolicy": "Перейти к политике конфиденциальности",
+    "goToContacts": "Перейти на страницу связи с нами",
+    "goToRules": "Перейти к правилам",
+    "goToEmail": "Открыть почтовый клиент",
+    "closeLanguageModal": "Закрыть модальное окно",
+    "chooseRussian": "Выбрать русский язык",
+    "chooseEnglish": "Выбрать английский язык",
+    "copy": "Скопировать"
   },
   "pages": {
     "home": "Главная",
@@ -35,5 +48,10 @@
   "languages": {
     "altRu": "Русский",
     "altEn": "Английский"
+  },
+  "serverStatus": {
+    "good": "\uD83D\uDFE2 Работает",
+    "problem": "\uD83D\uDFE1 Проблемы",
+    "bad": "\uD83D\uDD34 Не работает"
   }
 }

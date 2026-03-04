@@ -1,0 +1,13 @@
+.links_list {
+    margin-top: .3rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(.3rem, calc(2.5vw - 1rem), .6rem);
+    white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+    .links_list {
+        margin-top: clamp(1rem, 1vw, 1.6rem);
+    }
+}
