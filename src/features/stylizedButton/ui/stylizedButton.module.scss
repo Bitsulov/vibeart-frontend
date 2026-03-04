@@ -1,0 +1,21 @@
+@use "@/index.scss" as global;
+
+.button {
+    background-color: global.$active-color;
+    color: global.$dark-background;
+    padding: clamp(.5rem, .75vw, .8rem) 2rem;
+    border-radius: .8rem;
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover {
+        box-shadow: 0 0 1rem .1rem rgba(global.$active-color, .5);
+    }
+
+    &:active {
+        background-color: global.$second-active-color;
+        box-shadow: 0 0 1rem .1rem rgba(global.$second-active-color, .5);
+    }
+}

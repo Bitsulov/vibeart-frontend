@@ -9,8 +9,8 @@ export const HeaderLogo = ({ ...props }) => {
 
 	return (
         <Link
-            to="/home"
-            aria-current={path === "/home" ? "page" : undefined}
+            to="/"
+            aria-current={path === "/" ? "page" : undefined}
             className={c.logo_link}
             aria-label={t("ariaLabel.goToHome")}
             {...props}
@@ -21,6 +21,7 @@ export const HeaderLogo = ({ ...props }) => {
                 width="54"
                 height="29"
                 className={c.logo_img}
+                loading="lazy"
             />
         </Link>
 	)

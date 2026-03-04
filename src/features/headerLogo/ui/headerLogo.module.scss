@@ -2,5 +2,6 @@
     .logo_img {
         height: clamp(2.9rem, 5vw, 7.2rem);
         width: auto;
+        user-select: none;
     }
 }

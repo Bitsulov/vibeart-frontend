@@ -8,6 +8,7 @@ $line-height: .3rem;
     width: clamp(3rem, 5vw, 4.5rem);
     height: clamp(1.9rem, 3vw, 3.5rem);
     transition: global.$transition-time;
+    cursor: pointer;
 
     .button_burger_line {
         position: absolute;
@@ -30,7 +31,6 @@ $line-height: .3rem;
     }
 
     &.open {
-
         .button_burger_line {
             opacity: 0;
 

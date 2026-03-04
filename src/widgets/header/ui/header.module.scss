@@ -7,6 +7,7 @@
     border-bottom: 1px solid global.$active-color;
     display: flex;
     align-items: center;
+    z-index: 800;
 
     .header_left {
         display: flex;
@@ -18,6 +19,11 @@
             letter-spacing: 0.14rem;
             font-size: clamp(1.4rem, calc(1rem + 1vw), 2.4rem);
             font-weight: 400;
+
+            .arrow {
+                font-size: inherit;
+                user-select: none;
+            }
         }
     }
 
@@ -27,6 +33,37 @@
         align-items: center;
         gap: clamp(2rem, 5vw, 7.5rem);
         z-index: 800;
+
+        .email_link {
+            position: relative;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            letter-spacing: clamp(0.16rem, 4vw, 0.2rem);
+            font-weight: 600;
+            margin-right: 0;
+
+            &::after {
+                content: "";
+                position: absolute;
+                height: 0.1rem;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                background-color: global.$active-color;
+
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform global.$transition-time * 2;
+            }
+
+            &:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            &:not(:hover)::after {
+                transform-origin: right;
+            }
+        }
     }
 
     .menu_burger {
@@ -61,11 +98,33 @@
 @media (min-width: 1200px) {
     .header {
         margin: 0 clamp(2.6rem, 12vw, 37.5rem);
+        padding-right: clamp(0rem, 3vw, 4.5rem);
+        padding-left: clamp(0rem, 3vw, 4.5rem);
     }
 }
 
 @media (min-width: 1500px) {
     .header {
         margin: 0 clamp(2.6rem, 19.6vw, 37.5rem);
+    }
+}
+
+@media (min-width: 1500px) {
+    .header {
+        .header_right {
+            .email_link {
+                margin-right: -4.5rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 1700px) {
+    .header {
+        .header_right {
+            .email_link {
+                margin-right: 0;
+            }
+        }
     }
 }

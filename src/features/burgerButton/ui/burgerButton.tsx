@@ -5,14 +5,20 @@ import {useTranslation} from "react-i18next";
 import React from "react";
 
 interface BurgerButtonProps {
+    imageUrl: string;
+    isAuthenticated: boolean;
+    name: string;
     isBurgerOpen: boolean;
     setIsBurgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BurgerButton = ({
-    isBurgerOpen,
-    setIsBurgerOpen,
-    ...props
+     imageUrl,
+     name,
+     isAuthenticated,
+     isBurgerOpen,
+     setIsBurgerOpen,
+     ...props
 }: BurgerButtonProps) => {
     const { t } = useTranslation();
 
