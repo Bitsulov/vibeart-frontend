@@ -1,0 +1,18 @@
+# Node_modules - reinstall in the container
+node_modules
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode
+.idea
+
+# logs, cache
+dist
+build
+.DS_Store
+.env
+.env.dev
+.env.prod
+*.log
+*.tmp
