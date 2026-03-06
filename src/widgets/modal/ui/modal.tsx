@@ -6,6 +6,7 @@ import {StylizedButton} from "features/stylizedButton";
 import {modalClickHandler} from "../model/modalClickHandler";
 import {closeButtonClickHandler} from "../model/closeButtonClickHandler";
 import clsx from "clsx";
+import {defaultTransitionTime} from "shared/const/const";
 
 interface ModalProps {
     isShowChangeLanguage: boolean;
@@ -22,7 +23,8 @@ export const Modal = ({
     const { t } = useTranslation();
 
     const [isDisappearring, setIsDisappearring] = useState(false);
-    const transitionTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--transition-time"));
+    const transitionTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--transition-time"))
+        || defaultTransitionTime;
 
 	return (
 		<>
