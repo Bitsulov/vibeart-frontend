@@ -23,7 +23,7 @@ export const HeaderLanguageButton = ({
 }: HeaderLanguageButtonProps) => {
     const { t } = useTranslation();
     const currentLanguage = useSelector(selectCurrentLanguage);
-    const languageData = languagesConfig[currentLanguage];
+    const languageData = languagesConfig[currentLanguage] || languagesConfig["en"];
     const [isShowButton, setIsShowButton] = useState<boolean>(true);
     const transitionTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--transition-time"))
         || defaultTransitionTime;

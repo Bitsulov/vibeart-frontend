@@ -1,14 +1,20 @@
 import {RouterProvider} from "./providers/routerProvider";
 import {I18nProvider} from "./providers/Ii18nProvider";
 import {StoreProvider} from "./providers/storeProvider";
+import {InitProvider} from "app/providers/initProvider";
+import {BrowserRouter as Router} from "react-router-dom";
 
 function App() {
     return (
-        <StoreProvider>
-            <I18nProvider>
-                <RouterProvider />
-            </I18nProvider>
-        </StoreProvider>
+        <Router>
+            <StoreProvider>
+                <I18nProvider>
+                    <InitProvider>
+                        <RouterProvider />
+                    </InitProvider>
+                </I18nProvider>
+            </StoreProvider>
+        </Router>
     )
 }
 
