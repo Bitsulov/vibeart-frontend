@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentLanguage} from "entities/appConfig";
 import React, {useEffect, useState} from "react";
 import clsx from "clsx";
+import {defaultTransitionTime} from "shared/const/const";
 
 interface HeaderLanguageButtonProps {
     setIsShowChangeLanguage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +25,8 @@ export const HeaderLanguageButton = ({
     const currentLanguage = useSelector(selectCurrentLanguage);
     const languageData = languagesConfig[currentLanguage];
     const [isShowButton, setIsShowButton] = useState<boolean>(true);
-    const transitionTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--transition-time"));
+    const transitionTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--transition-time"))
+        || defaultTransitionTime;
 
     useEffect(() => {
         isBurgerOpen ?
