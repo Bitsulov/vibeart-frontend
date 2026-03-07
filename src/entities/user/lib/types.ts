@@ -14,7 +14,7 @@ export interface UserType {
     albumList: AlbumType[];
     createdAt: string;
     trustStatus: "trust" | "untrust";
-    isAuthenticated: false,
+    isAuthenticated: boolean,
     isBlocked: boolean;
     onlineStatus: "online" | "offline";
     role: Roles;
