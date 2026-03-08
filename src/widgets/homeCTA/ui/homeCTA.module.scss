@@ -1,0 +1,67 @@
+@use "@/index.scss" as global;
+
+.CTA {
+    position: relative;
+    background: linear-gradient(
+                    rgba(global.$bright-background, 0.75),
+                    rgba(global.$bright-background, 0.75)
+    ), url("shared/icons/img-CTA.jpg") center center no-repeat;
+    background-size: cover;
+    min-height: clamp(42rem, 50vw, 83rem);
+    margin-top: clamp(5rem, 11vw, 20rem);
+
+    .CTA_inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(3rem, 8vw, 12rem) 0;
+
+        .title {
+            text-align: center;
+            font-size: clamp(2.4rem, 5vw, 6.4rem);
+            font-weight: 700;
+        }
+
+        .description {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+        }
+
+        .link {
+            padding: clamp(1rem, 2vw, 3rem) clamp(2.2rem, 3vw, 4.7rem);
+            margin-top: clamp(7.7rem, 10vw, 16.7rem);
+            font-size: clamp(1.8rem, 4vw, 4.8rem);
+            border-radius: clamp(1rem, 2vw, 2rem);
+            letter-spacing: 0.09rem;
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .CTA {
+        .CTA_inner {
+            .title {
+                font-size: clamp(3.5rem, 3vw, 6.4rem);
+            }
+
+            .description {
+                font-size: clamp(2.4rem, 2.2vw, 3.2rem);
+            }
+
+            .link {
+                font-size: clamp(2.8rem, 3vw, 4.8rem);
+            }
+        }
+    }
+}
+
+@media (min-width: 1800px) {
+    .CTA {
+        .CTA_inner {
+            .description {
+                padding: 0 10rem;
+            }
+        }
+    }
+}
