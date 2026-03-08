@@ -17,6 +17,7 @@
     "goToCommunities": "Go to communities",
     "goToAdmin": "Go to admin panel",
     "goToAuth": "Go to authorization",
+    "goToRegister": "Go to registration",
     "goToUserAgreement": "Go to user agreement",
     "goToPolicy": "Go to privacy policy",
     "goToContacts": "Go to contact us page",
@@ -53,5 +54,27 @@
     "good": "🟢 Operational",
     "problem": "🟡 Issues",
     "bad": "🔴 Down"
+  },
+
+  "home": {
+    "introTitle": "Create together with those who understand",
+    "introDescription": "Your space for self-expression without the noise. Organize your best work into albums, share moments of inspiration, and find support among those who value hand-crafted work and sincere ideas.",
+    "introButton": "Create together",
+    "introImgAlt": "Main illustration",
+    "stepsTitle": "Creativity in details",
+    "step1Title": "Your collections",
+    "step1Description": "Organize your work into beautiful themed albums. Let them be sketches, finished masterpieces, or just your mood today.",
+    "step1AltImg": "Collection",
+    "step2Title": "Live communication",
+    "step2Description": "Engage in meaningful dialogues. Share your progress and get feedback from a community that speaks your language.",
+    "step2AltImg": "Communication",
+    "step3Title": "Real art",
+    "step3Description": "We strive to protect the feed from the endless flow of AI-generated content. This is a place for authors who put their thoughts and feelings into their work, rather than just pressing a button.",
+    "step3AltImg": "Palette",
+    "reviewsTitle": "Inspiration in every dialogue",
+    "altReviews": "Comments",
+    "CTATitle": "Your creativity deserves the right place",
+    "CTADescription": "Join a community that values not only the final result but also the author's journey.",
+    "CTALink": "Start your journey"
   }
 }

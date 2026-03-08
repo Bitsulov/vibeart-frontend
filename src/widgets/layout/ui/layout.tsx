@@ -1,11 +1,15 @@
 import c from "./layout.module.scss";
 import {Header} from "widgets/header";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Modal} from "widgets/modal";
 import {languagesConfig} from "../config/languagesConfig";
 import {Footer} from "widgets/footer";
 
-export const Layout = ({ ...props }) => {
+interface LayoutProps {
+    children?: React.ReactNode;
+}
+
+export const Layout = ({ children, ...props }: LayoutProps) => {
     const [isShowChangeLanguage, setIsShowChangeLanguage] = useState(false);
 
 	return (
@@ -21,6 +25,7 @@ export const Layout = ({ ...props }) => {
                     isShowChangeLanguage={isShowChangeLanguage}
                     setIsShowChangeLanguage={setIsShowChangeLanguage}
                 />
+                {children}
             </main>
             <Footer />
 		</>

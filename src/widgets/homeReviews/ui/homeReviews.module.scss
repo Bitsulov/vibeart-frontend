@@ -1,0 +1,24 @@
+.reviews {
+    margin-top: clamp(5rem, 11vw, 20rem);;
+
+    .title {
+        font-size: clamp(2.4rem, 5vw, 6.4rem);
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .reviewsImg {
+        width: 100%;
+        max-width: 120rem;
+        height: auto;
+        margin: clamp(1.5rem, 4vw, 10rem) auto 0;
+    }
+}
+
+@media (min-width: 700px) {
+    .reviews {
+        .reviewsImg {
+            margin: clamp(1.5rem, 6vw, 10rem) auto 0;
+        }
+    }
+}

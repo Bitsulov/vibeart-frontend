@@ -1,0 +1,173 @@
+@use "@/index.scss" as global;
+
+.steps {
+    margin-top: 5rem;
+
+    .steps_inner {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            font-size: clamp(2.4rem, 5vw, 6.4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: clamp(.5rem, 1.5vw, 13rem);
+        }
+
+        .step {
+            justify-self: flex-start;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0;
+            border-bottom: .1rem solid global.$active-color;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .step_title {
+                font-size: clamp(2rem, 4vw, 4.8rem);
+                font-weight: 500;
+            }
+
+            .step_description {
+                margin-top: 1rem;
+                font-size: clamp(1.6rem, 3vw, 3.6rem);
+                font-weight: 200;
+                font-style: italic;
+            }
+
+            .step_img_wrapper {
+                align-self: center;
+                margin-top: 2rem;
+                background-color: global.$block-color;
+                width: clamp(15rem, 30vw, 34.6rem);
+                height: clamp(15rem, 30vw, 34.6rem);
+                border-radius: 2.5rem;
+
+                .step_img {
+                    margin: 0 auto;
+                    width: auto;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 500px) {
+    .steps {
+        .steps_inner {
+            padding: 0 5rem;
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .steps {
+        margin-top: clamp(5rem, 11vw, 20rem);
+
+        .steps_inner {
+            padding: 0;
+
+            .title {
+                font-size: clamp(3.5rem, 4vw, 6.4rem);
+                margin-bottom: clamp(.5rem, 7vw, 13rem);
+            }
+
+            .steps_list {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(1rem, 5vw, 21rem);
+            }
+
+            .step {
+                flex-direction: row;
+                border-bottom: 0;
+
+                &.step1 {
+                    .step_text {
+                        order: 2;
+                        padding-left: clamp(1rem, 5vw, 13rem);
+                        border-left: .1rem solid global.$active-color;
+                    }
+
+                    .step_img_wrapper {
+                        margin-right: clamp(1rem, 5vw, 13rem);
+                    }
+                }
+
+                &.step2 {
+                    .step_text {
+                        padding-right: clamp(1rem, 5vw, 13rem);
+                        border-right: .1rem solid global.$active-color;
+                    }
+
+                    .step_img_wrapper {
+                        margin-left: clamp(1rem, 5vw, 13rem);
+                    }
+                }
+
+                &.step3 {
+                    .step_text {
+                        order: 2;
+                        padding-left: clamp(1rem, 5vw, 13rem);
+                        border-left: .1rem solid global.$active-color;
+                    }
+
+                    .step_img_wrapper {
+                        margin-right: clamp(1rem, 5vw, 13rem);
+                    }
+                }
+
+                .step_text {
+                    flex-basis: clamp(60%, 40vw, 80%);
+
+                    .step_title {
+                        text-align: center;
+                        margin-bottom: 3rem;
+                    }
+                }
+
+                .step_img_wrapper {
+                    margin-top: 0;
+                    flex-basis: clamp(40%, 30vw, 20%);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1500px) {
+    .steps {
+        .steps_inner {
+            .step {
+                .step_text {
+                    flex-basis: clamp(60%, 35vw, 80%);
+                }
+
+                .step_img_wrapper {
+                    margin-top: 0;
+                    flex-basis: clamp(40%, 30vw, 20%);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1800px) {
+    .steps {
+        .steps_inner {
+            .step {
+                .step_text {
+                    flex-basis: clamp(60%, 45vw, 80%);
+                }
+
+                .step_img_wrapper {
+                    margin-top: 0;
+                    flex-basis: clamp(40%, 20vw, 20%);
+                }
+            }
+        }
+    }
+}
