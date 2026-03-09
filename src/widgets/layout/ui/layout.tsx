@@ -7,9 +7,10 @@ import {Footer} from "widgets/footer";
 
 interface LayoutProps {
     children?: React.ReactNode;
+    isShowFooter?: boolean;
 }
 
-export const Layout = ({ children, ...props }: LayoutProps) => {
+export const Layout = ({ isShowFooter = true, children, ...props }: LayoutProps) => {
     const [isShowChangeLanguage, setIsShowChangeLanguage] = useState(false);
 
 	return (
@@ -27,7 +28,9 @@ export const Layout = ({ children, ...props }: LayoutProps) => {
                 />
                 {children}
             </main>
-            <Footer />
+            {isShowFooter &&
+                <Footer />
+            }
 		</>
 	)
 }
