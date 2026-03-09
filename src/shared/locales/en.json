@@ -44,7 +44,7 @@
     "agreement": "User Agreement",
     "policy": "Privacy Policy",
     "rules": "Rules",
-    "error": "$#!%^&*!$@#"
+    "error": "$#!%^&*"
   },
   "languages": {
     "altRu": "Russian",
@@ -76,5 +76,12 @@
     "CTATitle": "Your creativity deserves the right place",
     "CTADescription": "Join a community that values not only the final result but also the author's journey.",
     "CTALink": "Start your journey"
+  },
+
+  "error": {
+    "errorTitle": "An error occurred",
+    "error404": "The requested page was not found",
+    "returnToHome": "Return to home",
+    "report": "Report a problem"
   }
 }
