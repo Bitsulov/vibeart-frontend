@@ -39,7 +39,7 @@ export const Header = ({
     const HeaderButton = currentWindowWidth < 1200 ? BurgerButton : HeaderProfileButton;
 
     useEffect(() => {
-        setMainLocation(pagesTitleConfig[location.pathname.split("/", 2)[1] ?? ""]);
+        setMainLocation(pagesTitleConfig[location.pathname.split("/", 2)[1]] || "pages.error");
         setIsBurgerOpen(false);
     }, [location.pathname]);
 
