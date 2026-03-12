@@ -21,6 +21,7 @@ export const FooterLogo = ({ ...props }) => {
                 width="100"
                 height="54"
                 className={c.logo_img}
+                decoding="async"
                 loading="lazy"
             />
         </Link>

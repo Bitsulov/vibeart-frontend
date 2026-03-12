@@ -25,7 +25,7 @@ export const LanguageItem = ({ imageUrl, title, ariaLabel, alt, value, ...props 
             className={c.button}
             {...props}
         >
-            <img width="20" height="20" src={imageUrl} alt={t(alt)} className={c.image} />
+            <img decoding="async" width="20" height="20" src={imageUrl} alt={t(alt)} className={c.image} />
             <p className={c.title}>{title}</p>
 		</button>
 	)

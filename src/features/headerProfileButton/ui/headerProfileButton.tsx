@@ -26,7 +26,15 @@ export const HeaderProfileButton = ({
 
 	return (
 		<Link className={c.link} to="/profile" aria-label={t("ariaLabel.goToProfile")} {...props}>
-            <img loading="lazy" width="80" height="80" src={image} alt={alt} className={c.avatar_img} />
+            <img
+                decoding="async"
+                loading="lazy"
+                width="80"
+                height="80"
+                src={image}
+                alt={alt}
+                className={c.avatar_img}
+            />
 		</Link>
 	)
 }
