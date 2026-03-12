@@ -24,6 +24,7 @@ export const HomeIntro = ({ ...props }) => {
                             width="149"
                             height="229"
                             loading="lazy"
+                            decoding="async"
                             src={imgIntro}
                             alt={t("home.introImgAlt")}
                             className={c.img}
