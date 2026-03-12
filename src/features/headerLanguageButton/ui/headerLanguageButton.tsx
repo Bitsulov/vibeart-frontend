@@ -46,6 +46,7 @@ export const HeaderLanguageButton = ({
                 >
                     <img
                         loading="lazy"
+                        decoding="async"
                         width="19"
                         height="19"
                         src={languageData[0]}

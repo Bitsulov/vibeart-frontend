@@ -1,0 +1,96 @@
+@use "@/index.scss" as global;
+
+$padding-left: clamp(1.1rem, 2vw, 2rem);
+
+@mixin lift {
+    top: clamp(-2.8rem, -4vw, -1.8rem);
+    font-size: clamp(1rem, 2.4vw, 1.6rem);
+}
+
+.wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    .input {
+        background-color: global.$dark-background;
+        flex-basis: clamp(80%, 90% - .05vw, 90%);
+        flex-shrink: 0;
+        padding: clamp(.3rem, .75vw, .5rem) clamp(13%, 20% - 3vw, 20%) clamp(.3rem, .75vw, .5rem) $padding-left;
+        border-radius: 1.2rem;
+        border: .1rem solid global.$active-color;
+        transition: global.$transition-time;
+        font-size: clamp(1.2rem, 3vw, 2.4rem);
+        letter-spacing: 0.12rem;
+        font-weight: 400;
+
+        &:focus {
+            outline: none;
+            border-color: global.$second-active-color;
+            color: global.$second-active-color;
+        }
+
+        &:focus + .placeholder {
+            @include lift;
+            color: global.$second-active-color;
+        }
+
+        &.error {
+            border-color: global.$negative-active;
+        }
+
+        &.correct {
+            border-color: global.$positive-active;
+        }
+    }
+
+    .show_password {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        background-color: transparent;
+        top: 0;
+        right: clamp(13%, 20% - 3vw, 20%);
+        height: 100%;
+        cursor: pointer;
+
+        .show_password_icon {
+            height: 75%;
+            width: auto;
+        }
+    }
+
+    .placeholder {
+        position: absolute;
+        top: 0;
+        left: $padding-left;
+        padding: clamp(.3rem, .75vw, .5rem) 0;
+        pointer-events: none;
+        font-size: clamp(1.2rem, 3vw, 2.4rem);
+        letter-spacing: 0.12rem;
+        font-weight: 400;
+        transition: global.$transition-time;
+
+        &.lift {
+            @include lift;
+        }
+    }
+
+    .status_icon {
+        display: flex;
+        align-self: center;
+        flex: 1;
+        margin-left: .4rem;
+        width: clamp(1.4rem, 4vw, 2.4rem);
+        height: clamp(1.4rem, 4vw, 2.4rem);
+        border: 0;
+
+        &.correct_icon {
+            stroke: global.$positive-active;
+        }
+
+        &.error_icon {
+            stroke: global.$negative-active;
+        }
+    }
+}

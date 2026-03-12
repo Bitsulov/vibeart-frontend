@@ -19,6 +19,7 @@ export const HomeReviews = ({ ...props }) => {
                 width="320"
                 height="143"
                 loading="lazy"
+                decoding="async"
                 src={reviewsImg}
                 alt={t("home.altReviews")}
                 className={c.reviewsImg}

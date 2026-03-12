@@ -1,0 +1,166 @@
+import c from "./registerForm.module.scss";
+import {Trans, useTranslation} from "react-i18next";
+import {useForm} from "react-hook-form";
+import {AuthBackLink} from "features/authBackLink";
+import {InputForm} from "features/inputForm";
+import {InputError} from "features/inputError";
+import {TransparentLink} from "features/transparentLink";
+import {StylizedButton} from "features/stylizedButton";
+import type {IRegisterForm} from "../lib/types";
+import {submitValidHandler} from "../model/submitValidHandler";
+import {submitInvalidHandler} from "../model/submitInvalidHandler";
+import {Checkbox} from "features/checkbox";
+
+export const RegisterForm = ({ ...props }) => {
+    const { t } = useTranslation();
+
+    const {register, setValue, handleSubmit, watch, formState: {errors, isSubmitted}, /*setError*/} = useForm<IRegisterForm>({
+        shouldFocusError: false,
+        defaultValues: {
+            agreed: false
+        }
+    });
+
+    const emailValue = watch("email");
+    const passwordValue = watch("password");
+    const confirmPasswordValue = watch("confirmPassword");
+
+    const showingError = errors.email || errors.password || errors.confirmPassword || errors.agreed;
+
+    return (
+        <section className={c.authWidget} {...props}>
+            <div className="container">
+                <form
+                    onSubmit={handleSubmit(
+                        (data) => submitValidHandler(data, setValue),
+                        (error) => submitInvalidHandler(error)
+                    )}
+                    className={c.authForm}
+                >
+                    <AuthBackLink />
+                    <h1 className={c.title}>{t("register.registerAccount")}</h1>
+                    <div className={c.inputs}>
+                        <InputForm
+                            type="email"
+                            id="email"
+                            isError={!!errors.email}
+                            value={emailValue}
+                            isSubmitted={isSubmitted}
+                            placeholder={t("register.emailPlaceholder")}
+                            className={c.input}
+                            {...register(
+                                "email",
+                                {
+                                    required: t("errors.requiredEmail"),
+                                    pattern: {
+                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        message: t("errors.invalidEmail")
+                                    }
+                                }
+                            )}
+                        />
+                        <InputForm
+                            type="password"
+                            id="password"
+                            isError={!!errors.password}
+                            value={passwordValue}
+                            isSubmitted={isSubmitted}
+                            placeholder={t("register.passwordPlaceholder")}
+                            className={c.input}
+                            {...register(
+                                "password",
+                                {
+                                    required: t("errors.requiredPassword"),
+                                    minLength: {
+                                        value: 6,
+                                        message: t("errors.shortPassword")
+                                    },
+                                    maxLength: {
+                                        value: 64,
+                                        message: t("errors.longPassword")
+                                    }
+                                }
+                            )}
+                        />
+                        <InputForm
+                            type="password"
+                            id="confirmPassword"
+                            isError={!!errors.confirmPassword}
+                            value={confirmPasswordValue}
+                            isSubmitted={isSubmitted}
+                            placeholder={t("register.confirmPasswordPlaceholder")}
+                            className={c.input}
+                            {...register(
+                                "confirmPassword",
+                                {
+                                    required: t("errors.requiredPassword"),
+                                    minLength: {
+                                        value: 6,
+                                        message: t("errors.shortPassword")
+                                    },
+                                    maxLength: {
+                                        value: 64,
+                                        message: t("errors.longPassword")
+                                    },
+                                    validate: value => value === passwordValue || t("errors.dontMatch")
+                                }
+                            )}
+                        />
+                    </div>
+                    <Checkbox
+                        className={c.checkbox}
+                        id="checkbox"
+                        isError={!!errors.agreed}
+                        describedId={errors.agreed ? "errorText" : undefined}
+                        ariaLabel={t("ariaLabel.agreePolicyAgreement")}
+                        {...register(
+                            "agreed",
+                            {
+                                required: t("errors.acceptRules")
+                            }
+                        )}
+                    >
+                        <Trans
+                            components={{
+                                agreement:
+                                    <a
+                                        className={c.link}
+                                        aria-label={t("goToUserAgreement")}
+                                        rel="noopener nofollow"
+                                        target="_blank"
+                                        href="/agreement"
+                                    />,
+                                policy:
+                                    <a
+                                        className={c.link}
+                                        aria-label={t("goToPolicy")}
+                                        rel="noopener nofollow"
+                                        target="_blank"
+                                        href="/policy"
+                                    />,
+                            }}
+                            i18nKey="register.agreeAgreementPolicy"
+                        />
+                    </Checkbox>
+                    <InputError error_id="errorText" text={showingError?.message} className={c.error} />
+                    <div className={c.buttons}>
+                        <TransparentLink
+                            ariaLabel={t("ariaLabel.goToAuth")}
+                            className={c.register_button}
+                            href="/auth"
+                        >
+                            {t("Enter")}
+                        </TransparentLink>
+                        <StylizedButton
+                            ariaLabel={t("ariaLabel.goToRegister")}
+                            className={c.auth_button}
+                            type="submit"
+                        >
+                            {t("Registration")}
+                        </StylizedButton>
+                    </div>
+                </form>
+            </div>
+        </section>
+    )
+}

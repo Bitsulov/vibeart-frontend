@@ -23,6 +23,7 @@ export const HomeSteps = ({ ...props }) => {
                                     width="150"
                                     height="150"
                                     loading="lazy"
+                                    decoding="async"
                                     src={step1Img}
                                     alt={t("home.step1AltImg")}
                                     className={c.step_img}
@@ -39,6 +40,7 @@ export const HomeSteps = ({ ...props }) => {
                                     width="150"
                                     height="150"
                                     loading="lazy"
+                                    decoding="async"
                                     src={step2Img}
                                     alt={t("home.step2AltImg")}
                                     className={c.step_img}
@@ -55,6 +57,7 @@ export const HomeSteps = ({ ...props }) => {
                                     width="150"
                                     height="150"
                                     loading="lazy"
+                                    decoding="async"
                                     src={step3Img}
                                     alt={t("home.step3AltImg")}
                                     className={c.step_img}

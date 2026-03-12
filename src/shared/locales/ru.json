@@ -7,6 +7,8 @@
   "Email": "Почта",
   "Status": "Статус",
   "Copy": "Копировать",
+  "Enter": "Войти",
+  "Registration": "Регистрация",
   "ariaLabel": {
     "openBurgerMenu": "Открыть навигацию",
     "goToHome": "Перейти на главную страницу",
@@ -26,11 +28,15 @@
     "closeLanguageModal": "Закрыть модальное окно",
     "chooseRussian": "Выбрать русский язык",
     "chooseEnglish": "Выбрать английский язык",
-    "copy": "Скопировать"
+    "copy": "Скопировать",
+    "rememberPassword": "Перейти к восстановлению пароля",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль",
+    "agreePolicyAgreement": "Согласиться с Политикой Конфиденциальности и Пользовательским Соглашением"
   },
   "pages": {
     "home": "Главная",
-    "login": "Войти",
+    "auth": "Войти",
     "register": "Регистрация",
     "settings": "Настройки",
     "profile": "Профиль",
@@ -54,6 +60,15 @@
     "good": "\uD83D\uDFE2 Работает",
     "problem": "\uD83D\uDFE1 Проблемы",
     "bad": "\uD83D\uDD34 Не работает"
+  },
+  "errors": {
+    "requiredEmail": "Введите адрес электронной почты",
+    "acceptRules": "Примите политику и соглашение",
+    "invalidEmail": "Неправильный формат почты",
+    "requiredPassword": "Введите пароль",
+    "shortPassword": "Минимальная длина пароля - 6",
+    "longPassword": "Максимальная длина пароля - 64",
+    "dontMatch": "Пароли не совпадают"
   },
 
   "home": {
@@ -83,5 +98,22 @@
     "error404": "Запрашиваемая страница не найдена",
     "returnToHome": "Вернуться на главную",
     "report": "Сообщить о проблеме"
+  },
+
+  "auth": {
+    "backAlt": "Вернуться назад",
+    "backTitle": "Главная",
+    "loginAccount": "Вход в аккаунт",
+    "forgotPassword": "Забыли пароль?",
+    "emailPlaceholder": "Введите почту",
+    "passwordPlaceholder": "Введите пароль"
+  },
+
+  "register": {
+    "registerAccount": "Регистрация",
+    "emailPlaceholder": "Введите почту",
+    "passwordPlaceholder": "Введите пароль",
+    "confirmPasswordPlaceholder": "Подтвердите пароль",
+    "agreeAgreementPolicy": "Я принимаю <policy>Политику конфиденциальности</policy> и <agreement>Пользовательское соглашение</agreement>"
   }
 }

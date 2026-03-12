@@ -21,6 +21,7 @@ export const HeaderLogo = ({ ...props }) => {
                 width="54"
                 height="29"
                 className={c.logo_img}
+                decoding="async"
                 loading="lazy"
             />
         </Link>

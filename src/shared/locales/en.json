@@ -7,6 +7,8 @@
   "Email": "Email",
   "Status": "Status",
   "Copy": "Copy",
+  "Enter": "Log in",
+  "Registration": "Registration",
   "ariaLabel": {
     "openBurgerMenu": "Open navigation menu",
     "goToHome": "Go to home page",
@@ -26,11 +28,15 @@
     "closeLanguageModal": "Close modal window",
     "chooseRussian": "Choose Russian language",
     "chooseEnglish": "Choose English language",
-    "copy": "Copy"
+    "copy": "Copy",
+    "rememberPassword": "Go to password recovery",
+    "showPassword": "show password",
+    "hidePassword": "hide password",
+    "agreePolicyAgreement": "Agree to the Privacy Policy and User Agreement"
   },
   "pages": {
     "home": "Home",
-    "login": "Login",
+    "auth": "Log in",
     "register": "Register",
     "settings": "Settings",
     "profile": "Profile",
@@ -54,6 +60,15 @@
     "good": "🟢 Operational",
     "problem": "🟡 Issues",
     "bad": "🔴 Down"
+  },
+  "errors": {
+    "requiredEmail": "Enter your email address",
+    "acceptRules": "Accept the policy and agreement",
+    "invalidEmail": "Invalid email format",
+    "requiredPassword": "Enter your password",
+    "shortPassword": "Minimum password length is 6",
+    "longPassword": "Maximum password length is 64",
+    "dontMatch": "Passwords do not matches"
   },
 
   "home": {
@@ -83,5 +98,22 @@
     "error404": "The requested page was not found",
     "returnToHome": "Return to home",
     "report": "Report a problem"
+  },
+
+  "auth": {
+    "backAlt": "Go back",
+    "backTitle": "Home",
+    "loginAccount": "Log in to your account",
+    "forgotPassword": "Forgot password?",
+    "emailPlaceholder": "Enter email",
+    "passwordPlaceholder": "Enter password"
+  },
+
+  "register": {
+    "registerAccount": "Registration",
+    "emailPlaceholder": "Enter email",
+    "passwordPlaceholder": "Enter password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "agreeAgreementPolicy": "I accept the <policy>Privacy Policy</policy> and <agreement>User Agreement</agreement>"
   }
 }
