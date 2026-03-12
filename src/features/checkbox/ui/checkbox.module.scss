@@ -1,0 +1,70 @@
+@use "@/index.scss" as global;
+
+.wrapper {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    gap: clamp(1rem, 2vw, 1.5rem);
+
+    &:has(a:hover) {
+        .custom_box {
+            background-color: global.$dark-background;
+        }
+    }
+
+    &:hover {
+        .custom_box {
+            background-color: global.$bright-background;
+        }
+    }
+
+    .input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+
+        &:checked + .custom_box {
+            background: global.$active-color;
+            background-size: cover;
+
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+
+    .custom_box {
+        flex-shrink: 0;
+        height: clamp(2rem, 4vw, 3rem);
+        width: clamp(2rem, 4vw, 3rem);
+        background-color: global.$dark-background;
+        border: .1rem solid global.$active-color;
+        border-radius: .4rem;
+        vertical-align: middle;
+        position: relative;
+        transition: global.$transition-time;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url("shared/icons/icon-message-sent.svg");
+            background-size: cover;
+            opacity: 0;
+            transition: global.$transition-time;
+        }
+
+        &.error {
+            border-color: global.$negative-active;
+        }
+    }
+
+    .text {
+        font-size: clamp(1.2rem, 3.6vw, 2rem);
+        font-weight: 500;
+    }
+}
