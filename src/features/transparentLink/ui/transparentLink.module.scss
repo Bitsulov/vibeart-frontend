@@ -1,0 +1,19 @@
+@use "@/index.scss" as global;
+
+.link {
+    color: global.$active-color;
+    background-color: global.$bright-background;
+    border: .1rem solid global.$active-color;
+    border-radius: .7rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.06rem;
+    font-weight: 600;
+    padding: clamp(.5rem, 1.5vw, 1rem) 2rem;
+    text-align: center;
+    transition: global.$transition-time;
+
+    &:hover {
+        background-color: global.$active-color;
+        color: global.$bright-background;
+    }
+}

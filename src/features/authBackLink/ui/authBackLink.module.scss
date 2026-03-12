@@ -1,0 +1,34 @@
+@use "@/index.scss" as global;
+
+.back_wrapper {
+    position: absolute;
+    top: clamp(.6rem, 1vw, 1.3rem);
+    left: clamp(.8rem, 2vw, 2.4rem);
+    display: flex;
+    align-items: center;
+    transition: global.$transition-time;
+
+    &:hover {
+        .back_img {
+            stroke: global.$second-active-color;
+        }
+
+        .back_title {
+            color: global.$second-active-color;
+        }
+    }
+
+    .back_img {
+        width: clamp(1.8rem, 4vw, 3.2rem);
+        height: clamp(1.8rem, 5vw, 3.2rem);
+        transition: global.$transition-time;
+    }
+
+    .back_title {
+        font-size: clamp(1.4rem, 2vw, 2rem);
+        font-weight: 500;
+        letter-spacing: clamp(0.14rem, 0.2vw, 0.2rem);
+        margin-left: clamp(.2rem, .5vw, .5rem);
+        transition: global.$transition-time;
+    }
+}

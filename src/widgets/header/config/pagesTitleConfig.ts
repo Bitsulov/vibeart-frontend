@@ -1,6 +1,6 @@
 export const pagesTitleConfig: Record<string, string> = {
     "": "pages.home",
-    login: "pages.login",
+    auth: "pages.auth",
     register: "pages.register",
     profile: "pages.profile",
     settings: "pages.settings",
