@@ -51,10 +51,10 @@ export const RegisterForm = ({ ...props }) => {
                             {...register(
                                 "email",
                                 {
-                                    required: t("errors.requiredEmail"),
+                                    required: "errors.requiredEmail",
                                     pattern: {
                                         value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                                        message: t("errors.invalidEmail")
+                                        message: "errors.invalidEmail"
                                     }
                                 }
                             )}
@@ -70,14 +70,14 @@ export const RegisterForm = ({ ...props }) => {
                             {...register(
                                 "password",
                                 {
-                                    required: t("errors.requiredPassword"),
+                                    required: "errors.requiredPassword",
                                     minLength: {
                                         value: 6,
-                                        message: t("errors.shortPassword")
+                                        message: "errors.shortPassword"
                                     },
                                     maxLength: {
                                         value: 64,
-                                        message: t("errors.longPassword")
+                                        message: "errors.longPassword"
                                     }
                                 }
                             )}
@@ -93,16 +93,16 @@ export const RegisterForm = ({ ...props }) => {
                             {...register(
                                 "confirmPassword",
                                 {
-                                    required: t("errors.requiredPassword"),
+                                    required: "errors.requiredPassword",
                                     minLength: {
                                         value: 6,
-                                        message: t("errors.shortPassword")
+                                        message: "errors.shortPassword"
                                     },
                                     maxLength: {
                                         value: 64,
-                                        message: t("errors.longPassword")
+                                        message: "errors.longPassword"
                                     },
-                                    validate: value => value === passwordValue || t("errors.dontMatch")
+                                    validate: value => value === passwordValue || "errors.dontMatch"
                                 }
                             )}
                         />
@@ -125,7 +125,7 @@ export const RegisterForm = ({ ...props }) => {
                                 agreement:
                                     <a
                                         className={c.link}
-                                        aria-label={t("goToUserAgreement")}
+                                        aria-label={t("ariaLabel.goToUserAgreement")}
                                         rel="noopener nofollow"
                                         target="_blank"
                                         href="/agreement"
@@ -133,7 +133,7 @@ export const RegisterForm = ({ ...props }) => {
                                 policy:
                                     <a
                                         className={c.link}
-                                        aria-label={t("goToPolicy")}
+                                        aria-label={t("ariaLabel.goToPolicy")}
                                         rel="noopener nofollow"
                                         target="_blank"
                                         href="/policy"
@@ -152,7 +152,7 @@ export const RegisterForm = ({ ...props }) => {
                             {t("Enter")}
                         </TransparentLink>
                         <StylizedButton
-                            ariaLabel={t("ariaLabel.goToRegister")}
+                            ariaLabel={t("ariaLabel.register")}
                             className={c.auth_button}
                             type="submit"
                         >

@@ -20,7 +20,7 @@ export const StylizedButton = ({
     const buttonClassName = className ? `${c.button} ${className}` : c.button;
 
 	return (
-		<button type={type} onClick={onClick} className={buttonClassName} {...props}>
+		<button aria-label={ariaLabel} type={type} onClick={onClick} className={buttonClassName} {...props}>
             {children}
 		</button>
 	)
