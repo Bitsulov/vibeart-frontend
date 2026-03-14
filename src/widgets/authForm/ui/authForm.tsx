@@ -45,10 +45,10 @@ export const AuthForm = ({ ...props }) => {
                             {...register(
                                 "email",
                                 {
-                                    required: t("errors.requiredEmail"),
+                                    required: "errors.requiredEmail",
                                     pattern: {
                                         value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                                        message: t("errors.invalidEmail")
+                                        message: "errors.invalidEmail"
                                     }
                                 }
                             )}
@@ -64,14 +64,14 @@ export const AuthForm = ({ ...props }) => {
                             {...register(
                                 "password",
                                 {
-                                    required: t("errors.requiredPassword"),
+                                    required: "errors.requiredPassword",
                                     minLength: {
                                         value: 6,
-                                        message: t("errors.shortPassword")
+                                        message: "errors.shortPassword"
                                     },
                                     maxLength: {
                                         value: 64,
-                                        message: t("errors.longPassword")
+                                        message: "errors.longPassword"
                                     }
                                 }
                             )}
@@ -87,14 +87,14 @@ export const AuthForm = ({ ...props }) => {
                     <InputError text={showingError?.message} className={c.error} />
                     <div className={c.buttons}>
                         <TransparentLink
-                            ariaLabel={t("ariaLabel.goToAuth")}
+                            ariaLabel={t("ariaLabel.goToRegister")}
                             className={c.register_button}
                             href="/register"
                         >
                             {t("Registration")}
                         </TransparentLink>
                         <StylizedButton
-                            ariaLabel={t("ariaLabel.goToAuth")}
+                            ariaLabel={t("ariaLabel.auth")}
                             className={c.auth_button}
                             type="submit"
                         >

@@ -32,7 +32,10 @@
     "rememberPassword": "Go to password recovery",
     "showPassword": "show password",
     "hidePassword": "hide password",
-    "agreePolicyAgreement": "Agree to the Privacy Policy and User Agreement"
+    "agreePolicyAgreement": "Agree to the Privacy Policy and User Agreement",
+    "showLanguageToggler": "Show window with list of languages",
+    "auth": "authorization",
+    "register": "registration"
   },
   "pages": {
     "home": "Home",

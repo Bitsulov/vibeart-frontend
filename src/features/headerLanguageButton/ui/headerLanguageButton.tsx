@@ -42,6 +42,7 @@ export const HeaderLanguageButton = ({
                 <button
                     className={clsx(c.button_language, isBurgerOpen && c.hiding)}
                     aria-expanded={isShowChangeLanguage} {...props}
+                    aria-label={t("ariaLabel.showLanguageToggler")}
                     onClick={() => languageButtonClickHandler(setIsShowChangeLanguage)}
                 >
                     <img
