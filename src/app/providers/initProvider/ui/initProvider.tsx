@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {setLanguage} from "entities/appConfig";
 import {principalUserMock, setUserInfo} from "entities/user";
 import {useLocation, useNavigate} from "react-router-dom";
+import {languagesConfig} from "widgets/layout";
 
 interface InitProviderProps {
     children: React.ReactNode;
@@ -43,14 +44,19 @@ export const InitProvider = ({ children }: InitProviderProps) => {
 
         if(!langParam) {
             const i18nLang = i18n.language.split("-", 1)[0];
-            const lang = document.documentElement.lang = i18nLang || "en";
+            const lang = document.documentElement.lang = languagesConfig[i18nLang]?.[4] || "en";
             dispatch(setLanguage(lang));
             params.set('lang', lang);
             navigate({search: params.toString()}, {replace: true});
         } else {
+            document.documentElement.lang = languagesConfig[langParam]?.[4] || "en";
             dispatch(setLanguage(langParam));
             i18n.changeLanguage(langParam)
                 .catch((er) => console.error("change language error:", er));
+            if(langParam !== document.documentElement.lang) {
+                params.set('lang', document.documentElement.lang);
+                navigate({search: params.toString()}, {replace: true});
+            }
         }
     }, [location.pathname]);
 

@@ -10,7 +10,7 @@ export const pagesTitleConfig: Record<string, string> = {
     error: "pages.error",
     contacts: "pages.contacts",
     rules: "pages.rules",
-    policy: "pages.policy",
-    agreement: "pages.agreement",
+    policy: "",
+    agreement: "",
     admin: "pages.admin"
 }
