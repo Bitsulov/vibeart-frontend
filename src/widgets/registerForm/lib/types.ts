@@ -3,4 +3,5 @@ export interface IRegisterForm {
     password: string;
     confirmPassword: string;
     agreed: boolean;
+    agreed2: boolean;
 }

@@ -25,7 +25,7 @@ export const RegisterForm = ({ ...props }) => {
     const passwordValue = watch("password");
     const confirmPasswordValue = watch("confirmPassword");
 
-    const showingError = errors.email || errors.password || errors.confirmPassword || errors.agreed;
+    const showingError = errors.email || errors.password || errors.confirmPassword || errors.agreed || errors.agreed2;
 
     return (
         <section className={c.authWidget} {...props}>
@@ -112,11 +112,11 @@ export const RegisterForm = ({ ...props }) => {
                         id="checkbox"
                         isError={!!errors.agreed}
                         describedId={errors.agreed ? "errorText" : undefined}
-                        ariaLabel={t("ariaLabel.agreePolicyAgreement")}
+                        ariaLabel={t("ariaLabel.agreeAgreement")}
                         {...register(
                             "agreed",
                             {
-                                required: t("errors.acceptRules")
+                                required: t("errors.acceptAgreement")
                             }
                         )}
                     >
@@ -130,6 +130,25 @@ export const RegisterForm = ({ ...props }) => {
                                         target="_blank"
                                         href="/agreement"
                                     />,
+                            }}
+                            i18nKey="register.agreeAgreement"
+                        />
+                    </Checkbox>
+                    <Checkbox
+                        className={c.checkbox}
+                        id="checkbox2"
+                        isError={!!errors.agreed2}
+                        describedId={!errors.agreed && errors.agreed2 ? "errorText" : undefined}
+                        ariaLabel={t("ariaLabel.agreePolicy")}
+                        {...register(
+                            "agreed2",
+                            {
+                                required: t("errors.acceptPolicy")
+                            }
+                        )}
+                    >
+                        <Trans
+                            components={{
                                 policy:
                                     <a
                                         className={c.link}
@@ -139,7 +158,7 @@ export const RegisterForm = ({ ...props }) => {
                                         href="/policy"
                                     />,
                             }}
-                            i18nKey="register.agreeAgreementPolicy"
+                            i18nKey="register.agreePolicy"
                         />
                     </Checkbox>
                     <InputError error_id="errorText" text={showingError?.message} className={c.error} />
