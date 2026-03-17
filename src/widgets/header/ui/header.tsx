@@ -39,7 +39,7 @@ export const Header = ({
     const HeaderButton = currentWindowWidth < 1200 ? BurgerButton : HeaderProfileButton;
 
     useEffect(() => {
-        setMainLocation(pagesTitleConfig[location.pathname.split("/", 2)[1]] || "pages.error");
+        setMainLocation(pagesTitleConfig[location.pathname.split("/", 2)[1]] ?? "pages.error");
         setIsBurgerOpen(false);
     }, [location.pathname]);
 
@@ -47,9 +47,11 @@ export const Header = ({
 		<header className={c.header}>
 			<div className={c.header_left}>
                 <HeaderLogo />
-                <h3 className={c.page_title}>
-                    <span aria-hidden="true" className={c.arrow}>&gt; </span>{t(mainLocation)}
-                </h3>
+                {t(mainLocation) &&
+                    <h3 className={c.page_title}>
+                        <span aria-hidden="true" className={c.arrow}>&gt; </span>{t(mainLocation)}
+                    </h3>
+                }
             </div>
             <div className={c.header_right}>
                 {currentWindowWidth > 1200 &&

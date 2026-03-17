@@ -1,0 +1,72 @@
+@use "@/index.scss" as global;
+
+.agreement_text {
+    margin: clamp(3rem, 5vw, 6rem) 0;
+
+
+    .title {
+        font-size: clamp(2rem, 4vw, 4rem);
+        font-weight: 700;
+    }
+
+    .paragraph {
+        font-size: clamp(1.6rem, 4vw, 3rem);
+        margin-top: clamp(1.5rem, 4vw, 3rem);
+
+        &.bold {
+            font-weight: 700;
+        }
+    }
+
+    .list {
+        list-style-type: none;
+        counter-reset: item;
+
+        .subtitle {
+            margin-top: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        li {
+            display: block;
+            font-size: clamp(1.6rem, 4vw, 3rem);
+            counter-increment: item;
+            margin-top: .3rem;
+
+            &:before {
+                content: counters(item, ".") ". ";
+                font-size: clamp(1.6rem, 4vw, 3rem);
+                margin-right: clamp(.5rem, 1vw, 1rem);
+                color: global.$active-color;
+            }
+        }
+
+        ul {
+            padding-left: clamp(1.6rem, 4vw, 3rem);
+            list-style-type: disc;
+
+            li {
+                display: list-item;
+                counter-increment: none;
+
+                &:before {
+                    content: "";
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .credits {
+            margin-top: clamp(1.5rem, 4vw, 3rem);
+            font-size: clamp(1.6rem, 4vw, 3rem);
+        }
+
+        .text {
+            margin-top: clamp(.3rem, 2vw, 1rem);
+            font-size: clamp(1.6rem, 4vw, 3rem);
+        }
+    }
+}
