@@ -15,14 +15,16 @@ export const BurgerMenuAuth = ({ ...props }) => {
 	return (
         <nav className={c.menu_burger_nav} {...props}>
             {linksConfig.map(item => {
+                const resultLink = item.url === "/profile/" ? item.url + userInfo.ULID : item.url;
+
                 if(item.isAdmin) {
                     if(userInfo.role === "admin") {
                         return (
                             <Link
                                 key={item.id}
-                                to={item.url}
-                                aria-current={path === item.url ? "page" : undefined}
-                                className={clsx(c.nav_burger_item, path === item.url && c.active)}
+                                to={resultLink}
+                                aria-current={path === resultLink ? "page" : undefined}
+                                className={clsx(c.nav_burger_item, path === resultLink && c.active)}
                                 aria-label={t(item.labelKey)}
                             >
                                 {t(item.textKey)}
@@ -33,9 +35,9 @@ export const BurgerMenuAuth = ({ ...props }) => {
                     return (
                         <Link
                             key={item.id}
-                            to={item.url}
-                            aria-current={path === item.url ? "page" : undefined}
-                            className={clsx(c.nav_burger_item, path === item.url && c.active)}
+                            to={resultLink}
+                            aria-current={path === resultLink ? "page" : undefined}
+                            className={clsx(c.nav_burger_item, path === resultLink && c.active)}
                             aria-label={t(item.labelKey)}
                         >
                             {t(item.textKey)}
