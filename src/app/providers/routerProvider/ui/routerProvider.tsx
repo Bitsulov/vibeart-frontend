@@ -5,6 +5,14 @@ import {Auth} from "pages/auth";
 import {Register} from "pages/register";
 import {Agreement} from "pages/agreement";
 import {Policy} from "pages/policy";
+import {Contacts} from "pages/contacts";
+import {Rules} from "pages/rules";
+import {Profile} from "pages/profile";
+import {Gallery} from "pages/gallery";
+import {Chats} from "pages/chats";
+import {Notifications} from "pages/notifications";
+import {Communities} from "pages/communities";
+import {ForgotPassword} from "pages/forgotPassword";
 
 export const RouterProvider = () => {
 	return (
@@ -12,8 +20,16 @@ export const RouterProvider = () => {
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/profile/:ulid" element={<Profile />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/chats" element={<Chats />} />
+            <Route path="/communities" element={<Communities />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="/agreement" element={<Agreement />} />
             <Route path="/policy" element={<Policy />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/rules" element={<Rules />} />
             <Route path="*" element={<Error />} />
         </Routes>
 	)
