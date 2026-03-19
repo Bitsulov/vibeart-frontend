@@ -7,6 +7,7 @@ import React from "react";
 interface HeaderProfileButtonProps {
     imageUrl: string;
     isAuthenticated: boolean;
+    userULID: string;
     name: string;
     isBurgerOpen: boolean;
     setIsBurgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +16,7 @@ interface HeaderProfileButtonProps {
 export const HeaderProfileButton = ({
     imageUrl,
     name,
+    userULID,
     isAuthenticated,
     isBurgerOpen,
     setIsBurgerOpen,
@@ -22,10 +24,12 @@ export const HeaderProfileButton = ({
 }: HeaderProfileButtonProps) => {
     const { t } = useTranslation();
     const alt = isAuthenticated ? name : "user";
-    const image = isAuthenticated ? imageUrl : defaultAvatar;
+    const image = isAuthenticated ? imageUrl || defaultAvatar : defaultAvatar;
+    const href = isAuthenticated ? `/profile/${userULID}` : "/auth"
+    const ariaLabel = isAuthenticated ? t("ariaLabel.goToProfile") : t("ariaLabel.goToAuth")
 
 	return (
-		<Link className={c.link} to="/profile" aria-label={t("ariaLabel.goToProfile")} {...props}>
+		<Link className={c.link} to={href} aria-label={ariaLabel} {...props}>
             <img
                 decoding="async"
                 loading="lazy"

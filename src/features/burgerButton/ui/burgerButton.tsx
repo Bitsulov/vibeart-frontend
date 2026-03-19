@@ -8,6 +8,7 @@ interface BurgerButtonProps {
     imageUrl: string;
     isAuthenticated: boolean;
     name: string;
+    userULID: string;
     isBurgerOpen: boolean;
     setIsBurgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -15,6 +16,7 @@ interface BurgerButtonProps {
 export const BurgerButton = ({
      imageUrl,
      name,
+    userULID,
      isAuthenticated,
      isBurgerOpen,
      setIsBurgerOpen,

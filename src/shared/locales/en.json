@@ -9,6 +9,11 @@
   "Copy": "Copy",
   "Enter": "Log in",
   "Registration": "Registration",
+  "develop": {
+    "title": "This page is under construction.",
+    "back": "Go back",
+    "returnToHome": "Return to home"
+  },
   "ariaLabel": {
     "openBurgerMenu": "Open navigation menu",
     "goToHome": "Go to home page",
@@ -25,6 +30,7 @@
     "goToContacts": "Go to contact us page",
     "goToRules": "Go to rules",
     "goToEmail": "Open email client",
+    "goBack": "Return to the previous page",
     "closeLanguageModal": "Close modal window",
     "chooseRussian": "Choose Russian language",
     "chooseEnglish": "Choose English language",

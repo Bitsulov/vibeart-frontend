@@ -38,6 +38,7 @@ export const userSlice = createSlice({
             if(action.payload.albumList !== undefined) state.albumList = action.payload.albumList;
             if(action.payload.createdAt !== undefined) state.createdAt = action.payload.createdAt;
             if(action.payload.trustStatus !== undefined) state.trustStatus = action.payload.trustStatus;
+            if(action.payload.isAuthenticated !== undefined) state.isAuthenticated = action.payload.isAuthenticated;
             if(action.payload.isBlocked !== undefined) state.isBlocked = action.payload.isBlocked;
             if(action.payload.onlineStatus !== undefined) state.onlineStatus = action.payload.onlineStatus;
             if(action.payload.role !== undefined) state.role = action.payload.role;
