@@ -1,0 +1,13 @@
+.bad_icons {
+    display: flex;
+    position: absolute;
+    min-height: 2rem;
+    left: 0;
+    top: 0;
+    gap: .5rem;
+
+    .icon {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+}
