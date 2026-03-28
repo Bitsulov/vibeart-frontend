@@ -1,0 +1,65 @@
+@use "@/index.scss" as global;
+
+.settings_wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4.4rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: global.$bright-background;
+    padding: .6rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover {
+        background-color: global.$active-color;
+
+        .settings {
+            fill: global.$active-color;
+            stroke: global.$bright-background;
+        }
+    }
+
+    .settings {
+        width: 3.1rem;
+        height: 3.1rem;
+        stroke-width: .2rem;
+        transition: global.$transition-time;
+    }
+}
+
+.messages_wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4.4rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: global.$bright-background;
+    padding: .6rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover {
+        background-color: global.$active-color;
+
+        .message {
+            fill: global.$active-color;
+            stroke: global.$bright-background;
+        }
+    }
+
+    .message {
+        width: 3.1rem;
+        height: 3.1rem;
+        stroke-width: .2rem;
+        transition: global.$transition-time;
+    }
+}

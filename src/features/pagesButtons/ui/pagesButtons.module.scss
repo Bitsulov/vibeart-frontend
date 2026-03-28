@@ -1,0 +1,32 @@
+@use "@/index.scss" as global;
+
+.pages {
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    gap: clamp(.5rem, 1vw, .8rem);
+    justify-content: center;
+
+    .page {
+        background-color: global.$dark-background;
+        border: .1rem solid global.$active-color;
+        color: global.$active-color;
+        border-radius: 1.2rem;
+        min-width: clamp(3.6rem, 6vw, 5rem);
+        min-height: 3.6rem;
+        padding: .5rem clamp(1.2rem, 1vw, 1.6rem);
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 600;
+        cursor: pointer;
+        transition: global.$transition-time;
+
+        &:hover {
+            background-color: global.$bright-background;
+        }
+
+        &.active {
+            background-color: global.$active-color;
+            color: global.$dark-background;
+        }
+    }
+}

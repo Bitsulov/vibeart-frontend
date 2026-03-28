@@ -4,6 +4,8 @@ import type {AppConfigType} from "../lib/types";
 const initialState: AppConfigType = {
     currentLanguage: "ru",
     serverStatus: "good",
+    unreadChatsCount: 0,
+    unreadNotificationsCount: 0
 }
 
 export const appSlice = createSlice({
@@ -16,10 +18,18 @@ export const appSlice = createSlice({
 
         setServerStatus(state, action) {
             state.serverStatus = action.payload;
+        },
+
+        setUnreadChatsCount(state, action) {
+            state.unreadChatsCount = action.payload;
+        },
+
+        setUnreadNotificationsCount(state, action) {
+            state.unreadNotificationsCount = action.payload;
         }
     }
 });
 
-export const {setLanguage, setServerStatus} = appSlice.actions;
+export const {setLanguage, setServerStatus, setUnreadNotificationsCount, setUnreadChatsCount} = appSlice.actions;
 
 export const appReducer = appSlice.reducer;

@@ -1,7 +1,6 @@
 import c from "./footerEmailLink.module.scss";
 import {useTranslation} from "react-i18next";
-import {copyClickHandler} from "../model/copyClickHandler";
-import {CopyIcon} from "lucide-react";
+import {CopyButton} from "features/copyButton";
 
 export const FooterEmailLink = ({ ...props }) => {
     const { t } = useTranslation();
@@ -16,9 +15,7 @@ export const FooterEmailLink = ({ ...props }) => {
             >
                 vibeartfake@mail.ru
             </a>
-            <button aria-label={t("ariaLabel.copy")} onClick={() => copyClickHandler("vibeartfake@mail.ru")} className={c.copy}>
-                <CopyIcon width="15" height="15" className={c.copy_img} />
-            </button>
+            <CopyButton className={c.copy} text="vibeartfake@mail.ru" />
         </div>
 	)
 }

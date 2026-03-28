@@ -1,0 +1,127 @@
+@use "@/index.scss" as global;
+
+.post {
+    margin: 0 auto;
+    position: relative;
+    border-radius: 2.5rem;
+    width: 23rem;
+    height: 30rem;
+    overflow: hidden;
+    cursor: pointer;
+    animation: appearing 1s;
+
+    .post_img {
+        width: 100%;
+        height: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(180deg, transparent 0, rgba(global.$dark-background, 80%) 70%);
+        transition: global.$transition-time;
+        padding-bottom: 1rem;
+
+        &.high {
+            background: linear-gradient(180deg, transparent 0, rgba(global.$dark-background, 80%) 60%);
+        }
+
+        .bottom {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+            width: 100%;
+            cursor: default;
+
+            .date {
+                font-size: 1.6rem;
+                letter-spacing: 0.16rem;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .name {
+                margin-top: .4rem;
+                font-size: 2rem;
+                letter-spacing: 0.2rem;
+                font-weight: 600;
+                text-align: center;
+                text-decoration: underline;
+                transition: global.$transition-time;
+
+                &:hover {
+                    color: global.$second-active-color;
+                }
+            }
+
+            .title {
+                margin-top: .4rem;
+                font-size: 2rem;
+                letter-spacing: 0.2rem;
+                font-weight: 600;
+                text-align: center;
+                transition: global.$transition-time;
+
+                &:hover {
+                    color: global.$second-active-color;
+                }
+            }
+
+            .stats {
+                margin: .7rem auto 0;
+                display: flex;
+                gap: 1rem;
+
+                .stat {
+                    cursor: pointer;
+                    width: 6rem;
+
+                    .active {
+                        fill: global.$active-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (hover: hover) {
+    .post {
+        &:hover {
+            .info {
+                opacity: 1;
+                user-select: auto;
+            }
+        }
+    }
+}
+
+@media (hover: none) {
+    .post {
+        .info {
+            opacity: 1;
+            user-select: auto;
+        }
+    }
+}

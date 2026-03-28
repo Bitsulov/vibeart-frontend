@@ -1,0 +1,56 @@
+@use "@/index.scss" as global;
+
+.copy {
+    position: relative;
+    width: 1.5rem;
+    height: auto;
+    background-color: inherit;
+    margin-left: 1rem;
+    cursor: pointer;
+
+    &:hover {
+        .copy_img {
+            stroke: global.$second-active-color;
+        }
+    }
+
+    .copied {
+        position: absolute;
+        opacity: 0;
+        font-size: 1.4rem;
+        transition: global.$transition-time;
+        top: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+
+        &.active {
+            animation: appearing .8s ease-out;
+        }
+    }
+
+    .copy_img {
+        width: 100%;
+        height: 100%;
+        transition: global.$transition-time;
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-3rem);
+    }
+}
+
+@media (min-width: 600px) {
+    .copy {
+        .copy_img {
+            stroke-width: .2rem;
+        }
+    }
+}

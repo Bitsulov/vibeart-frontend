@@ -1,0 +1,44 @@
+@use "@/index.scss" as global;
+
+.slide {
+    background-color: global.$bright-background;
+    border-radius: 2.5rem;
+    padding: 1.5rem 2rem;
+    width: 17.8rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    transition: global.$transition-time;
+
+    &:hover {
+        background-color: global.$second-active-color;
+
+        .album_img {
+            stroke: global.$bright-background;
+        }
+
+        .title {
+            color: global.$bright-background;
+        }
+    }
+
+    .album_img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 100%;
+        stroke-width: .1rem;
+        transition: global.$transition-time;
+    }
+
+    .title {
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 0.2rem;
+        width: unset;
+        max-width: 100%;
+        white-space: nowrap;
+        transition: global.$transition-time;
+    }
+}

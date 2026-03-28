@@ -36,14 +36,6 @@
             transform-origin: right;
         }
     }
-
-    .copy {
-        width: 1.5rem;
-        height: auto;
-        background-color: inherit;
-        margin-left: 1rem;
-        cursor: pointer;
-    }
 }
 
 @media (min-width: 600px) {
@@ -57,18 +49,32 @@
             margin: 0;
             height: 100%;
             width: auto;
-
-            .copy_img {
-                stroke-width: .3rem;
-            }
         }
     }
 }
 
 @media (min-width: 600px) and (max-width: 650px) {
     .link_wrapper {
+        gap: .5rem;
+
         .link {
             font-size: 1rem;
+
+            .copy {
+                position: absolute;
+                right: clamp(-3rem, -3vw, -2rem);
+                top: 0;
+                height: 100%;
+                width: auto;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .link_wrapper {
+        .copy {
+            right: clamp(-4rem, -2.5vw, -3.5rem);
         }
     }
 }

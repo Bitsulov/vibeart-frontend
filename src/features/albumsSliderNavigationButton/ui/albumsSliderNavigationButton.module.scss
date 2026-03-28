@@ -1,0 +1,26 @@
+@use "@/index.scss" as global;
+
+.button {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: global.$bright-background;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    .navigation_img {
+        width: 100%;
+        height: 100%;
+        stroke-width: .1rem;
+        transition: global.$transition-time;
+    }
+}
+
+@media (min-width: 1200px) {
+    .button {
+        width: 7.2rem;
+        height: 7.2rem;
+        border-radius: 2.5rem;
+    }
+}

@@ -9,15 +9,22 @@
   "Copy": "Copy",
   "Enter": "Log in",
   "Registration": "Registration",
+  "Add": "Add",
+  "emptyPosts": "There are no posts here yet",
+  "Post": "Post",
+
   "develop": {
     "title": "This page is under construction.",
     "back": "Go back",
     "returnToHome": "Return to home"
   },
+
   "ariaLabel": {
     "openBurgerMenu": "Open navigation menu",
     "goToHome": "Go to home page",
     "goToProfile": "Go to profile",
+    "goToUserProfile": "Go to {{name}}'s profile",
+    "goToPost": "Go to post {{name}}",
     "goToGallery": "Go to gallery",
     "goToChats": "Go to chats",
     "goToNotifications": "Go to notifications",
@@ -29,21 +36,44 @@
     "goToPolicy": "Go to privacy policy",
     "goToContacts": "Go to contact us page",
     "goToRules": "Go to rules",
+    "goToSettings": "Go to profile settings",
+    "goToAlbum": "Go to album page {{name}}",
+    "goToCreateAlbumPage": "Go to create album page",
+    "goToBan": "Go to account restrictions page",
     "goToEmail": "Open email client",
+    "goToPostComments": "Go to comments of post {{name}}",
     "goBack": "Return to the previous page",
     "closeLanguageModal": "Close modal window",
     "chooseRussian": "Choose Russian language",
     "chooseEnglish": "Choose English language",
     "copy": "Copy",
     "rememberPassword": "Go to password recovery",
-    "showPassword": "show password",
-    "hidePassword": "hide password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "agreeAgreement": "Agree to the User Agreement",
     "agreePolicy": "Agree to the Privacy Policy",
-    "showLanguageToggler": "Show window with list of languages",
-    "auth": "authorization",
-    "register": "registration"
+    "showLanguageToggler": "Show language selection",
+    "auth": "Authorize",
+    "register": "Register",
+    "writeUser": "Go to chat with {{name}}",
+    "slideLeft": "Scroll slider left",
+    "slideRight": "Scroll slider right",
+    "chooseAlbum": "Select album {{name}}",
+    "chooseAll": "View all works",
+    "changePage": "Change page: {{number}}",
+    "like": "Like",
+    "unlike": "Unlike",
+    "openDescription": "Expand description"
   },
+
+  "hint": {
+    "works": "Number of posts",
+    "subscribers": "Number of subscribers",
+    "subscribes": "Number of subscriptions",
+    "copy": "Click to copy",
+    "copied": "Copied"
+  },
+
   "pages": {
     "home": "Home",
     "auth": "Log in",
@@ -52,25 +82,30 @@
     "profile": "Profile",
     "gallery": "Gallery",
     "chats": "Chats",
+    "messages": "Messages",
     "notifications": "Notifications",
     "communities": "Communities",
     "contactsWithUs": "Contact us",
     "contacts": "Contacts",
     "admin": "Admin",
+    "administrator": "Administrator",
     "agreement": "User Agreement",
     "policy": "Privacy Policy",
     "rules": "Rules",
     "error": "$#!%^&*"
   },
+
   "languages": {
     "altRu": "Russian",
     "altEn": "English"
   },
+
   "serverStatus": {
     "good": "🟢 Operational",
     "problem": "🟡 Issues",
     "bad": "🔴 Down"
   },
+
   "errors": {
     "requiredEmail": "Enter your email address",
     "acceptAgreement": "Please accept the User Agreement",
@@ -79,20 +114,24 @@
     "requiredPassword": "Enter your password",
     "shortPassword": "Minimum password length is 6",
     "longPassword": "Maximum password length is 64",
-    "dontMatch": "Passwords do not matches"
+    "dontMatch": "Passwords do not match"
   },
+
   "titles": {
     "home": "Home | VibeArt",
     "auth": "Login | VibeArt",
     "register": "Sign Up | VibeArt",
+    "profile": "Profile | VibeArt",
     "error": "Error | VibeArt",
     "agreement": "User Agreement | VibeArt",
     "policy": "Privacy Policy | VibeArt"
   },
+
   "description": {
     "home": "A professional space for creators. Build your portfolio, join communities, and receive honest feedback. We care about content quality: strict 18+ moderation and protection against AI-generated art.",
     "auth": "Log in to publish your works, create albums, and connect with like-minded creators.",
     "register": "Sign up to create your own portfolio, organize your works into albums, and find like-minded creators. Chat with others and build your creative communities.",
+    "profile": "User profile: user data, album navigation, and list of posts. Information panel with all author's publications.",
     "error": "Access error. The requested page does not exist, has been removed, or is temporarily unavailable. Please check the URL or return to the homepage.",
     "agreement": "Review the terms of use, user rights and responsibilities, and the rules for providing services.",
     "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected."
@@ -143,6 +182,15 @@
     "confirmPasswordPlaceholder": "Confirm password",
     "agreeAgreement": "I accept the <agreement>User Agreement</agreement>",
     "agreePolicy": "I accept the <policy>Privacy Policy</policy>"
+  },
+
+  "profile": {
+    "avatarAlt": "User avatar",
+    "description": "Description",
+    "createdAt": "Created at:",
+    "albums": "Albums",
+    "altAlbum": "Album {{name}}",
+    "albumAll": "All works"
   },
 
   "policy": {

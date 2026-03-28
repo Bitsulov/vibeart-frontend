@@ -1,0 +1,53 @@
+@use "@/index.scss" as global;
+
+.link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1rem 7rem 1rem 2.5rem;
+    transition: global.$transition-time;
+
+    &:hover {
+        .icon {
+            stroke: global.$second-active-color;
+        }
+
+        .title {
+            color: global.$second-active-color;
+        }
+
+        .number {
+            background-color: global.$second-active-color;
+        }
+    }
+
+    .icon {
+        width: 4.2rem;
+        height: 4.2rem;
+        transition: global.$transition-time;
+    }
+
+    .title {
+        margin-left: 1.5rem;
+        font-size: 2.4rem;
+        font-weight: 500;
+        letter-spacing: 0.24rem;
+        transition: global.$transition-time;
+    }
+
+    .number {
+        position: absolute;
+        background-color: global.$active-color;
+        color: global.$bright-background;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1.5rem;
+        padding: .3rem 1rem;
+        font-size: 2rem;
+        letter-spacing: 0.2rem;
+        font-weight: 500;
+        border-radius: 50%;
+        pointer-events: none;
+        transition: global.$transition-time;
+    }
+}

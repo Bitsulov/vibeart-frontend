@@ -1,0 +1,13 @@
+@use "@/index.scss" as global;
+
+.nav_wrapper {
+    padding: 1.5rem 0;
+    background-color: global.$bright-background;
+    border-radius: 2rem;
+    margin-top: 2.5rem;
+    margin-right: 3rem;
+
+    .nav {
+
+    }
+}

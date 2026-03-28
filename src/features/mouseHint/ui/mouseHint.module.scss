@@ -1,0 +1,34 @@
+@use "@/index.scss" as global;
+
+.hint {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    background-color: global.$bright-background;
+    border: .1rem solid global.$active-color;
+    padding: .5rem 1rem;
+    white-space: nowrap;
+    z-index: 3;
+
+    &.active {
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity global.$transition-time;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hint {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hint {
+        font-size: 1.2rem;
+    }
+}
