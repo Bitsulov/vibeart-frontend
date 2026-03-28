@@ -1,0 +1,113 @@
+@use "@/index.scss" as global;
+
+.slide {
+    background-color: global.$bright-background;
+    border: .1rem solid global.$bright-background;
+    border-radius: 2.5rem;
+    padding: 1.5rem 2rem;
+    width: 17.8rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    transition: global.$transition-time;
+    cursor: pointer;
+    overflow: hidden;
+
+    &.active {
+        background-color: global.$active-color;
+
+        .album_link {
+            color: global.$bright-background;
+
+            .album_link_text {
+                &:hover {
+                    color: global.$dark-background;
+                }
+            }
+        }
+
+        .default_icon {
+            color: global.$bright-background;
+        }
+
+        .text {
+            color: global.$bright-background;
+        }
+    }
+
+    &:hover:not(:has(.album_link:hover)):not(.active) {
+        background-color: global.$second-active-color;
+
+        .album_link {
+            color: global.$bright-background;
+        }
+
+        .text {
+            color: global.$bright-background;
+        }
+
+        .default_icon {
+            color: global.$bright-background;
+        }
+    }
+
+    .album_img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        transition: global.$transition-time;
+    }
+
+    .default_icon {
+        width: 8rem;
+        height: 8rem;
+        transition: global.$transition-time;
+    }
+
+    .album_link {
+        text-decoration: underline;
+        transition: global.$transition-time;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+
+        &:hover {
+            .album_link_text {
+                animation: marquee 4s linear -2s infinite;
+            }
+        }
+
+        .album_link_text {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.2rem;
+            width: unset;
+            max-width: 100%;
+            display: inline-block;
+            white-space: nowrap;
+            text-decoration: underline;
+            transition: global.$transition-time;
+
+            &:hover {
+                color: global.$second-active-color;
+            }
+        }
+    }
+
+    .text {
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 0.2rem;
+        width: unset;
+        max-width: 100%;
+        white-space: nowrap;
+        transition: global.$transition-time;
+    }
+}
+
+@keyframes marquee {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+}
