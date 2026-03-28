@@ -1,0 +1,304 @@
+@use "@/index.scss" as global;
+
+$description-max-height: 8rem;
+
+.info {
+    margin: 2.5rem auto 0;
+
+    .content_wrapper {
+        display: flex;
+        align-items: start;
+        gap: 3.5rem;
+
+        .info_inner {
+            position: relative;
+            padding-bottom: 1rem;
+            border-bottom: .1rem solid global.$active-color;
+            max-width: 40rem;
+            margin: 0 auto;
+
+            .bad_icons {
+                display: flex;
+                position: absolute;
+                left: 0;
+                top: 0;
+                gap: .5rem;
+
+                .icon {
+                    width: 2.4rem;
+                    height: 2.4rem;
+                }
+            }
+
+            .left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .avatar_wrapper {
+                    position: relative;
+
+                    &.online::after {
+                        display: block;
+                        position: absolute;
+                        content: "";
+                        background-color: global.$bright-green;
+                        width: 2.5rem;
+                        height: 2.5rem;
+                        bottom: 0;
+                        right: 1rem;
+                        border-radius: 50%;
+                    }
+                }
+
+                .avatar {
+                    background-color: global.$bright-background;
+                    border-radius: 50%;
+                }
+
+                .stats {
+                    margin-top: 1rem;
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+            }
+
+            .name {
+                margin-top: 1rem;
+                background-color: global.$bright-background;
+                border-radius: 2rem;
+                padding: 1rem 1.3rem;
+                font-size: 2rem;
+                font-weight: 400;
+                letter-spacing: 0.2rem;
+            }
+
+            .username_wrapper {
+                display: flex;
+                margin-top: .5rem;
+                background-color: global.$bright-background;
+                border-radius: 2rem;
+                padding: 1.2rem 1.4rem;
+
+                .username {
+                    font-size: clamp(1.6rem, 3vw, 2rem);
+                    font-weight: 400;
+                    letter-spacing: clamp(0.16rem, .3vw, 0.2rem);
+                }
+
+                .copy_button {
+                    margin-left: auto;
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+
+            .description_wrapper {
+                position: relative;
+                margin-top: 1rem;
+
+                .description_sign {
+                    font-size: clamp(2rem, 3vw, 2.4rem);
+                    letter-spacing: clamp(0.2rem, 0.3vw, 0.24rem);
+                    font-weight: 400;
+                }
+
+                .description {
+                    margin-top: .4rem;
+                    border-radius: 2rem;
+                    background-color: global.$bright-background;
+                    padding: 1rem 1.4rem;
+                    font-size: 2rem;
+                    letter-spacing: 0.2rem;
+                    font-weight: 400;
+                    overflow: hidden;
+
+                    &.hide {
+                        max-height: $description-max-height;
+                    }
+
+                    &.hide:before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        width: 100%;
+                        height: $description-max-height;
+                        border-radius: 2rem;
+                        left: 0;
+                        right: 0;
+                        background: linear-gradient(180deg, transparent 0%, global.$bright-background 70%);
+                    }
+                }
+
+                .description_button {
+                    position: absolute;
+                    bottom: -12%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 3.6rem;
+                    height: 3.6rem;
+                    z-index: 1;
+                    cursor: pointer;
+                    background-color: transparent;
+                    padding: .5rem .5rem;
+
+                    .description_arrow {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .date_wrapper {
+                margin-top: 2rem;
+
+                .date_sign {
+                    font-size: clamp(2rem, 3vw, 2.4rem);
+                    letter-spacing: clamp(0.2rem, 0.3vw, 0.24rem);
+                    font-weight: 400;
+                }
+
+                .date {
+                    font-size: clamp(2rem, 3vw, 2.4rem);
+                    letter-spacing: clamp(0.2rem, 0.3vw, 0.24rem);
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 360px) {
+    .info {
+        .content_wrapper {
+            .info_inner {
+                .left {
+                    .stats {
+                        justify-content: space-around;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .info {
+        .content_wrapper {
+            .info_inner {
+                max-width: 60rem;
+
+                .username_wrapper {
+                    .copy_button {
+                        margin-left: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .info {
+        .content_wrapper {
+            .info_inner {
+                max-width: unset;
+                display: flex;
+                gap: .5rem;
+                padding-bottom: 1.5rem;
+
+                .left {
+                    min-width: 12.5rem;
+                    display: flex;
+                    flex-direction: column;
+
+                    .stats {
+                        flex-direction: column;
+                        gap: .5rem;
+                        margin: 1.2rem auto;
+                        width: fit-content;
+                    }
+                }
+
+                .name {
+                    margin-top: 0;
+                    width: fit-content;
+                    overflow-wrap: anywhere;
+                    max-width: 85%;
+                }
+
+                .username_wrapper {
+                    width: fit-content;
+                    position: relative;
+
+                    .copy_button {
+                        position: absolute;
+                        right: unset;
+                        left: 100%;
+                        height: 2.4rem;
+                        width: 2.4rem;
+                        background-color: transparent;
+                    }
+                }
+
+                .right {
+                    .bad_icons {
+                        position: relative;
+                        margin-top: .8rem;
+                        gap: .8rem;
+                    }
+
+                    .description_wrapper {
+                        margin-top: 1rem;
+
+                        .description_sign {
+                            font-size: 2.4rem;
+                            letter-spacing: 0.24rem;
+                        }
+
+                        .description {
+                            margin-top: .5rem;
+                        }
+                    }
+
+                    .date_wrapper {
+                        margin-top: 1rem;
+
+                        .date_sign {
+                            font-size: 2.4rem;
+                            letter-spacing: 0.24rem;
+                        }
+
+                        .date {
+                            font-size: 2.4rem;
+                            letter-spacing: 0.24rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .info {
+        .content_wrapper {
+            .info_inner {
+                .date_wrapper {
+                    .date_sign {
+                        display: inline;
+                    }
+
+                    .date {
+                        display: inline;
+
+                        &:before {
+                            content: " ";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
