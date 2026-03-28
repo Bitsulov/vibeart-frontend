@@ -13,6 +13,10 @@ import {Chats} from "pages/chats";
 import {Notifications} from "pages/notifications";
 import {Communities} from "pages/communities";
 import {ForgotPassword} from "pages/forgotPassword";
+import {Post} from "pages/post";
+import {Album} from "pages/album";
+import {Chat} from "pages/chat";
+import {Settings} from "pages/settings";
 
 export const RouterProvider = () => {
 	return (
@@ -23,8 +27,12 @@ export const RouterProvider = () => {
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/profile/:ulid" element={<Profile />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/post/:ulid" element={<Post />} />
+            <Route path="/albums/:ulid" element={<Album />} />
             <Route path="/chats" element={<Chats />} />
+            <Route path="/chats/:ulid" element={<Chat />} />
             <Route path="/communities" element={<Communities />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/agreement" element={<Agreement />} />
             <Route path="/policy" element={<Policy />} />
