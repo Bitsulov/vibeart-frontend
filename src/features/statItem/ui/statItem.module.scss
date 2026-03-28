@@ -1,0 +1,33 @@
+@use "@/index.scss" as global;
+@use "sass:math";
+
+.stat_wrapper {
+    display: flex;
+    gap: .8rem;
+    background-color: transparent;
+
+    .stat_icon {
+        fill: transparent;
+        transition: math.div(global.$transition-time, 2);
+
+        path, circle, rect {
+            stroke-width: .1rem;
+        }
+    }
+
+    .number {
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 0.2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .stat_wrapper {
+        .stat_icon {
+            path, circle, rect {
+                stroke-width: .2rem;
+            }
+        }
+    }
+}
