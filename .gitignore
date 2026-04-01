@@ -7,6 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Tests
+coverage
+playwright-report
+
 # Dependencies and Build
 package-lock.json
 node_modules
