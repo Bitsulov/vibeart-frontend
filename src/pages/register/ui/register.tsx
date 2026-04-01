@@ -9,7 +9,7 @@ export const Register = () => {
         <Layout isShowFooter={false}>
             <title>{t("titles.register")}</title>
             <meta name="description" content={t("description.register")} />
-            <RegisterForm/>
+            <RegisterForm />
         </Layout>
     )
 }

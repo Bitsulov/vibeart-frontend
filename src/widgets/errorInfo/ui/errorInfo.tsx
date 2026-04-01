@@ -19,8 +19,8 @@ export const ErrorInfo = ({ errorCode = 404, ...props }: ErrorInfoProps) => {
                     {t(errorsConfig[errorCode])}
                 </p>
                 <div className={c.links}>
-                    <StylizedLink className={c.link} ariaLabel={t("goToHome")} href="/">{t("error.returnToHome")}</StylizedLink>
-                    <StylizedLink className={c.link} ariaLabel={t("goToContacts")} href="/contacts">{t("error.report")}</StylizedLink>
+                    <StylizedLink className={c.link} ariaLabel={t("ariaLabel.goToHome")} href="/">{t("error.returnToHome")}</StylizedLink>
+                    <StylizedLink className={c.link} ariaLabel={t("ariaLabel.goToContacts")} href="/contacts">{t("error.report")}</StylizedLink>
                 </div>
             </div>
 		</section>

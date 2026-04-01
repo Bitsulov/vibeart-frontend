@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import type {AppConfigType} from "../lib/types";
+import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import type {AppConfigType, ServerStatusType} from "../lib/types";
 
 const initialState: AppConfigType = {
     currentLanguage: "ru",
@@ -16,15 +16,15 @@ export const appSlice = createSlice({
             state.currentLanguage = action.payload;
         },
 
-        setServerStatus(state, action) {
+        setServerStatus(state, action: PayloadAction<ServerStatusType>) {
             state.serverStatus = action.payload;
         },
 
-        setUnreadChatsCount(state, action) {
+        setUnreadChatsCount(state, action: PayloadAction<number>) {
             state.unreadChatsCount = action.payload;
         },
 
-        setUnreadNotificationsCount(state, action) {
+        setUnreadNotificationsCount(state, action: PayloadAction<number>) {
             state.unreadNotificationsCount = action.payload;
         }
     }

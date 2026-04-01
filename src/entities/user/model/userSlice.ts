@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {UserType} from "../lib/types";
 
 const initialState: UserType = {
@@ -25,7 +25,7 @@ export const userSlice = createSlice({
     name: "user",
     initialState: initialState,
     reducers: {
-        setUserInfo(state, action) {
+        setUserInfo(state, action: PayloadAction<Partial<UserType>>) {
             if(action.payload.id !== undefined) state.id = action.payload.id;
             if(action.payload.ULID !== undefined) state.ULID = action.payload.ULID;
             if(action.payload.email !== undefined) state.email = action.payload.email;
