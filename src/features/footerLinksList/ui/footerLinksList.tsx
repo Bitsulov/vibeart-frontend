@@ -9,7 +9,7 @@ export const FooterLinksList = ({ ...props }) => {
 	return (
         <ul className={c.links_list} {...props}>
             {footerLinksConfig.map(item =>
-                    <FooterLinksItem key={`footer:${item.src}`} to={item.src} ariaLabel={t(item.ariaLabel)}>
+                <FooterLinksItem key={`footer:${item.src}`} to={item.src} ariaLabel={t(item.ariaLabel)}>
                     {t(item.text)}
                 </FooterLinksItem>
             )}

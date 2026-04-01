@@ -1,6 +1,8 @@
+export type ServerStatusType = "good" | "problem" | "bad";
+
 export interface AppConfigType {
     currentLanguage: string;
-    serverStatus: "good" | "problem" | "bad";
+    serverStatus: ServerStatusType;
     unreadChatsCount: number;
     unreadNotificationsCount: number;
 }

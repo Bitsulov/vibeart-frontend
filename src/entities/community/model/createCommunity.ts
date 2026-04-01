@@ -1,17 +1,18 @@
 import type {CommunityType} from "../lib/types";
 
 export function createCommunity({
-    id,
+    id = 0,
     ULID,
     owner,
     username,
-    title,
-    description,
-    posts,
-    subscribers,
-    subscribes,
-    createdAt,
-    imageUrl
+    title = "",
+    description = "",
+    posts = 0,
+    subscribers = 0,
+    subscribes = 0,
+    createdAt = new Date().toISOString(),
+    imageUrl = "",
+    albumsList = []
 }: CommunityType) {
     return {
         id,
@@ -24,6 +25,7 @@ export function createCommunity({
         subscribers,
         subscribes,
         createdAt,
-        imageUrl
+        imageUrl,
+        albumsList
     }
 }

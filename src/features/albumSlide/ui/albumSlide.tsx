@@ -56,7 +56,7 @@ export const AlbumSlide = ({
                 <Link
                     className={c.album_link}
                     aria-label={t("ariaLabel.goToAlbum", {name: name})}
-                    to={`/albums/${ULID}`}
+                    to={`/album/${ULID}`}
                 >
                     <span className={c.album_link_text}>{name}</span>
                 </Link>

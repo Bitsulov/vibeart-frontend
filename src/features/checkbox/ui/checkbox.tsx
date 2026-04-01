@@ -9,9 +9,10 @@ interface CheckboxProps {
     isError: boolean;
     ariaLabel?: string;
     describedId?: string;
+    name: string;
 }
 
-export const Checkbox = ({ describedId, ariaLabel, id, className = "", children, isError, ...props }: CheckboxProps) => {
+export const Checkbox = ({ name, describedId, ariaLabel, id, className = "", children, isError, ...props }: CheckboxProps) => {
 	return (
         <label className={`${c.wrapper} ${className}`} htmlFor={id} {...props}>
             <input
@@ -21,7 +22,7 @@ export const Checkbox = ({ describedId, ariaLabel, id, className = "", children,
                 id={id}
                 className={c.input}
                 type="checkbox"
-                name="agreed"
+                name={name}
             />
             <span className={clsx(c.custom_box, isError && c.error)} aria-hidden="true"></span>
             <span className={c.text}>{children}</span>

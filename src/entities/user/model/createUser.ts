@@ -1,23 +1,23 @@
 import type {UserType} from "../lib/types";
 
 export function createUser({
-    id,
+    id = 0,
     ULID,
-    name,
+    name = "",
     email,
     username,
-    description,
-    worksCount,
-    subscribersCount,
-    subscribesCount,
-    albumList,
+    description = "",
+    worksCount = 0,
+    subscribersCount = 0,
+    subscribesCount = 0,
+    albumList = [],
     createdAt,
     trustStatus,
     isAuthenticated,
     isBlocked,
     onlineStatus,
-    role,
-    avatarUrl
+    role = "user",
+    avatarUrl = ""
 }: UserType) {
     return {
         id,
