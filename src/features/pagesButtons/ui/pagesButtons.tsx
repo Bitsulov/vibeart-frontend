@@ -36,7 +36,7 @@ export const PagesButtons = ({ currentPage, setCurrentPage, pagesCount, pagesDel
         } else {
             setPagesDelta(2);
         }
-    }, [windowWidth]);
+    }, [windowWidth, setPagesDelta]);
 
 	return (
 		<div className={c.pages} {...props}>

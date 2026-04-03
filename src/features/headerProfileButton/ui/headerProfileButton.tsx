@@ -18,8 +18,8 @@ export const HeaderProfileButton = ({
     name,
     userULID,
     isAuthenticated,
-    isBurgerOpen,
-    setIsBurgerOpen,
+    isBurgerOpen: _isBurgerOpen,
+    setIsBurgerOpen: _setIsBurgerOpen,
     ...props
 }: HeaderProfileButtonProps) => {
     const { t } = useTranslation();

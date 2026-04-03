@@ -29,12 +29,16 @@ export const HeaderLanguageButton = ({
         || defaultTransitionTime;
 
     useEffect(() => {
-        isBurgerOpen ?
-            setTimeout(() => {
+        if(isBurgerOpen) {
+            const timeout = setTimeout(() => {
                 setIsShowButton(false);
-            }, transitionTime / 3)
-        : setIsShowButton(true);
-    }, [isBurgerOpen]);
+            }, transitionTime / 3);
+
+            return () => clearTimeout(timeout);
+        } else {
+            setIsShowButton(true);
+        }
+    }, [isBurgerOpen, transitionTime]);
 
 	return (
         <>
