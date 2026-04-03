@@ -14,7 +14,7 @@ describe("createTag - Возвращает объект типа TagType", () =>
         });
     });
     it("Создание экземпляра тега с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createTag({
             createdAt: "2026-03-29T17:25:15.940Z"
         })).toEqual({

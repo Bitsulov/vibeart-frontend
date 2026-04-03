@@ -14,7 +14,7 @@ describe("createComment - Возвращает объект типа CommentType
         });
     });
     it("Создание экземпляра комментария с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createComment({createdAt: "2026-03-29T17:25:15.940Z"})).toEqual({
             id: 0,
             text: "",

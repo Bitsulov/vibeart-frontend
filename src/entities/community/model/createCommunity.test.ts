@@ -7,7 +7,7 @@ describe("createCommunity - Возвращает объект типа Community
         expect(createCommunity({
             id: 1,
             ULID: "hgghghgh",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             owner: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             username: "",
             title: "",
@@ -21,7 +21,7 @@ describe("createCommunity - Возвращает объект типа Community
         })).toEqual({
             id: 1,
             ULID: "hgghghgh",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             owner: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             username: "",
             title: "",
@@ -35,17 +35,17 @@ describe("createCommunity - Возвращает объект типа Community
         });
     });
     it("Создание экземпляра сообщества с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createCommunity({
             ULID: "gfgfgf",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             owner: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             username: "",
             createdAt: "2026-03-29T17:25:15.940Z"
         })).toEqual({
             id: 0,
             ULID: "gfgfgf",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             owner: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             username: "",
             title: "",
