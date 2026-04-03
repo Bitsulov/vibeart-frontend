@@ -42,7 +42,7 @@ describe("createTag - Возвращает объект типа TagType", () =>
         });
     });
     it("Создание экземпляра тега с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createUser({
             ULID: "gfgfgf",
             email: "a",

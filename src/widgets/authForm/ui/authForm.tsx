@@ -1,5 +1,5 @@
 import c from "./authForm.module.scss";
-import {useForm} from "react-hook-form";
+import {useForm, useWatch} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {AuthBackLink} from "features/authBackLink";
 import {Link} from "react-router-dom";
@@ -14,10 +14,10 @@ import type {IAuthForm} from "../lib/types";
 export const AuthForm = ({ ...props }) => {
     const { t } = useTranslation();
 
-    const {register, setValue, handleSubmit, watch, formState: {errors, isSubmitted}, /*setError*/} = useForm<IAuthForm>({shouldFocusError: false});
+    const {register, setValue, handleSubmit, control, formState: {errors, isSubmitted}, /*setError*/} = useForm<IAuthForm>({shouldFocusError: false});
 
-    const emailValue = watch("email");
-    const passwordValue = watch("password");
+    const emailValue = useWatch({ control, name: "email" });
+    const passwordValue = useWatch({ control, name: "password" });
 
     const showingError = errors.email || errors.password;
 

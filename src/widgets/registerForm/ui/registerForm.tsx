@@ -1,6 +1,6 @@
 import c from "./registerForm.module.scss";
 import {Trans, useTranslation} from "react-i18next";
-import {useForm} from "react-hook-form";
+import {useForm, useWatch} from "react-hook-form";
 import {AuthBackLink} from "features/authBackLink";
 import {InputForm} from "features/inputForm";
 import {InputError} from "features/inputError";
@@ -14,16 +14,17 @@ import {Checkbox} from "features/checkbox";
 export const RegisterForm = ({ ...props }) => {
     const { t } = useTranslation();
 
-    const {register, setValue, handleSubmit, watch, formState: {errors, isSubmitted}, /*setError*/} = useForm<IRegisterForm>({
+    const {register, setValue, handleSubmit, control, formState: {errors, isSubmitted}, /*setError*/} = useForm<IRegisterForm>({
         shouldFocusError: false,
         defaultValues: {
-            agreed: false
+            agreed: false,
+            agreed2: false
         }
     });
 
-    const emailValue = watch("email");
-    const passwordValue = watch("password");
-    const confirmPasswordValue = watch("confirmPassword");
+    const emailValue = useWatch({ control, name: "email" });
+    const passwordValue = useWatch({ control, name: "password" });
+    const confirmPasswordValue = useWatch({ control, name: "confirmPassword" });
 
     const showingError = errors.email || errors.password || errors.confirmPassword || errors.agreed || errors.agreed2;
 

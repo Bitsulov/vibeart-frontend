@@ -2,7 +2,7 @@ import c from "./header.module.scss";
 import {useTranslation} from "react-i18next";
 import {pagesTitleConfig} from "../config/pagesTitleConfig";
 import {useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
 import {selectUserInfo} from "entities/user";
 import {HeaderLogo} from "features/headerLogo";
@@ -27,7 +27,6 @@ export const Header = ({
 }: HeaderProps) => {
     const { t } = useTranslation();
     const location = useLocation();
-    const [mainLocation, setMainLocation] = useState(t("loading..."));
 
     const currentWindowWidth = useWindowWidth();
 
@@ -38,8 +37,12 @@ export const Header = ({
 
     const HeaderButton = currentWindowWidth < 1200 ? BurgerButton : HeaderProfileButton;
 
+    const mainLocation = useMemo(
+        () => pagesTitleConfig[location.pathname.split("/", 2)[1]] ?? "pages.error",
+        [location.pathname]
+    );
+
     useEffect(() => {
-        setMainLocation(pagesTitleConfig[location.pathname.split("/", 2)[1]] ?? "pages.error");
         setIsBurgerOpen(false);
     }, [location.pathname]);
 

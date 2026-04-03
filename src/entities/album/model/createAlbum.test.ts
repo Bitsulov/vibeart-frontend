@@ -24,7 +24,7 @@ describe("createAlbum - Возвращает объект типа AlbumType", (
         });
     });
     it("Создание экземпляра альбома с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createAlbum({
             ULID: "gfjhfhgfhgf",
             imageUrl: "",

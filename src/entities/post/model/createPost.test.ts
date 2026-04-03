@@ -9,7 +9,7 @@ describe("createPost - Возвращает объект типа PostType", () 
             ULID: "hghghhg",
             name: "",
             description: "",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             author: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             likes: 0,
             comments: 0,
@@ -25,7 +25,7 @@ describe("createPost - Возвращает объект типа PostType", () 
             ULID: "hghghhg",
             name: "",
             description: "",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             author: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             likes: 0,
             comments: 0,
@@ -39,10 +39,10 @@ describe("createPost - Возвращает объект типа PostType", () 
         });
     });
     it("Создание экземпляра поста с неполными данными", () => {
-        // @ts-ignore
+        // @ts-expect-error неполная информация
         expect(createPost({
             ULID: "hghghhg",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             author: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             imageUrl: "",
             createdAt: "2026-03-29T17:25:15.940Z"
@@ -51,7 +51,7 @@ describe("createPost - Возвращает объект типа PostType", () 
             ULID: "hghghhg",
             name: "",
             description: "",
-            // @ts-ignore
+            // @ts-expect-error неполная информация
             author: createUser({id: 1, ULID: "321312312", email: "@", createdAt: ""}),
             likes: 0,
             comments: 0,

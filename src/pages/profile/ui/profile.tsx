@@ -4,10 +4,10 @@ import {ProfileInfo} from "widgets/profileInfo";
 import {useTranslation} from "react-i18next";
 import {principalUserMock, profileUserMock} from "entities/user";
 import {AlbumSlider} from "widgets/albumSlider";
-import {type AlbumType, profileAlbumsMock} from "entities/album";
+import {profileAlbumsMock} from "entities/album";
 import {Navigation} from "widgets/navigation";
 import {useWindowWidth} from "shared/hooks/useWindowWidth";
-import {useEffect, useState} from "react";
+import {useMemo, useState} from "react";
 import {PostList} from "widgets/postList";
 
 export const Profile = () => {
@@ -15,16 +15,14 @@ export const Profile = () => {
     const windowWidth = useWindowWidth();
 
     const [selectedAlbum, setSelectedAlbum] = useState<string>("all");
-    const [currentAlbum, setCurrentAlbum] = useState<AlbumType>();
     const pages = 12;
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pagesDelta, setPagesDelta] = useState<number>(2);
 
-    useEffect(() => {
-        setCurrentAlbum(profileAlbumsMock.find(album =>
-            album.ULID === selectedAlbum
-        ));
-    }, [selectedAlbum]);
+    const currentAlbum = useMemo(
+        () => profileAlbumsMock.find(album => album.ULID === selectedAlbum),
+        [selectedAlbum]
+    );
 
 	return (
 		<Layout>

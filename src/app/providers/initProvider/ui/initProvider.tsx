@@ -36,7 +36,7 @@ export const InitProvider = ({ children }: InitProviderProps) => {
             role: principalUserMock.role,
             avatarUrl: principalUserMock.avatarUrl,
         }));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -58,7 +58,7 @@ export const InitProvider = ({ children }: InitProviderProps) => {
                 navigate({search: params.toString()}, {replace: true});
             }
         }
-    }, [location.pathname]);
+    }, [location, dispatch, i18n, navigate]);
 
 	return (
 		<>

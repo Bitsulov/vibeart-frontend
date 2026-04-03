@@ -14,10 +14,10 @@ interface BurgerButtonProps {
 }
 
 export const BurgerButton = ({
-     imageUrl,
-     name,
-     userULID,
-     isAuthenticated,
+     imageUrl: _imageUrl,
+     name: _name,
+     userULID: _userULID,
+     isAuthenticated: _isAuthenticated,
      isBurgerOpen,
      setIsBurgerOpen,
      ...props
