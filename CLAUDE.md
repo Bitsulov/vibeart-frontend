@@ -99,3 +99,4 @@ i18next + LanguageDetector. Локали в `src/shared/locales/` (`ru.json` и 
 - Решай сам, когда описание коммита нужно, а когда нет
 - `npm version patch`, `npm version minor` или `npm version major` для обновления версии
 - Перед созданием ветки и коммитами запусти `npm run lint` и `npm run test:run`, если все успешно, то продолжай
+- Выноси логику из компонентов: хуки, обработчики, функции в model, lib и др. Если они применимы к любым компонентом, то выноси в shared
