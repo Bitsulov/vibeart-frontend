@@ -33,6 +33,7 @@
 
             &.disabled {
                 opacity: .3;
+                cursor: default;
             }
         }
 
@@ -53,6 +54,7 @@
 
             &.disabled {
                 opacity: .3;
+                cursor: default;
             }
         }
     }
