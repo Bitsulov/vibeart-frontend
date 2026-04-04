@@ -7,4 +7,5 @@ export function submitValidHandler(data: IRegisterForm, setValue: UseFormSetValu
     setValue("password", "");
     setValue("confirmPassword", "");
     setValue("agreed", false);
+    setValue("agreed2", false);
 }

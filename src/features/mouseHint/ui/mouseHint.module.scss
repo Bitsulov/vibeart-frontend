@@ -12,7 +12,7 @@
     border: .1rem solid global.$active-color;
     padding: .5rem 1rem;
     white-space: nowrap;
-    z-index: 3;
+    z-index: 900;
 
     &.active {
         opacity: 1;
