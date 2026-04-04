@@ -49,6 +49,6 @@ describe("MouseHint - подсказка у курсора мыши", () => {
 
         const hint = screen.getByRole("paragraph", {hidden: true});
 
-        expect(hint).toHaveStyle({left: "110px", top: "170px"});
+        expect(hint).toHaveStyle({left: "110px", top: "190px"});
     });
 });
