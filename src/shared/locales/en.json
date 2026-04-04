@@ -71,7 +71,9 @@
     "subscribers": "Number of subscribers",
     "subscribes": "Number of subscriptions",
     "copy": "Click to copy",
-    "copied": "Copied"
+    "copied": "Copied",
+    "settings": "Settings",
+    "writeMessage": "Send a message"
   },
 
   "pages": {
