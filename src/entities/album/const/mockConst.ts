@@ -44,3 +44,14 @@ export const profileAlbumsMock = [
         createdAt: "2026-03-23T18:48:16.175Z"
     })
 ];
+
+export const albumMock = createAlbum({
+    id: 1,
+    ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+    name: "Album title",
+    description: "Description Description Description Description Description Description Description Description Description",
+    postCount: 4,
+    postsList: profileAlbum1PostsMock,
+    imageUrl: img,
+    createdAt: "2026-03-24T18:48:16.175Z"
+});

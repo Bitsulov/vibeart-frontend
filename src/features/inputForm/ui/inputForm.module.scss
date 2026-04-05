@@ -4,6 +4,7 @@ $padding-left: clamp(1.1rem, 2vw, 2rem);
 
 @mixin lift {
     top: clamp(-2.8rem, -4vw, -1.8rem);
+    transform: translateY(0);
     font-size: clamp(1rem, 2.4vw, 1.6rem);
 }
 
@@ -42,6 +43,10 @@ $padding-left: clamp(1.1rem, 2vw, 2rem);
         &.correct {
             border-color: global.$positive-active;
         }
+
+        &.full {
+            flex-basis: 100%;
+        }
     }
 
     .show_password {
@@ -62,7 +67,8 @@ $padding-left: clamp(1.1rem, 2vw, 2rem);
 
     .placeholder {
         position: absolute;
-        top: 0;
+        top: 50%;
+        transform: translateY(-52%);
         left: $padding-left;
         padding: clamp(.3rem, .75vw, .5rem) 0;
         pointer-events: none;

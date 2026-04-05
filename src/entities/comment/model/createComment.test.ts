@@ -3,6 +3,7 @@ import {createComment} from "./createComment";
 
 describe("createComment - Возвращает объект типа CommentType", () => {
     it("Создание экземпляра комментария", () => {
+        // @ts-expect-error неполная информация
         expect(createComment({
             id: 1,
             text: "Текст",

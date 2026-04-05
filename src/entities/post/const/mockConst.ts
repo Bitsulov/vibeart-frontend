@@ -1,6 +1,7 @@
 import {createPost} from "../model/createPost";
 import img from "shared/icons/img-CTA.jpg";
 import {profileUserMock} from "../../user";
+import {postTagsMock} from "../../tag";
 
 export const profileAlbum1PostsMock = [
     createPost({
@@ -183,3 +184,20 @@ export const profileAlbum2PostsMock = [
         createdAt: "2026-03-24T18:48:16.175Z"
     }),
 ];
+
+export const postMock = createPost({
+    id: 1,
+    ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAB",
+    name: "Post title",
+    description: "Description Description Description Description Description Description Description Description Description",
+    author: profileUserMock,
+    likes: 999000000,
+    comments: 999000000,
+    reports: 999000000,
+    commentList: [],
+    tagsList: postTagsMock,
+    checkStatus: "checked",
+    AIStatus: "good",
+    imageUrl: img,
+    createdAt: "2025-09-01T00:00:00.000Z",
+});

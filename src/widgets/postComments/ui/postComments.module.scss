@@ -1,0 +1,25 @@
+@use "@/index.scss" as global;
+
+.comments {
+    .comments_inner {
+        max-width: 46.6rem;
+        margin: 1.5rem auto 2rem;
+        padding: clamp(1rem, 2vw, 2rem);
+        border-radius: clamp(2.5rem, 3rem, 5rem);
+        background-color: global.$bright-background;
+
+        .title {
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: 0.18rem;
+            text-align: center;
+        }
+
+        .commentsList {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+}

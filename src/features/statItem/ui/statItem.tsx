@@ -13,6 +13,7 @@ interface StatItemProps {
     Icon: LucideIcon;
     className?: string;
     iconClassName?: string;
+    strokeWidth?: number;
     number: number | string;
 }
 
@@ -26,6 +27,7 @@ export const StatItem = ({
     Icon,
     className = "",
     iconClassName = "",
+    strokeWidth = 2,
     number = 0,
     ...props
 }: StatItemProps) => {
@@ -38,7 +40,7 @@ export const StatItem = ({
                     className={`${c.stat_wrapper} ${className}`}
                     {...props}
                 >
-                    <Icon className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
+                    <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
                     <p className={c.number}>{number}</p>
                 </div>
             )}
@@ -51,7 +53,7 @@ export const StatItem = ({
                     className={`${c.stat_wrapper} ${className}`}
                     {...props}
                 >
-                    <Icon className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
+                    <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
                     <p className={c.number}>{number}</p>
                 </Link>
             )}
@@ -64,7 +66,7 @@ export const StatItem = ({
                     className={`${c.stat_wrapper} ${className}`}
                     {...props}
                 >
-                    <Icon className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
+                    <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
                     <p className={c.number}>{number}</p>
                 </button>
             )}

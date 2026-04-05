@@ -1,6 +1,6 @@
 import c from "./inputForm.module.scss";
 import clsx from "clsx";
-import React, {useState} from "react";
+import React, {type HTMLInputAutoCompleteAttribute, useState} from "react";
 import {Check, CircleX, EyeClosed, EyeIcon} from "lucide-react";
 import {toggleTypeHandler} from "../model/toggleTypeHandler";
 import {useTranslation} from "react-i18next";
@@ -11,6 +11,8 @@ interface InputFormProps {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     isError: boolean;
     isSubmitted: boolean;
+    isShowStatus?: boolean;
+    autoComplete?: HTMLInputAutoCompleteAttribute;
     placeholder?: string;
     id: string;
     type?: "text" | "email" | "password";
@@ -23,6 +25,8 @@ export const InputForm = ({
     onChange,
     isError = false,
     isSubmitted = false,
+    isShowStatus = true,
+    autoComplete = "on",
     id,
     placeholder = "",
     ...props
@@ -39,9 +43,11 @@ export const InputForm = ({
                 className={clsx(
                     c.input,
                     className,
-                    isSubmitted && isError && c.error,
-                    isSubmitted && !isError && c.correct
+                    isShowStatus && isSubmitted && isError && c.error,
+                    isShowStatus && isSubmitted && !isError && c.correct,
+                    !isShowStatus && c.full
                 )}
+                autoComplete={autoComplete}
                 aria-invalid={isError ? "true" : "false"}
                 aria-label={placeholder}
                 {...props}
@@ -67,11 +73,11 @@ export const InputForm = ({
                         <EyeClosed width="17" height="17" className={c.show_password_icon} />
                     </button>
             )}
-            {isError ?
-                <CircleX aria-hidden="true" className={clsx(c.status_icon, isSubmitted && c.error_icon)} width="14" height="14" />
-            :
-                <Check aria-hidden="true" className={clsx(c.status_icon, c.correct_icon)} width="14" height="14" />
-            }
+            {isShowStatus && (
+                isError
+                    ? <CircleX aria-hidden="true" className={clsx(c.status_icon, isSubmitted && c.error_icon)} width="14" height="14" />
+                    : <Check aria-hidden="true" className={clsx(c.status_icon, c.correct_icon)} width="14" height="14" />
+            )}
         </div>
 	)
 }

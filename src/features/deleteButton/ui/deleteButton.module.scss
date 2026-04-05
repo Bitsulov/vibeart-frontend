@@ -1,0 +1,24 @@
+@use "@/index.scss" as global;
+
+.button {
+    background-color: global.$dark-background;
+    padding: .6rem;
+    height: clamp(3.5rem, 5vw, 4.5rem);
+    width: clamp(3.5rem, 5vw, 4.5rem);
+    border: .1rem solid global.$negative-active;
+    border-radius: 1.2rem;
+    color: global.$negative-active;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover {
+        background-color: global.$negative-active;
+        color: global.$dark-background;
+    }
+
+    .icon {
+        width: 100%;
+        height: 100%;
+        transition: global.$transition-time;
+    }
+}
