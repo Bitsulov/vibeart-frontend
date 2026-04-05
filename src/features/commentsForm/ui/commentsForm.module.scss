@@ -1,0 +1,31 @@
+@use "@/index.scss" as global;
+
+.form {
+    display: flex;
+    gap: 1rem;
+    margin: clamp(.5rem, 2vw, 1rem) 0;
+
+    .submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(3rem, 6vw, 4.5rem);
+        height: clamp(3rem, 6vw, 4.5rem);
+        flex-shrink: 0;
+        padding: clamp(.5rem, 1vw, 1rem);
+        background-color: global.$active-color;
+        color: global.$bright-background;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: global.$transition-time;
+
+        &:hover {
+            box-shadow: 0 0 clamp(1rem, 2vw, 2rem) .1rem rgba(global.$active-color, .5);
+        }
+
+        .submit_icon {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+@use "@/index.scss" as global;
+
+.button {
+    position: absolute;
+    background-color: transparent;
+    top: clamp(.6rem, 1vw, 1.3rem);
+    left: clamp(.8rem, 2vw, 2.4rem);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover {
+        .back_icon {
+            stroke: global.$second-active-color;
+        }
+
+        .back_text {
+            color: global.$second-active-color;
+        }
+    }
+
+    .back_icon {
+        width: clamp(1.8rem, 4vw, 3.2rem);
+        height: clamp(1.8rem, 5vw, 3.2rem);
+        transition: global.$transition-time;
+    }
+
+    .back_text {
+        font-size: clamp(1.6rem, 2vw, 2rem);
+        font-weight: 500;
+        letter-spacing: clamp(0.16rem, 0.2vw, 0.2rem);
+        margin-left: clamp(.3rem, .5vw, .5rem);
+        transition: global.$transition-time;
+    }
+}

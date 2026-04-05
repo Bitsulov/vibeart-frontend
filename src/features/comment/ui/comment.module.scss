@@ -1,0 +1,46 @@
+@use "@/index.scss" as global;
+
+.comment {
+    .profile_link {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        &:hover {
+            color: global.$second-active-color;
+        }
+
+        .avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+        }
+
+        .name {
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            font-weight: 500;
+            letter-spacing: clamp(0.16rem, 0.3vw, 0.2rem);
+            text-overflow: ellipsis;
+            transition: global.$transition-time;
+        }
+    }
+
+    .wrapper {
+        margin-left: 4rem;
+
+        .text {
+            margin-top: .3rem;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            font-weight: 400;
+            letter-spacing: clamp(0.16rem, 0.3vw, 0.2rem);
+        }
+
+        .date {
+            margin-top: .2rem;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            font-weight: 400;
+            letter-spacing: clamp(0.16rem, 0.3vw, 0.2rem);
+            color: global.$second-active-color;
+        }
+    }
+}
