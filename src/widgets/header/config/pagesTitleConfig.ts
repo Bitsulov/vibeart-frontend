@@ -7,6 +7,7 @@ export const pagesTitleConfig: Record<string, string> = {
     gallery: "pages.gallery",
     chats: "pages.chats",
     communities: "pages.communities",
+    post: "pages.post",
     error: "pages.error",
     contacts: "pages.contacts",
     rules: "pages.rules",

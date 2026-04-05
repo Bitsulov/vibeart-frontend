@@ -18,6 +18,7 @@ import {Album} from "pages/album";
 import {Chat} from "pages/chat";
 import {Settings} from "pages/settings";
 import {AlbumCreate} from "pages/albumCreate";
+import {CreatePost} from "pages/createPost";
 
 export const RouterProvider = () => {
 	return (
@@ -29,6 +30,7 @@ export const RouterProvider = () => {
             <Route path="/profile/:ulid" element={<Profile />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/post/:ulid" element={<Post />} />
+            <Route path="/post/:ulid/edit" element={<CreatePost />} />
             <Route path="/album/:ulid" element={<Album />} />
             <Route path="/album/add" element={<AlbumCreate />} />
             <Route path="/chats" element={<Chats />} />
