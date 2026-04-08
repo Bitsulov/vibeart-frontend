@@ -10,7 +10,8 @@ interface DeleteButtonProps {
     className?: string;
     onMouseEnter?: React.MouseEventHandler;
     onMouseLeave?: React.MouseEventHandler;
-    postULID: string;
+    ULID: string;
+    type: "post" | "album"
 }
 
 export const EditButton = ({
@@ -19,7 +20,8 @@ export const EditButton = ({
     ariaLabel = "",
     onClick = () => {},
     className = "",
-    postULID = "",
+    ULID = "",
+    type,
     ...props
 }: DeleteButtonProps) => {
 	return (
@@ -29,7 +31,7 @@ export const EditButton = ({
             onMouseLeave={onMouseLeave}
             onClick={(e) => clickHandler(onClick, onMouseLeave, e)}
             aria-label={ariaLabel}
-            to={`/post/${postULID}/edit`}
+            to={`/${type}/${ULID}/edit`}
             {...props}
         >
             <Pencil className={c.icon} />
