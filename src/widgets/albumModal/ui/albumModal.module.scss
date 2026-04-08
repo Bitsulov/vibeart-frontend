@@ -1,0 +1,157 @@
+@use "@/index.scss" as global;
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(global.$dark-background, 0.6);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: global.$transition-time;
+    animation: appearing global.$transition-time;
+
+    &.close {
+        opacity: 0;
+    }
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        color: global.$active-color;
+        font-family: "Montserrat", sans-serif;
+        width: 100%;
+        background-color: global.$block-color;
+        border-radius: clamp(1.8rem, 2vw, 5rem);
+        min-height: 56rem;
+        max-height: 56rem;
+
+        .top {
+            padding: clamp(.5rem, 3vw, 1.5rem) clamp(2rem, 3vw, 2.5rem);
+            font-weight: 600;
+            border-bottom: .1rem solid global.$active-color;
+
+            .title {
+                font-size: clamp(2rem, 3vw, 4.8rem);
+                font-weight: 700;
+                text-align: center;
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            padding: clamp(1rem, 4vw, 2.5rem) 0 clamp(0rem, 4vw, 3.5rem);
+
+            .container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 0 1rem;
+                min-height: 0;
+
+                .search {
+
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: center;
+            border-top: .1rem solid global.$active-color;
+            margin-top: auto;
+            padding: clamp(1rem, 1vw, 1.5rem) 0;
+
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+
+                .button {
+                    padding: clamp(.5rem, 1vw, 1rem) clamp(2rem, 2vw, 2.5rem);
+                    font-size: clamp(1.6rem, 2vw, 3.2rem);
+                    border-radius: clamp(1rem, 2vw, 1.5rem);
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 360px) {
+    .background {
+        .modal {
+            .bottom {
+                .buttons {
+                    flex-direction: row;
+                    gap: clamp(1rem, 2vw, 3rem);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 410px) {
+    .background {
+        .modal {
+            .content {
+                .container {
+                    padding: 0 clamp(0rem, 10vw, 16rem);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 430px) {
+    .background {
+        .modal {
+            min-height: clamp(60rem, 92vw, 66rem);
+            max-height: clamp(60rem, 92vw, 66rem);
+        }
+    }
+}
+
+@media (min-width: 1170px) {
+    .background {
+        .modal {
+            min-height: clamp(60rem, 55vw, 84rem);
+            max-height: clamp(60rem, 55vw, 84rem);
+        }
+    }
+}
+
+@media (min-width: 1360px) {
+    .background {
+        .modal {
+            min-height: clamp(60rem, 50vw, 84rem);
+            max-height: clamp(60rem, 50vw, 84rem);
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .background {
+        .modal {
+            min-height: 70rem;
+            max-height: 70rem;
+        }
+    }
+}

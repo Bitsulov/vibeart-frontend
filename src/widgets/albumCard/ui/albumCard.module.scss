@@ -1,0 +1,189 @@
+@use "@/index.scss" as global;
+
+$description-collapsed-height: 5rem;
+
+.album {
+    margin: 2.5rem 0;
+
+    .controls {
+        position: relative;
+        display: flex;
+        margin: 0 auto clamp(1.5rem, 3vw, 3rem);
+
+        .back {
+            left: unset;
+            top: unset;
+            position: relative;
+        }
+
+        .actions {
+            margin-left: auto;
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
+    .card_container {
+        margin-top: 1rem;
+        background-color: global.$bright-background;
+        border-radius: 2.5rem;
+        overflow: hidden;
+
+        .album_card {
+            .img {
+                width: 100%;
+                height: auto;
+            }
+
+            .info {
+                border-bottom: .1rem solid global.$active-color;
+                margin: 0 clamp(1rem, 3vw, 5rem);
+                padding: clamp(1rem, 3vw, 2rem) 0;
+                display: flex;
+                flex-direction: column;
+
+                .works {
+                    margin-left: auto;
+                    align-items: center;
+                    gap: clamp(.3rem, .6rem, .8rem);
+
+                    .icon {
+                        width: clamp(2rem, 3.5vw, 3.5rem);
+                        height: clamp(2rem, 3.5vw, 3.5rem);
+
+                        path, rect, circle {
+                            stroke-width: .2rem;
+                        }
+                    }
+
+                    p {
+                        font-size: clamp(1.6rem, 3vw, 2.4rem);
+                        letter-spacing: clamp(0.16rem, 0.3rem, 0.24rem);
+                        font-weight: 500;
+                        align-self: center;
+                    }
+                }
+
+                .title {
+                    margin-top: 1rem;
+                    font-size: clamp(2.4rem, 5vw, 4rem);
+                    letter-spacing: 0.24rem;
+                    font-weight: 600;
+                }
+
+                .description_wrapper {
+                    margin-top: 1rem;
+                    position: relative;
+
+                    .description {
+                        font-size: clamp(2rem, 4vw, 2.2rem);
+                        font-weight: 400;
+                        letter-spacing: .2rem;
+                        overflow: hidden;
+
+                        &.description_collapsed {
+                            max-height: $description-collapsed-height;
+
+                            &::before {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: $description-collapsed-height;
+                                background: linear-gradient(180deg, transparent 0%, global.$bright-background 100%);
+                            }
+                        }
+                    }
+
+                    .expand_btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        background: transparent;
+                        cursor: pointer;
+                    }
+                }
+
+                .bottom {
+                    margin-top: 1.5rem;
+
+                    .desktop_stat {
+                        align-items: center;
+                        gap: clamp(.3rem, .6rem, .8rem);
+
+                        .icon {
+                            width: clamp(2rem, 3.5vw, 3.5rem);
+                            height: clamp(2rem, 3.5vw, 3.5rem);
+
+                            path, rect, circle {
+                                stroke-width: .2rem;
+                            }
+                        }
+
+                        p {
+                            font-size: clamp(1.6rem, 3vw, 2.4rem);
+                            letter-spacing: clamp(0.16rem, 0.3rem, 0.24rem);
+                            font-weight: 500;
+                            align-self: center;
+                        }
+                    }
+
+                    .date {
+                        font-size: clamp(1.6rem, 3vw, 2.4rem);
+                        letter-spacing: 0.16rem;
+                        font-weight: 600;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        .posts {
+            padding: 0 clamp(1rem, 3vw, 5rem);
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .album {
+        margin-bottom: 5rem;
+
+        .card_container {
+            padding: 2rem 3.5rem 3rem;
+
+            .album_card {
+                display: flex;
+                gap: 2.5rem;
+                padding-bottom: 2rem;
+                border-bottom: .1rem solid global.$active-color;
+
+                .img {
+                    width: 30rem;
+                    height: 30rem;
+                    border-radius: 5rem;
+                }
+
+                .info {
+                    border-bottom: 0;
+                    margin: 0;
+                    padding: 0;
+
+                    .bottom {
+                        display: flex;
+                        margin-top: auto;
+                        flex-direction: row;
+                        align-items: end;
+
+                        .date {
+                            margin-left: auto;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

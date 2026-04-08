@@ -1,0 +1,146 @@
+@use "@/index.scss" as global;
+
+.post_list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: clamp(0rem, 3vw, 2rem);
+    min-height: 0;
+
+    .title {
+        font-size: 2.4rem;
+        letter-spacing: 0.24rem;
+        font-weight: 600;
+        text-align: center;
+
+        &.flexible {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+        }
+
+        &.empty {
+            margin-bottom: 2rem;
+        }
+    }
+
+    .list {
+        flex: 1;
+        margin-top: clamp(0rem, 1vw, 2rem);
+        gap: 2rem;
+        column-gap: 4rem;
+        padding: 0 1rem;
+        display: grid;
+        justify-content: space-around;
+        align-content: start;
+        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        overflow: hidden;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: global.$active-color transparent;
+
+        &::-webkit-scrollbar {
+            width: .6rem;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: global.$active-color;
+            border-radius: 1rem;
+
+            &:hover {
+                background: global.$second-active-color;
+            }
+        }
+
+        &.grid_3 {
+            grid-template-columns: minmax(23rem, 1fr) minmax(23rem, 1fr) minmax(23rem, 1fr);
+        }
+
+        &.flexible {
+            margin-top: clamp(2rem, 5vw, 4rem);
+        }
+
+        .post {
+            position: relative;
+            border: .5rem solid global.$bright-background;
+            transition: .15s;
+
+            // уголок
+            &::before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 4.5rem 4.5rem 0;
+                border-color: transparent global.$active-color transparent transparent;
+                right: 0;
+                top: 0;
+                border-radius: 0 clamp(0.5rem, 1vw, 1rem) 0 0;
+                opacity: 0;
+                transition: .15s;
+            }
+
+            // галочка
+            &::after {
+                content: "";
+                position: absolute;
+                background-color: global.$bright-background;
+                mask-image: url("shared/icons/icon-check.svg");
+                mask-size: contain;
+                mask-repeat: no-repeat;
+                mask-position: center;
+                width: 2.25rem;
+                height: 2.25rem;
+                right: 0.2rem;
+                top: 0.2rem;
+                opacity: 0;
+                transition: .15s;
+            }
+
+            &.active {
+                border: .5rem solid global.$active-color;
+
+                &::before {
+                    opacity: 1;
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .pages {
+        margin: 1.5rem;
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 1200px) {
+    .post_list {
+        .list {
+            row-gap: 3rem;
+        }
+    }
+}
+
+@keyframes show {
+    0% {
+        grid-template-rows: 0fr;
+    }
+
+    100% {
+        grid-template-rows: 1fr;
+    }
+}
