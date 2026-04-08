@@ -22,7 +22,11 @@ interface PostProps {
     commentsCount?: number;
     imageUrl: string;
     ULID: string;
-    isShowAuthor?: boolean
+    isShowAuthor?: boolean;
+    className?: string;
+    type?: "button" | "link";
+    target?: "_blank" | "_self" | "_parent" | "_top"
+    onClick?: () => void
 }
 
 export const Post = ({
@@ -34,6 +38,10 @@ export const Post = ({
     commentsCount = 0,
     isShowAuthor = true,
     imageUrl,
+    className = "",
+    type = "link",
+    onClick = () => {},
+    target = "_self",
      ...props
 }: PostProps) => {
     const language = useSelector(selectCurrentLanguage);
@@ -45,32 +53,62 @@ export const Post = ({
     const [likesNumber, setLikesNumber] = useState<number>(likesCount);
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
+    const resultOnClickFn = type === "link"
+        ? () => postClickHandler(navigate, ULID)
+        : onClick;
+
 	return (
 		<article
             aria-label={t("ariaLabel.goToPost", {name: title})}
-            onClick={() => postClickHandler(navigate, ULID)}
-            className={c.post}
+            onClick={resultOnClickFn}
+            className={`${c.post} ${className}`}
             {...props}
         >
             <img src={imageUrl} alt={`${t("Post")} ${title}`} className={c.post_img} />
 			<div className={clsx(c.info, isShowAuthor && c.high)}>
                 <div onClick={e => resetNavigate(e)} className={c.bottom}>
                     <p className={c.date}>{resultDate}</p>
-                    {isShowAuthor &&
+                    {isShowAuthor && (
+                        target === "_self" ? (
+                            <Link
+                                aria-label={t("ariaLabel.goToUserProfile", {name: author.name})}
+                                to={`/profile/${author.ULID}`}
+                                className={c.name}
+                                target="_self"
+                            >
+                                {author.name}
+                            </Link>
+                        ):
+                            <a
+                                rel="nofollow noopener noreferrer"
+                                aria-label={t("ariaLabel.goToUserProfile", {name: author.name})}
+                                href={`/profile/${author.ULID}`}
+                                className={c.name}
+                                target={target}
+                            >
+                                {author.name}
+                            </a>
+                    )}
+                    {target === "_self" ? (
                         <Link
-                            aria-label={t("ariaLabel.goToUserProfile", {name: author.name})}
-                            to={`/profile/${author.ULID}`}
-                            className={c.name}
+                            aria-label={t("ariaLabel.goToPost", {name: title})}
+                            to={`/post/${ULID}`}
+                            className={c.title}
+                            target="_self"
                         >
-                            {author.name}
+                            {title}
                         </Link>
+                    ):
+                        <a
+                            rel="nofollow noopener noreferrer"
+                            aria-label={t("ariaLabel.goToPost", {name: title})}
+                            href={`/post/${ULID}`}
+                            className={c.title}
+                            target={target}
+                        >
+                            {title}
+                        </a>
                     }
-                    <Link
-                        aria-label={t("ariaLabel.goToPost", {name: title})} to={`/post/${ULID}`}
-                        className={c.title}
-                    >
-                        {title}
-                    </Link>
                     <div className={c.stats}>
                         <StatItem
                             type="button"

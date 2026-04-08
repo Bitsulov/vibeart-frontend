@@ -1,0 +1,56 @@
+@use "@/index.scss" as global;
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    border-radius: 3rem;
+    border: .1rem solid global.$active-color;
+    position: relative;
+    transition: global.$transition-time;
+
+    &:focus-within {
+        border-color: global.$second-active-color;
+
+        .icon {
+            color: global.$second-active-color;
+        }
+    }
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 1.6rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        pointer-events: none;
+        transition: global.$transition-time;
+    }
+
+    .input {
+        background-color: transparent;
+        border: 0;
+        width: 100%;
+        padding: .8rem 2rem .8rem 5rem;
+        font-size: 1.6rem;
+        letter-spacing: 0.16rem;
+        font-weight: 600;
+        transition: global.$transition-time;
+        opacity: 1;
+
+        &::placeholder {
+            color: currentColor;
+            opacity: 1;
+            transition: .2s;
+        }
+
+        &:focus {
+            outline: none;
+            color: global.$second-active-color;
+
+            &::placeholder {
+                opacity: 0;
+            }
+        }
+    }
+}

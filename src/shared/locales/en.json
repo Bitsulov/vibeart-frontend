@@ -10,6 +10,9 @@
   "Enter": "Log in",
   "Registration": "Registration",
   "Add": "Add",
+  "AddAlbum": "Add",
+  "Posts": "Posts",
+  "searchPlaceholder": "Search",
   "emptyPosts": "There are no posts here yet",
   "Post": "Post",
   "justNow": "Just now",
@@ -74,7 +77,13 @@
     "editPost": "Edit post",
     "reported": "Report submitted",
     "report": "Submit a report",
-    "deletePostModal": "Delete post {{name}}"
+    "deletePostModal": "Delete post {{name}}",
+    "closeModal": "Close modal window",
+    "deleteAlbum": "Delete album",
+    "editAlbum": "Edit album",
+    "deleteAlbumModal": "Delete album {{name}}",
+    "addPostAlbum": "Add posts to album",
+    "addPostsInAlbum": "Add selected posts to album"
   },
 
   "hint": {
@@ -88,11 +97,14 @@
     "like": "Like",
     "report": "Report",
     "deletePost": "Delete post",
-    "editPost": "Edit post"
+    "editPost": "Edit post",
+    "deleteAlbum": "Delete album",
+    "editAlbum": "Edit album"
   },
 
   "modal": {
-    "deletePost": "Are you sure you want to delete this post? (irreversible)"
+    "deletePost": "Are you sure you want to delete this post? (irreversible)",
+    "deleteAlbum": "Are you sure you want to delete this album? (irreversible, posts will remain)"
   },
 
   "pages": {
@@ -113,6 +125,7 @@
     "agreement": "User Agreement",
     "policy": "Privacy Policy",
     "post": "Post",
+    "album": "Album",
     "rules": "Rules",
     "error": "$#!%^&*"
   },
@@ -145,6 +158,7 @@
     "register": "Sign Up | VibeArt",
     "profile": "Profile | VibeArt",
     "post": "Post | VibeArt",
+    "album": "Album | VibeArt",
     "error": "Error | VibeArt",
     "agreement": "User Agreement | VibeArt",
     "policy": "Privacy Policy | VibeArt",
@@ -157,6 +171,7 @@
     "register": "Sign up to create your own portfolio, organize your works into albums, and find like-minded creators. Chat with others and build your creative communities.",
     "profile": "User profile: user data, album navigation, and list of posts. Information panel with all author's publications.",
     "post": "View the artwork, read the author's description, and join the discussion. Discover creative works by authors from the VibeArt community.",
+    "album": "Browse the author's album: a curated collection of works with descriptions and publication dates. Explore the creative portfolio of VibeArt community members.",
     "error": "Access error. The requested page does not exist, has been removed, or is temporarily unavailable. Please check the URL or return to the homepage.",
     "agreement": "Review the terms of use, user rights and responsibilities, and the rules for providing services.",
     "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected."
@@ -214,6 +229,10 @@
     "inAlbum": "In album",
     "Comments": "Comments",
     "placeholder": "Enter text"
+  },
+
+  "album": {
+    "addPost": "Add post"
   },
 
   "profile": {

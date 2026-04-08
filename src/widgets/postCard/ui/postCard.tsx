@@ -99,7 +99,8 @@ export const PostCard = ({
                                 className={c.delete}
                             />
                             <EditButton
-                                postULID={ULID}
+                                ULID={ULID}
+                                type="post"
                                 ariaLabel={t("ariaLabel.editPost")}
                                 onMouseEnter={() => showHint(dispatch, t("hint.editPost"))}
                                 onMouseLeave={() => hideHint(dispatch)}
@@ -190,7 +191,8 @@ export const PostCard = ({
                         {isOwner && (
                             <div className={c.desktop_actions}>
                                 <EditButton
-                                    postULID={ULID}
+                                    ULID={ULID}
+                                    type="post"
                                     ariaLabel={t("ariaLabel.editPost")}
                                     onMouseEnter={() => showHint(dispatch, t("hint.editPost"))}
                                     onMouseLeave={() => hideHint(dispatch)}

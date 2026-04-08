@@ -12,9 +12,18 @@ interface PagesButtonsProps {
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     pagesDelta: number;
     setPagesDelta: React.Dispatch<React.SetStateAction<number>>;
+    className?: string
 }
 
-export const PagesButtons = ({ currentPage, setCurrentPage, pagesCount, pagesDelta, setPagesDelta, ...props }: PagesButtonsProps) => {
+export const PagesButtons = ({
+    className = "",
+    currentPage,
+    setCurrentPage,
+    pagesCount,
+    pagesDelta,
+    setPagesDelta,
+    ...props
+}: PagesButtonsProps) => {
     const { t } = useTranslation();
 
     const {start, end} = getRangeNumbers(currentPage, pagesCount, pagesDelta);
@@ -39,7 +48,7 @@ export const PagesButtons = ({ currentPage, setCurrentPage, pagesCount, pagesDel
     }, [windowWidth, setPagesDelta]);
 
 	return (
-		<div className={c.pages} {...props}>
+		<div className={`${c.pages} ${className}`} {...props}>
             {Array.from({length: end - start + 1}, (_, i) => {
                 const number = start + i;
 

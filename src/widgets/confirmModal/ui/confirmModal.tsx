@@ -47,7 +47,7 @@ export const ConfirmModal = ({
                             <div className={c.buttons}>
                                 <TransparentButton
                                     className={c.cancel_button}
-                                    ariaLabel={t("ariaLabel.closeLanguageModal")}
+                                    ariaLabel={t("ariaLabel.closeModal")}
                                     onClick={() => closeButtonClickHandler(setIsDisappearring, transitionTime, setIsShowModal)}
                                 >
                                     {t("Cancel")}
