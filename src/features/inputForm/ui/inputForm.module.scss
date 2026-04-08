@@ -17,6 +17,7 @@ $padding-left: clamp(1.1rem, 2vw, 2rem);
         background-color: global.$dark-background;
         flex-basis: clamp(80%, 90% - .05vw, 90%);
         flex-shrink: 0;
+        width: 90%;
         padding: clamp(.3rem, .75vw, .5rem) clamp(13%, 20% - 3vw, 20%) clamp(.3rem, .75vw, .5rem) $padding-left;
         border-radius: 1.2rem;
         border: .1rem solid global.$active-color;
@@ -86,8 +87,9 @@ $padding-left: clamp(1.1rem, 2vw, 2rem);
         display: flex;
         align-self: center;
         flex: 1;
-        margin-left: .4rem;
         width: clamp(1.4rem, 4vw, 2.4rem);
+        min-width: clamp(1.4rem, 4vw, 2.4rem);
+        margin-left: .8rem;
         height: clamp(1.4rem, 4vw, 2.4rem);
         border: 0;
 
