@@ -78,7 +78,7 @@ describe("ConfirmModal - модальное окно подтверждения 
             <ConfirmModal isShowModal={true} setIsShowModal={setIsShowModal} />
         );
 
-        fireEvent.click(screen.getByRole("button", { name: "ariaLabel.closeLanguageModal" }));
+        fireEvent.click(screen.getByRole("button", { name: "ariaLabel.closeModal" }));
         vi.advanceTimersByTime(defaultTransitionTime);
 
         expect(setIsShowModal).toHaveBeenCalledWith(false);

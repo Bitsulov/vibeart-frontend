@@ -7,12 +7,12 @@ const POST_ULID = "01ARZ3NDEKTSV4RRFFQ69G5FAV";
 
 describe("EditButton - кнопка редактирования поста", () => {
     it("Рендерится как ссылка", () => {
-        renderWithProviders(<EditButton postULID={POST_ULID} ariaLabel="Редактировать пост" />);
+        renderWithProviders(<EditButton ULID={POST_ULID} type="post" ariaLabel="Редактировать пост" />);
         expect(screen.getByRole("link", { name: "Редактировать пост" })).toBeInTheDocument();
     });
 
     it("Ссылка ведет на страницу редактирования поста", () => {
-        renderWithProviders(<EditButton postULID={POST_ULID} ariaLabel="Редактировать пост" />);
+        renderWithProviders(<EditButton ULID={POST_ULID} type="post" ariaLabel="Редактировать пост" />);
         const link = screen.getByRole("link", { name: "Редактировать пост" });
         expect(link).toHaveAttribute("href", `/post/${POST_ULID}/edit`);
     });
@@ -21,7 +21,7 @@ describe("EditButton - кнопка редактирования поста", ()
         const onClick = vi.fn();
         const onMouseLeave = vi.fn();
         renderWithProviders(
-            <EditButton postULID={POST_ULID} ariaLabel="Редактировать" onClick={onClick} onMouseLeave={onMouseLeave} />
+            <EditButton ULID={POST_ULID} type="post" ariaLabel="Редактировать" onClick={onClick} onMouseLeave={onMouseLeave} />
         );
         fireEvent.click(screen.getByRole("link", { name: "Редактировать" }));
         expect(onClick).toHaveBeenCalledTimes(1);
@@ -29,7 +29,7 @@ describe("EditButton - кнопка редактирования поста", ()
     });
 
     it("Принимает дополнительный className", () => {
-        renderWithProviders(<EditButton postULID={POST_ULID} ariaLabel="Редактировать" className="extra" />);
+        renderWithProviders(<EditButton ULID={POST_ULID} type="post" ariaLabel="Редактировать" className="extra" />);
         const link = screen.getByRole("link", { name: "Редактировать" });
         expect(link.className).toContain("extra");
     });
