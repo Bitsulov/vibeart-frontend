@@ -48,6 +48,7 @@
     "goToSettings": "Go to profile settings",
     "goToAlbum": "Go to album page {{name}}",
     "goToCreateAlbumPage": "Go to create album page",
+    "goToCreatePostPage": "Go to create post page",
     "goToBan": "Go to account restrictions page",
     "goToEmail": "Open email client",
     "goToPostComments": "Go to comments of post {{name}}",
@@ -157,6 +158,7 @@
     "auth": "Login | VibeArt",
     "register": "Sign Up | VibeArt",
     "profile": "Profile | VibeArt",
+    "gallery": "Gallery | VibeArt",
     "post": "Post | VibeArt",
     "album": "Album | VibeArt",
     "error": "Error | VibeArt",
@@ -170,6 +172,7 @@
     "auth": "Log in to publish your works, create albums, and connect with like-minded creators.",
     "register": "Sign up to create your own portfolio, organize your works into albums, and find like-minded creators. Chat with others and build your creative communities.",
     "profile": "User profile: user data, album navigation, and list of posts. Information panel with all author's publications.",
+    "gallery": "Browse the works of VibeArt community members. Discover new creators, get inspired by creative works, and find those whose art resonates with you.",
     "post": "View the artwork, read the author's description, and join the discussion. Discover creative works by authors from the VibeArt community.",
     "album": "Browse the author's album: a curated collection of works with descriptions and publication dates. Explore the creative portfolio of VibeArt community members.",
     "error": "Access error. The requested page does not exist, has been removed, or is temporarily unavailable. Please check the URL or return to the homepage.",
@@ -233,6 +236,11 @@
 
   "album": {
     "addPost": "Add post"
+  },
+
+  "gallery": {
+    "title": "Gallery",
+    "addPost": "+ Create post"
   },
 
   "profile": {
