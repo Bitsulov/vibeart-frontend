@@ -99,4 +99,10 @@ test.describe("Post - страница поста", () => {
         await expect(comments.first()).toBeVisible();
         await expect(comments).toHaveCount(5);
     });
+
+    test("Переход по хэшу #comments скроллит к секции комментариев", async ({page}) => {
+        await page.goto(`${POST_URL}#comments`);
+
+        await expect(page.locator("#comments")).toBeInViewport();
+    });
 });
