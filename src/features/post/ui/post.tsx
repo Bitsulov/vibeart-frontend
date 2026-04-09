@@ -25,8 +25,9 @@ interface PostProps {
     isShowAuthor?: boolean;
     className?: string;
     type?: "button" | "link";
-    target?: "_blank" | "_self" | "_parent" | "_top"
-    onClick?: () => void
+    target?: "_blank" | "_self" | "_parent" | "_top";
+    onClick?: () => void;
+    autoHeight?: boolean
 }
 
 export const Post = ({
@@ -42,6 +43,7 @@ export const Post = ({
     type = "link",
     onClick = () => {},
     target = "_self",
+    autoHeight = false,
      ...props
 }: PostProps) => {
     const language = useSelector(selectCurrentLanguage);
@@ -61,10 +63,14 @@ export const Post = ({
 		<article
             aria-label={t("ariaLabel.goToPost", {name: title})}
             onClick={resultOnClickFn}
-            className={`${c.post} ${className}`}
+            className={clsx(c.post, className, autoHeight && c.autoHeight)}
             {...props}
         >
-            <img src={imageUrl} alt={`${t("Post")} ${title}`} className={c.post_img} />
+            <img
+                src={imageUrl}
+                alt={`${t("Post")} ${title}`}
+                className={c.post_img}
+            />
 			<div className={clsx(c.info, isShowAuthor && c.high)}>
                 <div onClick={e => resetNavigate(e)} className={c.bottom}>
                     <p className={c.date}>{resultDate}</p>

@@ -17,7 +17,6 @@ import {Post} from "pages/post";
 import {Album} from "pages/album";
 import {Chat} from "pages/chat";
 import {Settings} from "pages/settings";
-import {AlbumCreate} from "pages/albumCreate";
 import {CreatePost} from "pages/createPost";
 import {CreateAlbum} from "pages/createAlbum";
 
@@ -32,9 +31,10 @@ export const RouterProvider = () => {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/post/:ulid" element={<Post />} />
             <Route path="/post/:ulid/edit" element={<CreatePost />} />
+            <Route path="/album/add" element={<CreatePost />} />
             <Route path="/album/:ulid" element={<Album />} />
             <Route path="/album/:ulid/edit" element={<CreateAlbum />} />
-            <Route path="/album/add" element={<AlbumCreate />} />
+            <Route path="/album/add" element={<CreateAlbum />} />
             <Route path="/chats" element={<Chats />} />
             <Route path="/chats/:ulid" element={<Chat />} />
             <Route path="/communities" element={<Communities />} />

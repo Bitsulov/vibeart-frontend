@@ -19,7 +19,7 @@ export const PostComments = ({ userInfo, commentsList, commentsCount, ...props }
     const [comments, setComments] = useState<CommentType[]>(commentsList);
 
 	return (
-		<section className={c.comments} {...props}>
+		<section id="comments" className={c.comments} {...props}>
             <div className="container">
                 <div className={c.comments_inner}>
                     <h2 className={c.title}>{t("post.Comments")} ({getShortNumber(commentsCount)})</h2>

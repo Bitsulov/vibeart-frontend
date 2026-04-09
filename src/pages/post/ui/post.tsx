@@ -7,10 +7,19 @@ import {useSelector} from "react-redux";
 import {PostComments} from "widgets/postComments";
 import {commentsMock} from "entities/comment";
 import {useTranslation} from "react-i18next";
+import {useEffect} from "react";
+import {useLocation} from "react-router-dom";
 
 export const Post = () => {
     const userInfo = useSelector(selectUserInfo);
     const { t } = useTranslation();
+    const { hash } = useLocation();
+
+    useEffect(() => {
+        if (hash) {
+            document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [hash]);
 
     return (
         <Layout>

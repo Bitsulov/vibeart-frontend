@@ -1,0 +1,19 @@
+@use "@/index.scss" as global;
+
+.button {
+    display: inline-block;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    border: .1rem solid global.$active-color;
+    background-color: global.$bright-background;
+    padding: .8rem 0;
+    border-radius: 2rem;
+    transition: global.$transition-time;
+
+    &:hover {
+        border-color: global.$second-active-color;
+        color: global.$second-active-color;
+    }
+}
