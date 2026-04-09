@@ -1,5 +1,6 @@
 import {createPost} from "../model/createPost";
 import img from "shared/icons/img-CTA.jpg";
+import img2 from "shared/icons/img-template.jpg";
 import {profileUserMock} from "../../user";
 import {postTagsMock} from "../../tag";
 
@@ -201,3 +202,118 @@ export const postMock = createPost({
     imageUrl: img,
     createdAt: "2025-09-01T00:00:00.000Z",
 });
+
+export const galleryPostsMock = [
+    createPost({
+        id: 6,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAa",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 1,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAq",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img2,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 2,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAv",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img2,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 3,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAb",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img2,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 4,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAm",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 3,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAh",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img2,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+    createPost({
+        id: 4,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAj",
+        name: "post 1 name",
+        description: "post 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 namepost 1 name",
+        author: profileUserMock,
+        likes: 1,
+        comments: 1,
+        reports: 1,
+        commentList: [],
+        tagsList: [],
+        checkStatus: "checked",
+        AIStatus: "good",
+        imageUrl: img,
+        createdAt: "2026-03-24T18:48:16.175Z"
+    }),
+];

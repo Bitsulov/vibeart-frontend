@@ -1,0 +1,30 @@
+.gallery_list {
+    margin-top: 2rem;
+
+    .title {
+        font-size: clamp(3.6rem, 5vw, 4rem);
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .search {
+        margin-top: 1.5rem;
+    }
+
+    .button_add {
+        margin-top: 1.5rem;
+    }
+
+    .list {
+        display: flex;
+        gap: 1.5rem;
+        margin: clamp(2rem, 3vw, 2.5rem) auto;
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            min-width: 23rem;
+        }
+    }
+}
