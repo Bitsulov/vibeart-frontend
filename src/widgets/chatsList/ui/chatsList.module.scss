@@ -1,0 +1,28 @@
+@use "@/variables.scss" as global;
+
+.chats {
+    margin: 2.5rem 0;
+
+    .chats_inner {
+        padding: clamp(.8rem, 2vw, 1.3rem) clamp(1rem, 2.5vw, 3rem) 1.6rem;
+        border-radius: clamp(2.8rem, 5vw, 3rem);
+        background-color: global.$bright-background;
+
+        .title {
+            font-size: clamp(2.4rem, 4vw, 3.2rem);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .search {
+            margin-top: 1rem;
+        }
+
+        .list {
+            margin-top: clamp(1.5rem, 3vw, 2rem);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+    }
+}

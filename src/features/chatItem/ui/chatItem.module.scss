@@ -1,0 +1,76 @@
+@use "@/variables.scss" as global;
+
+.chat {
+    display: flex;
+    gap: clamp(.6rem, 1.8vw, 1.5rem);
+
+    &:hover {
+        .title {
+            color: global.$second-active-color;
+        }
+    }
+
+    .img {
+        width: clamp(5rem, 8vw, 8rem);
+        height: clamp(5rem, 8vw, 8rem);
+        border-radius: 50%;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 0;
+        overflow: hidden;
+
+        .title {
+            font-size: clamp(2rem, 3vw, 2.4rem);
+            font-weight: 600;
+            letter-spacing: 0.2rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: global.$transition-time;
+        }
+
+        .bottom {
+            margin-top: auto;
+            display: flex;
+            align-items: end;
+            min-width: 0;
+
+            .text {
+                flex-grow: 1;
+                font-size: 1.6rem;
+                letter-spacing: 0.16rem;
+                font-weight: 400;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                min-width: 0;
+            }
+
+            .date {
+                margin-left: 1.6rem;
+                font-size: 1.4rem;
+                font-weight: 300;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+@media (min-width: 680px) {
+    .chat {
+        .info {
+            padding: clamp(.2rem, .5vw, 1rem) 0;
+
+            .bottom {
+                .date {
+                    font-size: 1.6rem;
+                    letter-spacing: 0.16rem;
+                }
+            }
+        }
+    }
+}

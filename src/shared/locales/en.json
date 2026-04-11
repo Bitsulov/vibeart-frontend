@@ -16,11 +16,14 @@
   "emptyPosts": "There are no posts here yet",
   "Post": "Post",
   "justNow": "Just now",
+  "daysAgo": "{{count}}d. ago",
+  "monthsAgo": "{{count}}mo. ago",
   "Confirm": "Confirm action",
   "Cancel": "Cancel",
   "DoConfirm": "Confirm",
   "agreeModal": "Confirm action",
   "questionAgreed": "Are you sure you want to perform this action?",
+  "avatar": "Avatar",
 
   "develop": {
     "title": "This page is under construction.",
@@ -66,6 +69,7 @@
     "auth": "Authorize",
     "register": "Register",
     "writeUser": "Go to chat with {{name}}",
+    "goToChat": "Go to chat {{name}}",
     "slideLeft": "Scroll slider left",
     "slideRight": "Scroll slider right",
     "chooseAlbum": "Select album {{name}}",
@@ -164,7 +168,8 @@
     "error": "Error | VibeArt",
     "agreement": "User Agreement | VibeArt",
     "policy": "Privacy Policy | VibeArt",
-    "albumCreate": "Create Album | VibeArt"
+    "albumCreate": "Create Album | VibeArt",
+    "chats": "Chats | VibeArt"
   },
 
   "description": {
@@ -177,7 +182,8 @@
     "album": "Browse the author's album: a curated collection of works with descriptions and publication dates. Explore the creative portfolio of VibeArt community members.",
     "error": "Access error. The requested page does not exist, has been removed, or is temporarily unavailable. Please check the URL or return to the homepage.",
     "agreement": "Review the terms of use, user rights and responsibilities, and the rules for providing services.",
-    "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected."
+    "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected.",
+    "chats": "Your personal conversations. Chat with other users, share impressions, and discuss creative works."
   },
 
   "home": {
@@ -236,6 +242,10 @@
 
   "album": {
     "addPost": "Add post"
+  },
+
+  "chats": {
+    "title": "Chats"
   },
 
   "gallery": {
