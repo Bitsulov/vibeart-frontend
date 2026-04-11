@@ -5,7 +5,7 @@ export const principalUserMock = createUser({
     id: 1,
     ULID: "01ARZ3NDEKTSV4RRFFQ69G5FAV",
     email: "testEmail@test.com",
-    name: "testUser",
+    name: "testUsergffdgfd",
     username: "testUser",
     description: "Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user",
     worksCount: 0,
