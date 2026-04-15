@@ -41,7 +41,7 @@ test.describe("Post - страница поста", () => {
     test("Отображается ссылка на профиль автора", async ({page}) => {
         await page.goto(POST_URL);
 
-        const authorLink = page.getByRole("article").getByRole("link", {name: "Go to testUser's profile"});
+        const authorLink = page.getByRole("article").getByRole("link", {name: "Go to testUsergffdgfd's profile"});
         await expect(authorLink).toBeVisible();
         await expect(authorLink).toHaveAttribute("href", "/profile/01ARZ3NDEKTSV4RRFFQ69G5FAV");
     });
