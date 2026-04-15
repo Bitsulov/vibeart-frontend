@@ -1,0 +1,9 @@
+.main {
+    display: flex;
+    align-items: start;
+
+    .content {
+        flex: 1;
+        min-width: 0;
+    }
+}
