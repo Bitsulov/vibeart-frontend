@@ -3,5 +3,6 @@ export interface MessageType {
     text: string;
     createdAt: string;
     isYour: boolean;
+    isNew?: boolean;
     status: "save" | "sent" | "read"
 }
