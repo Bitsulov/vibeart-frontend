@@ -5,6 +5,7 @@ export function createMessage({
     text = "",
     createdAt = new Date().toISOString(),
     isYour,
+    isNew = false,
     status = "save"
 }: MessageType) {
     return {
@@ -12,6 +13,7 @@ export function createMessage({
         text,
         createdAt,
         isYour,
+        isNew,
         status,
     }
 }

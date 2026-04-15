@@ -14,6 +14,7 @@ describe("createMessage - Возвращает объект типа MessageType
             text: "",
             createdAt: "2026-03-29T17:25:15.940Z",
             isYour: false,
+            isNew: false,
             status: "sent"
         });
     });
@@ -27,6 +28,7 @@ describe("createMessage - Возвращает объект типа MessageType
             text: "",
             createdAt: "2026-03-29T17:25:15.940Z",
             isYour: false,
+            isNew: false,
             status: "save"
         });
     });

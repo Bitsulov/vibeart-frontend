@@ -24,7 +24,7 @@ test.describe("Profile - страница профиля", () => {
         await page.goto(PROFILE_URL);
 
         await expect(page.getByRole("img", { name: /User avatar/ })).toBeVisible();
-        await expect(page.getByRole("heading", { level: 1, name: "testUser" })).toBeVisible();
+        await expect(page.getByRole("heading", { level: 1, name: "testUsergffdgfd" })).toBeVisible();
         await expect(page.getByText("@testUser")).toBeVisible();
     });
 
@@ -38,14 +38,14 @@ test.describe("Profile - страница профиля", () => {
     test("Альбомы из мока отображаются в слайдере", async ({ page }) => {
         await page.goto(PROFILE_URL);
 
-        await expect(page.getByRole("button", { name: "Select album test album" })).toBeVisible();
-        await expect(page.getByRole("button", { name: "Select album test album 2" })).toBeVisible();
+        await expect(page.getByRole("button", { name: "Select album test album", exact: true })).toBeVisible();
+        await expect(page.getByRole("button", { name: "Select album test album 2", exact: true })).toBeVisible();
     });
 
     test("Описание и дата регистрации отображаются", async ({ page }) => {
         await page.goto(PROFILE_URL);
 
-        await expect(page.getByText("Description")).toBeVisible();
-        await expect(page.getByText("Created at:")).toBeVisible();
+        await expect(page.getByText("Description", {exact: true})).toBeVisible();
+        await expect(page.getByText("Created at:", {exact: true})).toBeVisible();
     });
 });

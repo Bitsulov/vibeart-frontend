@@ -1,0 +1,172 @@
+@use "@/variables.scss" as global;
+
+.chat {
+    width: 100%;
+    margin: 2.5rem 0;
+
+    :global(.container) {
+        height: 100%;
+    }
+
+    .chat_inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 2.4rem;
+        background-color: global.$bright-background;
+
+        .top {
+            display: flex;
+            align-items: center;
+            padding: clamp(.5rem, 1vw, 1rem) clamp(1rem, 2vw, 1.5rem);
+            border-bottom: .1rem solid global.$active-color;
+
+            .back {
+                align-self: center;
+                width: clamp(2rem, 4vw, 3rem);
+                height: clamp(2rem, 4vw, 3rem);
+
+                .arrow {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .link {
+                position: relative;
+
+                &.online::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background-color: global.$bright-green;
+                    border-radius: 50%;
+                    width: clamp(1.25rem, 2vw, 1.5rem);
+                    height: clamp(1.25rem, 2vw, 1.5rem);
+                    bottom: 0;
+                    right: 0;
+                }
+
+                .avatar {
+                    width: clamp(4rem, 8vw, 5rem);
+                    height: clamp(4rem, 8vw, 5rem);
+                    margin-left: clamp(.3rem, 1vw, 1rem);
+                    border-radius: 50%;
+                }
+            }
+
+            .text {
+                margin-left: clamp(.5rem, 1.5vw, 1.5rem);
+                padding: .4rem 0;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+
+                .link {
+                    transition: global.$transition-time;
+
+                    &:hover {
+                        color: global.$second-active-color;
+                    }
+
+                    .name {
+                        font-size: clamp(1.8rem, 3vw, 2.4rem);
+                        font-weight: 600;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .online_status {
+                    margin-top: auto;
+                    color: global.$second-active-color;
+                    font-size: clamp(1.4rem, 2vw, 1.6rem);
+                    font-weight: 600;
+                    transition: global.$transition-time;
+
+                    &.online {
+                        color: global.$active-color;
+                    }
+                }
+            }
+
+            .settings_wrapper {
+                position: relative;
+
+                .chat_settings {
+                    width: clamp(2.5rem, 5vw, 3.6rem);
+                    height: clamp(2.5rem, 5vw, 3.6rem);
+                    background-color: transparent;
+                    align-self: center;
+                    cursor: pointer;
+                    position: relative;
+
+                    .settings_icon {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .dropdown {
+                    left: unset;
+                    right: 0;
+                    transform: unset;
+                }
+            }
+        }
+
+        .messages {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem clamp(1rem, 2vw, 1.5rem) 2rem;
+            overflow-y: auto;
+            gap: 1rem;
+            scrollbar-width: none;
+            //scrollbar-width: thin;
+            scrollbar-color: global.$active-color transparent;
+
+            .empty {
+                font-size: clamp(2rem, 3vw, 2.8rem);
+                font-weight: 600;
+                text-align: center;
+                margin: auto;
+            }
+
+            &::-webkit-scrollbar {
+                //width: .6rem;
+                width: 0;
+            }
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: global.$active-color;
+                border-radius: 1rem;
+
+                &:hover {
+                    background: global.$second-active-color;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .chat {
+        .chat_inner {
+            .top {
+                .settings_wrapper {
+                    .dropdown {
+                        right: unset;
+                        top: 120%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+            }
+        }
+    }
+}
