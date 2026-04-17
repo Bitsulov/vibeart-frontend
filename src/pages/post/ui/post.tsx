@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 
+/** Страница поста с карточкой поста и секцией комментариев. */
 export const Post = () => {
     const userInfo = useSelector(selectUserInfo);
     const { t } = useTranslation();

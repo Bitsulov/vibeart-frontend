@@ -2,6 +2,7 @@ import {Layout} from "widgets/layout";
 import {RegisterForm} from "widgets/registerForm";
 import {useTranslation} from "react-i18next";
 
+/** Страница регистрации. */
 export const Register = () => {
     const { t } = useTranslation();
 

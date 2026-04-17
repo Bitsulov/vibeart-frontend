@@ -4,6 +4,7 @@ import step1Img from "shared/icons/img-boxes.png";
 import step2Img from "shared/icons/img-messages.png";
 import step3Img from "shared/icons/img-pallete.png";
 
+/** Секция шагов на главной странице с тремя карточками-шагами. */
 export const HomeSteps = ({ ...props }) => {
     const { t } = useTranslation();
 

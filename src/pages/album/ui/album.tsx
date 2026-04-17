@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {albumMock} from "entities/album";
 import {useTranslation} from "react-i18next";
 
+/** Страница альбома. */
 export const Album = () => {
     const { t } = useTranslation();
     const userInfo = useSelector(selectUserInfo);

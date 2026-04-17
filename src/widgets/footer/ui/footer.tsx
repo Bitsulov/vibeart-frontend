@@ -7,6 +7,7 @@ import {FooterLinksList} from "features/footerLinksList";
 import {FooterEmailLink} from "features/footerEmailLink";
 import {FooterLogo} from "features/footerLogo";
 
+/** Подвал сайта с информационными ссылками, email и статусом сервера. */
 export const Footer = () => {
     const { t } = useTranslation();
 

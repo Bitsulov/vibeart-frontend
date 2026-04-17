@@ -7,11 +7,16 @@ import {showHint} from "../model/showHint";
 import {hideHint} from "../model/hideHint";
 
 interface ProfileLinkProps {
+    /** `true` — текущий пользователь просматривает свой профиль (показывается иконка настроек). */
     isPrincipalUser: boolean;
     name: string;
     ULID: string;
 }
 
+/**
+ * Кнопка действия на странице профиля.
+ * Для своего профиля показывает ссылку на настройки, для чужого — на чат.
+ */
 export const ProfileLink = ({ isPrincipalUser, name, ULID, ...props }: ProfileLinkProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();

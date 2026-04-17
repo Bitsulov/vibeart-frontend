@@ -5,6 +5,7 @@ import {selectCurrentLanguage} from "entities/appConfig";
 import {reviewsImgConfig} from "../config/reviewsImgConfig";
 import reviewsImgEn from "shared/icons/img-reviews-en.png";
 
+/** Секция отзывов на главной странице с изображением, адаптированным под язык. */
 export const HomeReviews = ({ ...props }) => {
     const { t } = useTranslation();
     const currentLanguage = useSelector(selectCurrentLanguage);

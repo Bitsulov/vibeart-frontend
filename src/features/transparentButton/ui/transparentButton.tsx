@@ -1,13 +1,11 @@
 import c from "./transparentButton.module.scss";
 import React from "react";
 
-interface TransparentButtonProps {
+interface TransparentButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     ariaLabel?: string;
-    children?: React.ReactNode;
-    onClick?: () => void;
-    className?: string;
 }
 
+/** Вторичная кнопка с прозрачным фоном. */
 export const TransparentButton = ({
     className,
     children,

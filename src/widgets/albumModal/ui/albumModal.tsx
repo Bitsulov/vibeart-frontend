@@ -19,6 +19,12 @@ interface AlbumModalProps {
     postList: PostType[]
 }
 
+/** Модальное окно для выбора и добавления постов в альбом.
+ * 
+ * @param isShowModal - Флаг открытия окна.
+ * @param setIsShowModal - Сеттер флага открытия окна.
+ * @param postList - Список постов в альбоме.
+ * */
 export const AlbumModal = ({
     isShowModal,
     setIsShowModal,

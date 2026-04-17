@@ -1,5 +1,11 @@
 import type {PostType} from "../lib/types";
 
+/**
+ * Фабричная функция для создания объекта поста со значениями по умолчанию.
+ *
+ * @param post - Объект `PostType` с данными поста.
+ * @returns Нормализованный объект поста.
+ */
 export function createPost({
     id = 0,
     ULID,

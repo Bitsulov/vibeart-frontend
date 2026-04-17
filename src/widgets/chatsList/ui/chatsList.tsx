@@ -10,6 +10,10 @@ interface ChatListProps {
     chatsList: ChatType[]
 }
 
+/** Список чатов с поиском по названию.
+ * 
+ * @param chatsList - Список чатов.
+ * */
 export const ChatsList = ({ chatsList, ...props }: ChatListProps) => {
     const { t } = useTranslation();
 

@@ -5,7 +5,7 @@ import React from "react";
 import {albumClickHandler} from "../model/albumClickHandler";
 import clsx from "clsx";
 
-interface AlbumSlideProps {
+interface AlbumSlideProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     imageUrl: string;
     name: string;
     ariaLabel?: string;
@@ -14,6 +14,12 @@ interface AlbumSlideProps {
     setSelectedAlbum: React.Dispatch<React.SetStateAction<string>>
 }
 
+/**
+ * Слайд альбома в слайдере выбора.
+ *
+ * @param selectedAlbum - ULID текущего выбранного альбома для подсветки активного.
+ * @param setSelectedAlbum - Сеттер выбранного альбома.
+ */
 export const AlbumSlide = ({
     imageUrl,
     name,

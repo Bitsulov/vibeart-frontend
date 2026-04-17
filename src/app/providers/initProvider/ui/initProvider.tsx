@@ -10,6 +10,7 @@ interface InitProviderProps {
     children: React.ReactNode;
 }
 
+/** Инициализирует Redux-стейт пользователя и синхронизирует язык с URL-параметром `lang`. */
 export const InitProvider = ({ children }: InitProviderProps) => {
     const { i18n } = useTranslation();
     const dispatch = useDispatch();

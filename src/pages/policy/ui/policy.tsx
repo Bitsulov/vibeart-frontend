@@ -2,6 +2,7 @@ import {Layout} from "widgets/layout";
 import {PolicyText} from "widgets/policyText";
 import {useTranslation} from "react-i18next";
 
+/** Страница политики конфиденциальности. */
 export const Policy = () => {
     const { t } = useTranslation();
 

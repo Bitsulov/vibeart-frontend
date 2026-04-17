@@ -25,6 +25,14 @@ interface ChatWindowProps {
     messages: MessageType[]
 }
 
+/** Окно чата с лентой сообщений, формой отправки и настройками чата.
+ * 
+ * @param name - Имя собеседника.
+ * @param ULID - Идентификатор собеседника.
+ * @param avatarUrl - Ссылка на изображение аватара собеседника.
+ * @param onlineStatus - Онлайн статус собеседника.
+ * @param messages - Список сообщений.
+ * */
 export const ChatWindow = ({
     messages,
     name,

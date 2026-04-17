@@ -8,22 +8,27 @@ const initialState: AppConfigType = {
     unreadNotificationsCount: 0
 }
 
+/** Redux-слайс для управления глобальной конфигурацией приложения. */
 export const appSlice = createSlice({
     name: "app",
     initialState: initialState,
     reducers: {
+        /** Устанавливает текущий язык интерфейса. */
         setLanguage(state, action ) {
             state.currentLanguage = action.payload;
         },
 
+        /** Устанавливает статус сервера. */
         setServerStatus(state, action: PayloadAction<ServerStatusType>) {
             state.serverStatus = action.payload;
         },
 
+        /** Устанавливает количество непрочитанных сообщений в чатах. */
         setUnreadChatsCount(state, action: PayloadAction<number>) {
             state.unreadChatsCount = action.payload;
         },
 
+        /** Устанавливает количество непрочитанных уведомлений. */
         setUnreadNotificationsCount(state, action: PayloadAction<number>) {
             state.unreadNotificationsCount = action.payload;
         }

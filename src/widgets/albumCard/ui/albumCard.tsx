@@ -34,6 +34,18 @@ interface AlbumCardProps {
     postList: PostType[];
 }
 
+/** Карточка альбома с постами, статистикой и кнопками редактирования для владельца.
+ *
+ *  @param isOwner - является ли текущий пользователь владельцем альбома.
+ *  @param ULID - Идентификатор альбома.
+ *  @param title - Название альбома.
+ *  @param description - Описание альбома
+ *  @param authorULID - Идентификатор автора альбома.
+ *  @param imageUrl - Ссылка на изображение альбома.
+ *  @param worksCount - Количество постов в альбоме.
+ *  @param date - Дата создания альбома.
+ *  @param postList - Список постов в альбоме.
+*/
 export const AlbumCard = ({
     title,
     description,

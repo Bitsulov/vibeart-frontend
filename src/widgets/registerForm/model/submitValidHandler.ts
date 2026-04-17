@@ -1,6 +1,7 @@
 import type {IRegisterForm} from "../lib/types";
 import type {UseFormSetValue} from "react-hook-form";
 
+/** Обрабатывает успешную отправку формы регистрации и сбрасывает все поля. */
 export function submitValidHandler(data: IRegisterForm, setValue: UseFormSetValue<IRegisterForm>) {
     console.log("Valid form submit ", data);
     setValue("email", "");

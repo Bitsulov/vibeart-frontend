@@ -1,3 +1,4 @@
+/** Соответствие первого сегмента URL ключу перевода для заголовка страницы в шапке. */
 export const pagesTitleConfig: Record<string, string> = {
     "": "pages.home",
     auth: "pages.auth",

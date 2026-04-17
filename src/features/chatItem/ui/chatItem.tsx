@@ -1,20 +1,21 @@
 import c from "./chatItem.module.scss";
-import {Link} from "react-router-dom";
+import {Link, type LinkProps} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {getChatDate} from "shared/lib/getChatDate";
 import {useSelector} from "react-redux";
 import {selectCurrentLanguage} from "entities/appConfig";
 import defaultAvatar from "shared/icons/icon-user.svg";
 
-interface ChatItemProps {
+interface ChatItemProps extends Omit<LinkProps, "to"> {
     ULID: string;
     title: string;
     className?: string;
     imageUrl: string;
     lastMessage: string;
-    date: string
+    date: string;
 }
 
+/** Элемент списка чатов: аватар собеседника, имя, последнее сообщение и дата. */
 export const ChatItem = ({
     className = "",
     title,

@@ -9,11 +9,16 @@ import type {UserType} from "entities/user";
 import {SendHorizontal} from "lucide-react";
 import {useTranslation} from "react-i18next";
 
-interface CommentFormProps {
+interface CommentFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
     setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
-    user: UserType
+    user: UserType;
 }
 
+/**
+ * Форма добавления комментария к посту.
+ *
+ * @param setComments - Сеттер списка комментариев для моментального обновления интерфейса.
+ */
 export const CommentsForm = ({ user, setComments, ...props }: CommentFormProps) => {
     const { register, setValue, handleSubmit, formState: {errors, isSubmitted} } = useForm<ICommentsForm>({shouldFocusError: false});
     const { t } = useTranslation();

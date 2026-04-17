@@ -22,6 +22,10 @@ interface ProfileInfoProps {
     userInfo: UserType;
 }
 
+/** Блок информации профиля: аватар, имя, username, описание, статистика и статусные иконки.
+ * 
+ * @param userInfo - Информация о текущем пользователе.
+ * */
 export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
     const { t } = useTranslation();
     const language = useSelector(selectCurrentLanguage);

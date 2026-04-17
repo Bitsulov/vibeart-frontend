@@ -21,10 +21,16 @@ const initialState: UserType = {
     avatarUrl: ""
 }
 
+/** Redux-слайс для управления состоянием авторизованного пользователя. */
 export const userSlice = createSlice({
     name: "user",
     initialState: initialState,
     reducers: {
+        /**
+         * Обновляет только переданные поля профиля пользователя.
+         *
+         * @param action.payload - Частичный объект `UserType` с полями для обновления.
+         */
         setUserInfo(state, action: PayloadAction<Partial<UserType>>) {
             if(action.payload.id !== undefined) state.id = action.payload.id;
             if(action.payload.ULID !== undefined) state.ULID = action.payload.ULID;

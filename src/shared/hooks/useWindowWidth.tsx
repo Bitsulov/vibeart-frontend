@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Возвращает текущую ширину окна браузера и обновляется при изменении размера.
+ *
+ * @returns {string}
+ */
 const useWindowWidth = () => {
     const [width, setWidth] = useState(window.innerWidth);
 

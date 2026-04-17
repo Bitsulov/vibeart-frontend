@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Переключает лайк и изменяет счётчик. */
 export function likeClickHandler(
     setLikes: React.Dispatch<React.SetStateAction<number>>,
     isLiked: boolean,

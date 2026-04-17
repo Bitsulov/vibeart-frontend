@@ -4,6 +4,7 @@ import {StoreProvider} from "./providers/storeProvider";
 import {InitProvider} from "app/providers/initProvider";
 import {BrowserRouter as Router} from "react-router-dom";
 
+/** Корневой компонент приложения: оборачивает всё дерево провайдерами. */
 function App() {
     return (
         <Router>

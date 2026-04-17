@@ -7,13 +7,21 @@ import React, {useEffect, useState} from "react";
 import clsx from "clsx";
 import {defaultTransitionTime} from "shared/const/const";
 
-interface HeaderLanguageButtonProps {
+interface HeaderLanguageButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     setIsShowChangeLanguage: React.Dispatch<React.SetStateAction<boolean>>;
     isShowChangeLanguage: boolean;
     isBurgerOpen: boolean;
     languagesConfig: Record<string, string[]>
 }
 
+/**
+ * Кнопка смены языка в шапке. Скрывается при открытом бургер-меню.
+ * 
+ * @param setIsShowChangeLanguage - функция переключения показа модального окна.
+ * @param isShowChangeLanguage - флаг показа модального окна.
+ * @param isBurgerOpen - флаг открытия бургера.
+ * @param languagesConfig - Список языков с параметрами.
+ */
 export const HeaderLanguageButton = ({
     setIsShowChangeLanguage,
     isShowChangeLanguage,

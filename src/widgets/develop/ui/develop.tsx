@@ -5,6 +5,7 @@ import {StylizedButton} from "features/stylizedButton";
 import {useNavigate} from "react-router-dom";
 import {returnBackHandler} from "../model/returnBackHandler";
 
+/** Заглушка для страниц в разработке с кнопкой «назад» и ссылкой на главную. */
 export const Develop = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();

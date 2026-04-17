@@ -13,6 +13,12 @@ interface PostCommentsProps {
     userInfo: UserType;
 }
 
+/** Секция комментариев поста с формой добавления и списком комментариев.
+ * 
+ * @param commentsList - Список комментариев.
+ * @param commentsCount - Количество комментариев.
+ * @param userInfo - Информация о текущем пользователе.
+ */
 export const PostComments = ({ userInfo, commentsList, commentsCount, ...props }: PostCommentsProps) => {
     const { t } = useTranslation();
 

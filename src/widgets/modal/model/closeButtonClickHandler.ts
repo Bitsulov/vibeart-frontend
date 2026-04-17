@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Закрывает модальное окно смены языка с анимацией. */
 export function closeButtonClickHandler(
     setIsDisappearring: React.Dispatch<React.SetStateAction<boolean>>,
     transitionTime: number,

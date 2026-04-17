@@ -1,10 +1,10 @@
 import c from "./headerProfileButton.module.scss";
-import {Link} from "react-router-dom";
+import {Link, type LinkProps} from "react-router-dom";
 import defaultAvatar from "shared/icons/icon-user.svg";
 import {useTranslation} from "react-i18next";
 import React from "react";
 
-interface HeaderProfileButtonProps {
+interface HeaderProfileButtonProps extends Omit<LinkProps, "to"> {
     imageUrl: string;
     isAuthenticated: boolean;
     userULID: string;
@@ -13,6 +13,17 @@ interface HeaderProfileButtonProps {
     setIsBurgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/**
+ * Кнопка профиля в шапке с аватаром пользователя.
+ * Для авторизованных — ведёт на профиль, для неавторизованных — на страницу входа.
+ * 
+ * @param imageUrl - Ссылка на изображение аватара
+ * @param isAuthenticated - Флаг авторизации пользователя
+ * @param userULID - Идентификатор пользователя
+ * @param name - Имя пользователя
+ * @param _isBurgerOpen - Флаг открытия бургер-меню
+ * @param _setIsBurgerOpen - Функция переключения открытия бургер-меню
+ */
 export const HeaderProfileButton = ({
     imageUrl,
     name,

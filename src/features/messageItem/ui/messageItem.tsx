@@ -1,8 +1,9 @@
 import c from "./messageItem.module.scss";
 import clsx from "clsx";
 import {statusesConfig} from "../config/statusesConfig";
+import React from "react";
 
-interface MessageItemProps {
+interface MessageItemProps extends React.HTMLAttributes<HTMLDivElement> {
     isYour: boolean;
     text: string;
     date: string;
@@ -10,6 +11,13 @@ interface MessageItemProps {
     status: "save" | "sent" | "read"
 }
 
+/**
+ * Сообщение в чате с временем отправки и статусом доставки.
+ *
+ * @param isYour - Является ли сообщение отправленным текущим пользователем.
+ * @param isNew - Новое ли сообщение (влияет на анимацию появления).
+ * @param status - Статус доставки: `"save"` — сохранено, `"sent"` — отправлено, `"read"` — прочитано.
+ */
 export const MessageItem = ({ isYour, text, date, status, isNew, ...props }: MessageItemProps) => {
     const dateObject = new Date(date);
     const time = `${dateObject.getHours().toString().padStart(2, "0")}:${dateObject.getMinutes().toString().padStart(2, "0")}`;

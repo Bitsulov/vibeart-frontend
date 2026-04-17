@@ -42,6 +42,21 @@ interface PostCardProps {
     createdAt?: string;
 }
 
+/** Детальная карточка поста с лайками, жалобой, тегами и кнопками редактирования для автора.
+ * 
+ * @param authorAvatarUrl - Ссылка на изобрпжение аватара автора поста.
+ * @param authorName - Имя автора поста.
+ * @param authorULID - Идентификатор автора поста.
+ * @param ULID - Идентификатор поста.
+ * @param title - Название поста.
+ * @param description - Описание поста.
+ * @param imageUrl - Ссылка на изображение поста.
+ * @param tagsList - Список тегов поста.
+ * @param isOwner - Является ли текущий пользователь владельцем.
+ * @param likesCount - Число лайков на посте.
+ * @param reportsCount - Число жалоб на посте.
+ * @param createdAt - Дата создания поста (ISO-строка).
+ * */
 export const PostCard = ({
     authorAvatarUrl,
     authorName,

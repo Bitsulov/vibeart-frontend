@@ -3,6 +3,7 @@ import {footerLinksConfig} from "../config/footerLinksConfig";
 import {FooterLinksItem} from "features/footerLinksItem";
 import {useTranslation} from "react-i18next";
 
+/** Список навигационных ссылок в футере. */
 export const FooterLinksList = ({ ...props }) => {
     const { t } = useTranslation();
 

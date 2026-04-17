@@ -1,6 +1,7 @@
 import c from "./agreementText.module.scss";
 import {useTranslation} from "react-i18next";
 
+/** Текст пользовательского соглашения в виде структурированного списка. */
 export const AgreementText = ({ ...props }) => {
     const { t } = useTranslation();
 

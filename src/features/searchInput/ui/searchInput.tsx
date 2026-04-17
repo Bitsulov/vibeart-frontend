@@ -3,13 +3,9 @@ import {Search} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import React from "react";
 
-interface SearchInputProps {
-    placeholder?: string;
-    className?: string;
-    value: string;
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
-}
+type SearchInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
+/** Поле поиска с иконкой лупы. */
 export const SearchInput = ({
     value,
     onChange,

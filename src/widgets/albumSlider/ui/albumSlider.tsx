@@ -20,6 +20,12 @@ interface AlbumSliderProps {
     selectedAlbum: string
 }
 
+/** Горизонтальный Swiper-слайдер альбомов с кнопками навигации и кнопкой создания альбома.
+ * 
+ * @param albumsList - Список альбомов.
+ * @param selectedAlbum - Идентификатор выбранного альбома или `all` - Все работы.
+ * @param setSelectedAlbum - Сеттер выбранного альбома.
+ * */
 export const AlbumSlider = ({
     selectedAlbum,
     setSelectedAlbum,

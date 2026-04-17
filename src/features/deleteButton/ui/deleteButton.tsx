@@ -2,14 +2,11 @@ import c from "./deleteButton.module.scss";
 import {Trash2} from "lucide-react";
 import React from "react";
 
-interface DeleteButtonProps {
+interface DeleteButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     ariaLabel?: string;
-    onClick?: () => void;
-    className?: string;
-    onMouseEnter?: React.MouseEventHandler;
-    onMouseLeave?: React.MouseEventHandler
 }
 
+/** Кнопка удаления с иконкой корзины. */
 export const DeleteButton = ({
     onMouseEnter = () => {},
     onMouseLeave = () => {},

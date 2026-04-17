@@ -23,6 +23,20 @@ interface PostListProps {
     isUniqueTitle?: boolean
 }
 
+/** Список постов с пагинацией и опциональной кнопкой добавления в альбом.
+ * 
+ * @param title - Название альбома.
+ * @param postList - Список постов.
+ * @param pagesCount - Количество страниц постов.
+ * @param currentPage - Номер текущей страницы.
+ * @param setCurrentPage - Сеттер текущей страницы.
+ * @param pagesDelta - Количество страниц перед и после текущей выбранной страницы.
+ * @param setPagesDelta - Сеттер количества страниц перед и после текущей выбранной страницы.
+ * @param className - Дополнительное имя класса для секции.
+ * @param isShowAddButton - Показывать ли кнопку добавления в альбом в самом конце.
+ * @param flexible - Растягивать ли список постов на всю ширину.
+ * @param isUniqueTitle - Отображать ли название альбома или `"Posts"`.
+ * */
 export const PostList = ({
     title,
     postList,

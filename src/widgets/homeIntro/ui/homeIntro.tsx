@@ -3,6 +3,7 @@ import {useTranslation} from "react-i18next";
 import imgIntro from "shared/icons/img-intro.png";
 import {StylizedLink} from "features/stylizedLink";
 
+/** Вводная секция главной страницы с заголовком, описанием и кнопкой входа. */
 export const HomeIntro = ({ ...props }) => {
     const { t } = useTranslation();
 

@@ -2,6 +2,7 @@ import c from "./footerEmailLink.module.scss";
 import {useTranslation} from "react-i18next";
 import {CopyButton} from "features/copyButton";
 
+/** Email-ссылка в футере с кнопкой копирования адреса. */
 export const FooterEmailLink = ({ ...props }) => {
     const { t } = useTranslation();
 

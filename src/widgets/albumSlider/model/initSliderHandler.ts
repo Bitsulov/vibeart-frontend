@@ -1,6 +1,7 @@
 import type Swiper from "swiper";
 import React, {type RefObject} from "react";
 
+/** Инициализирует экземпляр Swiper и устанавливает начальные состояния границ. */
 export function initSliderHandler(
     swiper: Swiper,
     swiperRef: RefObject<Swiper | null>,

@@ -2,13 +2,19 @@ import c from "./inputError.module.scss";
 import {TriangleAlert} from "lucide-react";
 import clsx from "clsx";
 import {useTranslation} from "react-i18next";
+import React from "react";
 
-interface InputErrorProps {
+interface InputErrorProps extends React.HTMLAttributes<HTMLDivElement> {
     text?: string;
-    className?: string;
-    error_id?: string | undefined;
+    error_id?: string
 }
 
+/**
+ * Блок отображения ошибки валидации поля формы.
+ *
+ * @param error_id - `id` для параграфа с текстом ошибки (используется в `aria-describedby`).
+ * @param text - Ключ локализации текста ошибки. Если не передан — блок скрыт.
+ */
 export const InputError = ({ error_id, className, text, ...props }: InputErrorProps) => {
     const { t } = useTranslation();
 

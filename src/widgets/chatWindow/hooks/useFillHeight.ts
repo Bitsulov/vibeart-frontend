@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * Вычисляет высоту элемента так, чтобы он занимал всё пространство до нижнего края экрана.
+ *
+ * @returns `ref` — ref для целевого элемента; `height` — вычисленная высота в px.
+ */
 export const useFillHeight = <T extends HTMLElement>() => {
     const ref = useRef<T>(null);
     const [height, setHeight] = useState<number | undefined>(undefined);

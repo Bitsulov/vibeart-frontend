@@ -8,10 +8,15 @@ import type {MessageType} from "entities/message";
 import React from "react";
 import {submitValidHandler} from "../model/submitValidHandler";
 
-interface MessagesFormProps {
+interface MessagesFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
     setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
 }
 
+/**
+ * Форма отправки сообщения в чате.
+ *
+ * @param setMessages - Сеттер списка сообщений для моментального обновления интерфейса.
+ */
 export const MessagesForm = ({ setMessages, ...props }: MessagesFormProps) => {
     const { t } = useTranslation();
 

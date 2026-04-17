@@ -3,6 +3,7 @@ import {useTranslation} from "react-i18next";
 import {Link, useLocation} from "react-router-dom";
 import logoIcon from "shared/icons/icon-logo-white.svg";
 
+/** Логотип VibeArt в футере — ссылка на главную страницу. */
 export const FooterLogo = ({ ...props }) => {
     const { t } = useTranslation();
     const path = useLocation().pathname;

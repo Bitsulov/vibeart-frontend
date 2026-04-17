@@ -5,6 +5,13 @@ interface IMousePosition {
     y: number;
 }
 
+/**
+ * Вычисляет позицию подсказки мыши с учётом границ экрана.
+ *
+ * @param hintRef - Ref на DOM-элемент подсказки.
+ * @param mousePosition - Текущие координаты курсора.
+ * @returns Объект с полями `left` и `top` для позиционирования.
+ */
 export const getHintPosition = (
     hintRef: React.RefObject<HTMLParagraphElement | null>,
     mousePosition: IMousePosition

@@ -14,6 +14,7 @@ interface CommentProps {
     date: string
 }
 
+/** Отображает один комментарий: аватар, имя автора, текст и относительное время. */
 export const Comment = ({ text, authorULID, authorName, authorAvatarUrl, date, ...props }: CommentProps) => {
     const { t } = useTranslation();
     const language = useSelector(selectCurrentLanguage);

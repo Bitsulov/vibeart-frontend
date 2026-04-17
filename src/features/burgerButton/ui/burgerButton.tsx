@@ -4,7 +4,7 @@ import {burgerButtonClickHandler} from "../model/burgerButtonClickHandler";
 import {useTranslation} from "react-i18next";
 import React from "react";
 
-interface BurgerButtonProps {
+interface BurgerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     imageUrl: string;
     isAuthenticated: boolean;
     name: string;
@@ -13,6 +13,7 @@ interface BurgerButtonProps {
     setIsBurgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/** Анимированная кнопка-гамбургер для открытия/закрытия мобильного меню. */
 export const BurgerButton = ({
      imageUrl: _imageUrl,
      name: _name,

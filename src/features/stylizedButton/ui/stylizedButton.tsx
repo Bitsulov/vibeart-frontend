@@ -1,14 +1,11 @@
 import c from "./stylizedButton.module.scss";
 import React from "react";
 
-interface StylizedButtonProps {
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    children?: React.ReactNode;
-    className?: string;
+interface StylizedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     ariaLabel?: string;
-    type?: "button" | "submit" | "reset";
 }
 
+/** Основная кнопка приложения с особым стилем. */
 export const StylizedButton = ({
     className,
     onClick,
