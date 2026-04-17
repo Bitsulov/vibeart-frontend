@@ -80,4 +80,28 @@ describe("Post - карточка поста", () => {
 
         expect(screen.getByRole("button", {name: "ariaLabel.unlike"})).toBeInTheDocument();
     });
+
+    it("При type=button клик вызывает переданный onClick, а не postClickHandler", async () => {
+        const spy = vi.spyOn(postClickHandlerModule, "postClickHandler").mockImplementation(() => {});
+        const onClick = vi.fn();
+
+        renderWithProviders(<Post {...defaultProps} type="button" onClick={onClick} />);
+
+        await userEvent.click(screen.getByRole("article"));
+
+        expect(onClick).toHaveBeenCalledOnce();
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("При isShowAuthor=false имя автора не отображается", () => {
+        renderWithProviders(<Post {...defaultProps} isShowAuthor={false} />);
+
+        expect(screen.queryByText(mockAuthor.name)).not.toBeInTheDocument();
+    });
+
+    it("При isShowAuthor=true (по умолчанию) имя автора отображается", () => {
+        renderWithProviders(<Post {...defaultProps} />);
+
+        expect(screen.getByText(mockAuthor.name)).toBeInTheDocument();
+    });
 });
