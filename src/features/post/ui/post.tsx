@@ -30,6 +30,7 @@ interface PostProps {
     autoHeight?: boolean
 }
 
+/** Карточка поста в ленте: изображение, автор, лайки и комментарии. */
 export const Post = ({
     title,
     author,

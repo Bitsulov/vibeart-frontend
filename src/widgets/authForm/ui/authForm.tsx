@@ -11,6 +11,7 @@ import {submitValidHandler} from "../model/submitValidHandler";
 import {submitInvalidHandler} from "../model/submitInvalidHandler";
 import type {IAuthForm} from "../lib/types";
 
+/** Форма авторизации с полями email и пароля. */
 export const AuthForm = ({ ...props }) => {
     const { t } = useTranslation();
 

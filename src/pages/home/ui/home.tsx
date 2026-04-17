@@ -5,6 +5,7 @@ import {HomeReviews} from "widgets/homeReviews";
 import {HomeCTA} from "widgets/homeCTA";
 import {useTranslation} from "react-i18next";
 
+/** Главная страница: Интро, шаги, отзывы и призыв к действию. */
 export const Home = () => {
     const { t } = useTranslation();
 

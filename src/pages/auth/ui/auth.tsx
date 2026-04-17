@@ -2,6 +2,7 @@ import {Layout} from "widgets/layout";
 import {AuthForm} from "widgets/authForm";
 import {useTranslation} from "react-i18next";
 
+/** Страница авторизации. */
 export const Auth = () => {
     const { t } = useTranslation();
 

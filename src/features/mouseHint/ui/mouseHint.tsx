@@ -6,6 +6,7 @@ import {useMousePosition} from "shared/hooks/useMousePosition";
 import {useLayoutEffect, useRef, useState} from "react";
 import { getHintPosition } from "../lib/getHintPosition";
 
+/** Всплывающая подсказка, следующая за курсором мыши. Текст задаётся через Redux. */
 export const MouseHint = ({ ...props }) => {
     const text = useSelector(selectText);
     const mousePosition = useMousePosition();

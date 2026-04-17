@@ -1,5 +1,6 @@
 import React from "react";
 
+/** Выполняет подтверждённое действие с анимацией закрытия модального окна. */
 export function agreeHandlerClick(
     func: () => void,
     setIsDisappearring: React.Dispatch<React.SetStateAction<boolean>>,

@@ -14,6 +14,7 @@ interface GalleryPostListProps {
     masonryBreakpoints?: MasonryProps["breakpointCols"];
 }
 
+/** Галерея постов в формате Masonry с поиском и кнопкой добавления. */
 export const GalleryPostList = ({ postList, masonryBreakpoints, ...props }: GalleryPostListProps) => {
     const { t } = useTranslation();
 

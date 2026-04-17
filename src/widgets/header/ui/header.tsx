@@ -20,6 +20,12 @@ interface HeaderProps {
     languagesConfig: Record<string, string[]>
 }
 
+/** Шапка сайта с логотипом, заголовком страницы, кнопками языка и профиля/бургера.
+ *
+ * @param isShowChangeLanguage - Флаг показа модального окна смены языка.
+ * @param setIsShowChangeLanguage - Сеттер флага показа окна смены языка.
+ * @param languagesConfig - Список языков в формате: [флаг, название, ariaLabel, alt, значение].
+ */
 export const Header = ({
     setIsShowChangeLanguage,
     isShowChangeLanguage,

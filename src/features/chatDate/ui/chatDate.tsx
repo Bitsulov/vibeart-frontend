@@ -2,11 +2,13 @@ import c from "./chatDate.module.scss";
 import {useSelector} from "react-redux";
 import {selectCurrentLanguage} from "entities/appConfig";
 import {getResultDay} from "../lib/getResultDay";
+import React from "react";
 
-interface ChatDateProps {
-    date: string
+interface ChatDateProps extends React.HTMLAttributes<HTMLDivElement> {
+    date: string;
 }
 
+/** Разделитель даты в ленте сообщений чата. */
 export const ChatDate = ({ date, ...props }: ChatDateProps) => {
     const currentLanguage = useSelector(selectCurrentLanguage);
 

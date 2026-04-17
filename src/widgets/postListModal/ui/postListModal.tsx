@@ -19,6 +19,19 @@ interface PostListModalProps {
     setSelectedPosts: React.Dispatch<React.SetStateAction<string[]>>
 }
 
+/** Список постов с пагинацией для выбора внутри модального окна.
+ *
+ * @param title - Название альбома.
+ * @param postList - Список постов.
+ * @param pagesCount - Количество страниц постов.
+ * @param currentPage - Номер текущей страницы.
+ * @param setCurrentPage - Сеттер текущей страницы.
+ * @param pagesDelta - Количество страниц перед и после текущей выбранной страницы.
+ * @param setPagesDelta - Сеттер количества страниц перед и после текущей выбранной страницы.
+ * @param className - Дополнительное имя класса для секции.
+ * @param selectedPosts - Список выбранных постов.
+ * @param setSelectedPosts - Сеттер выбранных постов.
+ */
 export const PostListModal = ({
     className = "",
     postList = [],

@@ -6,15 +6,20 @@ import {useTranslation} from "react-i18next";
 import {getRangeNumbers} from "shared/lib/getRangeNumbers";
 import {useWindowWidth} from "shared/hooks/useWindowWidth";
 
-interface PagesButtonsProps {
+interface PagesButtonsProps extends React.HTMLAttributes<HTMLDivElement> {
     pagesCount: number;
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     pagesDelta: number;
     setPagesDelta: React.Dispatch<React.SetStateAction<number>>;
-    className?: string
 }
 
+/**
+ * Пагинация: кнопки с номерами страниц вокруг текущей.
+ *
+ * @param pagesDelta - Количество страниц слева и справа от текущей в диапазоне.
+ * @param setPagesDelta - Сеттер `pagesDelta`, адаптируется под ширину экрана.
+ */
 export const PagesButtons = ({
     className = "",
     currentPage,

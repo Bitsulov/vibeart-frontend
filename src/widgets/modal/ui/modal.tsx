@@ -14,6 +14,12 @@ interface ModalProps {
     languagesConfig: Record<string, string[]>
 }
 
+/** Модальное окно выбора языка интерфейса.
+ * 
+ * @param isShowChangeLanguage - Флаг показа модального окна смены языка.
+ * @param setIsShowChangeLanguage - Сеттер флага показа окна смены языка.
+ * @param languagesConfig - Список языков в формате: [флаг, название, ariaLabel, alt, значение]
+ */
 export const Modal = ({
     languagesConfig,
     isShowChangeLanguage,

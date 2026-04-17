@@ -1,5 +1,13 @@
 import i18n from 'i18next';
 
+/**
+ * Возвращает относительную строку времени (например, «2 часа назад»).
+ * Использует `Intl.RelativeTimeFormat` для локализации.
+ *
+ * @param language - Код языка (например, `"ru"`, `"en"`).
+ * @param date - Дата для вычисления разницы с текущим моментом.
+ * @returns Локализованная строка относительного времени.
+ */
 export function getLocalTimeAgoString(language: string, date: Date | string) {
     const rtf = new Intl.RelativeTimeFormat(language, { numeric: 'auto' });
     const diff = (new Date(date).getTime() - Date.now()) / 1000;

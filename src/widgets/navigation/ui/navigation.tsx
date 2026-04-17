@@ -10,6 +10,11 @@ interface NavigationProps {
     role: string;
 }
 
+/** Боковое навигационное меню с ссылками на основные разделы приложения.
+ * 
+ * @param ULID - Идентификатор текущего пользователя.
+ * @param role - Роль текущего пользователя.
+ */
 export const Navigation = ({ ULID, role, ...props }: NavigationProps) => {
     const path = useLocation().pathname;
     const chatsNotices = useSelector(selectUnreadChatsCount);

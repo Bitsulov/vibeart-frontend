@@ -12,6 +12,11 @@ interface LayoutProps {
     className?: string;
 }
 
+/** Обёртка страницы: шапка, модалка языков, подсказка мыши, основной контент, опциональный футер.
+ * 
+ * @param className - Класс для основного контента.
+ * @param isShowFooter - Показывать ли подвал.
+ * */
 export const Layout = ({
     isShowFooter = true,
     children,

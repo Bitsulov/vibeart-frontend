@@ -20,6 +20,7 @@ import {Settings} from "pages/settings";
 import {CreatePost} from "pages/createPost";
 import {CreateAlbum} from "pages/createAlbum";
 
+/** Декларирует все маршруты приложения. */
 export const RouterProvider = () => {
 	return (
         <Routes>

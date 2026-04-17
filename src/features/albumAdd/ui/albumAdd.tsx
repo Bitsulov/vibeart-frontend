@@ -3,6 +3,7 @@ import {PlusCircle} from "lucide-react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
+/** Ссылка-кнопка для перехода на страницу создания нового альбома. */
 export const AlbumAdd = ({ ...props }) => {
     const { t } = useTranslation();
 

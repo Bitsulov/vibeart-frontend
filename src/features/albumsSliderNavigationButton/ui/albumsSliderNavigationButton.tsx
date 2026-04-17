@@ -1,17 +1,22 @@
 import c from "./albumsSliderNavigationButton.module.scss";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import {useTranslation} from "react-i18next";
-import type {RefObject} from "react";
+import React, {type RefObject} from "react";
 import type Swiper from "swiper";
 import {slideHandler} from "../model/slideHandler";
 
-interface AlbumsSliderNavigationButtonProps {
+interface AlbumsSliderNavigationButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     direction: "right" | "left";
-    className?: string;
     imgClassName?: string;
     swiperRef: RefObject<Swiper | null>
 }
 
+/**
+ * Кнопка навигации слайдера альбомов.
+ *
+ * @param swiperRef - Ref-ссылка на экземпляр Swiper для управления слайдером.
+ * @param imgClassName - Дополнительный CSS-класс для иконки стрелки.
+ */
 export const AlbumsSliderNavigationButton = ({ swiperRef, direction, className = "", imgClassName, ...props }: AlbumsSliderNavigationButtonProps) => {
     const { t } = useTranslation();
 

@@ -3,6 +3,7 @@ import {t} from "i18next";
 import {deleteChatClickHandler} from "../model/deleteChatClickHandler";
 import React from "react";
 
+/** Пункты выпадающего списка настроек чата. */
 export const chatOptionsConfig: {
     icon: LucideIcon;
     text: () => string;

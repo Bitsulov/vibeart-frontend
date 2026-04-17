@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {linksConfig} from "../config/linksConfig";
 import clsx from "clsx";
 
+/** Навигационное меню бургера для неавторизованного пользователя. */
 export const BurgerMenuUnAuth = ({ ...props }) => {
     const { t } = useTranslation();
     const path = useLocation().pathname;

@@ -3,11 +3,11 @@ import {ArrowLeft} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import {returnBackHandler} from "../model/returnBackHandler";
 import {useNavigate} from "react-router-dom";
+import React from "react";
 
-interface BackLinkProps {
-    className?: string;
-}
+type BackLinkProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
+/** Кнопка «Назад» — возвращает на предыдущую страницу через историю браузера. */
 export const BackLink = ({ className = "", ...props }: BackLinkProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate();

@@ -4,6 +4,7 @@ const initialState = {
     text: ""
 }
 
+/** Redux-слайс для управления текстом всплывающей подсказки мыши. */
 export const hintSlice = createSlice({
     name: "hint",
     initialState,

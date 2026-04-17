@@ -7,6 +7,7 @@ import {profileUserMock} from "entities/user";
 import {useWindowWidth} from "shared/hooks/useWindowWidth";
 import {useTranslation} from "react-i18next";
 
+/** Страница списка чатов. */
 export const Chats = () => {
     const { t } = useTranslation();
 

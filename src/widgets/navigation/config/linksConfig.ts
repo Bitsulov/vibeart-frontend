@@ -1,5 +1,6 @@
 import {Bell, CircleUser, Images, MessageCircle, Users, UserStar} from "lucide-react";
 
+/** Конфигурация ссылок бокового навигационного меню. */
 export const navigationConfig = [
     {
         href: (ULID: string) => `/profile/${ULID}`,

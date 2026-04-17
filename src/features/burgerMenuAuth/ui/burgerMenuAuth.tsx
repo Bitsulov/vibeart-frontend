@@ -6,6 +6,7 @@ import {selectUserInfo} from "entities/user";
 import clsx from "clsx";
 import {linksConfig} from "../config/linksConfig";
 
+/** Навигационное меню бургера для авторизованного пользователя. */
 export const BurgerMenuAuth = ({ ...props }) => {
     const { t } = useTranslation();
     const path = useLocation().pathname;

@@ -1,6 +1,7 @@
 import c from "./policyText.module.scss";
 import {useTranslation} from "react-i18next";
 
+/** Текст политики конфиденциальности в виде структурированного списка. */
 export const PolicyText = ({ ...props }) => {
     const { t } = useTranslation();
 

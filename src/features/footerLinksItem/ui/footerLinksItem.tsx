@@ -1,13 +1,11 @@
 import c from "./footerLinksItem.module.scss";
-import {Link, type To, useLocation} from "react-router-dom";
-import React from "react";
+import {Link, type LinkProps, useLocation} from "react-router-dom";
 
-interface FooterLinksItemProps {
-    to: To;
-    children?: React.ReactNode;
+interface FooterLinksItemProps extends LinkProps {
     ariaLabel: string;
 }
 
+/** Пункт навигации в футере. */
 export const FooterLinksItem = ({
     to,
     children,

@@ -1,23 +1,24 @@
 import c from "./inputForm.module.scss";
 import clsx from "clsx";
-import React, {type HTMLInputAutoCompleteAttribute, useState} from "react";
+import React, {useState} from "react";
 import {Check, CircleX, EyeClosed, EyeIcon} from "lucide-react";
 import {toggleTypeHandler} from "../model/toggleTypeHandler";
 import {useTranslation} from "react-i18next";
 
-interface InputFormProps {
-    className?: string;
-    value?: string;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement> {
     isError: boolean;
     isSubmitted: boolean;
     isShowStatus?: boolean;
-    autoComplete?: HTMLInputAutoCompleteAttribute;
-    placeholder?: string;
-    id: string;
-    type?: "text" | "email" | "password";
+    type?: "text" | "email" | "password"
 }
 
+/**
+ * Поле ввода формы с плавающим плейсхолдером и переключателем видимости пароля.
+ *
+ * @param isError - Флаг ошибки валидации.
+ * @param isSubmitted - Была ли форма отправлена (управляет отображением статуса).
+ * @param isShowStatus - Показывать ли иконку статуса валидации и изменение цвета границ.
+ */
 export const InputForm = ({
     type = "text",
     value,

@@ -6,6 +6,7 @@ interface StoreProviderProps {
     children: ReactNode;
 }
 
+/** Оборачивает дерево в Redux `Provider` с корневым стором. */
 export const StoreProvider = ({children}: StoreProviderProps) => {
 	return (
 		<Provider store={store}>

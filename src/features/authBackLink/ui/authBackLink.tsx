@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {ArrowLeft} from "lucide-react";
 
+/** Ссылка «назад» на страницах авторизации — возвращает на главную страницу. */
 export const AuthBackLink = ({ ...props }) => {
     const { t } = useTranslation();
 

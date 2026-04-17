@@ -7,6 +7,7 @@ import {useWindowWidth} from "shared/hooks/useWindowWidth";
 import {GalleryPostList} from "widgets/galleryPostList";
 import {galleryPostsMock} from "entities/post";
 
+/** Страница галереи с Masonry-списком постов и навигацией. */
 export const Gallery = () => {
     const { t } = useTranslation();
 

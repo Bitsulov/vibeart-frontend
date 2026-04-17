@@ -1,3 +1,4 @@
+/** Конфигурация точек останова Swiper для слайдера альбомов. */
 export const albumBreakpointsConfig = {
     600: {
         slidesPerView: 2,

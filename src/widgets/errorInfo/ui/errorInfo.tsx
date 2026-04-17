@@ -7,6 +7,10 @@ interface ErrorInfoProps {
     errorCode?: number;
 }
 
+/** Страница ошибки с кодом, описанием и ссылками для навигации.
+ * 
+ * @param errorCode - Код ошибки.
+ * */
 export const ErrorInfo = ({ errorCode = 404, ...props }: ErrorInfoProps) => {
     const { t } = useTranslation();
 

@@ -5,6 +5,11 @@ interface IMousePosition {
     y: number;
 }
 
+/**
+ * Возвращает текущие координаты курсора мыши относительно страницы.
+ *
+ * @returns {{ x: number, y: number }}
+ */
 export const useMousePosition = (): IMousePosition => {
     const [position, setPosition] = useState<IMousePosition>({
         x: 0,

@@ -10,6 +10,7 @@ import {useWindowWidth} from "shared/hooks/useWindowWidth";
 import {useMemo, useState} from "react";
 import {PostList} from "widgets/postList";
 
+/** Страница профиля пользователя со слайдером альбомов и списком постов. */
 export const Profile = () => {
     const { t } = useTranslation();
     const windowWidth = useWindowWidth();

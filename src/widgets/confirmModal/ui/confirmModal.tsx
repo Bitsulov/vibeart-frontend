@@ -17,6 +17,14 @@ interface ConfirmModalProps {
     ariaLabelConfirm?: string
 }
 
+/** Модальное окно подтверждения произвольного действия.
+ * 
+ * @param isShowModal - Флаг показа модального окна.
+ * @param setIsShowModal - Сеттер флага показа окна.
+ * @param confirmFn - Функция при подтверждении действия.
+ * @param text - Текст модального окна.
+ * @param ariaLabelConfirm - Подпись кнопки подтверждение для скринридеров.
+ */
 export const ConfirmModal = ({
     text = "",
     confirmFn = () => {},

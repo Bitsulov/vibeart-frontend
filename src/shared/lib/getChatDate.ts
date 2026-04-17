@@ -1,6 +1,15 @@
 import i18n from "i18next";
 import {getLocalTimeNumbers} from "./getLocalTimeNumbers";
 
+/**
+ * Форматирует дату для отображения в списке чатов.
+ * Сегодняшние сообщения показывает как время, остальные — как относительное
+ * число дней/месяцев назад или в формате DD.MM.YYYY для давних дат.
+ *
+ * @param language - Код языка (например, `"ru"`, `"en"`).
+ * @param date - Дата сообщения.
+ * @returns Отформатированная строка с датой.
+ */
 export function getChatDate(language: string, date: Date | string): string {
     const d = new Date(date);
     const now = new Date();

@@ -7,6 +7,7 @@ import c from "./chat.module.scss";
 import {Navigation} from "widgets/navigation";
 import {useWindowWidth} from "shared/hooks/useWindowWidth";
 
+/** Страница чата с навигацией и окном переписки. */
 export const Chat = () => {
     const { t } = useTranslation();
 

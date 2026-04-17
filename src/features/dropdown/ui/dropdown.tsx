@@ -4,7 +4,7 @@ import React from "react";
 import clsx from "clsx";
 import {optionClickHandler} from "../model/optionClickHandler";
 
-interface DropdownProps {
+interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
     options: {
         icon: LucideIcon;
         text: string;
@@ -15,9 +15,15 @@ interface DropdownProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     id: string;
-    className?: string
 }
 
+/**
+ * Выпадающее меню с настраиваемым списком пунктов.
+ *
+ * @param options - Массив пунктов меню с иконкой, текстом, цветом и обработчиком.
+ * @param isOpen - Видимость меню.
+ * @param setIsOpen - Сеттер видимости меню.
+ */
 export const Dropdown = ({
     id = "",
     isOpen,

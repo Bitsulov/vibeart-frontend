@@ -2,6 +2,7 @@ import c from "./homeCTA.module.scss";
 import {useTranslation} from "react-i18next";
 import {StylizedLink} from "features/stylizedLink";
 
+/** Секция призыва к действию на главной странице с кнопкой регистрации. */
 export const HomeCTA = ({ ...props }) => {
     const { t } = useTranslation();
 

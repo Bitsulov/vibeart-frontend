@@ -11,6 +11,7 @@ import {submitValidHandler} from "../model/submitValidHandler";
 import {submitInvalidHandler} from "../model/submitInvalidHandler";
 import {Checkbox} from "features/checkbox";
 
+/** Форма регистрации с полями email, пароля, подтверждения и согласий. */
 export const RegisterForm = ({ ...props }) => {
     const { t } = useTranslation();
 
