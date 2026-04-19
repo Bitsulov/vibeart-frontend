@@ -1,0 +1,23 @@
+.communities_list {
+    .title {
+        font-size: clamp(2.4rem, 4vw, 3.2rem);
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .list {
+        margin-top: clamp(1rem, 2vw, 1.5rem);
+        display: grid;
+        gap: clamp(1.5rem, 2vw, 2.7rem);
+        min-height: 10rem;
+        justify-content: center;
+        row-gap: clamp(1.5rem, 2vw, 2.7rem);
+        grid-template-columns: repeat(auto-fit, minmax(26.3rem, 34.4rem));
+
+        .empty {
+            font-size: clamp(2rem, 4vw, 2.4rem);
+            font-weight: 500;
+            text-align: center;
+        }
+    }
+}
