@@ -20,6 +20,11 @@
             font-size: clamp(1.4rem, calc(1rem + 1vw), 2.4rem);
             font-weight: 400;
 
+            &.small {
+                font-size: clamp(1.4rem, calc(1rem + 1vw), 2rem);
+            }
+
+
             .arrow {
                 font-size: inherit;
                 user-select: none;

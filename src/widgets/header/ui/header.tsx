@@ -17,6 +17,7 @@ import {HeaderProfileButton} from "features/headerProfileButton";
 interface HeaderProps {
     setIsShowChangeLanguage: React.Dispatch<React.SetStateAction<boolean>>;
     isShowChangeLanguage: boolean;
+    isSmallTitle?: boolean;
     languagesConfig: Record<string, string[]>
 }
 
@@ -24,11 +25,13 @@ interface HeaderProps {
  *
  * @param isShowChangeLanguage - Флаг показа модального окна смены языка.
  * @param setIsShowChangeLanguage - Сеттер флага показа окна смены языка.
+ * @param isSmallTitle - Уменьшенный заголовок страницы.
  * @param languagesConfig - Список языков в формате: [флаг, название, ariaLabel, alt, значение].
  */
 export const Header = ({
     setIsShowChangeLanguage,
     isShowChangeLanguage,
+    isSmallTitle = false,
     languagesConfig
 }: HeaderProps) => {
     const { t } = useTranslation();
@@ -57,7 +60,7 @@ export const Header = ({
 			<div className={c.header_left}>
                 <HeaderLogo />
                 {t(mainLocation) &&
-                    <h3 className={c.page_title}>
+                    <h3 className={clsx(c.page_title, isSmallTitle && c.small)}>
                         <span aria-hidden="true" className={c.arrow}>&gt; </span>{t(mainLocation)}
                     </h3>
                 }
