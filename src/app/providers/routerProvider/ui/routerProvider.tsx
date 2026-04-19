@@ -19,6 +19,8 @@ import {Chat} from "pages/chat";
 import {Settings} from "pages/settings";
 import {CreatePost} from "pages/createPost";
 import {CreateAlbum} from "pages/createAlbum";
+import {CreateCommunity} from "pages/createCommunity";
+import {Community} from "pages/community";
 
 /** Декларирует все маршруты приложения. */
 export const RouterProvider = () => {
@@ -39,6 +41,9 @@ export const RouterProvider = () => {
             <Route path="/chats" element={<Chats />} />
             <Route path="/chats/:ulid" element={<Chat />} />
             <Route path="/communities" element={<Communities />} />
+            <Route path="/communities/add" element={<CreateCommunity />} />
+            <Route path="/communities/:ulid" element={<Community />} />
+            <Route path="/communities/:ulid/edit" element={<CreateCommunity />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/agreement" element={<Agreement />} />

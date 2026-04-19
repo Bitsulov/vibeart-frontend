@@ -1,0 +1,81 @@
+@use "@/variables.scss" as global;
+
+.community {
+    background-color: global.$bright-background;
+    border-radius: clamp(1.6rem, 2vw, 2.6rem);
+    padding: clamp(1rem, 1vw, 1.5rem);
+    max-width: 34.4rem;
+
+    .info {
+        display: flex;
+        gap: 1rem;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+
+            .img {
+                width: clamp(6.5rem, 8vw, 8.5rem);
+                aspect-ratio: 1;
+                border-radius: 1.2rem;
+                align-self: center;
+            }
+
+            .subscribers {
+                margin-top: 1rem;
+                gap: clamp(.5rem, 2vw, .75rem);
+
+                svg {
+                    width: clamp(2rem, 3vw, 2.25rem);
+                    height: clamp(2rem, 3vw, 2.25rem);
+                }
+
+                p {
+                    font-size: clamp(1.6rem, 2.5vw, 2rem);
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .right {
+            flex: 1;
+            min-width: 0;
+
+            .title {
+                font-size: clamp(1.6rem, 2.5vw, 2rem);
+                font-weight: 700;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .description {
+                margin-top: clamp(.2rem, .5vw, .5rem);
+                font-size: clamp(1.4rem, 2vw, 1.6rem);
+                font-weight: 400;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: clamp(.7rem, 2vw, 1.4rem);
+
+        .link {
+            width: 50%;
+            font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+            font-weight: 600;
+        }
+
+        .subscribe {
+            width: 50%;
+            font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+        }
+    }
+}

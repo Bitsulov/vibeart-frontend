@@ -1,5 +1,24 @@
 import type {CommunityType} from "../lib/types";
 
+/**
+ * Создаёт объект сообщества с дефолтными значениями для необязательных полей.
+ * 
+ * @param id - числовой идентификатор
+ * @param ULID - строковый ULID сообщества
+ * @param owner - объект UserType владельца сообщества
+ * @param username - username владельца
+ * @param title - название сообщества
+ * @param description - описание сообщества
+ * @param posts - количество постов
+ * @param subscribers - количество подписчиков
+ * @param subscribes - количество подписок сообщества
+ * @param createdAt - дата создания (ISO-строка)
+ * @param imageUrl - URL обложки
+ * @param albumsList - список альбомов
+ * @param isSubscribed - подписан ли текущий пользователь
+ * 
+ * @returns объект сообщества типа `CommunityType`
+ */
 export function createCommunity({
     id = 0,
     ULID,
@@ -12,7 +31,8 @@ export function createCommunity({
     subscribes = 0,
     createdAt = new Date().toISOString(),
     imageUrl = "",
-    albumsList = []
+    albumsList = [],
+    isSubscribed = false
 }: CommunityType) {
     return {
         id,
@@ -26,6 +46,7 @@ export function createCommunity({
         subscribes,
         createdAt,
         imageUrl,
-        albumsList
+        albumsList,
+        isSubscribed
     }
 }

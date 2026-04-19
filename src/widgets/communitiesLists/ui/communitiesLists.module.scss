@@ -1,0 +1,25 @@
+.communities {
+    margin: 2rem 0 clamp(2rem, 3vw, 4rem);
+
+    .title {
+        font-size: 3.2rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .search {
+        margin-top: 1.6rem;
+    }
+
+    .button {
+        margin-top: 1rem;
+    }
+
+    .list_my {
+        margin-top: 1.5rem;
+    }
+
+    .list_all {
+        margin-top: 1.5rem;
+    }
+}

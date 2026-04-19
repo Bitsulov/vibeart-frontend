@@ -14,4 +14,5 @@ export interface CommunityType {
     subscribes: number;
     createdAt: string;
     imageUrl: string;
+    isSubscribed: boolean;
 }
