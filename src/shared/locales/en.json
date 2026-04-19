@@ -13,6 +13,9 @@
   "AddAlbum": "Add",
   "Posts": "Posts",
   "searchPlaceholder": "Search",
+  "subscribe": "Subscribe",
+  "unscribe": "Unsubscribe",
+  "goLink": "Go",
   "emptyPosts": "There are no posts here yet",
   "Post": "Post",
   "justNow": "Just now",
@@ -95,7 +98,8 @@
     "closeChatSettings": "Close chat settings",
     "deleteChat": "Delete chat",
     "deleteMessages": "Delete messages",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
+    "goToCreateCommunityPage": "Go to create community page"
   },
 
   "hint": {
@@ -178,7 +182,8 @@
     "policy": "Privacy Policy | VibeArt",
     "albumCreate": "Create Album | VibeArt",
     "chats": "Chats | VibeArt",
-    "chat": "Chat | VibeArt"
+    "chat": "Chat | VibeArt",
+    "communities": "Communities | VibeArt"
   },
 
   "description": {
@@ -193,7 +198,8 @@
     "agreement": "Review the terms of use, user rights and responsibilities, and the rules for providing services.",
     "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected.",
     "chats": "Your personal conversations. Chat with other users, share impressions, and discuss creative works.",
-    "chat": "Private conversation with a user. Chat in real time, share your works, and discuss creativity together."
+    "chat": "Private conversation with a user. Chat in real time, share your works, and discuss creativity together.",
+    "communities": "Find communities by interest, join creative groups, and start your own. Share your works, discuss ideas, and grow together with creators who share your spirit."
   },
 
   "home": {
@@ -264,6 +270,13 @@
     "offline": "Offline",
     "delete": "Delete chat",
     "empty": "There are no messages in this chat yet"
+  },
+
+  "communities": {
+    "title": "Communities",
+    "addCommunity": "+ Create community",
+    "myCommunities": "My communities",
+    "allCommunities": "All communities"
   },
 
   "gallery": {
