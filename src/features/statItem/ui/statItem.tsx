@@ -2,6 +2,7 @@ import c from "./statItem.module.scss";
 import type {LucideIcon} from "lucide-react";
 import React from "react";
 import {Link} from "react-router-dom";
+import {getShortNumber} from "shared/lib/getShortNumber";
 
 interface StatItemProps {
     type?: "link" | "button" | "default",
@@ -41,7 +42,7 @@ export const StatItem = ({
                     {...props}
                 >
                     <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
-                    <p className={c.number}>{number}</p>
+                    <p className={c.number}>{getShortNumber(+number)}</p>
                 </div>
             )}
             {type === "link" && (
@@ -54,7 +55,7 @@ export const StatItem = ({
                     {...props}
                 >
                     <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
-                    <p className={c.number}>{number}</p>
+                    <p className={c.number}>{getShortNumber(+number)}</p>
                 </Link>
             )}
             {type === "button" && (
@@ -67,7 +68,7 @@ export const StatItem = ({
                     {...props}
                 >
                     <Icon strokeWidth={strokeWidth} className={`${c.stat_icon} ${iconClassName}`} width="24" height="24" />
-                    <p className={c.number}>{number}</p>
+                    <p className={c.number}>{getShortNumber(+number)}</p>
                 </button>
             )}
         </>
