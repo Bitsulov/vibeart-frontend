@@ -13,9 +13,9 @@ export const principalUserMock = createUser({
     subscribesCount: 0,
     albumList: [],
     createdAt: new Date().toISOString(),
-    trustStatus: "trust",
+    trustStatus: "untrust",
     isAuthenticated: true,
-    isBlocked: false,
+    isBlocked: true,
     onlineStatus: "online",
     role: "user",
     avatarUrl: ""
@@ -40,3 +40,44 @@ export const profileUserMock = createUser({
     role: "user",
     avatarUrl: avatar
 });
+
+export const communityAdminsMock = [
+    createUser({
+        id: 3,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FB0",
+        email: "admin1@test.com",
+        name: "Alice Wonder",
+        username: "alice.wonder",
+        description: "",
+        worksCount: 12,
+        subscribersCount: 450,
+        subscribesCount: 30,
+        albumList: [],
+        createdAt: "2025-12-01T10:00:00.000Z",
+        trustStatus: "trust",
+        isAuthenticated: true,
+        isBlocked: false,
+        onlineStatus: "online",
+        role: "user",
+        avatarUrl: avatar
+    }),
+    createUser({
+        id: 4,
+        ULID: "01ARZ3NDEKTSV4RRFFQ69G5FB9",
+        email: "admin2@test.com",
+        name: "Bob Rivers",
+        username: "bob.rivers",
+        description: "",
+        worksCount: 7,
+        subscribersCount: 210,
+        subscribesCount: 15,
+        albumList: [],
+        createdAt: "2026-01-05T08:00:00.000Z",
+        trustStatus: "trust",
+        isAuthenticated: true,
+        isBlocked: false,
+        onlineStatus: "offline",
+        role: "user",
+        avatarUrl: avatar
+    }),
+];
