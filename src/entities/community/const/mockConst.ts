@@ -16,7 +16,9 @@ export const communitiesMyMock = [
         createdAt: "2026-01-10T10:00:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: true
+        isSubscribed: true,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
     createCommunity({
         id: 2,
@@ -31,7 +33,9 @@ export const communitiesMyMock = [
         createdAt: "2026-02-15T12:00:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: true
+        isSubscribed: true,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
 ];
 
@@ -49,7 +53,9 @@ export const communitiesAllMock = [
         createdAt: "2025-11-20T09:00:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: false
+        isSubscribed: false,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
     createCommunity({
         id: 4,
@@ -64,7 +70,9 @@ export const communitiesAllMock = [
         createdAt: "2026-03-01T08:30:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: false
+        isSubscribed: false,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
     createCommunity({
         id: 5,
@@ -79,7 +87,9 @@ export const communitiesAllMock = [
         createdAt: "2026-03-01T08:30:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: false
+        isSubscribed: false,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
     createCommunity({
         id: 6,
@@ -94,6 +104,26 @@ export const communitiesAllMock = [
         createdAt: "2026-03-01T08:30:00.000Z",
         imageUrl: img,
         albumsList: [],
-        isSubscribed: false
+        isSubscribed: false,
+        isBlocked: false,
+        trustStatus: "trust"
     }),
 ];
+
+export const communityMock = createCommunity({
+    id: 10,
+    ULID: "01ARZ3NDEKTSV4RRFFQ69G5FC1",
+    owner: principalUserMock,
+    username: "digital-art-club",
+    title: "Digital Art Club",
+    description: "Сообщество цифровых художников — делимся работами, разбираем техники и вдохновляем друг друга. Открыты для всех уровней.",
+    posts: 42,
+    subscribers: 1200,
+    subscribes: 5,
+    createdAt: "2026-01-10T10:00:00.000Z",
+    imageUrl: img,
+    albumsList: [],
+    isSubscribed: false,
+    isBlocked: true,
+    trustStatus: "untrust"
+});

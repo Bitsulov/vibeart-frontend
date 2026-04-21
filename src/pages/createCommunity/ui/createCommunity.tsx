@@ -4,7 +4,7 @@ import {Develop} from "widgets/develop";
 /** Страница создания сообщества (в разработке) */
 export const CreateCommunity = () => {
 	return (
-		<Layout>
+		<Layout isSmallTitle={true}>
 			<Develop />
 		</Layout>
 	)

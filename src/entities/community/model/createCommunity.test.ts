@@ -18,7 +18,9 @@ describe("createCommunity - Возвращает объект типа Community
             createdAt: "2026-03-29T17:25:15.940Z",
             imageUrl: "",
             albumsList: [],
-            isSubscribed: false
+            isSubscribed: false,
+            isBlocked: false,
+            trustStatus: "trust"
         })).toEqual({
             id: 1,
             ULID: "hgghghgh",
@@ -33,7 +35,9 @@ describe("createCommunity - Возвращает объект типа Community
             createdAt: "2026-03-29T17:25:15.940Z",
             imageUrl: "",
             albumsList: [],
-            isSubscribed: false
+            isSubscribed: false,
+            isBlocked: false,
+            trustStatus: "trust"
         });
     });
     it("Создание экземпляра сообщества с неполными данными", () => {
@@ -58,7 +62,9 @@ describe("createCommunity - Возвращает объект типа Community
             createdAt: "2026-03-29T17:25:15.940Z",
             imageUrl: "",
             albumsList: [],
-            isSubscribed: false
+            isSubscribed: false,
+            isBlocked: false,
+            trustStatus: "trust"
         });
     });
 });

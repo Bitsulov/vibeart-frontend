@@ -1,0 +1,209 @@
+@use "@/variables.scss" as global;
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(global.$dark-background, 0.6);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: global.$transition-time;
+    animation: appearing global.$transition-time;
+
+    &.close {
+        opacity: 0;
+    }
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        color: global.$active-color;
+        font-family: "Montserrat", sans-serif;
+        width: clamp(26.8rem, 80vw, 57.1rem);
+        background-color: global.$block-color;
+        border-radius: 2.8rem;
+        min-height: clamp(23rem, 25vw, 28.1rem);
+        max-height: 50rem;
+
+        .top {
+            padding: 1rem clamp(2rem, 3vw, 2.5rem);
+            font-weight: 600;
+            border-bottom: .1rem solid global.$active-color;
+
+            .title {
+                font-size: clamp(2.4rem, 3vw, 3.2rem);
+            }
+        }
+
+        .info {
+            overflow: hidden;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: global.$active-color transparent;
+
+            &::-webkit-scrollbar {
+                width: .6rem;
+            }
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: global.$active-color;
+                border-radius: 1rem;
+
+                &:hover {
+                    background: global.$second-active-color;
+                }
+            }
+
+            padding: clamp(1rem, 1.5vw, 2rem) clamp(1.5rem, 2vw, 2.5rem);
+
+            .description {
+                font-size: clamp(1.6rem, 3vw, 2.4rem);
+            }
+
+            .text {
+                margin-top: 1rem;
+
+                .text_title {
+                    font-size: clamp(2rem, 3vw, 2.4rem);
+                    font-weight: 600;
+                }
+
+                .owner {
+                    margin-top: clamp(.6rem, 1vw, .8rem);
+                }
+
+                .admins {
+                    margin-top: clamp(.6rem, 1vw, .8rem);
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+                }
+            }
+
+            .date_wrapper {
+                margin-top: 1.5rem;
+
+                .date_sign {
+                    font-size: clamp(1.6rem, 3vw, 2.4rem);
+                    letter-spacing: clamp(0.16rem, 0.3vw, 0.24rem);
+                    font-weight: 400;
+                }
+
+                .date {
+                    font-size: clamp(1.6rem, 3vw, 2.4rem);
+                    letter-spacing: clamp(0.16rem, 0.3vw, 0.24rem);
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: center;
+            border-top: .1rem solid global.$active-color;
+            margin-top: auto;
+            padding: clamp(1rem, 1vw, 1.2rem) 0;
+
+            .close {
+                font-size: clamp(2rem, 3vw, 3.2rem);
+                border-radius: clamp(.9rem, 1vw, 1.5rem);
+                padding: clamp(.5rem, 1vw, 1rem) clamp(2rem, 1.5vw, 2.5rem);
+            }
+        }
+
+        .close_button {
+            background-color: transparent;
+            position: absolute;
+            top: -2.6rem;
+            right: clamp(-2rem, calc((100vw - 60rem) * -1), 0rem);
+            width: 1.6rem;
+            height: 1.6rem;
+            cursor: pointer;
+
+            &:hover {
+                &:before, &:after {
+                    background-color: global.$negative-active;
+                }
+            }
+
+            &:before {
+                display: block;
+                position: absolute;
+                content: '';
+                width: 2rem;
+                height: .2rem;
+                top: 50%;
+                left: 50%;
+                background-color: global.$active-color;
+                transform: translate(-50%, -50%) rotate(45deg);
+                border-radius: .2rem;
+                transition: global.$transition-time;
+            }
+
+            &:after {
+                display: block;
+                position: absolute;
+                content: '';
+                width: .2rem;
+                height: 2rem;
+                top: 50%;
+                left: 50%;
+                background-color: global.$active-color;
+                transform: translate(-50%, -50%) rotate(45deg);
+                border-radius: .2rem;
+                transition: global.$transition-time;
+            }
+        }
+    }
+}
+
+@keyframes appearing {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 800px) {
+    .background {
+        .modal {
+            .top {
+                .title {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .background {
+        .modal {
+            .info {
+                .date_wrapper {
+                    .date_sign {
+                        display: inline;
+                    }
+
+                    .date {
+                        display: inline;
+
+                        &:before {
+                            content: " ";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

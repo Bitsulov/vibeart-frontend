@@ -7,15 +7,17 @@ import {showHint} from "../model/showHint";
 import {hideHint} from "../model/hideHint";
 
 interface ProfileLinkProps {
-    /** `true` — текущий пользователь просматривает свой профиль (показывается иконка настроек). */
     isPrincipalUser: boolean;
     name: string;
     ULID: string;
 }
 
-/**
- * Кнопка действия на странице профиля.
+/** Кнопка действия на странице профиля и сообщества.
  * Для своего профиля показывает ссылку на настройки, для чужого — на чат.
+ *
+ * @param isPrincipalUser - Признак того, что профиль принадлежит текущему пользователю.
+ * @param name - Имя пользователя для aria-label ссылки на чат.
+ * @param ULID - ULID пользователя для формирования ссылки на чат.
  */
 export const ProfileLink = ({ isPrincipalUser, name, ULID, ...props }: ProfileLinkProps) => {
     const { t } = useTranslation();
@@ -30,6 +32,7 @@ export const ProfileLink = ({ isPrincipalUser, name, ULID, ...props }: ProfileLi
                     className={c.settings_wrapper}
                     onMouseEnter={() => showHint(dispatch, t("hint.settings"))}
                     onMouseLeave={() => hideHint(dispatch)}
+                    onClick={() => hideHint(dispatch)}
                     {...props}
                 >
                     <Settings className={c.settings} width="31" height="31" />
@@ -41,6 +44,7 @@ export const ProfileLink = ({ isPrincipalUser, name, ULID, ...props }: ProfileLi
                     className={c.messages_wrapper}
                     onMouseEnter={() => showHint(dispatch, t("hint.writeMessage"))}
                     onMouseLeave={() => hideHint(dispatch)}
+                    onClick={() => hideHint(dispatch)}
                     {...props}
                 >
                     <MessageCircle className={c.message} width="31" height="31" />

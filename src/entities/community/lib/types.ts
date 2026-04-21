@@ -15,4 +15,6 @@ export interface CommunityType {
     createdAt: string;
     imageUrl: string;
     isSubscribed: boolean;
+    isBlocked: boolean;
+    trustStatus: "trust" | "untrust";
 }
