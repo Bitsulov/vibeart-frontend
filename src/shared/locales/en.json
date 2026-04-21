@@ -29,6 +29,8 @@
   "avatar": "Avatar",
   "today": "Today",
   "yesterday": "Yesterday",
+  "moreShort": "More",
+  "information": "Information",
 
   "develop": {
     "title": "This page is under construction.",
@@ -98,6 +100,7 @@
     "closeChatSettings": "Close chat settings",
     "deleteChat": "Delete chat",
     "deleteMessages": "Delete messages",
+    "deleteCommunity": "Delete community",
     "sendMessage": "Send message",
     "goToCreateCommunityPage": "Go to create community page"
   },
@@ -115,13 +118,16 @@
     "deletePost": "Delete post",
     "editPost": "Edit post",
     "deleteAlbum": "Delete album",
-    "editAlbum": "Edit album"
+    "editAlbum": "Edit album",
+    "deleteCommunity": "Delete community",
+    "editCommunity": "Edit community"
   },
 
   "modal": {
     "deletePost": "Are you sure you want to delete this post? (irreversible)",
     "deleteAlbum": "Are you sure you want to delete this album? (irreversible, posts will remain)",
-    "deleteChat": "Are you sure you want to delete all messages in this chat? (irreversible)"
+    "deleteChat": "Are you sure you want to delete all messages in this chat? (irreversible)",
+    "deleteCommunity": "Are you sure you want to delete this community? (irreversible)"
   },
 
   "pages": {
@@ -144,6 +150,7 @@
     "post": "Post",
     "album": "Album",
     "rules": "Rules",
+    "community": "Community",
     "error": "$#!%^&*"
   },
 
@@ -183,7 +190,8 @@
     "albumCreate": "Create Album | VibeArt",
     "chats": "Chats | VibeArt",
     "chat": "Chat | VibeArt",
-    "communities": "Communities | VibeArt"
+    "communities": "Communities | VibeArt",
+    "community": "Community | VibeArt"
   },
 
   "description": {
@@ -199,7 +207,8 @@
     "policy": "Learn what personal data is collected on the site, how it is used, and how it is protected.",
     "chats": "Your personal conversations. Chat with other users, share impressions, and discuss creative works.",
     "chat": "Private conversation with a user. Chat in real time, share your works, and discuss creativity together.",
-    "communities": "Find communities by interest, join creative groups, and start your own. Share your works, discuss ideas, and grow together with creators who share your spirit."
+    "communities": "Find communities by interest, join creative groups, and start your own. Share your works, discuss ideas, and grow together with creators who share your spirit.",
+    "community": "Creative community page: member posts, description, and group members. Join, share your works, and connect with creators who share your spirit."
   },
 
   "home": {
@@ -276,7 +285,14 @@
     "title": "Communities",
     "addCommunity": "+ Create community",
     "myCommunities": "My communities",
-    "allCommunities": "All communities"
+    "allCommunities": "All communities",
+    "emptyMy": "You are not subscribed to any communities yet",
+    "emptyAll": "There are no communities here yet"
+  },
+
+  "community": {
+    "owner": "Owner:",
+    "admins": "Administrators:"
   },
 
   "gallery": {
