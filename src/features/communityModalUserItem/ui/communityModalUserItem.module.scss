@@ -1,0 +1,26 @@
+@use "@/variables.scss" as global;
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: clamp(.5rem, 1vw, 1rem);
+
+    &:hover {
+        .name {
+            color: global.$second-active-color;
+        }
+    }
+
+    .img {
+        width: clamp(2.5rem, 4vw, 5rem);
+        height: clamp(2.5rem, 4vw, 5rem);
+        border-radius: 50%;
+    }
+
+    .name {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        color: global.$active-color;
+        transition: global.$transition-time;
+        text-overflow: ellipsis;
+    }
+}
