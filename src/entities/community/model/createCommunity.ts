@@ -26,13 +26,15 @@ export function createCommunity({
     username,
     title = "",
     description = "",
+    albumsList = [],
     posts = 0,
     subscribers = 0,
     subscribes = 0,
     createdAt = new Date().toISOString(),
     imageUrl = "",
-    albumsList = [],
-    isSubscribed = false
+    isSubscribed = false,
+    isBlocked = false,
+    trustStatus = "trust",
 }: CommunityType) {
     return {
         id,
@@ -41,12 +43,14 @@ export function createCommunity({
         username,
         title,
         description,
+        albumsList,
         posts,
         subscribers,
         subscribes,
         createdAt,
         imageUrl,
-        albumsList,
-        isSubscribed
+        isSubscribed,
+        isBlocked,
+        trustStatus,
     }
 }
