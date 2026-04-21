@@ -12,7 +12,6 @@ import {useState} from "react";
 import {openDescriptionHandler} from "../model/openDescriptionHandler";
 import {ProfileLink} from "features/profileLink";
 import {useWindowWidth} from "shared/hooks/useWindowWidth";
-import {getShortNumber} from "shared/lib/getShortNumber";
 import {ProfileIcons} from "features/profileIcons";
 import {StatItem} from "features/statItem";
 import {showHint} from "../model/showHint";
@@ -40,9 +39,6 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
     const isPrincipalUser = userInfo.id === principalUserInfo.id;
 
     const resultDate = getLocalTimeString(language, userInfo.createdAt);
-    const works = getShortNumber(userInfo.worksCount);
-    const subscribers = getShortNumber(userInfo.subscribersCount);
-    const subscribes = getShortNumber(userInfo.subscribesCount);
 
     const dispatch = useDispatch();
 
@@ -62,6 +58,7 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
                     <div className={c.left}>
                         <div className={clsx(c.avatar_wrapper, userInfo.onlineStatus === "online" && c.online)}>
                             <img
+                                decoding="async"
                                 width="125"
                                 height="125"
                                 src={avatarImg}
@@ -75,21 +72,21 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
                                 onMouseLeave={() => hideHint(dispatch)}
                                 Icon={Image}
                                 className={c.works_wrapper}
-                                number={works}
+                                number={userInfo.worksCount}
                             />
                             <StatItem
                                 onMouseEnter={() => showHint(dispatch, t("hint.subscribers"))}
                                 onMouseLeave={() => hideHint(dispatch)}
                                 Icon={UsersRound}
                                 className={c.subscribers_wrapper}
-                                number={subscribers}
+                                number={userInfo.subscribersCount}
                             />
                             <StatItem
                                 onMouseEnter={() => showHint(dispatch, t("hint.subscribes"))}
                                 onMouseLeave={() => hideHint(dispatch)}
                                 Icon={Heart}
                                 className={c.subscribes_wrapper}
-                                number={subscribes}
+                                number={userInfo.subscribesCount}
                             />
                         </div>
                     </div>
