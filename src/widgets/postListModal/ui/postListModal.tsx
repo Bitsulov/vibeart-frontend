@@ -3,7 +3,8 @@ import {Post} from "features/post";
 import {PagesButtons} from "features/pagesButtons";
 import type {PostType} from "entities/post";
 import {useTranslation} from "react-i18next";
-import React from "react";
+import React, {useEffect} from "react";
+import {useWindowWidth} from "shared/hooks/useWindowWidth";
 import {postChooseHandler} from "../model/postChooseHandler";
 import clsx from "clsx";
 
@@ -46,6 +47,26 @@ export const PostListModal = ({
 }: PostListModalProps) => {
     const { t } = useTranslation();
 
+    const windowWidth = useWindowWidth();
+
+    useEffect(() => {
+        if (windowWidth >= 1620) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 1500) {
+            setPagesDelta(3);
+        } else if (windowWidth >= 1350) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 1200) {
+            setPagesDelta(3);
+        } else if (windowWidth >= 520) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 450) {
+            setPagesDelta(3);
+        } else {
+            setPagesDelta(2);
+        }
+    }, [windowWidth, setPagesDelta]);
+
     const isPostsExists = postList.length !== 0;
 
 	return (
@@ -76,7 +97,6 @@ export const PostListModal = ({
                         )}
                     </div>
                     <PagesButtons
-                        setPagesDelta={setPagesDelta}
                         pagesDelta={pagesDelta}
                         setCurrentPage={setCurrentPage}
                         currentPage={currentPage}

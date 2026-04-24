@@ -3,10 +3,11 @@ import type {PostType} from "entities/post";
 import {useTranslation} from "react-i18next";
 import {Post} from "features/post";
 import {PagesButtons} from "features/pagesButtons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useWindowWidth} from "shared/hooks/useWindowWidth";
 import {PlusCircle} from "lucide-react";
 import clsx from "clsx";
-import {AlbumModal} from "../../albumModal";
+import {AlbumModal} from "widgets/albumModal";
 import {addPostsAlbumHandler} from "../model/addPostsAlbumHandler";
 
 interface PostListProps {
@@ -53,6 +54,26 @@ export const PostList = ({
 }: PostListProps) => {
     const { t } = useTranslation();
 
+    const windowWidth = useWindowWidth();
+
+    useEffect(() => {
+        if (windowWidth >= 1620) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 1500) {
+            setPagesDelta(3);
+        } else if (windowWidth >= 1350) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 1200) {
+            setPagesDelta(3);
+        } else if (windowWidth >= 520) {
+            setPagesDelta(4);
+        } else if (windowWidth >= 450) {
+            setPagesDelta(3);
+        } else {
+            setPagesDelta(2);
+        }
+    }, [windowWidth, setPagesDelta]);
+
     const isPostsExists = postList && postList.length;
     const isShowButton = isShowAddButton && currentPage === pagesCount;
 
@@ -96,7 +117,6 @@ export const PostList = ({
                         </div>
                     </div>
                     <PagesButtons
-                        setPagesDelta={setPagesDelta}
                         pagesDelta={pagesDelta}
                         setCurrentPage={setCurrentPage}
                         currentPage={currentPage}
