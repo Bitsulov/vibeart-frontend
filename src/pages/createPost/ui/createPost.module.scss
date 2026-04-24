@@ -1,0 +1,46 @@
+@use "@/variables.scss" as global;
+
+.content {
+    margin-top: 2.5rem;
+
+    .content_inner {
+        .back {
+            position: relative;
+        }
+
+        .post {
+            margin-top: 2.5rem;
+            cursor: auto;
+
+            &.error {
+                border-color: global.$negative-active;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .content {
+        .content_inner {
+            position: relative;
+            padding-top: 5rem;
+            padding-left: 6rem;
+            display: flex;
+            gap: clamp(6rem, 7vw, 13rem);
+
+            .back {
+                position: absolute;
+            }
+
+            .post {
+                min-width: 23rem;
+                width: 23rem;
+                margin-right: 0;
+            }
+
+            .form {
+                margin-top: 2.5rem;
+            }
+        }
+    }
+}
