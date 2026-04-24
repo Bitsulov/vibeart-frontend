@@ -81,7 +81,7 @@ export const PostCard = ({
     const [isDescriptionOpened, setIsDescriptionOpened] = useState(false);
 
     const isDesktop = windowWidth >= 1200;
-    const resultDate = getLocalTimeNumbers(language, createdAt);
+    const resultDate = createdAt ? getLocalTimeNumbers(language, createdAt) : "";
     const avatarImg = authorAvatarUrl || defaultAvatar;
 
     const [likes, setLikes] = useState(likesCount);
@@ -201,7 +201,7 @@ export const PostCard = ({
                                     ))}
                                 </ul>
                             )}
-                            <p className={c.date}>{resultDate}</p>
+                            {resultDate && <p className={c.date}>{resultDate}</p>}
                         </div>
                         {isOwner && (
                             <div className={c.desktop_actions}>

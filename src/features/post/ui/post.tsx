@@ -27,7 +27,8 @@ interface PostProps {
     type?: "button" | "link";
     target?: "_blank" | "_self" | "_parent" | "_top";
     onClick?: () => void;
-    autoHeight?: boolean
+    autoHeight?: boolean;
+    enable?: boolean;
 }
 
 /** Карточка поста в ленте: изображение, автор, лайки и комментарии. */
@@ -45,13 +46,14 @@ export const Post = ({
     onClick = () => {},
     target = "_self",
     autoHeight = false,
+    enable = true,
      ...props
 }: PostProps) => {
     const language = useSelector(selectCurrentLanguage);
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const resultDate = getLocalTimeNumbers(language, date);
+    const resultDate = date ? getLocalTimeNumbers(language, date) : "";
 
     const [likesNumber, setLikesNumber] = useState<number>(likesCount);
     const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -64,17 +66,19 @@ export const Post = ({
 		<article
             aria-label={t("ariaLabel.goToPost", {name: title})}
             onClick={resultOnClickFn}
-            className={clsx(c.post, className, autoHeight && c.autoHeight)}
+            className={clsx(c.post, className, autoHeight && c.autoHeight, !imageUrl && c.border)}
             {...props}
         >
-            <img
-                src={imageUrl}
-                alt={`${t("Post")} ${title}`}
-                className={c.post_img}
-            />
+            {imageUrl &&
+                <img
+                    src={imageUrl}
+                    alt={`${t("Post")} ${title}`}
+                    className={c.post_img}
+                />
+            }
 			<div className={clsx(c.info, isShowAuthor && c.high)}>
                 <div onClick={e => resetNavigate(e)} className={c.bottom}>
-                    <p className={c.date}>{resultDate}</p>
+                    {resultDate && <p className={c.date}>{resultDate}</p>}
                     {isShowAuthor && (
                         target === "_self" ? (
                             <Link
@@ -100,7 +104,7 @@ export const Post = ({
                         <Link
                             aria-label={t("ariaLabel.goToPost", {name: title})}
                             to={`/post/${ULID}`}
-                            className={c.title}
+                            className={clsx(c.title, !enable && c.disabled)}
                             target="_self"
                         >
                             {title}
@@ -110,7 +114,7 @@ export const Post = ({
                             rel="nofollow noopener noreferrer"
                             aria-label={t("ariaLabel.goToPost", {name: title})}
                             href={`/post/${ULID}`}
-                            className={c.title}
+                            className={clsx(c.title, !enable && c.disabled)}
                             target={target}
                         >
                             {title}
@@ -121,7 +125,7 @@ export const Post = ({
                             type="button"
                             onClick={() => toggleLikeHandler(setLikesNumber, isLiked, setIsLiked)}
                             ariaLabel={isLiked ? t("ariaLabel.unlike") : t("ariaLabel.like")}
-                            className={c.stat}
+                            className={clsx(c.stat, !enable && c.disabled)}
                             iconClassName={clsx(isLiked && c.active)}
                             Icon={Heart}
                             number={getShortNumber(likesNumber, 1)}
@@ -130,7 +134,7 @@ export const Post = ({
                             type="link"
                             href={`/post/${ULID}#comments`}
                             ariaLabel={t("ariaLabel.goToPostComments", {name: title})}
-                            className={c.stat}
+                            className={clsx(c.stat, !enable && c.disabled)}
                             Icon={MessageSquare}
                             number={getShortNumber(commentsCount, 1)}
                         />
