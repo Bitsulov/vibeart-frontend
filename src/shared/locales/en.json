@@ -102,7 +102,11 @@
     "deleteMessages": "Delete messages",
     "deleteCommunity": "Delete community",
     "sendMessage": "Send message",
-    "goToCreateCommunityPage": "Go to create community page"
+    "goToCreateCommunityPage": "Go to create community page",
+    "loadImg": "Upload image",
+    "deleteImg": "Delete uploaded image",
+    "createPost": "Create post",
+    "chooseTag": "Choose tag {{name}}"
   },
 
   "hint": {
@@ -121,6 +125,13 @@
     "editAlbum": "Edit album",
     "deleteCommunity": "Delete community",
     "editCommunity": "Edit community"
+  },
+
+  "toast": {
+    "loadImg": "Please upload an image",
+    "longTitle": "Title is too long",
+    "emptyTitle": "Title is empty",
+    "longDescription": "Description is too long"
   },
 
   "modal": {
@@ -191,7 +202,8 @@
     "chats": "Chats | VibeArt",
     "chat": "Chat | VibeArt",
     "communities": "Communities | VibeArt",
-    "community": "Community | VibeArt"
+    "community": "Community | VibeArt",
+    "postCreate": "Create Post | VibeArt"
   },
 
   "description": {
@@ -208,7 +220,8 @@
     "chats": "Your personal conversations. Chat with other users, share impressions, and discuss creative works.",
     "chat": "Private conversation with a user. Chat in real time, share your works, and discuss creativity together.",
     "communities": "Find communities by interest, join creative groups, and start your own. Share your works, discuss ideas, and grow together with creators who share your spirit.",
-    "community": "Creative community page: member posts, description, and group members. Join, share your works, and connect with creators who share your spirit."
+    "community": "Creative community page: member posts, description, and group members. Join, share your works, and connect with creators who share your spirit.",
+    "postCreate": "Create and publish your artwork on VibeArt. Upload an image, add a title, description, and tags to share your creative work with the community."
   },
 
   "home": {
@@ -309,6 +322,22 @@
     "albumAll": "All works"
   },
 
+  "createPost": {
+    "title": "Create post",
+    "imgTitle": "Image",
+    "imgDescription": "The main media file of the post.",
+    "nameTitle": "Title",
+    "nameDescription": "A short text identifier for the work",
+    "namePlaceholder": "Enter title",
+    "textTitle": "Description",
+    "textDescriptionMobile": "Write a few words about the post",
+    "textDescriptionDesktop": "Extended text information for the publication. Used to provide context, creation details, and additional data about the content.",
+    "textPlaceholder": "Enter description",
+    "tagsTitle": "Add tags",
+    "submitTextMobile": "Create",
+    "submitTextDesktop": "Create post"
+  },
+
   "policy": {
     "title": "PRIVACY POLICY",
     "subtitle": "regarding the processing of personal data",
@@ -326,7 +355,7 @@
     "text2_2": "Blocking of personal data – temporary suspension of personal data processing (except when processing is necessary to clarify personal data).",
     "text2_3": "Website – a set of graphic and informational materials, as well as computer programs and databases ensuring their availability on the Internet at the network address https://vibe-art.ru/.",
     "text2_4": "Personal data information system – a set of personal data contained in databases and the information technologies and technical means ensuring their processing.",
-    "text2_5": "Depersonalization of personal data – actions as a result of which it is impossible to determine, without additional information, the принадлежность personal data to a specific User or other personal data subject.",
+    "text2_5": "Depersonalization of personal data – actions as a result of which it is impossible to determine, without additional information, the belonging of personal data to a specific User or other personal data subject.",
     "text2_6": "Processing of personal data – any action (operation) or set of actions (operations) performed with or without automation tools on personal data, including collection, recording, systematization, accumulation, storage, clarification (updating, modification), extraction, use, transfer (distribution, provision, access), depersonalization, blocking, deletion, and destruction of personal data.",
     "text2_7": "Operator – a state authority, municipal authority, legal entity, or individual that independently or jointly with others organizes and/or carries out the processing of personal data and determines the purposes of personal data processing, the composition of personal data to be processed, and the actions (operations) performed on personal data.",
     "text2_8": "Personal data – any information relating directly or indirectly to an identified or identifiable User of the website https://vibe-art.ru/.",
