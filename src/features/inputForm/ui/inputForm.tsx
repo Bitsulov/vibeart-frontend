@@ -9,7 +9,8 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement> {
     isError: boolean;
     isSubmitted: boolean;
     isShowStatus?: boolean;
-    type?: "text" | "email" | "password"
+    type?: "text" | "email" | "password";
+    placeholderClassName?: string;
 }
 
 /**
@@ -30,6 +31,7 @@ export const InputForm = ({
     autoComplete = "on",
     id,
     placeholder = "",
+    placeholderClassName = "",
     ...props
 }: InputFormProps) => {
     const { t } = useTranslation();
@@ -53,7 +55,7 @@ export const InputForm = ({
                 aria-label={placeholder}
                 {...props}
             />
-            <label className={clsx(c.placeholder, value && c.lift)} htmlFor={id}>{placeholder}</label>
+            <label className={clsx(c.placeholder, value && c.lift, placeholderClassName)} htmlFor={id}>{placeholder}</label>
             {type === "password" && (
                 currentType === "password" ?
                     <button

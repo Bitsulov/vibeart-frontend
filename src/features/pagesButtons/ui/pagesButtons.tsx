@@ -1,24 +1,26 @@
 import c from "./pagesButtons.module.scss";
-import React, {useEffect} from "react";
+import React from "react";
 import clsx from "clsx";
 import {changePageHandler} from "../model/changePageHandler";
 import {useTranslation} from "react-i18next";
 import {getRangeNumbers} from "shared/lib/getRangeNumbers";
-import {useWindowWidth} from "shared/hooks/useWindowWidth";
 
 interface PagesButtonsProps extends React.HTMLAttributes<HTMLDivElement> {
     pagesCount: number;
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     pagesDelta: number;
-    setPagesDelta: React.Dispatch<React.SetStateAction<number>>;
 }
 
 /**
- * Пагинация: кнопки с номерами страниц вокруг текущей.
+ * Пагинация: кнопки с номерами страниц.
  *
- * @param pagesDelta - Количество страниц слева и справа от текущей в диапазоне.
- * @param setPagesDelta - Сеттер `pagesDelta`, адаптируется под ширину экрана.
+ * @param className - Дополнительный CSS-класс для корневого элемента.
+ * @param pagesCount - Общее количество страниц.
+ * @param currentPage - Текущая активная страница.
+ * @param setCurrentPage - Сеттер текущей страницы.
+ * @param pagesDelta - Количество страниц слева и справа от текущей. Управляется родительским компонентом.
+ * @param props - Остальные HTML-атрибуты div.
  */
 export const PagesButtons = ({
     className = "",
@@ -26,31 +28,11 @@ export const PagesButtons = ({
     setCurrentPage,
     pagesCount,
     pagesDelta,
-    setPagesDelta,
     ...props
 }: PagesButtonsProps) => {
     const { t } = useTranslation();
 
     const {start, end} = getRangeNumbers(currentPage, pagesCount, pagesDelta);
-    const windowWidth = useWindowWidth();
-
-    useEffect(() => {
-        if(windowWidth >= 1620) {
-            setPagesDelta(4);
-        } else if(windowWidth >= 1500) {
-            setPagesDelta(3);
-        } else if(windowWidth >= 1350) {
-            setPagesDelta(4);
-        } else if(windowWidth >= 1200) {
-            setPagesDelta(3);
-        } else if(windowWidth >= 520) {
-            setPagesDelta(4);
-        } else if(windowWidth >= 450) {
-            setPagesDelta(3);
-        } else {
-            setPagesDelta(2);
-        }
-    }, [windowWidth, setPagesDelta]);
 
 	return (
 		<div className={`${c.pages} ${className}`} {...props}>
@@ -61,6 +43,7 @@ export const PagesButtons = ({
                     <button
                         onClick={() => changePageHandler(setCurrentPage, number)}
                         aria-label={t("ariaLabel.changePage", {number})}
+                        type="button"
                         key={`page ${number}`}
                         className={clsx(c.page, currentPage === number && c.active)}
                     >

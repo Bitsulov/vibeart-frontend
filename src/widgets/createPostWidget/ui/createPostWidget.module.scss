@@ -1,0 +1,46 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    max-width: 40rem;
+    margin: clamp(2rem, 3vw, 3rem) auto;
+
+    .title {
+        font-size: 4rem;
+        font-weight: 700;
+        text-align: center;
+        display: none;
+    }
+
+    .fields {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(3rem, 5vw, 4rem);
+        margin-top: 4rem;
+    }
+
+    .submit {
+        margin: 2rem auto 2rem;
+        width: 100%;
+        font-size: 2.4rem;
+        letter-spacing: 0.12rem;
+        padding: 0.8rem 0;
+        border-radius: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+@media (min-width: 1200px) {
+    .settings {
+        margin: 0 0 3rem;
+        max-width: unset;
+
+        .title {
+            display: block;
+        }
+
+        .submit {
+            width: auto;
+            padding: 1rem 2.5rem;
+        }
+    }
+}

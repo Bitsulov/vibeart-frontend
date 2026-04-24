@@ -8,4 +8,14 @@
     font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: .16rem;
+    transition: global.$transition-time;
+
+    &.button {
+        background-color: global.$dark-background;
+        cursor: pointer;
+
+        &:hover {
+            background-color: global.$bright-background;
+        }
+    }
 }

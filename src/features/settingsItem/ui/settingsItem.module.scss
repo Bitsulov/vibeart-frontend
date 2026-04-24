@@ -1,0 +1,150 @@
+@use "@/variables.scss" as global;
+
+.wrapper {
+    position: relative;
+    border-radius: 2rem;
+    background-color: global.$bright-background;
+    padding: .5rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+
+    .limiter {
+        position: absolute;
+        top: -2rem;
+        right: 0;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: 0.16rem;
+        margin-left: auto;
+        transition: global.$transition-time;
+
+        &.error {
+            color: global.$negative-active;
+        }
+    }
+
+    .info {
+        border-bottom: .1rem solid global.$active-color;
+        padding: 0 1.5rem;
+
+        .title {
+            text-align: center;
+            font-size: clamp(2rem, 3vw, 2.4rem);
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: clamp(1.6rem, 2.5vw, 2rem);
+            font-weight: 400;
+            margin: .6rem 0 1rem;
+        }
+    }
+
+    .actions {
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 3.3rem 0;
+
+            .download {
+                border-radius: 1.2rem;
+                background-color: global.$active-color;
+                color: global.$bright-background;
+                width: 7rem;
+                height: 7rem;
+                transition: global.$transition-time;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0 0 clamp(2rem, 2vw, 3rem) .1rem rgba(global.$active-color, .5);
+                }
+            }
+
+            .delete {
+                border-radius: 1.2rem;
+                background-color: global.$dark-background;
+                border: .1rem solid global.$negative-active;
+                color: global.$negative-active;
+                width: 7rem;
+                height: 7rem;
+                transition: global.$transition-time;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: global.$negative-active;
+                    color: global.$dark-background;
+                }
+            }
+        }
+
+        .input_wrapper {
+            padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem) 0;
+
+            .input {
+                height: clamp(3rem, 5vw, 4.7rem);
+            }
+        }
+
+        .textarea_wrapper {
+            padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem) 0;
+
+            .textarea {
+                height: clamp(27.5rem, 50vw, 41rem);
+            }
+        }
+    }
+}
+
+@media (min-width: 340px) {
+    .wrapper {
+        .actions {
+            .buttons {
+                justify-content: space-around;
+            }
+        }
+    }
+}
+
+@media (min-width: 425px) {
+    .wrapper {
+        .info {
+            padding: clamp(.5rem, .5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem);
+
+            .description {
+                margin-top: clamp(.4rem, 1.25vw, .8rem);
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .wrapper {
+        padding: 0;
+        flex-direction: row;
+
+        .info {
+            border-right: .1rem solid global.$active-color;
+            border-bottom: 0;
+            flex: 1;
+        }
+
+        .actions {
+            flex: 1.25;
+            padding-bottom: 1.5rem;
+
+            .input_wrapper {
+                .input {
+                    font-size: 1.8rem;
+                }
+
+                .placeholder {
+                    font-size: 1.8rem;
+                }
+            }
+
+            .textarea_wrapper {
+                padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+            }
+        }
+    }
+}

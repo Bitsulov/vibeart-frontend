@@ -32,12 +32,12 @@ export const RouterProvider = () => {
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/profile/:ulid" element={<Profile />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/post/:ulid" element={<Post />} />
+            <Route path="/post/add" element={<CreatePost />} />
             <Route path="/post/:ulid/edit" element={<CreatePost />} />
-            <Route path="/album/add" element={<CreatePost />} />
-            <Route path="/album/:ulid" element={<Album />} />
-            <Route path="/album/:ulid/edit" element={<CreateAlbum />} />
+            <Route path="/post/:ulid" element={<Post />} />
             <Route path="/album/add" element={<CreateAlbum />} />
+            <Route path="/album/:ulid/edit" element={<CreateAlbum />} />
+            <Route path="/album/:ulid" element={<Album />} />
             <Route path="/chats" element={<Chats />} />
             <Route path="/chats/:ulid" element={<Chat />} />
             <Route path="/communities" element={<Communities />} />
