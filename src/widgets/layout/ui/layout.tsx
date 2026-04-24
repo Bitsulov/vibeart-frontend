@@ -5,6 +5,7 @@ import {Modal} from "widgets/modal";
 import {languagesConfig} from "../config/languagesConfig";
 import {Footer} from "widgets/footer";
 import {MouseHint} from "features/mouseHint";
+import {Toast} from "features/toast";
 
 interface LayoutProps extends ComponentPropsWithoutRef<"main"> {
     children?: React.ReactNode;
@@ -45,6 +46,7 @@ export const Layout = ({
                     setIsShowChangeLanguage={setIsShowChangeLanguage}
                 />
                 <MouseHint />
+                <Toast />
                 {children}
             </main>
             {isShowFooter &&
