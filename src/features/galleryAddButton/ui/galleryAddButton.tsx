@@ -12,7 +12,7 @@ export const GalleryAddButton = ({ className = "", ...props }: GalleryAddButtonP
 
 	return (
 		<Link
-            to="/post/create"
+            to="/post/add"
             aria-label={t("ariaLabel.goToCreatePostPage")}
             className={`${c.button} ${className}`}
             {...props}

@@ -1,8 +1,8 @@
 import {createPost} from "../model/createPost";
 import img from "shared/icons/img-CTA.jpg";
 import img2 from "shared/icons/img-template.jpg";
-import {profileUserMock} from "../../user";
-import {postTagsMock} from "../../tag";
+import {profileUserMock} from "entities/user";
+import {postTagsMock} from "entities/tag";
 
 export const profileAlbum1PostsMock = [
     createPost({
@@ -19,7 +19,7 @@ export const profileAlbum1PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 1,
@@ -35,7 +35,7 @@ export const profileAlbum1PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 2,
@@ -51,7 +51,7 @@ export const profileAlbum1PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 3,
@@ -67,7 +67,7 @@ export const profileAlbum1PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
 ];
 
@@ -86,7 +86,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 1,
@@ -102,7 +102,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 2,
@@ -118,7 +118,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 3,
@@ -134,7 +134,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 4,
@@ -150,7 +150,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 3,
@@ -166,7 +166,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 4,
@@ -182,7 +182,7 @@ export const profileAlbum2PostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
 ];
 
@@ -218,7 +218,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 1,
@@ -234,7 +234,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img2,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 2,
@@ -250,7 +250,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img2,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 3,
@@ -266,7 +266,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img2,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 4,
@@ -282,7 +282,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 3,
@@ -298,7 +298,7 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img2,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
     createPost({
         id: 4,
@@ -314,6 +314,6 @@ export const galleryPostsMock = [
         checkStatus: "checked",
         AIStatus: "good",
         imageUrl: img,
-        createdAt: "2026-03-24T18:48:16.175Z"
+        createdAt: "2026-03-24T18:48:16.175Z",
     }),
 ];
