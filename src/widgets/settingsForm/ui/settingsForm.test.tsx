@@ -2,9 +2,24 @@ import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { SettingsForm } from "./settingsForm";
 import { screen } from "@testing-library/react";
+import type { UserResponse } from "entities/user";
 
 const defaultProps = {
     userInfo: { name: "Test User", avatarUrl: "" },
+    UUID: "",
+    currentUserInfo: {
+        name: "Test User",
+        avatarUrl: "",
+        description: "",
+        username: "",
+        worksCount: 0,
+        subscribesCount: 0,
+        subscribersCount: 0,
+        createdAt: "",
+        trustStatus: "TRUST",
+        onlineStatus: "ONLINE",
+        enabled: true
+    } satisfies UserResponse,
     setUserInfo: () => {}
 };
 

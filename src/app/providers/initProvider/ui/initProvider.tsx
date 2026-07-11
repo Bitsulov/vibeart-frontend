@@ -7,7 +7,7 @@ import { setUserInfo } from "entities/user";
 import { useLocation, useNavigate, useMatches } from "react-router-dom";
 import { supportedLangs, defaultLang } from "shared/const/const";
 import { useQuery } from "@tanstack/react-query";
-import { getPrincipalUser } from "entities/user/api/userApi";
+import { getPrincipalUser } from "entities/user";
 import { showToast } from "features/toast";
 import axios from "axios";
 import type { AppError } from "shared/lib/types";
@@ -19,28 +19,43 @@ interface InitProviderProps {
 }
 
 /**
- * Провайдер инициализации приложения.
+ * <h1>Провайдер инициализации приложения.</h1>
  *
- * Выполняет две задачи:
- *
- * 1. **Инициализация пользователя.** При монтировании записывает данные
- *    авторизованного пользователя в Redux-хранилище через {@link setUserInfo}.
- *
- * 2. **Синхронизация языка с URL.** При каждом изменении пути проверяет
- *    языковой сегмент URL и приводит состояние приложения к согласованному
- *    виду в следующем порядке:
- *
- *    - Если языковой сегмент отсутствует, выполняется навигация с добавлением
- *      языка из текущего экземпляра i18n.
- *    - Если языковой сегмент не входит в список поддерживаемых, выполняется
- *      навигация с заменой сегмента на `"en"`.
- *    - Если языковой сегмент отличается от значения в Redux, Redux и i18n
- *      синхронизируются с URL.
- *    - Если все значения совпадают, обновляется атрибут `lang` тега `<html>`.
- *
- * Языковой сегмент извлекается из совпадающих маршрутов через
- * {@link useMatches}, что надёжнее прямого разбора `pathname`, так как
- * учитывает, является ли первый сегмент именованным параметром `:lang`.
+ * <h2>Назначение</h2>
+ * <ol>
+ *     <li>
+ *         **Инициализация пользователя.** При монтировании получает данные текущего пользователя
+ *         с сервера ({@link PrincipalUserState}) и записывает данные
+ *         авторизованного пользователя в Redux-хранилище через {@link setUserInfo}.
+ *     </li>
+ *    <li>
+ *         **Синхронизация языка с URL.** При каждом изменении пути проверяет
+ *         языковой сегмент URL и приводит состояние приложения к согласованному
+ *         виду в следующем порядке:
+ *         <ul>
+ *             <li>
+ *                 Если языковой сегмент отсутствует, выполняется навигация с добавлением
+ *                 языка из текущего экземпляра i18n.
+ *             </li>
+ *            <li>
+ *                 Если языковой сегмент не входит в список поддерживаемых, выполняется
+ *                 навигация с заменой сегмента на `"en"`.
+ *             </li>
+ *            <li>
+ *                 Если языковой сегмент отличается от значения в Redux, Redux и i18n
+ *                 синхронизируются с URL.
+ *             </li>
+ *            <li>
+ *                 Если все значения совпадают, обновляется атрибут `lang` тега `<html>`.
+ *             </li>
+ *         </ul>
+ *     </li>
+ * </ol>
+ * <p>
+ *     Языковой сегмент извлекается из совпадающих маршрутов через
+ *     {@link useMatches}, что надёжнее прямого разбора `pathname`, так как
+ *     учитывает, является ли первый сегмент именованным параметром `:lang`.
+ * </p>
  *
  * @param props - Свойства компонента.
  * @param props.children - Дочернее дерево, отрисовываемое внутри провайдера.
@@ -120,7 +135,7 @@ export const InitProvider = ({ children }: InitProviderProps) => {
             } else {
                 dispatch(setLanguage(urlLangParam));
                 i18n.changeLanguage(urlLangParam).catch(er =>
-                    console.error("change language error:", er)
+                    console.error("Change language error:", er)
                 );
                 document.documentElement.lang = urlLangParam;
             }
