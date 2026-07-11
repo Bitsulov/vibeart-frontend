@@ -9,49 +9,52 @@ describe("codeSubmitValidHandler - отправка кода подтвержд�
     it("Показывает ошибку и устанавливает флаг при коде короче 6 символов", () => {
         const dispatch = vi.fn();
         const setErrorCode = vi.fn();
-        const setIsEmailSent = vi.fn();
-        const resetEmailForm = vi.fn();
+        const submitFn = vi.fn();
 
         codeSubmitValidHandler(
             { code: "123" },
             dispatch,
             setErrorCode,
-            setIsEmailSent,
-            resetEmailForm
+            "test.email@email.com",
+            submitFn
         );
 
         expect(dispatch).toHaveBeenCalled();
         expect(dispatch.mock.calls[0][0].payload.message).toBe("toast.wrongCodeLength");
         expect(setErrorCode).toHaveBeenCalledWith(true);
-        expect(setIsEmailSent).not.toHaveBeenCalled();
+        expect(submitFn).not.toHaveBeenCalled();
     });
 
-    it("Сбрасывает ошибку и возвращает к шагу email при корректном 6-значном коде", () => {
+    it("Вызывает функцию отправки запроса на сервер при корректном 6-значном коде", () => {
         vi.useFakeTimers();
         const dispatch = vi.fn();
         const setErrorCode = vi.fn();
-        const setIsEmailSent = vi.fn();
-        const resetEmailForm = vi.fn();
+        const submitFn = vi.fn();
 
         codeSubmitValidHandler(
             { code: "123456" },
             dispatch,
             setErrorCode,
-            setIsEmailSent,
-            resetEmailForm
+            "test.email@email.com",
+            submitFn
         );
 
-        expect(setErrorCode).toHaveBeenCalledWith(false);
-        expect(setIsEmailSent).toHaveBeenCalledWith(false);
+        expect(setErrorCode).not.toHaveBeenCalled();
         vi.runAllTimers();
-        expect(resetEmailForm).toHaveBeenCalled();
+        expect(submitFn).toHaveBeenCalled();
     });
 
     it("Не вызывает dispatch при корректном коде", () => {
         vi.useFakeTimers();
         const dispatch = vi.fn();
 
-        codeSubmitValidHandler({ code: "123456" }, dispatch, vi.fn(), vi.fn(), vi.fn());
+        codeSubmitValidHandler(
+            { code: "123456" },
+            dispatch,
+            vi.fn(),
+            "test.email@email.com",
+            vi.fn()
+        );
 
         expect(dispatch).not.toHaveBeenCalled();
     });

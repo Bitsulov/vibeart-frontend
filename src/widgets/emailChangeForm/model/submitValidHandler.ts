@@ -1,24 +1,26 @@
-import type { UseFormSetValue } from "react-hook-form";
-import type { IEmailChangeForm } from "../lib/types";
-import type { Dispatch, SetStateAction } from "react";
+import type { AxiosResponse } from "axios";
+import type { ChangeEmailRequest } from "entities/user";
+
+type SubmitFn = ({
+    UUID,
+    data
+}: {
+    UUID: string;
+    data: ChangeEmailRequest;
+}) => Promise<AxiosResponse<string>>;
 
 /**
- * Обрабатывает успешную отправку формы изменения email: сохраняет новый адрес,
- * переводит форму в режим ввода кода подтверждения и сбрасывает поля.
+ * Обрабатывает успешную отправку формы изменения email:
+ * Отправляет запрос изменения адреса электронной почты на сервер.
  *
- * @param setValue - Сеттер значений полей формы.
- * @param setIsEmailSent - Переключает форму в шаг ввода кода.
- * @param setNewEmailResult - Сохраняет новый email для отображения в тексте подтверждения.
- * @param newEmailValue - Новый email, введённый пользователем.
+ * @param newEmailValue - Новый адрес электронной почты.
+ * @param UUID UUID пользователя
+ * @param submit Функция отправки запроса изменения адреса электронной почты на сервер
  */
-export function submitValidHandler(
-    setValue: UseFormSetValue<IEmailChangeForm>,
-    setIsEmailSent: Dispatch<SetStateAction<boolean>>,
-    setNewEmailResult: Dispatch<SetStateAction<string>>,
-    newEmailValue: string
+export async function submitValidHandler(
+    newEmailValue: string,
+    UUID: string,
+    submit: SubmitFn
 ) {
-    setIsEmailSent(true);
-    setNewEmailResult(newEmailValue);
-    setValue("oldEmail", "");
-    setValue("newEmail", "");
+    await submit({ UUID: UUID, data: { email: newEmailValue } });
 }
