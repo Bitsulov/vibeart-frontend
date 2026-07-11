@@ -3,12 +3,12 @@ import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { PostComments } from "./postComments";
 import { screen } from "@testing-library/react";
 import { commentsMock } from "entities/comment";
-import { principalUserMock } from "entities/user";
+import { principalUserSessionMock } from "entities/user";
 
 const defaultProps = {
     commentsCount: 5,
     commentsList: commentsMock,
-    userInfo: principalUserMock
+    userInfo: principalUserSessionMock
 };
 
 describe("PostComments - секция комментариев поста", () => {

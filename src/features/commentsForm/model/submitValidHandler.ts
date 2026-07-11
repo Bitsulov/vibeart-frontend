@@ -1,7 +1,7 @@
 import type { ICommentsForm } from "../lib/types";
 import { type CommentType, createComment } from "entities/comment";
 import React from "react";
-import type { PrincipalUserState } from "entities/user";
+import { createUser, type PrincipalUserState } from "entities/user";
 import type { UseFormSetValue } from "react-hook-form";
 
 /**
@@ -19,11 +19,29 @@ export function submitValidHandler(
     author: PrincipalUserState,
     setValue: UseFormSetValue<ICommentsForm>
 ) {
+    const user = createUser({
+        UUID: author.UUID,
+        name: author.name,
+        username: author.username,
+        description: "",
+        worksCount: 0,
+        subscribersCount: 0,
+        subscribesCount: 0,
+        albumList: [],
+        createdAt: "",
+        trustStatus: author.trustStatus,
+        isAuthenticated: true,
+        isBlocked: author.isBlocked,
+        onlineStatus: "ONLINE",
+        role: author.role,
+        avatarUrl: ""
+    });
+
     setComments(comments => [
         createComment({
             text: data.sendComment,
             createdAt: new Date().toISOString(),
-            author
+            author: user
         }),
         ...comments
     ]);
