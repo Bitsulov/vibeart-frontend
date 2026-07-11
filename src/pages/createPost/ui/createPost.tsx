@@ -1,15 +1,19 @@
 import c from "./createPost.module.scss";
 import { Layout } from "widgets/layout";
 import { BackLink } from "features/backLink";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { PostType } from "entities/post";
 import { CreatePostWidget } from "widgets/createPostWidget";
 import { Post } from "features/post";
-import { useSelector } from "react-redux";
-import { selectUser } from "entities/user";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser, getUserByUUID, selectUser } from "entities/user";
 import { onSubmitForm } from "../model/onSubmitForm";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import type { AppError } from "shared/lib/types";
+import { showToast } from "features/toast";
 
 /**
  * Страница создания публикации.
@@ -21,6 +25,7 @@ import { useTranslation } from "react-i18next";
  */
 export const CreatePost = () => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const [postInfo, setPostInfo] = useState<Partial<PostType>>({});
 
     const principalUser = useSelector(selectUser);
@@ -31,6 +36,50 @@ export const CreatePost = () => {
 
     const [loadedFile, setLoadedFile] = useState<File>();
     const [isErrorImg, setIsErrorImg] = useState<boolean>(false);
+
+    const { data, error } = useQuery({
+        queryKey: [`user ${principalUser.UUID}`],
+        queryFn: () => getUserByUUID(principalUser.UUID),
+        enabled: !!principalUser.UUID
+    });
+
+    const user = createUser({
+        UUID: principalUser.UUID,
+        albumList: [],
+        avatarUrl: data?.data.avatarUrl || "",
+        createdAt: data?.data.createdAt || "",
+        description: data?.data.description || "",
+        isAuthenticated: true,
+        isBlocked: false,
+        name: data?.data.name || "",
+        onlineStatus: "ONLINE",
+        role: principalUser.role,
+        subscribersCount: data?.data.subscribersCount || 0,
+        subscribesCount: data?.data.subscribesCount || 0,
+        trustStatus: "TRUST",
+        username: data?.data.username || "",
+        worksCount: data?.data.worksCount || 0
+    });
+
+    useEffect(() => {
+        if (!error) return;
+
+        if (axios.isAxiosError<AppError>(error)) {
+            if (!error.response) {
+                dispatch(showToast({ message: "api.networkError", type: "error" }));
+                return;
+            }
+            if (error.response.status === 404) {
+                dispatch(
+                    showToast({ message: "api.principalUserNotFound", type: "error" })
+                );
+                return;
+            }
+            dispatch(showToast({ message: "api.serverError", type: "error" }));
+        } else {
+            console.error(error);
+        }
+    }, [error, dispatch]);
 
     return (
         <Layout>
@@ -45,7 +94,7 @@ export const CreatePost = () => {
                         <Post
                             className={clsx(c.post, isErrorImg && c.error)}
                             date={new Date().toISOString()}
-                            author={principalUser}
+                            author={user}
                             title={postInfo?.name ?? ""}
                             imageUrl={postInfo?.imageUrl ?? ""}
                             UUID={postInfo?.UUID ?? ""}
