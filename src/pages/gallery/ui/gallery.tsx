@@ -2,16 +2,18 @@ import { Layout } from "widgets/layout";
 import c from "./gallery.module.scss";
 import { useTranslation } from "react-i18next";
 import { Navigation } from "widgets/navigation";
-import { profileUserMock } from "entities/user";
+import { selectUserInfo } from "entities/user";
 import { useMediaQuery } from "shared/hooks/useMediaQuery";
 import { GalleryPostList } from "widgets/galleryPostList";
 import { galleryPostsMock } from "entities/post";
+import { useSelector } from "react-redux";
 
-/** Страница галереи с Masonry-списком постов и навигацией. */
+/** Страница галереи со списком постов и навигацией. */
 export const Gallery = () => {
     const { t } = useTranslation();
 
     const isDesktop = useMediaQuery("(width >= 1200px)");
+    const userInfo = useSelector(selectUserInfo);
 
     return (
         <Layout>
@@ -22,10 +24,7 @@ export const Gallery = () => {
             <div className="container">
                 <div className={c.main}>
                     {isDesktop && (
-                        <Navigation
-                            role={profileUserMock.role}
-                            UUID={profileUserMock.UUID}
-                        />
+                        <Navigation role={userInfo.role} UUID={userInfo.UUID} />
                     )}
                     <div className={c.content}>
                         <GalleryPostList postList={galleryPostsMock} />

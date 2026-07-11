@@ -1,17 +1,19 @@
 import { Layout } from "widgets/layout";
 import { useTranslation } from "react-i18next";
 import { ChatWindow } from "widgets/chatWindow";
-import { profileUserMock } from "entities/user";
+import { profileUserMock, selectUserInfo } from "entities/user";
 import { messagesMock } from "entities/message";
 import c from "./chat.module.scss";
 import { Navigation } from "widgets/navigation";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
+import { useSelector } from "react-redux";
 
 /** Страница чата с навигацией и окном переписки. */
 export const Chat = () => {
     const { t } = useTranslation();
 
     const windowWidth = useWindowWidth();
+    const userInfo = useSelector(selectUserInfo);
 
     return (
         <Layout isShowFooter={false}>
@@ -22,10 +24,7 @@ export const Chat = () => {
             <div className="container">
                 <div className={c.main}>
                     {windowWidth >= 1200 && (
-                        <Navigation
-                            role={profileUserMock.role}
-                            UUID={profileUserMock.UUID}
-                        />
+                        <Navigation role={userInfo.role} UUID={userInfo.UUID} />
                     )}
                     <ChatWindow
                         messages={messagesMock}
