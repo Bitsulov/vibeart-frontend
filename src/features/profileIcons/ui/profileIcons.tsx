@@ -8,15 +8,15 @@ interface ProfileIconsProps extends React.HTMLAttributes<HTMLDivElement> {
     classNameIcons?: string;
     /** Признак блокировки аккаунта модерацией. При `true` отображается иконка запрета. */
     isBlocked: boolean;
-    /** Уровень доверия к контенту пользователя. При значении `"untrust"` отображается иконка предупреждения. */
-    trustStatus: "trust" | "untrust";
+    /** Уровень доверия к контенту пользователя. При значении `"UNTRUST"` отображается иконка предупреждения. */
+    trustStatus: "TRUST" | "UNTRUST";
 }
 
 /**
  * Набор иконок, отражающих административный статус пользователя.
  *
  * Иконка блокировки отображается при `isBlocked === true`,
- * иконка недоверия — при `trustStatus === "untrust"`.
+ * иконка недоверия — при `trustStatus === "UNTRUST"`.
  * Компонент не отрисовывает ничего, если оба условия ложны.
  */
 export const ProfileIcons = ({
@@ -35,7 +35,7 @@ export const ProfileIcons = ({
                     height="24"
                 />
             )}
-            {trustStatus === "untrust" && (
+            {trustStatus === "UNTRUST" && (
                 <ShieldX
                     className={`${c.icon} ${c.AI} ${classNameIcons}`}
                     width="24"

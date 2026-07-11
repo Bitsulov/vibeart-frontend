@@ -3,12 +3,11 @@ import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { ProfileInfo } from "./profileInfo";
 import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import type { UserType } from "entities/user";
+import type { PrincipalUserState, UserType } from "entities/user";
 
 const userInfo: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
     name: "Иван Иванов",
-    email: "test@test.com",
     username: "@ivan",
     description: "Мое описание профиля",
     worksCount: 5,
@@ -16,33 +15,22 @@ const userInfo: UserType = {
     subscribesCount: 3,
     albumList: [],
     createdAt: "2024-01-15T10:00:00.000Z",
-    trustStatus: "trust",
+    trustStatus: "TRUST",
     isAuthenticated: true,
     isBlocked: false,
-    onlineStatus: "offline",
+    onlineStatus: "OFFLINE",
     role: "USER",
-    avatarUrl: "",
-    accessToken: "",
-    refreshToken: "",
-    accessTokenExpiresIn: 0,
-    refreshTokenExpiresIn: 0
+    avatarUrl: ""
 };
 
-const principalUser: UserType = {
+const principalUser: PrincipalUserState = {
     UUID: "00000000-0000-4000-8000-00000000001e",
-    email: "",
+    email: "test@email.com",
     name: "Другой",
     username: "",
-    description: "",
-    worksCount: 0,
-    subscribersCount: 0,
-    subscribesCount: 0,
-    albumList: [],
-    createdAt: new Date().toISOString(),
-    trustStatus: "trust",
+    trustStatus: "TRUST",
     isAuthenticated: true,
     isBlocked: false,
-    onlineStatus: "offline",
     role: "USER",
     avatarUrl: "",
     accessToken: "",
@@ -240,9 +228,9 @@ describe("ProfileInfo - блок информации о профиле", () => 
             });
         });
 
-        it("Обёртка аватара имеет класс online при onlineStatus='online'", () => {
+        it("Обёртка аватара имеет класс online при onlineStatus='ONLINE'", () => {
             renderWithProviders(
-                <ProfileInfo userInfo={{ ...userInfo, onlineStatus: "online" }} />,
+                <ProfileInfo userInfo={{ ...userInfo, onlineStatus: "ONLINE" }} />,
                 { preloadedState: { user: principalUser } }
             );
 
@@ -250,13 +238,13 @@ describe("ProfileInfo - блок информации о профиле", () => 
             expect(avatar.parentElement).toHaveClass("online");
         });
 
-        it("Обёртка аватара не имеет класс online при onlineStatus='offline'", () => {
+        it("Обёртка аватара не имеет класс online при onlineStatus='OFFLINE'", () => {
             renderWithProviders(<ProfileInfo userInfo={userInfo} />, {
                 preloadedState: { user: principalUser }
             });
 
             const avatar = screen.getByAltText("profile.avatarAlt Иван Иванов");
-            expect(avatar.parentElement).not.toHaveClass("online");
+            expect(avatar.parentElement).not.toHaveClass("ONLINE");
         });
     });
 });

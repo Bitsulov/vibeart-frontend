@@ -4,9 +4,18 @@ const HOME_URL = "/en/";
 
 test.describe("Home - визуальная проверка блоков", () => {
     test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
+
         await page.goto(HOME_URL);
         await expect(page.getByRole("main")).toBeVisible();
-        await page.evaluate(() => document.fonts.ready);
+        await page.evaluate(() =>
+            Promise.race([
+                document.fonts.ready,
+                new Promise(resolve => setTimeout(resolve, 2000))
+            ])
+        );
     });
 
     test("снимок блока HomeIntro", async ({ page }) => {

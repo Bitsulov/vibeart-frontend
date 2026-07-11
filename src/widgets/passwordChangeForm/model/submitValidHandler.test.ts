@@ -1,36 +1,33 @@
 import { describe, it, expect, vi } from "vitest";
 import { submitValidHandler } from "./submitValidHandler";
 
+const resultForm = {
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: ""
+};
+
 describe("submitValidHandler - успешная отправка формы изменения пароля", () => {
-    it("Переключает форму в шаг ввода кода", () => {
-        const setValue = vi.fn();
-        const setIsPasswordSent = vi.fn();
+    it("Вызывает submit и сохраняет новый пароль", () => {
         const setNewPasswordResult = vi.fn();
+        const submitFn = vi.fn();
 
-        submitValidHandler(setValue, setIsPasswordSent, setNewPasswordResult, "NewPass1");
-
-        expect(setIsPasswordSent).toHaveBeenCalledWith(true);
-    });
-
-    it("Сохраняет новый пароль", () => {
-        const setValue = vi.fn();
-        const setIsPasswordSent = vi.fn();
-        const setNewPasswordResult = vi.fn();
-
-        submitValidHandler(setValue, setIsPasswordSent, setNewPasswordResult, "NewPass1");
+        submitValidHandler(
+            resultForm,
+            setNewPasswordResult,
+            "NewPass1",
+            "UUID",
+            submitFn
+        );
 
         expect(setNewPasswordResult).toHaveBeenCalledWith("NewPass1");
-    });
-
-    it("Сбрасывает все три поля пароля", () => {
-        const setValue = vi.fn();
-        const setIsPasswordSent = vi.fn();
-        const setNewPasswordResult = vi.fn();
-
-        submitValidHandler(setValue, setIsPasswordSent, setNewPasswordResult, "NewPass1");
-
-        expect(setValue).toHaveBeenCalledWith("oldPassword", "");
-        expect(setValue).toHaveBeenCalledWith("newPassword", "");
-        expect(setValue).toHaveBeenCalledWith("confirmNewPassword", "");
+        expect(submitFn).toHaveBeenCalledWith({
+            UUID: "UUID",
+            data: {
+                password: resultForm.oldPassword,
+                newPassword: resultForm.newPassword,
+                confirmPassword: resultForm.confirmNewPassword
+            }
+        });
     });
 });

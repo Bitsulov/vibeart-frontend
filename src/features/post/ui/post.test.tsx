@@ -10,7 +10,6 @@ import * as toggleLikeHandlerModule from "../model/toggleLikeHandler";
 const mockAuthor: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
     name: "Test User",
-    email: "test@test.com",
     username: "@test_user",
     description: "",
     worksCount: 0,
@@ -18,16 +17,12 @@ const mockAuthor: UserType = {
     subscribesCount: 0,
     albumList: [],
     createdAt: "2026-01-01T00:00:00.000Z",
-    trustStatus: "untrust",
+    trustStatus: "UNTRUST",
     isAuthenticated: false,
     isBlocked: false,
-    onlineStatus: "offline",
+    onlineStatus: "OFFLINE",
     role: "USER",
-    avatarUrl: "",
-    accessToken: "",
-    refreshToken: "",
-    accessTokenExpiresIn: 0,
-    refreshTokenExpiresIn: 0
+    avatarUrl: ""
 };
 
 const defaultProps = {

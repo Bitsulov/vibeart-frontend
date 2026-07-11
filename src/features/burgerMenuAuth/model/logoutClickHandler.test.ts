@@ -29,7 +29,7 @@ describe("logoutClickHandler - обрабатывает нажатие кноп�
                 email: "",
                 name: "",
                 username: "",
-                trustStatus: "trust",
+                trustStatus: "TRUST",
                 isAuthenticated: false,
                 isBlocked: false,
                 role: "USER",

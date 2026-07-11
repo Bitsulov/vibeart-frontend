@@ -6,7 +6,11 @@
  * по мере появления новых API-вызовов в тестах.
  */
 import { http, HttpResponse } from "msw";
-import { authResponseMock, userDetailResponseMock } from "entities/user";
+import {
+    authResponseMock,
+    userDetailResponseMock,
+    userResponseMock
+} from "entities/user";
 
 export const handlers = [
     http.post("*/auth/register", () => HttpResponse.text("ok")),
@@ -14,5 +18,14 @@ export const handlers = [
     http.post("*/auth/verify", () => HttpResponse.json(authResponseMock)),
     http.post("*/auth/login", () => HttpResponse.json(authResponseMock)),
     http.post("*/auth/refresh", () => HttpResponse.json(authResponseMock)),
-    http.get("*/auth/user", () => HttpResponse.json(userDetailResponseMock))
+    http.get("*/auth/user", () => HttpResponse.json(userDetailResponseMock)),
+    http.get("*/user/:UUID", () => HttpResponse.json(userResponseMock)),
+    http.put("*/user/:UUID", () => HttpResponse.json(userResponseMock)),
+    http.delete("*/user/:UUID", () => HttpResponse.text("ok")),
+    http.post("*/user/:UUID/email", () => HttpResponse.text("ok")),
+    http.post("*/user/email/send", () => HttpResponse.text("ok")),
+    http.post("*/user/email/confirm", () => HttpResponse.text("ok")),
+    http.post("*/user/:UUID/password", () => HttpResponse.text("ok")),
+    http.post("*/user/password/send", () => HttpResponse.text("ok")),
+    http.post("*/user/password/confirm", () => HttpResponse.text("ok"))
 ];

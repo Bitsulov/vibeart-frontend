@@ -13,8 +13,6 @@ import type { AlbumType } from "entities/album";
 export interface UserType {
     /** UUID, используемый в публичных URL (например, `/profile/:uuid`). */
     UUID: string;
-    /** Зарегистрированный адрес электронной почты. */
-    email: string;
     /** Отображаемое имя пользователя. */
     name: string;
     /** Уникальный псевдоним пользователя для упоминаний и URL. */
@@ -32,25 +30,17 @@ export interface UserType {
     /** Дата и время создания аккаунта в формате ISO 8601. */
     createdAt: string;
     /** Уровень доверия, присвоенный модерацией платформы. */
-    trustStatus: "trust" | "untrust";
+    trustStatus: "TRUST" | "UNTRUST";
     /** Признак того, что пользователь авторизован. */
     isAuthenticated: boolean;
     /** Признак блокировки аккаунта модерацией. */
     isBlocked: boolean;
     /** Статус присутствия пользователя в режиме реального времени. */
-    onlineStatus: "online" | "offline";
+    onlineStatus: "ONLINE" | "OFFLINE";
     /** Роль пользователя на платформе, определяющая доступ к функциям. */
     role: Roles;
     /** URL аватара пользователя. Пустая строка, если аватар не задан. */
     avatarUrl: string;
-    /** Зашифрованный access-токен авторизации. */
-    accessToken: string;
-    /** Зашифрованный refresh-токен авторизации. */
-    refreshToken: string;
-    /** Срок действия access-токена в миллисекундах. */
-    accessTokenExpiresIn: number;
-    /** Срок действия refresh-токена в миллисекундах. */
-    refreshTokenExpiresIn: number;
 }
 
 /** Данные формы регистрации, отправляемые на сервер. */
@@ -110,11 +100,71 @@ export interface PrincipalUserState {
     avatarUrl: string;
     email: string;
     role: Roles;
-    trustStatus: "trust" | "untrust";
+    trustStatus: "TRUST" | "UNTRUST";
     isAuthenticated: boolean;
     isBlocked: boolean;
     accessToken: string;
     refreshToken: string;
     accessTokenExpiresIn: number;
     refreshTokenExpiresIn: number;
+}
+
+/** Полная информация о пользователе, необходимая в профиле */
+export interface UserResponse {
+    name: string;
+    username: string;
+    description: string;
+    avatarUrl: string;
+    worksCount: number;
+    subscribersCount: number;
+    subscribesCount: number;
+    createdAt: string;
+    trustStatus: "TRUST" | "UNTRUST";
+    onlineStatus: "ONLINE" | "OFFLINE";
+    enabled: boolean;
+}
+
+/** Данные пользователя и файл изображения аватара */
+export interface UpdateUserRequest {
+    info: {
+        name: string;
+        username: string;
+        description: string;
+        deleteAvatar: boolean;
+    };
+    file?: File;
+}
+
+/** Новый адрес электронной почты пользователя */
+export interface ChangeEmailRequest {
+    email: string;
+}
+
+/** Текущий адрес электронной почты пользователя */
+export interface SendCodeEmailRequest {
+    email: string;
+}
+
+/** Новый адрес электронной почты пользователя и шестизначный код подтверждения */
+export interface ConfirmChangeEmailRequest {
+    email: string;
+    verificationCode: string;
+}
+
+/** Текущий пароль, новый пароль и подтверждение пароля */
+export interface ChangePasswordRequest {
+    password: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+
+/** Адрес электронной почты пользователя */
+export interface SendCodePasswordRequest {
+    email: string;
+}
+
+/** Адрес электронной почты пользователя и шестизначный код подтверждения */
+export interface ConfirmChangePasswordRequest {
+    email: string;
+    verificationCode: string;
 }

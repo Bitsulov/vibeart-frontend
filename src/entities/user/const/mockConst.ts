@@ -3,12 +3,16 @@
  * и сквозных сценариях Playwright.
  */
 import { createUser } from "../model/createUser";
-import type { AuthResponse, UserDetailResponse } from "../lib/types";
+import type {
+    AuthResponse,
+    PrincipalUserState,
+    UserDetailResponse,
+    UserResponse
+} from "../lib/types";
 import avatar from "shared/icons/img-CTA.jpg";
 
 export const principalUserMock = createUser({
     UUID: "00000000-0000-4000-8000-00000000000b",
-    email: "testEmail@test.com",
     name: "testUsergffdgfd",
     username: "testUser",
     description:
@@ -18,21 +22,16 @@ export const principalUserMock = createUser({
     subscribesCount: 0,
     albumList: [],
     createdAt: new Date().toISOString(),
-    trustStatus: "untrust",
+    trustStatus: "UNTRUST",
     isAuthenticated: true,
     isBlocked: true,
-    onlineStatus: "online",
+    onlineStatus: "ONLINE",
     role: "USER",
-    avatarUrl: "",
-    accessToken: "",
-    refreshToken: "",
-    accessTokenExpiresIn: 0,
-    refreshTokenExpiresIn: 0
+    avatarUrl: ""
 });
 
 export const profileUserMock = createUser({
     UUID: "00000000-0000-4000-8000-000000000006",
-    email: "testEmail2@test.com",
     name: "testUser",
     username: "testUser",
     description:
@@ -42,16 +41,12 @@ export const profileUserMock = createUser({
     subscribesCount: 0,
     albumList: [],
     createdAt: "2026-03-22T18:50:29.921Z",
-    trustStatus: "trust",
+    trustStatus: "TRUST",
     isAuthenticated: true,
     isBlocked: false,
-    onlineStatus: "online",
+    onlineStatus: "ONLINE",
     role: "USER",
-    avatarUrl: avatar,
-    accessToken: "",
-    refreshToken: "",
-    accessTokenExpiresIn: 0,
-    refreshTokenExpiresIn: 0
+    avatarUrl: avatar
 });
 
 export const authResponseMock: AuthResponse = {
@@ -72,10 +67,23 @@ export const userDetailResponseMock: UserDetailResponse = {
     enabled: true
 };
 
+export const userResponseMock: UserResponse = {
+    name: "testUser",
+    username: "testUser",
+    description: "",
+    avatarUrl: "",
+    worksCount: 0,
+    subscribersCount: 0,
+    subscribesCount: 0,
+    createdAt: "2026-03-22T18:50:29.921Z",
+    trustStatus: "TRUST",
+    onlineStatus: "ONLINE",
+    enabled: true
+};
+
 export const communityAdminsMock = [
     createUser({
         UUID: "00000000-0000-4000-8000-000000000014",
-        email: "admin1@test.com",
         name: "Alice Wonder",
         username: "alice.wonder",
         description: "",
@@ -84,20 +92,15 @@ export const communityAdminsMock = [
         subscribesCount: 30,
         albumList: [],
         createdAt: "2025-12-01T10:00:00.000Z",
-        trustStatus: "trust",
+        trustStatus: "TRUST",
         isAuthenticated: true,
         isBlocked: false,
-        onlineStatus: "online",
+        onlineStatus: "ONLINE",
         role: "USER",
-        avatarUrl: avatar,
-        accessToken: "",
-        refreshToken: "",
-        accessTokenExpiresIn: 0,
-        refreshTokenExpiresIn: 0
+        avatarUrl: avatar
     }),
     createUser({
         UUID: "00000000-0000-4000-8000-00000000001b",
-        email: "admin2@test.com",
         name: "Bob Rivers",
         username: "bob.rivers",
         description: "",
@@ -106,15 +109,27 @@ export const communityAdminsMock = [
         subscribesCount: 15,
         albumList: [],
         createdAt: "2026-01-05T08:00:00.000Z",
-        trustStatus: "trust",
+        trustStatus: "TRUST",
         isAuthenticated: true,
         isBlocked: false,
-        onlineStatus: "offline",
+        onlineStatus: "OFFLINE",
         role: "USER",
-        avatarUrl: avatar,
-        accessToken: "",
-        refreshToken: "",
-        accessTokenExpiresIn: 0,
-        refreshTokenExpiresIn: 0
+        avatarUrl: avatar
     })
 ];
+
+export const principalUserSessionMock: PrincipalUserState = {
+    UUID: "00000000-0000-4000-8000-00000000001b",
+    name: "test name",
+    username: "testUsername",
+    avatarUrl: "avatar",
+    email: "",
+    role: "USER",
+    trustStatus: "TRUST",
+    isAuthenticated: true,
+    isBlocked: false,
+    accessToken: "",
+    accessTokenExpiresIn: 0,
+    refreshToken: "",
+    refreshTokenExpiresIn: 0
+};

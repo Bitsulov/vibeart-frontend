@@ -14,7 +14,7 @@ const defaultProps = {
     name: profileUserMock.name,
     UUID: profileUserMock.UUID,
     avatarUrl: profileUserMock.avatarUrl,
-    onlineStatus: "online" as const
+    onlineStatus: "ONLINE" as const
 };
 
 describe("ChatWindow - окно чата", () => {
@@ -47,8 +47,8 @@ describe("ChatWindow - окно чата", () => {
         expect(screen.getByRole("menu")).not.toHaveAttribute("inert");
     });
 
-    it("Показывает статус онлайн при onlineStatus=online", () => {
-        renderWithProviders(<ChatWindow {...defaultProps} onlineStatus="online" />);
+    it("Показывает статус онлайн при onlineStatus=ONLINE", () => {
+        renderWithProviders(<ChatWindow {...defaultProps} onlineStatus="ONLINE" />);
         expect(screen.getByText("chat.online")).toBeInTheDocument();
     });
 

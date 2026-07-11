@@ -20,7 +20,7 @@ describe("createCommunity - Возвращает объект типа Community
                 albumsList: [],
                 isSubscribed: false,
                 isBlocked: false,
-                trustStatus: "trust"
+                trustStatus: "TRUST"
             })
         ).toEqual({
             UUID: "hgghghgh",
@@ -37,7 +37,7 @@ describe("createCommunity - Возвращает объект типа Community
             albumsList: [],
             isSubscribed: false,
             isBlocked: false,
-            trustStatus: "trust"
+            trustStatus: "TRUST"
         });
     });
     it("Создание экземпляра сообщества с неполными данными", () => {
@@ -65,7 +65,7 @@ describe("createCommunity - Возвращает объект типа Community
             albumsList: [],
             isSubscribed: false,
             isBlocked: false,
-            trustStatus: "trust"
+            trustStatus: "TRUST"
         });
     });
 });

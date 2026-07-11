@@ -6,13 +6,31 @@ import { InputForm } from "features/inputForm";
 import { submitValidHandler } from "../model/submitValidHandler";
 import { submitInvalidHandler } from "../model/submitInvalidHandler";
 import { useDispatch } from "react-redux";
-import { type ComponentPropsWithoutRef, useState } from "react";
+import { type ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { StylizedButton } from "features/stylizedButton";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { returnToEmailHandler } from "../model/returnToEmailHandler";
 import { CodeInputs } from "features/codeInputs";
 import { codeSubmitValidHandler } from "../model/codeSubmitValidHandler";
+import { useMutation } from "@tanstack/react-query";
+import { changeEmail, confirmEmail, sendCodeEmail } from "entities/user";
+import type { AxiosError, AxiosResponse } from "axios";
+import type { AppError } from "shared/lib/types";
+import { changeEmailErrorHandler } from "../model/changeEmailErrorHandler";
+import { changeEmailSuccessHandler } from "../model/changeEmailSuccessHandler";
+import { sentCodeButtonHandler } from "../model/sentCodeButtonHandler";
+import clsx from "clsx";
+import { sendCodeSuccessHandler } from "../model/sendCodeSuccessHandler";
+import type { SendCodeEmailRequest } from "entities/user";
+import { sendCodeErrorHandler } from "../model/sendCodeErrorHandler";
+import { confirmEmailSuccessHandler } from "../model/confirmEmailSuccessHandler";
+import { confirmEmailErrorHandler } from "../model/confirmEmailErrorHandler";
+
+interface EmailChangeFormProps extends ComponentPropsWithoutRef<"form"> {
+    UUID: string;
+    email: string;
+}
 
 /**
  * Двухшаговая форма изменения e-mail адреса.
@@ -21,8 +39,12 @@ import { codeSubmitValidHandler } from "../model/codeSubmitValidHandler";
  * и соответствовать формату e-mail. При успешной валидации форма переходит на второй шаг.
  * Шаг 2: ввод шестизначного кода подтверждения, отправленного на новый адрес через {@link CodeInputs}.
  * Кнопка «Назад» возвращает на первый шаг без сброса введённого e-mail.
+ *
+ * @param UUID UUID пользователя
+ * @param email адрес электронной почты пользователя
+ * @param props пропсы компонента формы
  */
-export const EmailChangeForm = ({ ...props }: ComponentPropsWithoutRef<"form">) => {
+export const EmailChangeForm = ({ UUID, email, ...props }: EmailChangeFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const windowWidth = useWindowWidth();
@@ -48,6 +70,63 @@ export const EmailChangeForm = ({ ...props }: ComponentPropsWithoutRef<"form">) 
 
     const [codeError, setCodeError] = useState<boolean>(false);
 
+    const changeEmailMutation = useMutation({
+        mutationFn: changeEmail,
+        onSuccess: () =>
+            changeEmailSuccessHandler(
+                dispatch,
+                setValue,
+                setIsEmailSent,
+                setNewEmailResult,
+                newEmailValue
+            ),
+        onError: (error: AxiosError<AppError>) => changeEmailErrorHandler(error, dispatch)
+    });
+
+    const sendCodeMutation = useMutation({
+        mutationFn: sendCodeEmail,
+        onSuccess: (response: AxiosResponse<string>, request: SendCodeEmailRequest) =>
+            sendCodeSuccessHandler(response, request, dispatch),
+        onError: (error: AxiosError<AppError>) => sendCodeErrorHandler(error, dispatch)
+    });
+
+    const confirmEmailMutation = useMutation({
+        mutationFn: confirmEmail,
+        onSuccess: () =>
+            confirmEmailSuccessHandler(setIsEmailSent, reset, setCodeError, dispatch),
+        onError: (error: AxiosError<AppError>) =>
+            confirmEmailErrorHandler(error, dispatch)
+    });
+
+    const [timer, setTimer] = useState<number>(120);
+    const [isAllowSentCode, setIsAllowSentCode] = useState<boolean>(false);
+    const sendButtonText = isAllowSentCode
+        ? "register.sendCodeButton"
+        : "register.sendCodeButtonTimer";
+
+    useEffect(() => {
+        if (isEmailSent) {
+            setTimer(120);
+            setIsAllowSentCode(false);
+        }
+    }, [isEmailSent]);
+
+    useEffect(() => {
+        if (!isEmailSent) {
+            return;
+        }
+
+        if (timer === 0) {
+            setIsAllowSentCode(true);
+        } else {
+            const timeout = setTimeout(() => {
+                setTimer(timer => timer - 1);
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [timer, isEmailSent]);
+
     return (
         <>
             {!isEmailSent ? (
@@ -56,10 +135,9 @@ export const EmailChangeForm = ({ ...props }: ComponentPropsWithoutRef<"form">) 
                     onSubmit={handleSubmit(
                         () =>
                             submitValidHandler(
-                                setValue,
-                                setIsEmailSent,
-                                setNewEmailResult,
-                                newEmailValue
+                                newEmailValue,
+                                UUID,
+                                changeEmailMutation.mutateAsync
                             ),
                         errors => submitInvalidHandler(errors, dispatch)
                     )}
@@ -121,8 +199,8 @@ export const EmailChangeForm = ({ ...props }: ComponentPropsWithoutRef<"form">) 
                             data,
                             dispatch,
                             setCodeError,
-                            setIsEmailSent,
-                            reset
+                            newEmailResult,
+                            confirmEmailMutation.mutateAsync
                         )
                     )}
                     className={c.form}
@@ -147,6 +225,22 @@ export const EmailChangeForm = ({ ...props }: ComponentPropsWithoutRef<"form">) 
                         setCode={value => codeForm.setValue("code", value)}
                         className={c.code}
                     />
+                    <button
+                        type="button"
+                        disabled={!isAllowSentCode}
+                        aria-label={t("ariaLabel.sendCodeAgain")}
+                        onClick={() =>
+                            sentCodeButtonHandler(
+                                setIsAllowSentCode,
+                                setTimer,
+                                email,
+                                sendCodeMutation.mutateAsync
+                            )
+                        }
+                        className={clsx(c.send_code, !isAllowSentCode && c.disabled)}
+                    >
+                        {t(sendButtonText, { timer: timer })}
+                    </button>
                     <StylizedButton
                         aria-label={t("ariaLabel.changeEmail")}
                         type="submit"

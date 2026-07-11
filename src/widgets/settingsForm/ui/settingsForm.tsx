@@ -1,9 +1,10 @@
 import c from "./settingsForm.module.scss";
-import type { UserType } from "entities/user";
+import type { UserResponse, UserType } from "entities/user";
 import {
     type ComponentPropsWithoutRef,
     type Dispatch,
     type SetStateAction,
+    useEffect,
     useState
 } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,13 +16,24 @@ import { submitInvalidHandler } from "../model/submitInvalidHandler";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { StylizedButton } from "features/stylizedButton";
 import { useDispatch } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateUserByUUID } from "entities/user";
+import { onDeleteAvatarHandler } from "../model/onDeleteAvatarHandler";
+import { updateUserSuccessHandler } from "../model/updateUserSuccessHandler";
+import { updateUserErrorHandler } from "../model/updateUserErrorHandler";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link SettingsForm}. */
 interface SettingsFormProps extends ComponentPropsWithoutRef<"form"> {
-    /** Текущие данные пользователя, используемые для предпросмотра аватара и имени в полях. */
+    /** Данные пользователя, используемые для предпросмотра аватара и имени в полях. */
     userInfo: Partial<UserType>;
+    /** Текущая информация о пользователе с сервера */
+    currentUserInfo: UserResponse;
     /** Функция обновления данных пользователя для обновления предпросмотра при изменении полей. */
     setUserInfo: Dispatch<SetStateAction<Partial<UserType>>>;
+    /** UUID текущего пользователя */
+    UUID: string;
 }
 
 /**
@@ -30,12 +42,18 @@ interface SettingsFormProps extends ComponentPropsWithoutRef<"form"> {
  * Использует react-hook-form для валидации: имя — обязательно (3–20 символов),
  * имя пользователя — 2–10 символов, описание — не более 200 символов.
  * Текст кнопки отправки адаптируется под ширину экрана.
- * При успехе вызывается {@link submitValidHandler}, при ошибке — {@link submitInvalidHandler}.
  */
-export const SettingsForm = ({ userInfo, setUserInfo, ...props }: SettingsFormProps) => {
+export const SettingsForm = ({
+    userInfo,
+    setUserInfo,
+    currentUserInfo,
+    UUID,
+    ...props
+}: SettingsFormProps) => {
     const { t } = useTranslation();
     const windowWidth = useWindowWidth();
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
 
     const {
         register,
@@ -56,12 +74,35 @@ export const SettingsForm = ({ userInfo, setUserInfo, ...props }: SettingsFormPr
     const idValue = useWatch({ control, name: "id" });
     const descriptionValue = useWatch({ control, name: "description" });
 
-    const [_loadedFile, setLoadedFile] = useState<File | undefined>(undefined);
+    const [loadedFile, setLoadedFile] = useState<File | undefined>(undefined);
+    const [isDeleteAvatar, setIsDeleteAvatar] = useState<boolean>(false);
+
+    const updateUserMutation = useMutation({
+        mutationFn: updateUserByUUID,
+        onSuccess: response =>
+            updateUserSuccessHandler(response, setValue, dispatch, queryClient, UUID),
+        onError: (error: AxiosError<AppError>) => updateUserErrorHandler(error, dispatch)
+    });
+
+    useEffect(() => {
+        setValue("id", currentUserInfo?.username || "");
+        setValue("title", currentUserInfo?.name || "");
+        setValue("description", currentUserInfo?.description || "");
+        setUserInfo(state => ({ ...state, avatarUrl: currentUserInfo?.avatarUrl || "" }));
+    }, [currentUserInfo, setValue, setUserInfo]);
 
     return (
         <form
             onSubmit={handleSubmit(
-                () => submitValidHandler(setValue),
+                data =>
+                    submitValidHandler(
+                        data,
+                        isDeleteAvatar,
+                        updateUserMutation.mutateAsync,
+                        dispatch,
+                        UUID,
+                        loadedFile
+                    ),
                 errors => submitInvalidHandler(errors, dispatch)
             )}
             className={c.form}
@@ -81,6 +122,7 @@ export const SettingsForm = ({ userInfo, setUserInfo, ...props }: SettingsFormPr
                     id="avatar"
                     avatarUrl={userInfo.avatarUrl}
                     avatarAlt={userInfo.name || t("avatar")}
+                    onAvatarDelete={() => onDeleteAvatarHandler(setIsDeleteAvatar)}
                 />
                 <SettingsItem
                     title={t("settings.nameTitle")}

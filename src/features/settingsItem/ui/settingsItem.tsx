@@ -61,6 +61,8 @@ interface SettingsItemProps<T extends object> extends ComponentPropsWithoutRef<"
     avatarUrl?: string;
     /** Имя поля сущности, в которое записывается URL аватара. По умолчанию `"avatarUrl"`. */
     avatarFieldName?: string;
+    /** Callback, выполняемый после удаления файла аватара */
+    onAvatarDelete?: () => void;
     /** Признак обязательности поля. Счётчик подсвечивается при пустом значении ниже минимума. */
     required?: boolean;
 }
@@ -89,7 +91,7 @@ export const SettingsItem = <T extends object>({
     avatarAlt = "avatar",
     avatarUrl = "",
     avatarFieldName = "avatarUrl",
-    required = false,
+    onAvatarDelete = () => {},
     id,
     ...props
 }: SettingsItemProps<T>) => {
@@ -98,7 +100,7 @@ export const SettingsItem = <T extends object>({
     const isText = type === "input" || type === "textarea" || type === "id";
     const isLimitOutMore = maxLength ? value?.length > maxLength : false;
     const isLimitOutLess = minLength
-        ? value?.length < minLength && (required || value.length > 0)
+        ? value.length > 0 && value.length < minLength
         : false;
 
     const inputLoadRef = useRef<HTMLInputElement>(null);
@@ -211,7 +213,8 @@ export const SettingsItem = <T extends object>({
                                         inputLoadRef,
                                         setEntityInfo,
                                         setLoadedFile,
-                                        avatarFieldName
+                                        avatarFieldName,
+                                        onAvatarDelete
                                     )
                                 }
                                 type="button"

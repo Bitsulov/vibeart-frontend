@@ -3,6 +3,24 @@ import { expect, test } from "@playwright/test";
 const COMMUNITIES_URL = "/en/communities";
 
 test.describe("Communities - страница сообществ", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto(COMMUNITIES_URL);
 

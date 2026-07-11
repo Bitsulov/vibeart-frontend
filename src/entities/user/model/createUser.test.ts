@@ -1,13 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { createUser } from "./createUser";
 
-describe("createTag - Возвращает объект типа TagType", () => {
-    it("Создание экземпляра тега", () => {
+describe("createUser - Возвращает объект типа UserType", () => {
+    it("Создание экземпляра пользователя", () => {
         expect(
             createUser({
                 UUID: "gfgfgf",
                 name: "",
-                email: "a",
                 username: "fgfgf",
                 description: "",
                 worksCount: 0,
@@ -15,21 +14,16 @@ describe("createTag - Возвращает объект типа TagType", () =>
                 subscribesCount: 0,
                 albumList: [],
                 createdAt: "2026-03-29T17:25:15.940Z",
-                trustStatus: "trust",
+                trustStatus: "TRUST",
                 isAuthenticated: false,
                 isBlocked: false,
-                onlineStatus: "offline",
+                onlineStatus: "OFFLINE",
                 role: "USER",
-                avatarUrl: "",
-                accessToken: "",
-                refreshToken: "",
-                accessTokenExpiresIn: 0,
-                refreshTokenExpiresIn: 0
+                avatarUrl: ""
             })
         ).toEqual({
             UUID: "gfgfgf",
             name: "",
-            email: "a",
             username: "@fgfgf",
             description: "",
             worksCount: 0,
@@ -37,35 +31,29 @@ describe("createTag - Возвращает объект типа TagType", () =>
             subscribesCount: 0,
             albumList: [],
             createdAt: "2026-03-29T17:25:15.940Z",
-            trustStatus: "trust",
+            trustStatus: "TRUST",
             isAuthenticated: false,
             isBlocked: false,
-            onlineStatus: "offline",
+            onlineStatus: "OFFLINE",
             role: "USER",
-            avatarUrl: "",
-            accessToken: "",
-            refreshToken: "",
-            accessTokenExpiresIn: 0,
-            refreshTokenExpiresIn: 0
+            avatarUrl: ""
         });
     });
-    it("Создание экземпляра тега с неполными данными", () => {
+    it("Создание экземпляра пользователя с неполными данными", () => {
         expect(
             // @ts-expect-error неполная информация
             createUser({
                 UUID: "gfgfgf",
-                email: "a",
                 username: "gfgf",
                 createdAt: "2026-03-29T17:25:15.940Z",
-                trustStatus: "trust",
+                trustStatus: "TRUST",
                 isAuthenticated: false,
                 isBlocked: false,
-                onlineStatus: "offline"
+                onlineStatus: "OFFLINE"
             })
         ).toEqual({
             UUID: "gfgfgf",
             name: "",
-            email: "a",
             username: "@gfgf",
             description: "",
             worksCount: 0,
@@ -73,16 +61,12 @@ describe("createTag - Возвращает объект типа TagType", () =>
             subscribesCount: 0,
             albumList: [],
             createdAt: "2026-03-29T17:25:15.940Z",
-            trustStatus: "trust",
+            trustStatus: "TRUST",
             isAuthenticated: false,
             isBlocked: false,
-            onlineStatus: "offline",
+            onlineStatus: "OFFLINE",
             role: "USER",
-            avatarUrl: "",
-            accessToken: "",
-            refreshToken: "",
-            accessTokenExpiresIn: 0,
-            refreshTokenExpiresIn: 0
+            avatarUrl: ""
         });
     });
 });

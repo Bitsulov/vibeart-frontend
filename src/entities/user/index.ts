@@ -7,7 +7,15 @@ export type {
     SignInRequest,
     RefreshRequest,
     UserDetailResponse,
-    PrincipalUserState
+    PrincipalUserState,
+    UserResponse,
+    UpdateUserRequest,
+    ChangeEmailRequest,
+    SendCodeEmailRequest,
+    ConfirmChangeEmailRequest,
+    ChangePasswordRequest,
+    SendCodePasswordRequest,
+    ConfirmChangePasswordRequest
 } from "./lib/types";
 export { userReducer, setUserInfo } from "./model/userSlice";
 export { selectUserInfo, selectIsAuthenticated, selectUser } from "./model/selectors";
@@ -17,6 +25,22 @@ export {
     profileUserMock,
     communityAdminsMock,
     authResponseMock,
-    userDetailResponseMock
+    userDetailResponseMock,
+    userResponseMock,
+    principalUserSessionMock
 } from "./const/mockConst";
-export { register, verify } from "./api/userApi";
+export {
+    register,
+    verify,
+    getPrincipalUser,
+    getUserByUUID,
+    changeEmail,
+    sendCode,
+    sendCodeEmail,
+    confirmEmail,
+    changePassword,
+    sendCodePassword,
+    confirmPassword,
+    updateUserByUUID,
+    deleteUserByUUID
+} from "./api/userApi";

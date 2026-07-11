@@ -1,11 +1,7 @@
 import type { CommunityType } from "../lib/types";
 
 /**
- * Фабричная функция для создания нормализованного объекта сообщества.
- *
- * Устанавливает значения по умолчанию: `0` для счётчиков, пустые строки
- * для текстовых полей, пустой массив для `albumsList`, `false` для
- * булевых флагов, `"trust"` для `trustStatus`.
+ * Фабричная функция для создания нормализованного объекта сообщества со значениями по умолчанию.
  *
  * @param community - Данные сообщества, соответствующие типу `CommunityType`.
  * @returns Нормализованный объект сообщества.
@@ -14,7 +10,7 @@ import type { CommunityType } from "../lib/types";
  * const community = createCommunity({ UUID: "01ARZ...", owner: principalUserMock,
  *   username: "art-club" });
  * community.isSubscribed // false
- * community.posts        // 0
+ * community.posts // 0
  */
 export function createCommunity({
     UUID,
@@ -30,7 +26,7 @@ export function createCommunity({
     imageUrl = "",
     isSubscribed = false,
     isBlocked = false,
-    trustStatus = "trust"
+    trustStatus = "TRUST"
 }: CommunityType) {
     return {
         UUID,

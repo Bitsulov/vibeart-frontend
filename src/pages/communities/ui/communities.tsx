@@ -1,17 +1,19 @@
 import { Layout } from "widgets/layout";
 import c from "./communities.module.scss";
 import { Navigation } from "widgets/navigation";
-import { profileUserMock } from "entities/user";
+import { selectUserInfo } from "entities/user";
 import { useTranslation } from "react-i18next";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { CommunitiesLists } from "widgets/communitiesLists";
 import { communitiesAllMock, communitiesMyMock } from "entities/community";
+import { useSelector } from "react-redux";
 
 /** Страница списка сообществ */
 export const Communities = () => {
     const { t } = useTranslation();
 
     const windowWidth = useWindowWidth();
+    const userInfo = useSelector(selectUserInfo);
 
     return (
         <Layout isSmallTitle={true}>
@@ -22,10 +24,7 @@ export const Communities = () => {
             <div className="container">
                 <div className={c.main}>
                     {windowWidth >= 1200 && (
-                        <Navigation
-                            role={profileUserMock.role}
-                            UUID={profileUserMock.UUID}
-                        />
+                        <Navigation role={userInfo.role} UUID={userInfo.UUID} />
                     )}
                     <div className={c.content}>
                         <CommunitiesLists

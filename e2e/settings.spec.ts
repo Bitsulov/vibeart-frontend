@@ -3,6 +3,43 @@ import { expect, test } from "@playwright/test";
 const SETTINGS_URL = "/en/settings";
 
 test.describe("Settings - страница настроек профиля", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+        await page.route("**/api/user/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    name: "testUser",
+                    username: "testUser",
+                    description: "",
+                    avatarUrl: "",
+                    worksCount: 0,
+                    subscribersCount: 0,
+                    subscribesCount: 0,
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    trustStatus: "TRUST",
+                    onlineStatus: "ONLINE",
+                    enabled: true
+                })
+            })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto(SETTINGS_URL);
 
@@ -67,6 +104,7 @@ test.describe("Settings - страница настроек профиля", () 
             await page.goto(SETTINGS_URL);
             await page.waitForLoadState("networkidle");
 
+            await page.getByLabel("Enter name").fill("");
             await page.getByRole("button", { name: "Save entered data" }).click();
 
             await expect(page.getByLabel("Enter name")).toHaveAttribute(
@@ -113,6 +151,12 @@ test.describe("Settings - страница настроек профиля", () 
     });
 
     test.describe("EmailChangeForm - форма изменения email", () => {
+        test.beforeEach(async ({ page }) => {
+            await page.route("**/api/user/*/email", route =>
+                route.fulfill({ status: 200, body: "ok" })
+            );
+        });
+
         test("Отображается заголовок формы", async ({ page }) => {
             await page.goto(SETTINGS_URL);
 
@@ -191,6 +235,12 @@ test.describe("Settings - страница настроек профиля", () 
     });
 
     test.describe("PasswordChangeForm - форма изменения пароля", () => {
+        test.beforeEach(async ({ page }) => {
+            await page.route("**/api/user/*/password", route =>
+                route.fulfill({ status: 200, body: "ok" })
+            );
+        });
+
         test("Отображается заголовок формы", async ({ page }) => {
             await page.goto(SETTINGS_URL);
 

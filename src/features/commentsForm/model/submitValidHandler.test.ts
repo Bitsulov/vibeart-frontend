@@ -1,7 +1,25 @@
 import { describe, it, expect, vi } from "vitest";
 import { submitValidHandler } from "./submitValidHandler";
-import { profileUserMock } from "entities/user";
+import { createUser, principalUserSessionMock, profileUserMock } from "entities/user";
 import type { CommentType } from "entities/comment";
+
+const expectedAuthor = createUser({
+    UUID: principalUserSessionMock.UUID,
+    name: principalUserSessionMock.name,
+    username: principalUserSessionMock.username,
+    description: "",
+    worksCount: 0,
+    subscribersCount: 0,
+    subscribesCount: 0,
+    albumList: [],
+    createdAt: "",
+    trustStatus: principalUserSessionMock.trustStatus,
+    isAuthenticated: true,
+    isBlocked: principalUserSessionMock.isBlocked,
+    onlineStatus: "ONLINE",
+    role: principalUserSessionMock.role,
+    avatarUrl: ""
+});
 
 describe("submitValidHandler - добавляет комментарий и сбрасывает поле ввода", () => {
     it("Вызывает setComments с новым комментарием в начале массива", () => {
@@ -11,7 +29,7 @@ describe("submitValidHandler - добавляет комментарий и сб
         submitValidHandler(
             { sendComment: "Новый комментарий" },
             setComments,
-            profileUserMock,
+            principalUserSessionMock,
             setValue
         );
 
@@ -21,7 +39,7 @@ describe("submitValidHandler - добавляет комментарий и сб
         const result = updater([]);
         expect(result).toHaveLength(1);
         expect(result[0].text).toBe("Новый комментарий");
-        expect(result[0].author).toEqual(profileUserMock);
+        expect(result[0].author).toEqual(expectedAuthor);
     });
 
     it("Добавляет комментарий в начало существующего массива", () => {
@@ -36,7 +54,7 @@ describe("submitValidHandler - добавляет комментарий и сб
         submitValidHandler(
             { sendComment: "Новый" },
             setComments,
-            profileUserMock,
+            principalUserSessionMock,
             setValue
         );
 
@@ -50,7 +68,12 @@ describe("submitValidHandler - добавляет комментарий и сб
 
     it("Сбрасывает поле sendComment после отправки", () => {
         const setValue = vi.fn();
-        submitValidHandler({ sendComment: "Текст" }, vi.fn(), profileUserMock, setValue);
+        submitValidHandler(
+            { sendComment: "Текст" },
+            vi.fn(),
+            principalUserSessionMock,
+            setValue
+        );
         expect(setValue).toHaveBeenCalledWith("sendComment", "");
     });
 });

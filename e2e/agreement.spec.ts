@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Agreement - страница пользовательского соглашения", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto("/en/agreement");
 

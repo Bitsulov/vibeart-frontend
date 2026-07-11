@@ -1,7 +1,7 @@
 import { Layout } from "widgets/layout";
 import c from "./community.module.scss";
 import { Navigation } from "widgets/navigation";
-import { profileUserMock } from "entities/user";
+import { selectUserInfo } from "entities/user";
 import { useTranslation } from "react-i18next";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { AlbumSlider } from "widgets/albumSlider";
@@ -10,6 +10,7 @@ import { PostList } from "widgets/postList";
 import { useMemo, useState } from "react";
 import { CommunityInfo } from "widgets/communityInfo";
 import { communityMock } from "entities/community";
+import { useSelector } from "react-redux";
 
 /**
  * Страница сообщества с информационным блоком, слайдером альбомов и списком публикаций.
@@ -20,6 +21,7 @@ import { communityMock } from "entities/community";
 export const Community = () => {
     const { t } = useTranslation();
     const windowWidth = useWindowWidth();
+    const userInfo = useSelector(selectUserInfo);
 
     const [selectedAlbum, setSelectedAlbum] = useState<string>("all");
     const pages = 12;
@@ -40,10 +42,7 @@ export const Community = () => {
             <div className="container">
                 <div className={c.main}>
                     {windowWidth >= 1200 && (
-                        <Navigation
-                            role={profileUserMock.role}
-                            UUID={profileUserMock.UUID}
-                        />
+                        <Navigation role={userInfo.role} UUID={userInfo.UUID} />
                     )}
                     <div className={c.content}>
                         <CommunityInfo communityInfo={communityMock} />

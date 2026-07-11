@@ -34,5 +34,5 @@ export interface CommunityType {
     /** Признак блокировки сообщества модерацией. */
     isBlocked: boolean;
     /** Уровень доверия, присвоенный модерацией платформы. */
-    trustStatus: "trust" | "untrust";
+    trustStatus: "TRUST" | "UNTRUST";
 }

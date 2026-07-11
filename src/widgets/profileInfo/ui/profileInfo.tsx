@@ -21,6 +21,8 @@ import { hideHint } from "../model/hideHint";
 interface ProfileInfoProps {
     /** Объект пользователя, профиль которого отображается. */
     userInfo: UserType;
+    /** Статус загрузки данных */
+    isLoadingData?: boolean;
 }
 
 /**
@@ -30,7 +32,7 @@ interface ProfileInfoProps {
  * в {@link ProfileLink}. На узких экранах (< 1200 px) описание сворачивается с кнопкой
  * раскрытия. Дата регистрации форматируется через {@link getLocalTimeString}.
  */
-export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
+export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProps) => {
     const { t } = useTranslation();
     const language = useSelector(selectCurrentLanguage);
     const principalUserInfo = useSelector(selectUserInfo);
@@ -53,12 +55,23 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
     }, [userInfo.description, windowWidth]);
 
     const avatarImg = userInfo.avatarUrl || defaultAvatar;
-    const avatarAlt = `${t("profile.avatarAlt")} ${userInfo.name}`;
+    const avatarAlt = isLoadingData
+        ? t("loading...")
+        : `${t("profile.avatarAlt")} ${userInfo.name}`;
     const isPrincipalUser = userInfo.UUID === principalUserInfo.UUID;
 
-    const resultDate = getLocalTimeString(language, userInfo.createdAt);
+    const resultDate = isLoadingData
+        ? t("loading...")
+        : getLocalTimeString(language, userInfo.createdAt);
 
     const dispatch = useDispatch();
+
+    const name = isLoadingData
+        ? t("loading...")
+        : userInfo.name || t("profile.emptyName");
+    const description = isLoadingData
+        ? t("loading...")
+        : userInfo.description || t("community.emptyDescription");
 
     return (
         <section className={c.info}>
@@ -72,16 +85,18 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
                             classNameIcons={c.icon}
                         />
                     )}
-                    <ProfileLink
-                        isPrincipalUser={isPrincipalUser}
-                        name={userInfo.name}
-                        UUID={userInfo.UUID}
-                    />
+                    {!isLoadingData && (
+                        <ProfileLink
+                            isPrincipalUser={isPrincipalUser}
+                            name={userInfo.name}
+                            UUID={userInfo.UUID}
+                        />
+                    )}
                     <div className={c.left}>
                         <div
                             className={clsx(
                                 c.avatar_wrapper,
-                                userInfo.onlineStatus === "online" && c.online
+                                userInfo.onlineStatus === "ONLINE" && c.online
                             )}
                         >
                             <img
@@ -122,12 +137,14 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
                         </div>
                     </div>
                     <div className={c.right}>
-                        <h1 className={c.name}>{userInfo.name}</h1>
+                        <h1 className={c.name}>{name}</h1>
                         <div className={c.username_wrapper}>
-                            <p className={c.username}>{userInfo.username}</p>
+                            <p className={c.username}>
+                                {userInfo.username || userInfo.UUID}
+                            </p>
                             <CopyButton
                                 className={c.copy_button}
-                                text={userInfo.username}
+                                text={userInfo.username || userInfo.UUID}
                             />
                         </div>
                         {windowWidth >= 1200 && (
@@ -166,7 +183,7 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
                                         c.expandable
                                 )}
                             >
-                                {userInfo.description || t("community.emptyDescription")}
+                                {description}
                             </p>
                         </div>
                         <div className={c.date_wrapper}>

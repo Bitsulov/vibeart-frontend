@@ -27,7 +27,7 @@ import { verify } from "entities/user";
 import { verifySuccessHandler } from "../model/verifySuccessHandler";
 import { useNavigate } from "react-router-dom";
 import { verifyErrorHandler } from "../model/verifyErrorHandler";
-import { sendCode } from "entities/user/api/userApi";
+import { sendCode } from "entities/user";
 import { sendCodeSuccessHandler } from "../model/sendCodeSuccessHandler";
 import { sendCodeErrorHandler } from "../model/sendCodeErrorHandler";
 import { sentCodeButtonHandler } from "../model/sentCodeButtonHandler";

@@ -3,6 +3,24 @@ import { expect, test } from "@playwright/test";
 const CREATE_POST_URL = "/en/post/add";
 
 test.describe("CreatePost - страница создания поста", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto(CREATE_POST_URL);
 
@@ -61,7 +79,7 @@ test.describe("CreatePost - страница создания поста", () =>
         ).toBeVisible();
     });
     test("Ввод названия обновляет превью поста", async ({ page }) => {
-        await page.goto(CREATE_POST_URL);
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Мой пост");
         await expect(page.getByText("Мой пост")).toBeVisible();

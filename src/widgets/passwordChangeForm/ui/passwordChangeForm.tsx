@@ -9,16 +9,29 @@ import { submitInvalidHandler } from "../model/submitInvalidHandler";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
-import { type ComponentPropsWithoutRef, useState } from "react";
+import { type ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { codeSubmitValidHandler } from "../model/codeSubmitValidHandler";
 import { returnToEmailHandler } from "../model/returnToEmailHandler";
 import { CodeInputs } from "features/codeInputs";
 import type { ICodeForm } from "../lib/types";
+import { useMutation } from "@tanstack/react-query";
+import { changePassword, confirmPassword, sendCodePassword } from "entities/user";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
+import { changePasswordSuccessHandler } from "../model/changePasswordSuccessHandler";
+import { changePasswordErrorHandler } from "../model/changePasswordErrorHandler";
+import { sentCodeButtonHandler } from "../model/sentCodeButtonHandler";
+import clsx from "clsx";
+import { sendCodeSuccessHandler } from "../model/sendCodeSuccessHandler";
+import { sendCodeErrorHandler } from "../model/sendCodeErrorHandler";
+import { confirmPasswordSuccessHandler } from "../model/confirmPasswordSuccessHandler";
+import { confirmPasswordErrorHandler } from "../model/confirmPasswordErrorHandler";
 
 /** Свойства компонента {@link PasswordChangeForm}. */
 interface PasswordChangeFormProps extends ComponentPropsWithoutRef<"form"> {
     /** E-mail пользователя, отображаемый в подсказке на шаге ввода кода подтверждения. */
     email: string;
+    UUID: string;
 }
 
 /**
@@ -29,7 +42,11 @@ interface PasswordChangeFormProps extends ComponentPropsWithoutRef<"form"> {
  * Шаг 2: ввод шестизначного кода подтверждения, отправленного на e-mail пользователя, через {@link CodeInputs}.
  * Кнопка «Назад» возвращает на первый шаг без сброса введённых данных.
  */
-export const PasswordChangeForm = ({ email, ...props }: PasswordChangeFormProps) => {
+export const PasswordChangeForm = ({
+    email,
+    UUID,
+    ...props
+}: PasswordChangeFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const windowWidth = useWindowWidth();
@@ -56,18 +73,83 @@ export const PasswordChangeForm = ({ email, ...props }: PasswordChangeFormProps)
 
     const [codeError, setCodeError] = useState<boolean>(false);
 
+    const changePasswordMutation = useMutation({
+        mutationFn: changePassword,
+        onSuccess: () =>
+            changePasswordSuccessHandler(setValue, setIsPasswordSent, email, dispatch),
+        onError: (error: AxiosError<AppError>) =>
+            changePasswordErrorHandler(error, dispatch)
+    });
+
+    const sendCodeMutation = useMutation({
+        mutationFn: sendCodePassword,
+        onSuccess: (response, request) =>
+            sendCodeSuccessHandler(
+                response,
+                request,
+                setIsPasswordSent,
+                reset,
+                setCodeError,
+                dispatch
+            ),
+        onError: (error: AxiosError<AppError>) => sendCodeErrorHandler(error, dispatch)
+    });
+
+    const confirmMutation = useMutation({
+        mutationFn: confirmPassword,
+        onSuccess: () =>
+            confirmPasswordSuccessHandler(
+                setIsPasswordSent,
+                reset,
+                setCodeError,
+                dispatch
+            ),
+        onError: (error: AxiosError<AppError>) =>
+            confirmPasswordErrorHandler(error, dispatch)
+    });
+
+    const [timer, setTimer] = useState<number>(120);
+    const [isAllowSentCode, setIsAllowSentCode] = useState<boolean>(false);
+    const sendButtonText = isAllowSentCode
+        ? "register.sendCodeButton"
+        : "register.sendCodeButtonTimer";
+
+    useEffect(() => {
+        if (isPasswordSent) {
+            setTimer(120);
+            setIsAllowSentCode(false);
+        }
+    }, [isPasswordSent]);
+
+    useEffect(() => {
+        if (!isPasswordSent) {
+            return;
+        }
+
+        if (timer === 0) {
+            setIsAllowSentCode(true);
+        } else {
+            const timeout = setTimeout(() => {
+                setTimer(timer => timer - 1);
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [timer, isPasswordSent]);
+
     return (
         <>
             {!isPasswordSent ? (
                 <form
                     key="password"
                     onSubmit={handleSubmit(
-                        () =>
+                        data =>
                             submitValidHandler(
-                                setValue,
-                                setIsPasswordSent,
+                                data,
                                 setNewPasswordResult,
-                                newPasswordValue
+                                newPasswordValue,
+                                UUID,
+                                changePasswordMutation.mutateAsync
                             ),
                         errors => submitInvalidHandler(errors, dispatch)
                     )}
@@ -158,8 +240,8 @@ export const PasswordChangeForm = ({ email, ...props }: PasswordChangeFormProps)
                             data,
                             dispatch,
                             setCodeError,
-                            setIsPasswordSent,
-                            reset
+                            email,
+                            confirmMutation.mutateAsync
                         )
                     )}
                     className={c.form}
@@ -184,6 +266,22 @@ export const PasswordChangeForm = ({ email, ...props }: PasswordChangeFormProps)
                         setCode={value => codeForm.setValue("code", value)}
                         className={c.code}
                     />
+                    <button
+                        type="button"
+                        disabled={!isAllowSentCode}
+                        aria-label={t("ariaLabel.sendCodeAgain")}
+                        onClick={() =>
+                            sentCodeButtonHandler(
+                                setIsAllowSentCode,
+                                setTimer,
+                                email,
+                                sendCodeMutation.mutateAsync
+                            )
+                        }
+                        className={clsx(c.send_code, !isAllowSentCode && c.disabled)}
+                    >
+                        {t(sendButtonText, { timer: timer })}
+                    </button>
                     <StylizedButton
                         aria-label={t("ariaLabel.changePassword")}
                         type="submit"

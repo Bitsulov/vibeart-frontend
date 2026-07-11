@@ -8,7 +8,7 @@ import { getShortNumber } from "shared/lib/getShortNumber";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { postClickHandler } from "../model/postClickHandler";
-import type { PrincipalUserState } from "entities/user";
+import type { UserType } from "entities/user";
 import { toggleLikeHandler } from "../model/toggleLikeHandler";
 import { useState } from "react";
 import clsx from "clsx";
@@ -19,7 +19,7 @@ interface PostProps {
     /** Дата публикации в формате ISO 8601. */
     date: string;
     /** Полный профиль автора поста. */
-    author: PrincipalUserState;
+    author: UserType;
     /** Заголовок публикации. */
     title: string;
     /** Количество лайков. По умолчанию `0`. */

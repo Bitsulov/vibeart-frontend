@@ -2,10 +2,10 @@ import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { ContactsForm } from "./contactsForm";
 import { screen } from "@testing-library/react";
-import type { UserType } from "entities/user";
+import type { PrincipalUserState } from "entities/user";
 
 const defaultProps = {
-    userInfo: { name: "Test User", avatarUrl: "" } as UserType
+    userInfo: { name: "Test User", avatarUrl: "" } as PrincipalUserState
 };
 
 describe("ContactsForm - форма связи с администрацией", () => {
