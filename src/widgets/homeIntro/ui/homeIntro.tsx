@@ -2,10 +2,20 @@ import c from "./homeIntro.module.scss";
 import { useTranslation } from "react-i18next";
 import imgIntro from "shared/icons/img-intro.png";
 import { StylizedLink } from "features/stylizedLink";
+import type { ComponentPropsWithoutRef } from "react";
+
+/** Свойства секции призыва к действию на главной странице */
+interface HomeIntroProps extends ComponentPropsWithoutRef<"section"> {
+    /** Признак авторизованного пользователя */
+    isAuthenticated?: boolean;
+}
 
 /** Вводная секция главной страницы с заголовком, описанием и кнопкой входа. */
-export const HomeIntro = ({ ...props }) => {
+export const HomeIntro = ({ isAuthenticated = false, ...props }: HomeIntroProps) => {
     const { t } = useTranslation();
+
+    const href = isAuthenticated ? "/gallery" : "/auth";
+    const ariaLabel = isAuthenticated ? "ariaLabel.goToGallery" : "ariaLabel.goToAuth";
 
     return (
         <section className={c.homeIntro} {...props}>
@@ -16,8 +26,8 @@ export const HomeIntro = ({ ...props }) => {
                         <p className={c.description}>{t("home.introDescription")}</p>
                         <StylizedLink
                             className={c.link}
-                            href="/auth"
-                            aria-label={t("ariaLabel.goToAuth")}
+                            href={href}
+                            aria-label={t(ariaLabel)}
                         >
                             {t("home.introButton")}
                         </StylizedLink>
