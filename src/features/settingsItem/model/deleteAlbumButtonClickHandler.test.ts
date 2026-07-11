@@ -8,11 +8,19 @@ describe("deleteAlbumButtonClickHandler - обработчик удаления 
         const ref = { current: input };
         const setEntityInfo = vi.fn();
         const setLoadedFile = vi.fn();
+        const onAvatarDelete = vi.fn();
 
-        deleteAlbumButtonClickHandler(ref, setEntityInfo, setLoadedFile);
+        deleteAlbumButtonClickHandler(
+            ref,
+            setEntityInfo,
+            setLoadedFile,
+            "avatarUrl",
+            onAvatarDelete
+        );
 
         expect(input.value).toBe("");
         expect(setLoadedFile).toHaveBeenCalledWith(undefined);
+        expect(onAvatarDelete).toHaveBeenCalled();
 
         const updater = setEntityInfo.mock.calls[0][0];
         expect(updater({ avatarUrl: "blob:url", name: "test" })).toEqual({
