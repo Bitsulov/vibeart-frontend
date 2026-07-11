@@ -1,25 +1,28 @@
 import type { Dispatch } from "@reduxjs/toolkit";
 import React, { type SetStateAction } from "react";
-import type { UseFormReset } from "react-hook-form";
 import { showToast } from "features/toast";
-import type { IPasswordChangeForm, ICodeForm } from "../lib/types";
+import type { ICodeForm } from "../lib/types";
+import type { AxiosResponse } from "axios";
+import type { ConfirmChangePasswordRequest } from "entities/user";
+
+type SubmitFn = (data: ConfirmChangePasswordRequest) => Promise<AxiosResponse<string>>;
 
 /**
  * Обрабатывает отправку кода подтверждения смены пароля:
- * проверяет длину кода, показывает ошибку или завершает процесс.
+ * проверяет длину кода, показывает ошибку или отправляет запрос на сервер.
  *
  * @param data - Данные формы ввода кода.
  * @param dispatch - Функция записи данных в Redux.
  * @param setErrorCode - Переключает режим отображения ошибки в полях кода.
- * @param setIsEmailSent - Возвращает форму к шагу ввода пароля.
- * @param resetEmailForm - Сбрасывает форму изменения пароля.
+ * @param email - Адрес электронной почты пользователя.
+ * @param submit - Функция отправки запроса подтверждения смены пароля на сервер.
  */
-export function codeSubmitValidHandler(
+export async function codeSubmitValidHandler(
     data: ICodeForm,
     dispatch: Dispatch,
     setErrorCode: React.Dispatch<SetStateAction<boolean>>,
-    setIsEmailSent: React.Dispatch<SetStateAction<boolean>>,
-    resetEmailForm: UseFormReset<IPasswordChangeForm>
+    email: string,
+    submit: SubmitFn
 ) {
     if (data.code.length !== 6) {
         dispatch(showToast({ message: "toast.wrongCodeLength", type: "error" }));
@@ -27,9 +30,5 @@ export function codeSubmitValidHandler(
         return;
     }
 
-    setErrorCode(false);
-    setTimeout(() => {
-        resetEmailForm();
-    }, 0);
-    setIsEmailSent(false);
+    await submit({ email: email, verificationCode: data.code });
 }

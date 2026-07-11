@@ -7,13 +7,17 @@ import { userEvent } from "@testing-library/user-event";
 describe("PasswordChangeForm - форма изменения пароля", () => {
     describe("Рендер", () => {
         it("Отображает заголовок", () => {
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             expect(screen.getByText("passwordChange.title")).toBeInTheDocument();
         });
 
         it("Отображает поля старого, нового и подтверждения пароля", () => {
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             expect(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder")
@@ -27,7 +31,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
         });
 
         it("Отображает кнопку продолжения", () => {
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             expect(
                 screen.getByRole("button", { name: "ariaLabel.continue" })
@@ -38,7 +44,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
     describe("Валидация", () => {
         it("Помечает поле старого пароля как невалидное при пустой отправке", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.click(screen.getByRole("button", { name: "ariaLabel.continue" }));
 
@@ -49,7 +57,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
 
         it("Помечает поле нового пароля как невалидное если он совпадает со старым", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.type(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder"),
@@ -72,7 +82,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
 
         it("Помечает поле подтверждения как невалидное при несовпадении паролей", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.type(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder"),
@@ -97,7 +109,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
     describe("Двухшаговый процесс", () => {
         it("Переходит к шагу ввода кода при успешной отправке формы", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.type(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder"),
@@ -123,7 +137,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
 
         it("Показывает email пользователя в тексте подтверждения", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.type(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder"),
@@ -144,7 +160,9 @@ describe("PasswordChangeForm - форма изменения пароля", () =
 
         it("Возвращается к форме пароля при клике на кнопку назад", async () => {
             const user = userEvent.setup();
-            renderWithProviders(<PasswordChangeForm email="user@example.com" />);
+            renderWithProviders(
+                <PasswordChangeForm email="user@example.com" UUID="UUID" />
+            );
 
             await user.type(
                 screen.getByLabelText("passwordChange.oldPasswordPlaceholder"),
