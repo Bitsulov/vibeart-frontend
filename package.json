@@ -19,6 +19,8 @@
         "test:e2e": "playwright test",
         "test:e2e:ui": "playwright test --ui",
         "test:e2e:debug": "playwright test --debug",
+        "test:e2e:webkit": "node scripts/webkit-wsl.mjs",
+        "test:e2e:webkit:update": "node scripts/webkit-wsl.mjs --update-snapshots",
         "test:all": "eslint . && stylelint \"**/*.scss\" && prettier --check . && tsc -b --noEmit && vitest run --coverage && playwright test"
     },
     "dependencies": {

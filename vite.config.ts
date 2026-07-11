@@ -15,8 +15,21 @@ import path from "path";
 export default defineConfig({
     plugins: [reactRouter()],
     server: {
+        port: Number(process.env.PORT) || 5173,
         hmr: !process.env.PLAYWRIGHT,
-        headers: process.env.PLAYWRIGHT ? { Connection: "close" } : undefined
+        headers: process.env.PLAYWRIGHT ? { Connection: "close" } : undefined,
+        // API запросы отправляются со стороны сервера, что отключает действие CORS политики во время разработки
+        proxy: {
+            "/api": {
+                target: "http://localhost:8080",
+                changeOrigin: true,
+                configure: proxy => {
+                    proxy.on("proxyReq", proxyReq => {
+                        proxyReq.removeHeader("origin");
+                    });
+                }
+            }
+        }
     },
     resolve: {
         alias: {
