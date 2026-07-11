@@ -1,6 +1,12 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Error - страница ошибки", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto("/en/invalidUrl");
 

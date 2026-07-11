@@ -1,6 +1,12 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Register - страница регистрации", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto("/en/register");
 
@@ -100,6 +106,9 @@ test.describe("Register - страница регистрации", () => {
 
 test.describe("Register - подтверждение кода (шаг 2)", () => {
     test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
         await page.route("**/api/auth/register", route =>
             route.fulfill({ status: 200, body: "ok" })
         );

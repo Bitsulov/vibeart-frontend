@@ -3,6 +3,24 @@ import { expect, test } from "@playwright/test";
 const CREATE_ALBUM_URL = "/en/album/add";
 
 test.describe("CreateAlbum - страница создания альбома", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto(CREATE_ALBUM_URL);
 
@@ -54,11 +72,10 @@ test.describe("CreateAlbum - страница создания альбома", 
         ).toBeVisible();
     });
     test("Ввод названия обновляет превью альбома", async ({ page }) => {
-        await page.goto(CREATE_ALBUM_URL);
+        await page.goto(CREATE_ALBUM_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Мой альбом");
-        await page.getByLabel("title", { exact: false }).dispatchEvent("input");
-        await expect(page.getByText("Мой альбом")).toBeVisible({ timeout: 10000 });
+        await expect(page.getByText("Мой альбом")).toBeVisible();
     });
     test("Отправка без названия показывает ошибку на поле", async ({ page }) => {
         await page.goto(CREATE_ALBUM_URL);

@@ -3,6 +3,12 @@ import { expect, test } from "@playwright/test";
 const CONTACTS_URL = "/en/contacts";
 
 test.describe("Contacts - страница связи с администрацией", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({ status: 401, body: "" })
+        );
+    });
+
     test("Контент страницы загружается", async ({ page }) => {
         await page.goto(CONTACTS_URL);
 
@@ -59,7 +65,7 @@ test.describe("Contacts - страница связи с администрац�
     });
 
     test("Счётчик обновляется при вводе текста", async ({ page }) => {
-        await page.goto(CONTACTS_URL);
+        await page.goto(CONTACTS_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Enter your message").fill("Hello");
 
