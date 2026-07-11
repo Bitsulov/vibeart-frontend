@@ -17,10 +17,7 @@ const API_BASE: string = import.meta.env.VITE_API_BASE;
  * подставляет токен авторизации.
  */
 export const api = axios.create({
-    baseURL: API_BASE,
-    headers: {
-        "Content-Type": "application/json"
-    }
+    baseURL: API_BASE
 });
 
 /**
