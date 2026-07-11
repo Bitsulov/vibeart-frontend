@@ -4,23 +4,16 @@ import { userEvent } from "@testing-library/user-event";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { CommunityInfo } from "./communityInfo";
 import { createCommunity } from "entities/community";
-import type { UserType } from "entities/user";
+import type { PrincipalUserState } from "entities/user";
 
-const owner: UserType = {
+const owner: PrincipalUserState = {
     UUID: "00000000-0000-4000-8000-00000000000b",
     email: "owner@test.com",
     name: "Owner Name",
     username: "owner",
-    description: "",
-    worksCount: 0,
-    subscribersCount: 0,
-    subscribesCount: 0,
-    albumList: [],
-    createdAt: "2026-01-01T00:00:00.000Z",
-    trustStatus: "trust",
+    trustStatus: "TRUST",
     isAuthenticated: true,
     isBlocked: false,
-    onlineStatus: "online",
     role: "USER",
     avatarUrl: "",
     accessToken: "",
@@ -29,14 +22,30 @@ const owner: UserType = {
     refreshTokenExpiresIn: 0
 };
 
-const otherUser: UserType = {
+const otherUser: PrincipalUserState = {
     ...owner,
     UUID: "00000000-0000-4000-8000-00000000001c"
 };
 
 const communityInfo = createCommunity({
     UUID: "00000000-0000-4000-8000-00000000001d",
-    owner,
+    owner: {
+        UUID: owner.UUID,
+        name: "",
+        username: "",
+        description: "",
+        worksCount: 0,
+        subscribersCount: 0,
+        subscribesCount: 0,
+        albumList: [],
+        createdAt: "",
+        trustStatus: "TRUST",
+        isAuthenticated: false,
+        isBlocked: false,
+        onlineStatus: "OFFLINE",
+        role: "USER",
+        avatarUrl: ""
+    },
     username: "test-community",
     title: "Test Community",
     description: "Описание тестового сообщества",
@@ -48,7 +57,7 @@ const communityInfo = createCommunity({
     albumsList: [],
     isSubscribed: false,
     isBlocked: false,
-    trustStatus: "trust"
+    trustStatus: "TRUST"
 });
 
 describe("CommunityInfo - блок информации о сообществе", () => {

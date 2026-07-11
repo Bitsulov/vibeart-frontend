@@ -24,7 +24,7 @@ export const communitiesMyMock = [
         albumsList: [],
         isSubscribed: true,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     }),
     createCommunity({
         UUID: "00000000-0000-4000-8000-000000000016",
@@ -40,7 +40,7 @@ export const communitiesMyMock = [
         albumsList: [],
         isSubscribed: true,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     })
 ];
 
@@ -59,7 +59,7 @@ export const communitiesAllMock = [
         albumsList: [],
         isSubscribed: false,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     }),
     createCommunity({
         UUID: "00000000-0000-4000-8000-000000000018",
@@ -76,7 +76,7 @@ export const communitiesAllMock = [
         albumsList: [],
         isSubscribed: false,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     }),
     createCommunity({
         UUID: "00000000-0000-4000-8000-00000000001a",
@@ -93,7 +93,7 @@ export const communitiesAllMock = [
         albumsList: [],
         isSubscribed: false,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     }),
     createCommunity({
         UUID: "00000000-0000-4000-8000-000000000019",
@@ -110,7 +110,7 @@ export const communitiesAllMock = [
         albumsList: [],
         isSubscribed: false,
         isBlocked: false,
-        trustStatus: "trust"
+        trustStatus: "TRUST"
     })
 ];
 
@@ -129,5 +129,5 @@ export const communityMock = createCommunity({
     albumsList: [],
     isSubscribed: false,
     isBlocked: true,
-    trustStatus: "untrust"
+    trustStatus: "UNTRUST"
 });

@@ -6,7 +6,6 @@ import type { UserType } from "entities/user";
 
 const owner: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
-    email: "owner@test.com",
     name: "Owner Name",
     username: "owner",
     description: "",
@@ -15,16 +14,12 @@ const owner: UserType = {
     subscribesCount: 0,
     albumList: [],
     createdAt: "2026-01-01T00:00:00.000Z",
-    trustStatus: "trust",
+    trustStatus: "TRUST",
     isAuthenticated: true,
     isBlocked: false,
-    onlineStatus: "online",
+    onlineStatus: "ONLINE",
     role: "USER",
-    avatarUrl: "",
-    accessToken: "",
-    refreshToken: "",
-    accessTokenExpiresIn: 0,
-    refreshTokenExpiresIn: 0
+    avatarUrl: ""
 };
 
 const admin: UserType = {

@@ -1,4 +1,4 @@
-import type { PrincipalUserState } from "entities/user";
+import type { UserType } from "entities/user";
 
 /**
  * Описывает один комментарий, оставленный пользователем
@@ -10,5 +10,5 @@ export interface CommentType {
     /** Дата и время публикации комментария в формате ISO 8601. */
     createdAt: string;
     /** Полный профиль автора комментария. */
-    author: PrincipalUserState;
+    author: UserType;
 }

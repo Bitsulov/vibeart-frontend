@@ -4,7 +4,7 @@ import type { UserType } from "../lib/types";
  * Фабричная функция для создания нормализованного объекта пользователя.
  *
  * Применяет следующие преобразования:
- * - Добавляет символ `@` к полю `username` (например, `"johndoe"` → `"@johndoe"`).
+ * - Добавляет символ `@` к полю `username` (например, `"user"` → `"@user"`).
  * - Устанавливает значения по умолчанию для необязательных полей.
  *
  * @param user - Данные пользователя, соответствующие типу `UserType`.
@@ -13,14 +13,13 @@ import type { UserType } from "../lib/types";
  * @example
  * const user = createUser({ UUID: "01ARZ...", email: "a@b.com",
  *   username: "johndoe", createdAt: "2026-01-01T00:00:00.000Z",
- *   trustStatus: "trust", isAuthenticated: true, isBlocked: false,
- *   onlineStatus: "online" });
+ *   trustStatus: "TRUST", isAuthenticated: true, isBlocked: false,
+ *   onlineStatus: "ONLINE" });
  * user.username // "@johndoe"
  */
 export function createUser({
     UUID,
     name = "",
-    email,
     username,
     description = "",
     worksCount = 0,
@@ -33,17 +32,12 @@ export function createUser({
     isBlocked,
     onlineStatus,
     role = "USER",
-    avatarUrl = "",
-    accessToken = "",
-    refreshToken = "",
-    accessTokenExpiresIn = 0,
-    refreshTokenExpiresIn = 0
+    avatarUrl = ""
 }: UserType) {
     return {
         UUID,
         name,
-        email,
-        username: `@${username}`,
+        username: username ? `@${username}` : "",
         description,
         worksCount,
         subscribersCount,
@@ -55,10 +49,6 @@ export function createUser({
         isBlocked,
         onlineStatus,
         role,
-        avatarUrl,
-        accessToken,
-        refreshToken,
-        accessTokenExpiresIn,
-        refreshTokenExpiresIn
+        avatarUrl
     };
 }

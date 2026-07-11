@@ -26,7 +26,7 @@ interface ChatWindowProps {
     /** URL аватара собеседника. При отсутствии отображается заглушка. */
     avatarUrl?: string;
     /** Статус присутствия собеседника в сети. */
-    onlineStatus: "online" | "offline";
+    onlineStatus: "ONLINE" | "OFFLINE";
     /** Начальный список сообщений диалога, загруженных с сервера. */
     messages: MessageType[];
 }
@@ -102,7 +102,7 @@ export const ChatWindow = ({
                         />
                     </Link>
                     <Link
-                        className={clsx(c.link, onlineStatus === "online" && c.online)}
+                        className={clsx(c.link, onlineStatus === "ONLINE" && c.online)}
                         aria-label={t("ariaLabel.goToUserProfile", { name: name })}
                         to={`/profile/${UUID}`}
                     >
@@ -123,7 +123,7 @@ export const ChatWindow = ({
                         <p
                             className={clsx(
                                 c.online_status,
-                                onlineStatus === "online" && c.online
+                                onlineStatus === "ONLINE" && c.online
                             )}
                         >
                             {t(onlineStatusesConfig[onlineStatus])}

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { ICreateCommunityForm } from "../lib/types";
 import { submitValidHandler } from "../model/submitValidHandler";
 import { submitInvalidHandler } from "../model/submitInvalidHandler";
-import type { UserType, PrincipalUserState } from "entities/user";
+import type { UserType } from "entities/user";
 import {
     type ComponentPropsWithoutRef,
     type Dispatch,
@@ -24,7 +24,7 @@ import { BackLink } from "features/backLink";
 /** Свойства компонента {@link CreateCommunityWidget}. */
 interface CreateCommunityWidgetProps extends ComponentPropsWithoutRef<"form"> {
     /** Данные текущего пользователя — отображается как автор и недоступный для снятия администратор. */
-    userInfo: PrincipalUserState;
+    userInfo: UserType;
     /** Полный список тегов для выбора в виджете {@link AddTags}. */
     tagsList: TagType[];
     /** Текущее частичное состояние создаваемого сообщества для предпросмотра. */
