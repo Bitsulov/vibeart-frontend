@@ -84,14 +84,7 @@ export const PasswordChangeForm = ({
     const sendCodeMutation = useMutation({
         mutationFn: sendCodePassword,
         onSuccess: (response, request) =>
-            sendCodeSuccessHandler(
-                response,
-                request,
-                setIsPasswordSent,
-                reset,
-                setCodeError,
-                dispatch
-            ),
+            sendCodeSuccessHandler(response, request, dispatch),
         onError: (error: AxiosError<AppError>) => sendCodeErrorHandler(error, dispatch)
     });
 

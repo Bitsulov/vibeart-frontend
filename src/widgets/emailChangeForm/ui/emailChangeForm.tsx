@@ -22,7 +22,6 @@ import { changeEmailSuccessHandler } from "../model/changeEmailSuccessHandler";
 import { sentCodeButtonHandler } from "../model/sentCodeButtonHandler";
 import clsx from "clsx";
 import { sendCodeSuccessHandler } from "../model/sendCodeSuccessHandler";
-import type { SendCodeEmailRequest } from "entities/user";
 import { sendCodeErrorHandler } from "../model/sendCodeErrorHandler";
 import { confirmEmailSuccessHandler } from "../model/confirmEmailSuccessHandler";
 import { confirmEmailErrorHandler } from "../model/confirmEmailErrorHandler";
@@ -85,15 +84,21 @@ export const EmailChangeForm = ({ UUID, email, ...props }: EmailChangeFormProps)
 
     const sendCodeMutation = useMutation({
         mutationFn: sendCodeEmail,
-        onSuccess: (response: AxiosResponse<string>, request: SendCodeEmailRequest) =>
-            sendCodeSuccessHandler(response, request, dispatch),
+        onSuccess: (response: AxiosResponse<string>) =>
+            sendCodeSuccessHandler(response, newEmailResult, dispatch),
         onError: (error: AxiosError<AppError>) => sendCodeErrorHandler(error, dispatch)
     });
 
     const confirmEmailMutation = useMutation({
         mutationFn: confirmEmail,
         onSuccess: () =>
-            confirmEmailSuccessHandler(setIsEmailSent, reset, setCodeError, dispatch),
+            confirmEmailSuccessHandler(
+                setIsEmailSent,
+                reset,
+                setCodeError,
+                newEmailResult,
+                dispatch
+            ),
         onError: (error: AxiosError<AppError>) =>
             confirmEmailErrorHandler(error, dispatch)
     });

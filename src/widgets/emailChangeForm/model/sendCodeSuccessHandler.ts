@@ -1,5 +1,4 @@
 import type { AxiosResponse } from "axios";
-import type { SendCodeEmailRequest } from "entities/user";
 import type { Dispatch } from "@reduxjs/toolkit";
 import { showToast } from "features/toast";
 
@@ -8,19 +7,19 @@ import { showToast } from "features/toast";
  * показывает уведомление об отправке кода на указанный адрес электронной почты.
  *
  * @param _response - Ответ сервера (не используется).
- * @param request - Адрес электронной почты, на который повторно отправлен код, {@link SendCodeRequest}.
+ * @param newEmail - Новый адрес электронной почты, на который повторно отправлен код.
  * @param dispatch - Функция записи данных в Redux.
  */
 export function sendCodeSuccessHandler(
     _response: AxiosResponse<string>,
-    request: SendCodeEmailRequest,
+    newEmail: string,
     dispatch: Dispatch
 ) {
     dispatch(
         showToast({
             message: "api.sendCodeAccess",
             type: "success",
-            params: { email: request.email }
+            params: { email: newEmail }
         })
     );
 }
