@@ -51,6 +51,8 @@ npm run preview
 | `npm run test:e2e`       | E2E-тесты (Playwright)             |
 | `npm run test:e2e:ui`    | UI-дашборд Playwright              |
 | `npm run test:e2e:debug` | Отладка E2E-тестов                 |
+| `npm run test:e2e:webkit`| E2E-тесты WebKit (на Windows — через WSL) |
+| `npm run test:e2e:webkit:update` | Обновление baseline-скриншотов WebKit (на Windows — через WSL) |
 | `npm run test:all`       | lint + tsc + vitest + playwright   |
 
 ---
@@ -101,6 +103,14 @@ npm run preview
 Маршруты имеют языковой префикс: `/ru/gallery`, `/en/profile`. Язык определяется автоматически из URL или заголовка `Accept-Language`. Корневой маршрут `/` перенаправляет на языковую версию.
 
 Файлы `robots.txt` и `sitemap.xml` генерируются автоматически как ресурсные маршруты React Router и включают `hreflang`-ссылки для всех языковых версий.
+
+---
+
+## E2E-тесты
+
+Команда `npm run test:e2e` на Windows не запускает тесты браузерного движка webkit, так как он работает нестабильно.
+Чтобы запустить тесты используя движок webkit, необходимо установить дистрибутив Linux с `rsync` и Node.js через WSL и
+использовать команду `npm run test:e2e:webkit` или `npm run test:e2e:webkit:update` для обновления скриншотов.
 
 ---
 
