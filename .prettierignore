@@ -4,6 +4,7 @@ coverage
 .react-router
 node_modules
 playwright-report
+playwright-report-wsl
 test-results
 .idea
 .claude

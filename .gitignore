@@ -10,6 +10,7 @@ lerna-debug.log*
 # Tests
 coverage
 playwright-report
+playwright-report-wsl
 test-results
 
 # Dependencies and Build

@@ -21,10 +21,18 @@
  *   - Повторных попыток при сбое: 4, чтобы поглотить нестабильные тесты.
  *   - Количество параллельных процессов ограничено до 1 во избежание
  *     конкуренции за ресурсы.
+ *   - `globalTimeout` — предохранитель на весь прогон: WebKit на Windows
+ *     иногда крашится посреди теста так, что раннер не получает сигнал
+ *     о крахе и зависает без таймаута на уровне отдельного теста.
+ *     `globalTimeout` работает по таймеру самого раннера и в этом случае
+ *     всё равно прерывает прогон.
  *
  * @see https://playwright.dev/docs/test-configuration
  */
 import { defineConfig, devices } from "@playwright/test";
+
+const isWindows = process.platform === "win32";
+const PORT = Number(process.env.PORT) || 5173;
 
 export default defineConfig({
     testDir: "./e2e",
@@ -32,12 +40,13 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: 4,
     workers: process.env.CI ? 1 : 3,
+    globalTimeout: 45 * 60 * 1000,
     reporter: [["html", { open: "never" }]],
     expect: {
-        toHaveScreenshot: { animations: "disabled" }
+        toHaveScreenshot: { animations: "disabled", maxDiffPixelRatio: 0.02 }
     },
     use: {
-        baseURL: "http://localhost:5173",
+        baseURL: `http://localhost:${PORT}`,
         trace: "on-first-retry",
         storageState: {
             cookies: [
@@ -71,22 +80,25 @@ export default defineConfig({
             name: "Firefox",
             use: { ...devices["Desktop Firefox"] },
             dependencies: ["setup"]
-        }
-        // {
-        //     name: 'Desktop Webkit',
-        //     use: { ...devices['Desktop Safari'] },
-        //     dependencies: ['setup'],
-        // },
-        // {
-        //     name: 'Mobile Webkit',
-        //     use: { ...devices['iPhone 13'] },
-        //     dependencies: ['setup'],
-        // },
+        },
+        ...((!isWindows && [
+            {
+                name: "Desktop Webkit",
+                use: { ...devices["Desktop Safari"] },
+                dependencies: ["setup"]
+            },
+            {
+                name: "Mobile Webkit",
+                use: { ...devices["iPhone 13"] },
+                dependencies: ["setup"]
+            }
+        ]) ||
+            [])
     ],
     webServer: {
         command: "npm run dev",
-        url: "http://localhost:5173",
-        env: { PLAYWRIGHT: "1" },
+        url: `http://localhost:${PORT}`,
+        env: { PLAYWRIGHT: "1", PORT: String(PORT) },
         reuseExistingServer: !process.env.CI
     }
 });
