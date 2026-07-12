@@ -4,14 +4,10 @@ import { showToast } from "features/toast";
 import type { AxiosResponse } from "axios";
 
 describe("sendCodeSuccessHandler - показывает уведомление об успешной повторной отправке кода изменения email", () => {
-    it("Показывает уведомление с адресом email из запроса", () => {
+    it("Показывает уведомление с новым адресом email", () => {
         const dispatch = vi.fn();
 
-        sendCodeSuccessHandler(
-            {} as AxiosResponse<string>,
-            { email: "new@example.com" },
-            dispatch
-        );
+        sendCodeSuccessHandler({} as AxiosResponse<string>, "new@example.com", dispatch);
 
         expect(dispatch.mock.calls[0][0]).toMatchObject({
             type: showToast.type,
