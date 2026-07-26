@@ -1,6 +1,7 @@
 import type { TagType } from "entities/tag";
 import type { CommentType } from "entities/comment";
-import type { UserType } from "entities/user";
+import type { UserResponse, UserType } from "entities/user";
+import type { CommunityResponse, CommunityType } from "entities/community";
 
 /**
  * Описывает публикацию — основную единицу контента на сайте.
@@ -15,8 +16,8 @@ export interface PostType {
     name: string;
     /** Развёрнутое описание, сопровождающее изображение. */
     description: string;
-    /** Полный профиль пользователя, создавшего публикацию. */
-    author: UserType;
+    /** Автор публикации: пользователь либо сообщество. */
+    author: UserType | CommunityType;
     /** Общее количество полученных отметок «нравится». */
     likes: number;
     /** Общее количество комментариев к публикации. */
@@ -41,4 +42,48 @@ export interface PostType {
     imageUrl: string;
     /** Дата и время публикации в формате ISO 8601. */
     createdAt: string;
+    /** Признак того, что текущий пользователь поставил лайк публикации. */
+    isLiked: boolean;
+    /** Признак того, что текущий пользователь пожаловался на публикацию. */
+    isReported: boolean;
+}
+
+/** Публикация, возвращаемая сервером. */
+export interface PostResponse {
+    uuid: string;
+    title: string;
+    description: string;
+    likesCount: number;
+    commentsCount: number;
+    reportsCount: number;
+    aiStatus: "problem" | "good";
+    imageUrl: string;
+    createdAt: string;
+    author: UserResponse | null;
+    community: CommunityResponse | null;
+    tags: string[];
+    liked: boolean;
+    reported: boolean;
+}
+
+/** Текстовая информация и файл изображения для создания публикации. */
+export interface CreatePostRequest {
+    info: {
+        title: string;
+        description: string;
+        authorUuid: string;
+        tagsTitles: string[];
+        userCreated: boolean;
+    };
+    file: File;
+}
+
+/** Текстовая информация и, при замене, новый файл изображения для обновления публикации. */
+export interface UpdatePostRequest {
+    info: {
+        title: string;
+        description: string;
+        tagsTitles: string[];
+    };
+    file?: File;
 }

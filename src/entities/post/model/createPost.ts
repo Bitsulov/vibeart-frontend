@@ -29,7 +29,9 @@ export function createPost({
     checkStatus = "unchecked",
     AIStatus = "good",
     imageUrl,
-    createdAt = new Date().toISOString()
+    createdAt = new Date().toISOString(),
+    isLiked = false,
+    isReported = false
 }: PostType) {
     return {
         UUID,
@@ -44,6 +46,8 @@ export function createPost({
         checkStatus,
         AIStatus,
         imageUrl,
-        createdAt
+        createdAt,
+        isLiked,
+        isReported
     };
 }
