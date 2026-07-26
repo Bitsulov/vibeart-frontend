@@ -1,6 +1,17 @@
 import { describe, it, expect } from "vitest";
-import { register, sendCode, verify, login, refresh, getPrincipalUser } from "./userApi";
+import {
+    register,
+    sendCode,
+    verify,
+    login,
+    refresh,
+    getPrincipalUser,
+    getUserByUUID
+} from "./userApi";
 import { authResponseMock, userDetailResponseMock } from "../const/mockConst";
+import { http, HttpResponse } from "msw";
+import { server } from "shared/tests/mswServer";
+import { createServerInstance } from "shared/api/serverInstance";
 
 describe("userApi - запросы к API авторизации и регистрации", () => {
     it("register отправляет данные регистрации на /auth/register", async () => {
@@ -44,5 +55,35 @@ describe("userApi - запросы к API авторизации и регист
         const response = await getPrincipalUser();
 
         expect(response.data).toEqual(userDetailResponseMock);
+    });
+
+    it("getUserByUUID по умолчанию отправляет запрос без заголовка Authorization", async () => {
+        let receivedAuth: string | null = "не вызывался";
+        server.use(
+            http.get("*/user/:UUID", ({ request }) => {
+                receivedAuth = request.headers.get("Authorization");
+                return HttpResponse.json({ uuid: "test-uuid" });
+            })
+        );
+
+        await getUserByUUID("test-uuid");
+
+        expect(receivedAuth).toBeNull();
+    });
+
+    it("getUserByUUID использует переданный объект axios вместо общего api", async () => {
+        let receivedAuth: string | null = "не вызывался";
+        server.use(
+            http.get("*/user/:UUID", ({ request }) => {
+                receivedAuth = request.headers.get("Authorization");
+                return HttpResponse.json({ uuid: "test-uuid" });
+            })
+        );
+
+        const client = createServerInstance("server-token");
+        const response = await getUserByUUID("test-uuid", client);
+
+        expect(receivedAuth).toBe("Bearer server-token");
+        expect(response.data).toEqual({ uuid: "test-uuid" });
     });
 });

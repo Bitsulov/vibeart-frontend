@@ -1,5 +1,5 @@
 import { api } from "shared/api/instance";
-import type { AxiosResponse } from "axios";
+import type { AxiosInstance, AxiosResponse } from "axios";
 import type {
     AuthResponse,
     ChangeEmailRequest,
@@ -143,11 +143,16 @@ export async function getPrincipalUser(): Promise<AxiosResponse<UserDetailRespon
  * Получает данные пользователя, необходимые для отображения в профиле, по его UUID
  *
  * @param UUID UUID текущего пользователя
+ * @param client объект axios для запроса; по умолчанию — общий браузерный `api`,
+ * для вызова из серверного `loader` передаётся объект из `createServerInstance`
  * @returns Промис с объектом с данными пользователя {@link UserResponse}
  */
-export async function getUserByUUID(UUID: string): Promise<AxiosResponse<UserResponse>> {
+export async function getUserByUUID(
+    UUID: string,
+    client: AxiosInstance = api
+): Promise<AxiosResponse<UserResponse>> {
     console.log(`Calling getting user by UUID: ${UUID}`);
-    return api.get(urls.userByUUID(UUID));
+    return client.get(urls.userByUUID(UUID));
 }
 
 /**
