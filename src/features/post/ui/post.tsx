@@ -9,8 +9,9 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { postClickHandler } from "../model/postClickHandler";
 import type { UserType } from "entities/user";
+import type { CommunityType } from "entities/community";
 import { toggleLikeHandler } from "../model/toggleLikeHandler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { resetNavigate } from "../model/resetNavigate";
 
@@ -18,14 +19,16 @@ import { resetNavigate } from "../model/resetNavigate";
 interface PostProps {
     /** Дата публикации в формате ISO 8601. */
     date: string;
-    /** Полный профиль автора поста. */
-    author: UserType;
+    /** Автор поста: пользователь либо сообщество. */
+    author: UserType | CommunityType;
     /** Заголовок публикации. */
     title: string;
     /** Количество лайков. По умолчанию `0`. */
     likesCount?: number;
     /** Количество комментариев. По умолчанию `0`. */
     commentsCount?: number;
+    /** Признак того, что текущий пользователь поставил лайк публикации. По умолчанию `false`. */
+    isLiked?: boolean;
     /** URL изображения публикации. */
     imageUrl: string;
     /** UUID публикации для формирования ссылки `/post/:uuid`. */
@@ -65,6 +68,7 @@ export const Post = ({
     UUID,
     likesCount = 0,
     commentsCount = 0,
+    isLiked: isLikedProp = false,
     isShowAuthor = true,
     imageUrl,
     className = "",
@@ -82,7 +86,12 @@ export const Post = ({
     const resultDate = date ? getLocalTimeNumbers(language, date) : "";
 
     const [likesNumber, setLikesNumber] = useState<number>(likesCount);
-    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [isLiked, setIsLiked] = useState<boolean>(isLikedProp);
+
+    useEffect(() => {
+        setLikesNumber(likesCount);
+        setIsLiked(isLikedProp);
+    }, [likesCount, isLikedProp]);
 
     const resultOnClickFn =
         type === "link" ? () => postClickHandler(navigate, UUID) : onClick;
