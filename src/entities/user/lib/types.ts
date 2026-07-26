@@ -111,6 +111,7 @@ export interface PrincipalUserState {
 
 /** Полная информация о пользователе, необходимая в профиле */
 export interface UserResponse {
+    uuid: string;
     name: string;
     username: string;
     description: string;
