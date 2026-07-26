@@ -6,7 +6,7 @@ import defaultAvatar from "shared/icons/icon-user.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentLanguage } from "entities/appConfig";
 import { getLocalTimeNumbers } from "shared/lib/getLocalTimeNumbers";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import clsx from "clsx";
 import { openDescriptionHandler } from "../model/openDescriptionHandler";
@@ -23,6 +23,15 @@ import { hideHint } from "../model/hideHint";
 import { ConfirmModal } from "widgets/confirmModal";
 import { deleteButtonClickHandler } from "../model/deleteButtonClickHandler";
 import { confirmDeletePost } from "../model/confirmDeletePost";
+import { useMutation } from "@tanstack/react-query";
+import { createReport, deletePostById, toggleLike } from "entities/post";
+import { deletePostSuccessHandler } from "../model/deletePostSuccessHandler";
+import { deletePostErrorHandler } from "../model/deletePostErrorHandler";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
+import { toggleLikeErrorHandler } from "../model/toggleLikeErrorHandler";
+import { reportErrorHandler } from "../model/reportErrorHandler";
+import { reportSuccessHandler } from "../model/reportSuccessHandler";
 
 /** Свойства компонента {@link PostCard}. */
 interface PostCardProps {
@@ -32,6 +41,8 @@ interface PostCardProps {
     authorName: string;
     /** UUID автора публикации — используется для формирования ссылки на его профиль. */
     authorUUID: string;
+    /** Признак того, что автором публикации является сообщество, а не пользователь. По умолчанию `false`. */
+    isAuthorCommunity?: boolean;
     /** URL изображения публикации. */
     imageUrl: string;
     /** Название альбома, к которому относится публикация. */
@@ -48,37 +59,47 @@ interface PostCardProps {
     isOwner?: boolean;
     /** Количество лайков публикации. */
     likesCount: number;
+    /** Признак того, что текущий пользователь поставил лайк публикации. По умолчанию `false`. */
+    isLiked?: boolean;
     /** Количество жалоб на публикацию. */
     reportsCount: number;
+    /** Признак того, что текущий пользователь пожаловался на публикацию. По умолчанию `false`. */
+    isReported?: boolean;
     /** UUID публикации. */
     UUID: string;
     /** Дата публикации в формате ISO 8601. По умолчанию пустая строка. */
     createdAt?: string;
+    /** Статус загрузки данных публикации. */
+    isLoadingData?: boolean;
 }
 
 /**
  * Детальная карточка публикации с изображением, лайками, жалобами, тегами и кнопками управления.
  *
- * Оптимистично обновляет счётчик лайков локально без запроса на сервер.
- * На узких экранах (< 1200 px) описание сворачивается с кнопкой раскрытия.
- * Для владельца публикации отображаются кнопки редактирования и удаления;
- * удаление требует подтверждения через {@link ConfirmModal}.
+ * Лайк переключается оптимистично, с откатом при ошибке; жалоба фиксируется
+ * только после успешного ответа сервера. На узких экранах (< 1200 px) описание
+ * сворачивается с кнопкой раскрытия. Для владельца публикации отображаются кнопки
+ * редактирования и удаления; удаление требует подтверждения через {@link ConfirmModal}.
  */
 export const PostCard = ({
     authorAvatarUrl,
     authorName,
     authorUUID,
+    isAuthorCommunity = false,
     imageUrl,
     title,
     description,
     tagsList,
     likesCount,
+    isLiked: isLikedProp = false,
     reportsCount,
+    isReported: isReportedProp = false,
     albumName,
     albumUUID,
     UUID,
     isOwner = false,
-    createdAt = ""
+    createdAt = "",
+    isLoadingData = false
 }: PostCardProps) => {
     const { t } = useTranslation();
     const language = useSelector(selectCurrentLanguage);
@@ -86,23 +107,75 @@ export const PostCard = ({
 
     const windowWidth = useWindowWidth();
     const [isDescriptionOpened, setIsDescriptionOpened] = useState(false);
+    const [isDescriptionOverflowing, setIsDescriptionOverflowing] = useState(false);
+    const descriptionRef = useRef<HTMLParagraphElement>(null);
 
     const isDesktop = windowWidth >= 1200;
-    const resultDate = createdAt ? getLocalTimeNumbers(language, createdAt) : "";
+    const resultDate = isLoadingData
+        ? t("loading...")
+        : createdAt
+          ? getLocalTimeNumbers(language, createdAt)
+          : "";
+
     const avatarImg = authorAvatarUrl || defaultAvatar;
+    const resultTitle = isLoadingData ? t("loading...") : title;
+    const resultDescription = isLoadingData ? t("loading...") : description;
+    const resultAuthorName = isLoadingData ? t("loading...") : authorName || authorUUID;
+    const authorHref = isAuthorCommunity
+        ? `/communities/${authorUUID}`
+        : `/profile/${authorUUID}`;
+    const authorAriaLabel = isAuthorCommunity
+        ? t("ariaLabel.goToCommunityProfile", { name: resultAuthorName })
+        : t("ariaLabel.goToUserProfile", { name: resultAuthorName });
 
     const [likes, setLikes] = useState(likesCount);
-    const [isLiked, setIsLiked] = useState(false);
-    const [isReported, setIsReported] = useState(false);
+    const [isLiked, setIsLiked] = useState(isLikedProp);
+    const [reports, setReports] = useState(reportsCount);
+    const [isReported, setIsReported] = useState(isReportedProp);
+
+    useEffect(() => {
+        setLikes(likesCount);
+        setIsLiked(isLikedProp);
+    }, [likesCount, isLikedProp]);
+
+    useEffect(() => {
+        setIsReported(isReportedProp);
+        setReports(reportsCount);
+    }, [isReportedProp, reportsCount]);
+
+    useEffect(() => {
+        const element = descriptionRef.current;
+        if (!element) return;
+
+        setIsDescriptionOverflowing(element.scrollHeight > element.clientHeight);
+    }, [resultDescription, isDesktop]);
 
     const dispatch = useDispatch();
 
     const [isShowConfirm, setIsShowConfirm] = useState(false);
 
+    const deletePostMutation = useMutation({
+        mutationFn: deletePostById,
+        onSuccess: () => deletePostSuccessHandler(navigate, authorHref),
+        onError: (error: AxiosError<AppError>) => deletePostErrorHandler(error, dispatch)
+    });
+
+    const toggleLikeMutation = useMutation({
+        mutationFn: toggleLike,
+        onError: (error: AxiosError<AppError>) =>
+            toggleLikeErrorHandler(error, dispatch, isLiked, setIsLiked, setLikes)
+    });
+
+    const addReportMutation = useMutation({
+        mutationFn: createReport,
+        onSuccess: () => reportSuccessHandler(setIsReported, setReports),
+        onError: (error: AxiosError<AppError>) => reportErrorHandler(error, dispatch)
+    });
+
     return (
         <section className={c.post_card}>
             <ConfirmModal
-                confirmFn={() => confirmDeletePost(navigate, authorUUID)}
+                confirmFn={() => confirmDeletePost(UUID, deletePostMutation.mutateAsync)}
                 ariaLabelConfirm={t("ariaLabel.deletePostModal", { name: title })}
                 text={t("modal.deletePost")}
                 isShowModal={isShowConfirm}
@@ -137,14 +210,26 @@ export const PostCard = ({
                 </div>
                 <div className={c.card_area}>
                     <article className={c.card}>
-                        <img
-                            decoding="async"
-                            width="268"
-                            height="268"
-                            src={imageUrl}
-                            alt={title}
-                            className={c.card_img}
-                        />
+                        {isLoadingData ? (
+                            <img
+                                decoding="async"
+                                width="268"
+                                height="268"
+                                alt={resultTitle}
+                                className={clsx(c.card_img, c.card_img_loading)}
+                            />
+                        ) : (
+                            imageUrl && (
+                                <img
+                                    decoding="async"
+                                    width="268"
+                                    height="268"
+                                    src={imageUrl}
+                                    alt={resultTitle}
+                                    className={c.card_img}
+                                />
+                            )
+                        )}
                         <div className={c.content}>
                             <div className={c.stats}>
                                 <StatItem
@@ -157,7 +242,13 @@ export const PostCard = ({
                                     iconClassName={c.stat_icon}
                                     className={clsx(c.stat, isLiked && c.active)}
                                     onClick={() =>
-                                        likeClickHandler(setLikes, isLiked, setIsLiked)
+                                        likeClickHandler(
+                                            setLikes,
+                                            isLiked,
+                                            setIsLiked,
+                                            UUID,
+                                            toggleLikeMutation.mutateAsync
+                                        )
                                     }
                                     Icon={Heart}
                                     number={likes}
@@ -176,28 +267,30 @@ export const PostCard = ({
                                     }
                                     onMouseLeave={() => hideHint(dispatch)}
                                     onClick={() =>
-                                        reportClickHandler(isReported, setIsReported)
+                                        reportClickHandler(
+                                            isReported,
+                                            UUID,
+                                            addReportMutation.mutateAsync
+                                        )
                                     }
                                     Icon={Flag}
-                                    number={reportsCount}
+                                    number={reports}
                                 />
                             </div>
                             <Link
-                                aria-label={t("ariaLabel.goToUserProfile", {
-                                    name: authorName
-                                })}
-                                to={`/profile/${authorUUID}`}
+                                aria-label={authorAriaLabel}
+                                to={authorHref}
                                 className={c.author}
                             >
                                 <img
                                     decoding="async"
                                     src={avatarImg}
-                                    alt={authorName}
+                                    alt={resultAuthorName}
                                     className={c.author_avatar}
                                     width="32"
                                     height="32"
                                 />
-                                <p className={c.author_name}>{authorName}</p>
+                                <p className={c.author_name}>{resultAuthorName}</p>
                             </Link>
                             {albumName && (
                                 <p className={c.album}>
@@ -213,29 +306,38 @@ export const PostCard = ({
                                     </Link>
                                 </p>
                             )}
-                            <h1 className={c.title}>{title}</h1>
+                            <h1 className={c.title}>{resultTitle}</h1>
                             <div className={c.description_wrapper}>
                                 <p
+                                    ref={descriptionRef}
                                     className={clsx(
                                         c.description,
                                         !isDescriptionOpened &&
                                             !isDesktop &&
-                                            c.description_collapsed
+                                            c.description_collapsed,
+                                        !isDescriptionOpened &&
+                                            !isDesktop &&
+                                            isDescriptionOverflowing &&
+                                            c.description_overflowing
                                     )}
                                 >
-                                    {description}
+                                    {resultDescription}
                                 </p>
-                                {!isDescriptionOpened && !isDesktop && (
-                                    <button
-                                        className={c.expand_btn}
-                                        onClick={() =>
-                                            openDescriptionHandler(setIsDescriptionOpened)
-                                        }
-                                        aria-label={t("ariaLabel.openDescription")}
-                                    >
-                                        <ChevronDown width="24" height="24" />
-                                    </button>
-                                )}
+                                {!isDescriptionOpened &&
+                                    !isDesktop &&
+                                    isDescriptionOverflowing && (
+                                        <button
+                                            className={c.expand_btn}
+                                            onClick={() =>
+                                                openDescriptionHandler(
+                                                    setIsDescriptionOpened
+                                                )
+                                            }
+                                            aria-label={t("ariaLabel.openDescription")}
+                                        >
+                                            <ChevronDown width="24" height="24" />
+                                        </button>
+                                    )}
                             </div>
                             {tagsList.length > 0 && (
                                 <ul className={c.tags}>

@@ -1,11 +1,13 @@
-import type { NavigateFunction } from "react-router-dom";
+import type { AxiosResponse } from "axios";
+
+type DeleteFn = (UUID: string) => Promise<AxiosResponse<string>>;
 
 /**
- * Переходит на страницу профиля автора после подтверждения удаления поста.
+ * Удаляет публикацию после подтверждения в модальном окне.
  *
- * @param navigate - Функция навигации React Router.
- * @param userUUID - Уникальный идентификатор пользователя.
+ * @param postUUID - UUID удаляемой публикации.
+ * @param deleteFn - Функция запроса на удаление публикации.
  */
-export function confirmDeletePost(navigate: NavigateFunction, userUUID: string) {
-    navigate(`/profile/${userUUID}`);
+export async function confirmDeletePost(postUUID: string, deleteFn: DeleteFn) {
+    await deleteFn(postUUID);
 }
