@@ -1,9 +1,15 @@
+.galleryContainer {
+    height: 100%;
+}
+
 .main {
     display: flex;
     align-items: start;
+    height: 100%;
 
     .content {
         flex: 1;
         min-width: 0;
+        align-self: stretch;
     }
 }

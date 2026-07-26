@@ -47,7 +47,7 @@ export const PostComments = ({
                                 key={comment.createdAt}
                                 text={comment.text}
                                 authorUUID={comment.author.UUID}
-                                authorName={comment.author.name}
+                                authorName={comment.author.title}
                                 authorAvatarUrl={comment.author.avatarUrl}
                                 date={comment.createdAt}
                             />

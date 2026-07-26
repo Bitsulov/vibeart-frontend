@@ -51,6 +51,7 @@
         "conflictEmailError": "Пользователь с таким адресом электронной почты уже существует",
         "invalidData": "Введены неверные данные",
         "conflictUserEmailError": "Введённый адрес электронной почты уже занят",
+        "conflictUsernameError": "Введённое имя пользователя уже занято",
         "conflictVerifyUser": "Данный пользователь уже верифицирован",
         "userNotFound": "Данный пользователь не найден",
         "codeExpired": "Код подтверждения истёк",
@@ -68,13 +69,18 @@
         "confirmEmailChangeAccess": "Адрес электронной почты успешно изменён",
         "wrongPassword": "Неверный старый пароль",
         "confirmPasswordChangeAccess": "Пароль успешно изменён",
-        "deleteUserSuccess": "Аккаунт удалён успешно"
+        "deleteUserSuccess": "Аккаунт удалён успешно",
+        "postNotFound": "Публикация не найдена",
+        "tagNotFound": "Тег {{tag}} не найден",
+        "postCreatedSuccess": "Пост успешно создан",
+        "postUpdatedSuccess": "Пост успешно изменён"
     },
     "ariaLabel": {
         "openBurgerMenu": "Открыть навигацию",
         "goToHome": "Перейти на главную страницу",
         "goToProfile": "Перейти в профиль",
         "goToUserProfile": "Перейти в профиль {{name}}",
+        "goToCommunityProfile": "Перейти на страницу сообщества {{name}}",
         "goToPost": "Перейти к посту {{name}}",
         "goToGallery": "Перейти в галерею",
         "goToChats": "Перейти в чаты",
@@ -137,6 +143,7 @@
         "loadImg": "Загрузить изображение",
         "deleteImg": "Удалить загруженное изображение",
         "createPost": "Создать пост",
+        "createAlbum": "Создать альбом",
         "chooseTag": "Выбрать тег {{name}}",
         "confirmCreateAlbumModal": "Создать альбом без обложки",
         "saveUser": "Сохранить введённые данные",
@@ -212,6 +219,7 @@
         "profile": "Профиль",
         "post": "Пост",
         "album": "Альбом",
+        "community": "Сообщество",
         "gallery": "Галерея",
         "chats": "Чаты",
         "messages": "Сообщения",
@@ -326,7 +334,10 @@
 
     "error": {
         "errorTitle": "Произошла ошибка",
+        "error401": "Для доступа к странице требуется авторизация",
+        "error403": "Доступ к запрашиваемой странице ограничен",
         "error404": "Запрашиваемая страница не найдена",
+        "error500": "На сервере произошла ошибка, повторите попытку позже",
         "returnToHome": "Вернуться на главную",
         "report": "Сообщить о проблеме"
     },
@@ -429,7 +440,8 @@
     },
 
     "createPost": {
-        "title": "Создание поста",
+        "titleCreate": "Создание поста",
+        "titleEdit": "Редактирование поста",
         "imgTitle": "Изображение",
         "imgDescription": "Основной медиафайл поста.",
         "nameTitle": "Название",

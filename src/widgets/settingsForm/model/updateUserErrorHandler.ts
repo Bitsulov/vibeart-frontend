@@ -3,6 +3,12 @@ import { showToast } from "features/toast";
 import type { AxiosError } from "axios";
 import type { AppError } from "shared/lib/types";
 
+/**
+ * Показывает уведомление об ошибке обновления данных пользователя в зависимости от кода ответа сервера.
+ *
+ * @param error - Ошибка запроса на обновление данных пользователя.
+ * @param dispatch - Функция записи данных в Redux.
+ */
 export function updateUserErrorHandler(error: AxiosError<AppError>, dispatch: Dispatch) {
     switch (error.response?.data.statusCode) {
         case 404:
@@ -17,6 +23,14 @@ export function updateUserErrorHandler(error: AxiosError<AppError>, dispatch: Di
             dispatch(
                 showToast({
                     message: "api.forbiddenError",
+                    type: "error"
+                })
+            );
+            break;
+        case 409:
+            dispatch(
+                showToast({
+                    message: "api.conflictUsernameError",
                     type: "error"
                 })
             );

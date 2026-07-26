@@ -6,7 +6,7 @@ describe("createUser - Возвращает объект типа UserType", () 
         expect(
             createUser({
                 UUID: "gfgfgf",
-                name: "",
+                title: "",
                 username: "fgfgf",
                 description: "",
                 worksCount: 0,
@@ -23,7 +23,7 @@ describe("createUser - Возвращает объект типа UserType", () 
             })
         ).toEqual({
             UUID: "gfgfgf",
-            name: "",
+            title: "",
             username: "@fgfgf",
             description: "",
             worksCount: 0,
@@ -53,7 +53,7 @@ describe("createUser - Возвращает объект типа UserType", () 
             })
         ).toEqual({
             UUID: "gfgfgf",
-            name: "",
+            title: "",
             username: "@gfgf",
             description: "",
             worksCount: 0,

@@ -19,6 +19,45 @@ test.describe("Post - страница поста", () => {
                 })
             })
         );
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 3,
+                    aiStatus: "good",
+                    imageUrl:
+                        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: {
+                        uuid: "00000000-0000-4000-8000-00000000000b",
+                        name: "testUsergffdgfd",
+                        username: "testUser",
+                        description: "",
+                        avatarUrl: "",
+                        worksCount: 0,
+                        subscribersCount: 0,
+                        subscribesCount: 0,
+                        createdAt: "2026-01-01T00:00:00.000Z",
+                        trustStatus: "UNTRUST",
+                        onlineStatus: "ONLINE",
+                        enabled: true
+                    },
+                    community: null,
+                    tags: ["beauty", "nature"],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+        await page.route("**/api/post/*/like", route =>
+            route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
+        );
     });
 
     test("Контент страницы загружается", async ({ page }) => {
@@ -73,13 +112,14 @@ test.describe("Post - страница поста", () => {
         );
     });
 
-    test("Отображается ссылка на альбом поста", async ({ page }) => {
-        await page.goto(POST_URL);
-
-        await expect(
-            page.getByRole("link", { name: "Go to album page Album title" })
-        ).toBeVisible();
-    });
+    // Альбом пока не входит в PostResponse, вернуть после добавления поля
+    // test("Отображается ссылка на альбом поста", async ({ page }) => {
+    //     await page.goto(POST_URL);
+    //
+    //     await expect(
+    //         page.getByRole("link", { name: "Go to album page Album title" })
+    //     ).toBeVisible();
+    // });
 
     test("Отображаются теги поста", async ({ page }) => {
         await page.goto(POST_URL);
@@ -139,5 +179,268 @@ test.describe("Post - страница поста", () => {
 
         await page.locator("#comments").waitFor({ state: "visible" });
         await expect(page.locator("#comments")).toBeInViewport();
+    });
+});
+
+test.describe("Post - лайки и жалобы", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 3,
+                    aiStatus: "good",
+                    imageUrl: "",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: null,
+                    community: null,
+                    tags: ["beauty", "nature"],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+        await page.route("**/api/post/*/like", route =>
+            route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
+        );
+        await page.route("**/api/post/*/report", route =>
+            route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
+        );
+    });
+
+    test("Счётчики лайков и жалоб берутся из ответа API", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.getByRole("button", { name: "Like" })).toContainText("10");
+        await expect(page.getByRole("button", { name: "Submit a report" })).toContainText(
+            "3"
+        );
+    });
+
+    test("Лайк и жалоба пользователя отмечаются по данным API", async ({ page }) => {
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 3,
+                    aiStatus: "good",
+                    imageUrl: "",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: null,
+                    community: null,
+                    tags: ["beauty", "nature"],
+                    liked: true,
+                    reported: true
+                })
+            })
+        );
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.getByRole("button", { name: "Unlike" })).toBeVisible();
+        await expect(
+            page.getByRole("button", { name: "Report submitted" })
+        ).toBeVisible();
+    });
+
+    test("Клик по лайку увеличивает счётчик", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByRole("button", { name: "Like" }).click();
+
+        await expect(page.getByRole("button", { name: "Unlike" })).toContainText("11");
+    });
+
+    test("Жалоба отмечается и увеличивает счётчик", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByRole("button", { name: "Submit a report" }).click();
+
+        await expect(
+            page.getByRole("button", { name: "Report submitted" })
+        ).toContainText("4");
+    });
+});
+
+test.describe("Post - публикация текущего пользователя", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 3,
+                    aiStatus: "good",
+                    imageUrl: "",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: {
+                        uuid: "00000000-0000-4000-8000-00000000000a",
+                        name: "testUser",
+                        username: "testUser",
+                        description: "",
+                        avatarUrl: "",
+                        worksCount: 0,
+                        subscribersCount: 0,
+                        subscribesCount: 0,
+                        createdAt: "2026-01-01T00:00:00.000Z",
+                        trustStatus: "UNTRUST",
+                        onlineStatus: "ONLINE",
+                        enabled: true
+                    },
+                    community: null,
+                    tags: ["beauty", "nature"],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+    });
+
+    test("Отображаются кнопки редактирования и удаления", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.getByRole("button", { name: "Delete post" })).toBeVisible();
+        await expect(page.getByRole("link", { name: "Edit post" })).toBeVisible();
+    });
+
+    test("Ссылка редактирования ведёт на страницу редактирования", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.getByRole("link", { name: "Edit post" })).toHaveAttribute(
+            "href",
+            "/post/add?post=00000000-0000-4000-8000-000000000007"
+        );
+    });
+
+    test("Подтверждение удаления открывает профиль автора", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByRole("button", { name: "Delete post" }).click();
+        await page.getByRole("button", { name: "Delete post Post title" }).click();
+
+        await expect(page).toHaveURL(/\/profile\/00000000-0000-4000-8000-00000000000a/);
+    });
+});
+
+test.describe("Post - публикация сообщества", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 3,
+                    aiStatus: "good",
+                    imageUrl: "",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: null,
+                    community: {
+                        owner: {
+                            uuid: "00000000-0000-4000-8000-00000000000b",
+                            name: "testAuthor",
+                            username: "testAuthor",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 0,
+                            subscribersCount: 0,
+                            subscribesCount: 0,
+                            createdAt: "2026-01-01T00:00:00.000Z",
+                            trustStatus: "UNTRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true
+                        },
+                        name: "Test community",
+                        username: "testCommunity",
+                        description: "",
+                        avatarUrl: "",
+                        worksCount: 0,
+                        subscribersCount: 0,
+                        subscribesCount: 0,
+                        createdAt: "2026-01-01T00:00:00.000Z",
+                        trustStatus: "UNTRUST",
+                        admins: []
+                    },
+                    tags: [],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+    });
+
+    test("Ссылка автора ведёт на страницу сообщества", async ({ page }) => {
+        await page.goto(POST_URL, { waitUntil: "networkidle" });
+
+        const communityLink = page
+            .getByRole("article")
+            .getByRole("link", { name: "Go to Test community's community page" });
+        await expect(communityLink).toBeVisible();
+        await expect(communityLink).toHaveAttribute("href", "/communities/testCommunity");
     });
 });

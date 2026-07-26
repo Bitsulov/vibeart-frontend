@@ -7,6 +7,7 @@ import {
     type ComponentPropsWithoutRef,
     type Dispatch,
     type SetStateAction,
+    useEffect,
     useState
 } from "react";
 import { submitValidHandler } from "../model/submitValidHandler";
@@ -16,8 +17,13 @@ import { AddTags } from "widgets/addTags";
 import { postTagsMock } from "entities/tag";
 import { StylizedButton } from "features/stylizedButton";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
-import type { PostType } from "entities/post";
+import { addPost, type PostType, updatePostByUUID } from "entities/post";
 import { useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { postRequestSuccessHandler } from "../model/postRequestSuccessHandler";
+import { postRequestErrorHandler } from "../model/postRequestErrorHandler";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link CreatePostWidget}. */
 interface CreatePostWidgetProps extends ComponentPropsWithoutRef<"form"> {
@@ -37,6 +43,20 @@ interface CreatePostWidgetProps extends ComponentPropsWithoutRef<"form"> {
     setLoadedFile: Dispatch<SetStateAction<File | undefined>>;
     /** Загруженный файл изображения публикации. */
     loadedFile?: File;
+    /** Текущее состояние публикации для предпросмотра и отправки формы. */
+    postInfo: Partial<PostType>;
+    /** Теги редактируемой публикации, отмечаемые как выбранные при загрузке формы. */
+    postTags: string[];
+    /** Признак режима создания публикации; при `false` форма работает в режиме редактирования. */
+    isCreateNewPost: boolean;
+    /** Исходный заголовок редактируемой публикации — используется для проверки, изменились ли данные. */
+    postName: string;
+    /** Исходное описание редактируемой публикации — используется для проверки, изменились ли данные. */
+    postDescription: string;
+    /** UUID сообщества-автора публикации, если публикация создаётся от его имени; иначе `null`. */
+    communityId: string | null;
+    /** UUID текущего пользователя. */
+    UUID: string;
     /** Функция, вызываемая после успешной отправки формы. По умолчанию — пустая функция. */
     onSubmit?: () => void;
     /** Дополнительный CSS-класс для корневого элемента формы. */
@@ -44,7 +64,12 @@ interface CreatePostWidgetProps extends ComponentPropsWithoutRef<"form"> {
 }
 
 /**
- * Форма создания публикации с полями загрузки изображения, названия, описания и выбором тегов.
+ * Форма создания или редактирования публикации с полями загрузки изображения, названия,
+ * описания и выбором тегов.
+ *
+ * Режим определяется пропом `isCreateNewPost`: в режиме редактирования поля формы
+ * предзаполняются данными `postInfo`/`postTags`. Публикация может создаваться как от имени
+ * текущего пользователя, так и от имени сообщества, если передан `communityId`.
  *
  * Использует react-hook-form для валидации: название обязательно (не более 15 символов),
  * описание — не более 200 символов. Теги выбираются через {@link AddTags}.
@@ -60,6 +85,13 @@ export const CreatePostWidget = ({
     setPostInfo,
     setLoadedFile,
     loadedFile,
+    postInfo,
+    postTags,
+    postName,
+    postDescription,
+    isCreateNewPost,
+    communityId,
+    UUID,
     onSubmit = () => {},
     className = "",
     ...props
@@ -73,6 +105,7 @@ export const CreatePostWidget = ({
         register,
         handleSubmit,
         control,
+        setValue,
         formState: { isSubmitted, errors }
     } = useForm<ICreatePostForm>({
         shouldFocusError: false
@@ -100,18 +133,61 @@ export const CreatePostWidget = ({
             ? "createPost.textTitle"
             : "createPost.textPlaceholder";
 
+    const title = isCreateNewPost ? "createPost.titleCreate" : "createPost.titleEdit";
+
     const [chosenTags, setChosenTags] = useState<string[]>([]);
+    const postUUID = postInfo.UUID || "";
+
+    const isCommunity = !!communityId;
+
+    useEffect(() => {
+        setValue("title", postInfo?.name ?? "");
+        setValue("description", postInfo?.description ?? "");
+        setChosenTags(postTags);
+    }, [postInfo, setValue, postTags]);
+
+    const createPostMutation = useMutation({
+        mutationFn: addPost,
+        onSuccess: data =>
+            postRequestSuccessHandler(data, navigate, dispatch, isCreateNewPost),
+        onError: (error: AxiosError<AppError>) => postRequestErrorHandler(error, dispatch)
+    });
+
+    const updatePostMutation = useMutation({
+        mutationFn: updatePostByUUID,
+        onSuccess: data =>
+            postRequestSuccessHandler(data, navigate, dispatch, isCreateNewPost),
+        onError: (error: AxiosError<AppError>) => postRequestErrorHandler(error, dispatch)
+    });
 
     return (
         <form
             onSubmit={handleSubmit(
-                () => submitValidHandler(navigate, dispatch, loadedFile, onSubmit),
+                data =>
+                    submitValidHandler(
+                        data,
+                        createPostMutation.mutateAsync,
+                        updatePostMutation.mutateAsync,
+                        isCreateNewPost,
+                        chosenTags,
+                        UUID,
+                        postUUID,
+                        dispatch,
+                        loadedFile,
+                        postInfo.imageUrl,
+                        postName,
+                        postDescription,
+                        postTags,
+                        isCommunity,
+                        communityId || "",
+                        onSubmit
+                    ),
                 errors => submitInvalidHandler(errors, dispatch)
             )}
             className={`${c.settings} ${className}`}
             {...props}
         >
-            <h1 className={c.title}>{t("createPost.title")}</h1>
+            <h1 className={c.title}>{t(title)}</h1>
             <div className={c.fields}>
                 <SettingsItem
                     title={t("createPost.imgTitle")}
@@ -151,7 +227,6 @@ export const CreatePostWidget = ({
                     isError={!!errors.description}
                     isSubmitted={isSubmitted}
                     maxLength={200}
-                    // minLength={}
                     registerProps={register("description", {
                         maxLength: { value: 200, message: "toast.longDescription" }
                     })}

@@ -2,8 +2,14 @@ import { Layout } from "widgets/layout";
 import { ErrorInfo } from "widgets/errorInfo";
 import { useTranslation } from "react-i18next";
 
-/** Страница ошибки (404 и др.). */
-export const Error = () => {
+/** Свойства компонента {@link Error}. */
+interface ErrorProps {
+    /** HTTP-код ошибки, передаётся в {@link ErrorInfo}. По умолчанию `404`. */
+    errorCode?: number;
+}
+
+/** Страница ошибки. */
+export const Error = ({ errorCode }: ErrorProps) => {
     const { t } = useTranslation();
 
     return (
@@ -12,7 +18,7 @@ export const Error = () => {
             <meta name="description" content={t("description.error")} />
             <meta property="og:title" content={t("titles.error")} />
             <meta property="og:description" content={t("description.error")} />
-            <ErrorInfo />
+            <ErrorInfo errorCode={errorCode} />
         </Layout>
     );
 };

@@ -51,6 +51,7 @@
         "conflictEmailError": "A user with this email address already exists",
         "invalidData": "The entered data is invalid",
         "conflictUserEmailError": "The entered email address is already taken",
+        "conflictUsernameError": "The entered username is already taken",
         "conflictVerifyUser": "This user has already been verified",
         "userNotFound": "This user was not found",
         "codeExpired": "The verification code has expired",
@@ -68,13 +69,18 @@
         "confirmEmailChangeAccess": "Email address successfully changed.",
         "wrongPassword": "Incorrect old password",
         "confirmPasswordChangeAccess": "Password successfully changed.",
-        "deleteUserSuccess": "Account successfully deleted"
+        "deleteUserSuccess": "Account successfully deleted",
+        "postNotFound": "This post was not found",
+        "tagNotFound": "Tag {{tag}} not found",
+        "postCreatedSuccess": "Post successfully created.",
+        "postUpdatedSuccess": "Post successfully updated."
     },
     "ariaLabel": {
         "openBurgerMenu": "Open navigation menu",
         "goToHome": "Go to home page",
         "goToProfile": "Go to profile",
         "goToUserProfile": "Go to {{name}}'s profile",
+        "goToCommunityProfile": "Go to {{name}}'s community page",
         "goToPost": "Go to post {{name}}",
         "goToGallery": "Go to gallery",
         "goToChats": "Go to chats",
@@ -328,7 +334,10 @@
 
     "error": {
         "errorTitle": "An error occurred",
+        "error401": "Authorization is required to access this page",
+        "error403": "Access to the requested page is restricted",
         "error404": "The requested page was not found",
+        "error500": "A server error has occurred, please try again later",
         "returnToHome": "Return to home",
         "report": "Report a problem"
     },
@@ -465,7 +474,8 @@
     },
 
     "createPost": {
-        "title": "Create post",
+        "titleCreate": "Create post",
+        "titleEdit": "Edit post",
         "imgTitle": "Image",
         "imgDescription": "The main media file of the post.",
         "nameTitle": "Title",

@@ -8,6 +8,7 @@ const defaultProps = {
     userInfo: { name: "Test User", avatarUrl: "" },
     UUID: "",
     currentUserInfo: {
+        uuid: "",
         name: "Test User",
         avatarUrl: "",
         description: "",

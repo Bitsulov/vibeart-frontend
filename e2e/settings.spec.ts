@@ -148,6 +148,40 @@ test.describe("Settings - страница настроек профиля", () 
 
             await expect(page.getByText("Description is too long")).toBeVisible();
         });
+
+        test("Успешное сохранение показывает уведомление", async ({ page }) => {
+            await page.goto(SETTINGS_URL);
+            await page.waitForLoadState("networkidle");
+
+            await page.getByLabel("Enter name").fill("New name");
+            await page.getByRole("button", { name: "Save entered data" }).click();
+
+            await expect(
+                page.getByText("User information successfully updated.")
+            ).toBeVisible();
+        });
+
+        test("Занятый id показывает уведомление об ошибке", async ({ page }) => {
+            await page.route("**/api/user/*", route => {
+                if (route.request().method() !== "PUT") return route.fallback();
+
+                return route.fulfill({
+                    status: 409,
+                    contentType: "application/json",
+                    body: JSON.stringify({ statusCode: 409, message: "error" })
+                });
+            });
+            await page.goto(SETTINGS_URL);
+            await page.waitForLoadState("networkidle");
+
+            await page.getByLabel("Enter name").fill("New name");
+            await page.getByLabel("Enter ID").fill("takenId");
+            await page.getByRole("button", { name: "Save entered data" }).click();
+
+            await expect(
+                page.getByText("The entered username is already taken")
+            ).toBeVisible();
+        });
     });
 
     test.describe("EmailChangeForm - форма изменения email", () => {

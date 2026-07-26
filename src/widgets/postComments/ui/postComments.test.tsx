@@ -32,4 +32,10 @@ describe("PostComments - секция комментариев поста", () =
         const links = screen.getAllByRole("link", { name: /ariaLabel.goToUserProfile/ });
         expect(links.length).toBe(commentsMock.length);
     });
+
+    it("Отображает имя автора из поля author.title", () => {
+        renderWithProviders(<PostComments {...defaultProps} />);
+        const names = screen.getAllByText(commentsMock[0].author.title);
+        expect(names.length).toBe(commentsMock.length);
+    });
 });

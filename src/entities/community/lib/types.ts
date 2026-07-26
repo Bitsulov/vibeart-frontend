@@ -1,4 +1,4 @@
-import type { UserType } from "entities/user";
+import type { UserResponse, UserType } from "entities/user";
 import type { AlbumType } from "entities/album";
 
 /**
@@ -35,4 +35,19 @@ export interface CommunityType {
     isBlocked: boolean;
     /** Уровень доверия, присвоенный модерацией платформы. */
     trustStatus: "TRUST" | "UNTRUST";
+}
+
+/** Сообщество, возвращаемое сервером. */
+export interface CommunityResponse {
+    owner: UserResponse;
+    name: string;
+    username: string;
+    description: string;
+    avatarUrl: string;
+    worksCount: number;
+    subscribersCount: number;
+    subscribesCount: number;
+    createdAt: string;
+    trustStatus: "TRUST" | "UNTRUST";
+    admins: UserResponse[];
 }

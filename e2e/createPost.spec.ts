@@ -97,7 +97,7 @@ test.describe("CreatePost - страница создания поста", () =>
     test("Отправка с названием но без изображения показывает уведомление", async ({
         page
     }) => {
-        await page.goto(CREATE_POST_URL);
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Название");
         await page.getByRole("button", { name: /create/i }).click();
@@ -107,7 +107,7 @@ test.describe("CreatePost - страница создания поста", () =>
     test("Слишком длинное название показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_POST_URL);
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("A".repeat(16));
         await page.getByRole("button", { name: /create/i }).click();
@@ -117,12 +117,184 @@ test.describe("CreatePost - страница создания поста", () =>
     test("Слишком длинное описание показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_POST_URL);
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Название");
         await page.getByLabel("description", { exact: false }).fill("A".repeat(201));
         await page.getByRole("button", { name: /create/i }).click();
 
         await expect(page.getByText("Description is too long")).toBeVisible();
+    });
+});
+
+test.describe("CreatePost - режим редактирования поста", () => {
+    const EDIT_POST_URL = "/en/post/add?post=00000000-0000-4000-8000-000000000007";
+
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+        await page.route("**/api/post/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Post title",
+                    description: "Description Description",
+                    likesCount: 10,
+                    commentsCount: 5,
+                    reportsCount: 0,
+                    aiStatus: "good",
+                    imageUrl:
+                        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: null,
+                    community: null,
+                    tags: ["beauty", "nature"],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+    });
+
+    test("Отображается заголовок редактирования публикации", async ({ page }) => {
+        await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.locator("h1").filter({ hasText: "Edit post" })).toBeAttached();
+    });
+
+    test("Поля названия и описания предзаполняются данными публикации", async ({
+        page
+    }) => {
+        await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
+
+        await expect(page.getByRole("textbox", { name: /title/i })).toHaveValue(
+            "Post title"
+        );
+        await expect(page.getByRole("textbox", { name: /description/i })).toHaveValue(
+            "Description Description"
+        );
+    });
+
+    test("Изменение названия сохраняет публикацию и открывает её страницу", async ({
+        page
+    }) => {
+        await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByRole("textbox", { name: /title/i }).fill("New title");
+        await page.getByRole("button", { name: /create/i }).click();
+
+        await expect(page.getByText("Post successfully updated.")).toBeVisible();
+        await expect(page).toHaveURL(/\/post\/00000000-0000-4000-8000-000000000007/);
+    });
+
+    test("Отправка без изменений показывает уведомление об успехе", async ({ page }) => {
+        await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByRole("button", { name: /create/i }).click();
+
+        await expect(page.getByText("Post successfully updated.")).toBeVisible();
+        await expect(page).toHaveURL(EDIT_POST_URL);
+    });
+});
+
+test.describe("CreatePost - отправка формы создания", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route("**/api/auth/user", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000a",
+                    name: "testUser",
+                    username: "testUser",
+                    avatarUrl: "",
+                    email: "testEmail@test.com",
+                    role: "USER",
+                    enabled: true
+                })
+            })
+        );
+    });
+
+    test("Создание публикации открывает её страницу", async ({ page }) => {
+        await page.route("**/api/post", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-000000000007",
+                    title: "Новый пост",
+                    description: "",
+                    likesCount: 0,
+                    commentsCount: 0,
+                    reportsCount: 0,
+                    aiStatus: "good",
+                    imageUrl: "",
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    author: null,
+                    community: null,
+                    tags: [],
+                    liked: false,
+                    reported: false
+                })
+            })
+        );
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByLabel("title", { exact: false }).fill("Новый пост");
+        await page
+            .locator("input[type=file]")
+            .first()
+            .setInputFiles({
+                name: "post.png",
+                mimeType: "image/png",
+                buffer: Buffer.from("post image")
+            });
+        await page.getByRole("button", { name: /create/i }).click();
+
+        await expect(page.getByText("Post successfully created.")).toBeVisible();
+        await expect(page).toHaveURL(/\/post\/00000000-0000-4000-8000-000000000007/);
+    });
+
+    test("Ошибка создания публикации показывает уведомление", async ({ page }) => {
+        await page.route("**/api/post", route =>
+            route.fulfill({
+                status: 500,
+                contentType: "application/json",
+                body: JSON.stringify({ statusCode: 500, message: "error" })
+            })
+        );
+        await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
+
+        await page.getByLabel("title", { exact: false }).fill("Новый пост");
+        await page
+            .locator("input[type=file]")
+            .first()
+            .setInputFiles({
+                name: "post.png",
+                mimeType: "image/png",
+                buffer: Buffer.from("post image")
+            });
+        await page.getByRole("button", { name: /create/i }).click();
+
+        await expect(
+            page.getByText("A server error occurred. Please try again later")
+        ).toBeVisible();
+        await expect(page).toHaveURL(CREATE_POST_URL);
     });
 });

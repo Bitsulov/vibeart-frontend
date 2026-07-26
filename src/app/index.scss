@@ -111,12 +111,13 @@ html {
 }
 
 html,
-body,
-div#root {
+body {
     min-height: 100vh;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(-12deg, $bright-background, $dark-background);
     color: $active-color;
     overflow-x: hidden;
@@ -148,11 +149,6 @@ img {
 ::selection {
     color: $dark-background;
     background: $active-color;
-}
-
-div#root {
-    display: flex;
-    flex-direction: column;
 }
 
 .container {

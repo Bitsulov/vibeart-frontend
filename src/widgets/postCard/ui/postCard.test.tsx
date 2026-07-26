@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { PostCard } from "./postCard";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { profileUserMock } from "entities/user";
 
 const mockNavigate = vi.fn();
@@ -13,7 +13,7 @@ vi.mock("react-router-dom", async () => {
 
 const defaultProps = {
     authorAvatarUrl: "",
-    authorName: profileUserMock.name,
+    authorName: profileUserMock.title,
     authorUUID: profileUserMock.UUID,
     imageUrl: "https://example.com/img.jpg",
     albumName: "Альбом",
@@ -49,6 +49,19 @@ describe("PostCard - карточка поста", () => {
         renderWithProviders(<PostCard {...defaultProps} />);
         const link = screen.getByRole("link", { name: `ariaLabel.goToUserProfile` });
         expect(link).toHaveAttribute("href", `/profile/${profileUserMock.UUID}`);
+    });
+
+    it("Ссылка ведёт на страницу сообщества, если автор публикации — сообщество", () => {
+        renderWithProviders(
+            <PostCard
+                {...defaultProps}
+                authorName="Сообщество"
+                authorUUID="my-community"
+                isAuthorCommunity={true}
+            />
+        );
+        const link = screen.getByRole("link", { name: `ariaLabel.goToCommunityProfile` });
+        expect(link).toHaveAttribute("href", "/communities/my-community");
     });
 
     it("Кнопки редактирования и удаления не отображаются, если isOwner = false", () => {
@@ -99,19 +112,29 @@ describe("PostCard - карточка поста", () => {
         ).toBeInTheDocument();
     });
 
-    it("Клик по кнопке жалобы переключает состояние", () => {
+    it("Клик по кнопке жалобы переключает состояние", async () => {
         renderWithProviders(<PostCard {...defaultProps} />);
         const reportBtn = screen.getByRole("button", { name: "ariaLabel.report" });
         fireEvent.click(reportBtn);
+        expect(
+            await screen.findByRole("button", { name: "ariaLabel.reported" })
+        ).toBeInTheDocument();
+    });
+
+    it("Проп isReported задаёт начальное состояние кнопки жалобы", () => {
+        renderWithProviders(<PostCard {...defaultProps} isReported={true} />);
         expect(
             screen.getByRole("button", { name: "ariaLabel.reported" })
         ).toBeInTheDocument();
     });
 
-    it("Повторный клик по жалобе не сбрасывает состояние", () => {
+    it("Повторный клик по жалобе не сбрасывает состояние", async () => {
         renderWithProviders(<PostCard {...defaultProps} />);
         fireEvent.click(screen.getByRole("button", { name: "ariaLabel.report" }));
-        fireEvent.click(screen.getByRole("button", { name: "ariaLabel.reported" }));
+        const reportedBtn = await screen.findByRole("button", {
+            name: "ariaLabel.reported"
+        });
+        fireEvent.click(reportedBtn);
         expect(
             screen.getByRole("button", { name: "ariaLabel.reported" })
         ).toBeInTheDocument();
@@ -133,15 +156,15 @@ describe("PostCard - карточка поста", () => {
         fireEvent.mouseLeave(reportBtn);
     });
 
-    it("Подтверждение удаления вызывает navigate на профиль автора", () => {
-        vi.useFakeTimers();
+    it("Подтверждение удаления вызывает navigate на профиль автора", async () => {
+        vi.useFakeTimers({ shouldAdvanceTime: true });
         renderWithProviders(<PostCard {...defaultProps} isOwner={true} />);
         fireEvent.click(
             screen.getAllByRole("button", { name: "ariaLabel.deletePost" })[0]
         );
         fireEvent.click(screen.getByText("DoConfirm"));
-        vi.advanceTimersByTime(300);
-        expect(mockNavigate).toHaveBeenCalled();
+        await vi.advanceTimersByTimeAsync(300);
+        await waitFor(() => expect(mockNavigate).toHaveBeenCalled());
         vi.useRealTimers();
     });
 });

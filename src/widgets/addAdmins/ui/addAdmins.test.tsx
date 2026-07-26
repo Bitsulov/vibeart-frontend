@@ -19,14 +19,14 @@ describe("AddAdmins - виджет выбора администраторов",
     it("Отображает имя автора с пометкой «Вы»", () => {
         renderWithProviders(<AddAdmins {...defaultProps} />);
 
-        expect(screen.getByText(`${principalUserMock.name} You`)).toBeInTheDocument();
+        expect(screen.getByText(`${principalUserMock.title} You`)).toBeInTheDocument();
     });
 
     it("Отображает всех пользователей из мок-данных", () => {
         renderWithProviders(<AddAdmins {...defaultProps} />);
 
         communityAdminsMock.forEach(user => {
-            expect(screen.getByText(user.name)).toBeInTheDocument();
+            expect(screen.getByText(user.title)).toBeInTheDocument();
         });
     });
 
@@ -42,6 +42,6 @@ describe("AddAdmins - виджет выбора администраторов",
             <AddAdmins {...defaultProps} selectedAdmins={[firstAdmin]} />
         );
 
-        expect(screen.getByText(firstAdmin.name)).toBeInTheDocument();
+        expect(screen.getByText(firstAdmin.title)).toBeInTheDocument();
     });
 });

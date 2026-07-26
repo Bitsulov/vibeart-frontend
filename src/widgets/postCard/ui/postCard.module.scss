@@ -48,8 +48,9 @@ $description-collapsed-height: 5rem;
     .card {
         position: relative;
         margin: 0 auto;
+        width: 100%;
         max-width: 46.6rem;
-        border-radius: clamp(2.5rem, 3rem, 5rem);
+        border-radius: clamp(2.5rem, 3vw, 5rem);
         background-color: global.$bright-background;
 
         .card_img {
@@ -58,6 +59,11 @@ $description-collapsed-height: 5rem;
             display: block;
             border-top-left-radius: clamp(2.5rem, 3vw, 5rem);
             border-top-right-radius: clamp(2.5rem, 3vw, 5rem);
+
+            &.card_img_loading {
+                height: 26.8rem;
+                background-color: global.$block-color;
+            }
         }
 
         .content {
@@ -116,9 +122,7 @@ $description-collapsed-height: 5rem;
                     font-size: clamp(1.6rem, 3vw, 2rem);
                     font-weight: 400;
                     letter-spacing: 0.16rem;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
+                    overflow-wrap: break-word;
                     transition: global.$transition-time;
 
                     &:hover {
@@ -164,7 +168,7 @@ $description-collapsed-height: 5rem;
                     &.description_collapsed {
                         max-height: $description-collapsed-height;
 
-                        &::before {
+                        &.description_overflowing::before {
                             content: "";
                             display: block;
                             position: absolute;

@@ -57,7 +57,7 @@ export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProp
     const avatarImg = userInfo.avatarUrl || defaultAvatar;
     const avatarAlt = isLoadingData
         ? t("loading...")
-        : `${t("profile.avatarAlt")} ${userInfo.name}`;
+        : `${t("profile.avatarAlt")} ${userInfo.title}`;
     const isPrincipalUser = userInfo.UUID === principalUserInfo.UUID;
 
     const resultDate = isLoadingData
@@ -68,7 +68,7 @@ export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProp
 
     const name = isLoadingData
         ? t("loading...")
-        : userInfo.name || t("profile.emptyName");
+        : userInfo.title || t("profile.emptyName");
     const description = isLoadingData
         ? t("loading...")
         : userInfo.description || t("community.emptyDescription");
@@ -88,7 +88,7 @@ export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProp
                     {!isLoadingData && (
                         <ProfileLink
                             isPrincipalUser={isPrincipalUser}
-                            name={userInfo.name}
+                            name={userInfo.title}
                             UUID={userInfo.UUID}
                         />
                     )}

@@ -82,6 +82,7 @@ export const Settings = () => {
     const currentUserInfo: UserResponse = useMemo(
         () =>
             data?.data || {
+                uuid: "",
                 name: "",
                 description: "",
                 username: "",

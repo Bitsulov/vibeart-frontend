@@ -14,7 +14,7 @@ export interface UserType {
     /** UUID, используемый в публичных URL (например, `/profile/:uuid`). */
     UUID: string;
     /** Отображаемое имя пользователя. */
-    name: string;
+    title: string;
     /** Уникальный псевдоним пользователя для упоминаний и URL. */
     username: string;
     /** Краткое описание пользователя. */
@@ -111,6 +111,7 @@ export interface PrincipalUserState {
 
 /** Полная информация о пользователе, необходимая в профиле */
 export interface UserResponse {
+    uuid: string;
     name: string;
     username: string;
     description: string;

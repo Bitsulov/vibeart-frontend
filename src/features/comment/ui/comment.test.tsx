@@ -6,7 +6,7 @@ import { profileUserMock } from "entities/user";
 
 const defaultProps = {
     authorUUID: profileUserMock.UUID,
-    authorName: profileUserMock.name,
+    authorName: profileUserMock.title,
     authorAvatarUrl: "",
     text: "Текст комментария",
     date: "2026-04-05T08:52:55.271Z"
@@ -20,7 +20,7 @@ describe("Comment - отображение комментария", () => {
 
     it("Отображает имя автора", () => {
         renderWithProviders(<Comment {...defaultProps} />);
-        expect(screen.getByText(profileUserMock.name)).toBeInTheDocument();
+        expect(screen.getByText(profileUserMock.title)).toBeInTheDocument();
     });
 
     it("Ссылка ведет на профиль автора", () => {
@@ -33,13 +33,13 @@ describe("Comment - отображение комментария", () => {
         renderWithProviders(
             <Comment {...defaultProps} authorAvatarUrl="https://example.com/avatar.jpg" />
         );
-        const img = screen.getByRole("img", { name: profileUserMock.name });
+        const img = screen.getByRole("img", { name: profileUserMock.title });
         expect(img).toHaveAttribute("src", "https://example.com/avatar.jpg");
     });
 
     it("Использует дефолтный аватар при пустом avatarUrl", () => {
         renderWithProviders(<Comment {...defaultProps} authorAvatarUrl="" />);
-        const img = screen.getByRole("img", { name: profileUserMock.name });
+        const img = screen.getByRole("img", { name: profileUserMock.title });
         expect(img).toBeInTheDocument();
     });
 });

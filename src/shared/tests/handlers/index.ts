@@ -11,6 +11,7 @@ import {
     userDetailResponseMock,
     userResponseMock
 } from "entities/user";
+import { postResponseMock, postsPageResponseMock } from "entities/post";
 
 export const handlers = [
     http.post("*/auth/register", () => HttpResponse.text("ok")),
@@ -27,5 +28,10 @@ export const handlers = [
     http.post("*/user/email/confirm", () => HttpResponse.text("ok")),
     http.post("*/user/:UUID/password", () => HttpResponse.text("ok")),
     http.post("*/user/password/send", () => HttpResponse.text("ok")),
-    http.post("*/user/password/confirm", () => HttpResponse.text("ok"))
+    http.post("*/user/password/confirm", () => HttpResponse.text("ok")),
+    http.get("*/post", () => HttpResponse.json(postsPageResponseMock)),
+    http.get("*/post/:UUID", () => HttpResponse.json(postResponseMock)),
+    http.delete("*/post/:UUID", () => HttpResponse.text("ok")),
+    http.post("*/post/:UUID/like", () => HttpResponse.text("ok")),
+    http.post("*/post/:UUID/report", () => HttpResponse.text("ok"))
 ];

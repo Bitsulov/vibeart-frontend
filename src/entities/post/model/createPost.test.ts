@@ -19,7 +19,9 @@ describe("createPost - Возвращает объект типа PostType", () 
                 checkStatus: "unchecked",
                 AIStatus: "good",
                 imageUrl: "",
-                createdAt: "2026-03-29T17:25:15.940Z"
+                createdAt: "2026-03-29T17:25:15.940Z",
+                isLiked: false,
+                isReported: false
             })
         ).toEqual({
             UUID: "hghghhg",
@@ -35,7 +37,9 @@ describe("createPost - Возвращает объект типа PostType", () 
             checkStatus: "unchecked",
             AIStatus: "good",
             imageUrl: "",
-            createdAt: "2026-03-29T17:25:15.940Z"
+            createdAt: "2026-03-29T17:25:15.940Z",
+            isLiked: false,
+            isReported: false
         });
     });
     it("Создание экземпляра поста с неполными данными", () => {
@@ -62,7 +66,9 @@ describe("createPost - Возвращает объект типа PostType", () 
             checkStatus: "unchecked",
             AIStatus: "good",
             imageUrl: "",
-            createdAt: "2026-03-29T17:25:15.940Z"
+            createdAt: "2026-03-29T17:25:15.940Z",
+            isLiked: false,
+            isReported: false
         });
     });
 });

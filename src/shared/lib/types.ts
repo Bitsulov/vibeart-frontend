@@ -11,3 +11,25 @@ export interface AppError {
     /** Дата и время возникновения ошибки в формате ISO 8601. */
     timestamp: string;
 }
+
+/**
+ * Постраничный ответ Spring Data.
+ */
+export interface Page<T> {
+    /** Элементы текущей страницы. */
+    content: T[];
+    /** Номер текущей страницы, начиная с 0. */
+    number: number;
+    /** Размер страницы. */
+    size: number;
+    /** Общее количество элементов на всех страницах. */
+    totalElements: number;
+    /** Общее количество страниц. */
+    totalPages: number;
+    /** Признак первой страницы. */
+    first: boolean;
+    /** Признак последней страницы. */
+    last: boolean;
+    /** Признак отсутствия элементов. */
+    empty: boolean;
+}
