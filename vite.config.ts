@@ -8,12 +8,26 @@
  *
  * @see https://vitejs.dev/config/
  */
-import { defineConfig } from "vite";
+import { defineConfig, type ViteDevServer } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
 import path from "path";
 
 export default defineConfig({
-    plugins: [reactRouter()],
+    plugins: [
+        reactRouter(),
+        !!process.env.PLAYWRIGHT && {
+            name: "mock-api",
+            configureServer(server: ViteDevServer) {
+                server.httpServer?.once("listening", async () => {
+                    const { setupServer } = await import("msw/node");
+                    const { handlers } = await server.ssrLoadModule(
+                        "/src/shared/tests/handlers/index.ts"
+                    );
+                    setupServer(...handlers).listen({ onUnhandledRequest: "bypass" });
+                });
+            }
+        }
+    ],
     server: {
         port: Number(process.env.PORT) || 5173,
         hmr: !process.env.PLAYWRIGHT,
