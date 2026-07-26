@@ -19,7 +19,7 @@ import type { UserType } from "../lib/types";
  */
 export function createUser({
     UUID,
-    name = "",
+    title = "",
     username,
     description = "",
     worksCount = 0,
@@ -36,7 +36,7 @@ export function createUser({
 }: UserType) {
     return {
         UUID,
-        name,
+        title,
         username: username ? `@${username}` : "",
         description,
         worksCount,

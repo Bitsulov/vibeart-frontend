@@ -7,7 +7,7 @@ import type { PrincipalUserState, UserType } from "entities/user";
 
 const userInfo: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
-    name: "Иван Иванов",
+    title: "Иван Иванов",
     username: "@ivan",
     description: "Мое описание профиля",
     worksCount: 5,

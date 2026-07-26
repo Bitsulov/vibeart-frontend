@@ -88,7 +88,7 @@ export const CommunityModal = ({
                                 <CommunityUserItem
                                     UUID={owner.UUID}
                                     imageUrl={owner.avatarUrl}
-                                    name={owner.name}
+                                    name={owner.title}
                                     className={c.owner}
                                 />
                             </div>
@@ -99,7 +99,7 @@ export const CommunityModal = ({
                                         <CommunityUserItem
                                             key={`user ${admin.UUID}`}
                                             imageUrl={admin.avatarUrl}
-                                            name={admin.name}
+                                            name={admin.title}
                                             UUID={admin.UUID}
                                         />
                                     ))}

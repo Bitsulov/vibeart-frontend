@@ -51,7 +51,7 @@ export const Profile = () => {
 
     const userData = createUser({
         UUID,
-        name: data?.data.name || "",
+        title: data?.data.name || "",
         username: data?.data.username || "",
         description: data?.data.description || "",
         worksCount: data?.data.worksCount || 0,

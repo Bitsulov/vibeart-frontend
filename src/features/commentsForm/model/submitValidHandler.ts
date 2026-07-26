@@ -21,7 +21,7 @@ export function submitValidHandler(
 ) {
     const user = createUser({
         UUID: author.UUID,
-        name: author.name,
+        title: author.name,
         username: author.username,
         description: "",
         worksCount: 0,

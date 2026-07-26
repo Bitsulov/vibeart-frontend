@@ -113,25 +113,25 @@ export const Post = ({
                         (target === "_self" ? (
                             <Link
                                 aria-label={t("ariaLabel.goToUserProfile", {
-                                    name: author.name
+                                    name: author.title
                                 })}
                                 to={`/profile/${author.UUID}`}
                                 className={c.name}
                                 target="_self"
                             >
-                                {author.name}
+                                {author.title}
                             </Link>
                         ) : (
                             <a
                                 rel="nofollow noopener noreferrer"
                                 aria-label={t("ariaLabel.goToUserProfile", {
-                                    name: author.name
+                                    name: author.title
                                 })}
                                 href={`/profile/${author.UUID}`}
                                 className={c.name}
                                 target={target}
                             >
-                                {author.name}
+                                {author.title}
                             </a>
                         ))}
                     {target === "_self" ? (

@@ -28,7 +28,7 @@ export const Chat = () => {
                     )}
                     <ChatWindow
                         messages={messagesMock}
-                        name={profileUserMock.name}
+                        name={profileUserMock.title}
                         UUID={profileUserMock.UUID}
                         avatarUrl={profileUserMock.avatarUrl}
                         onlineStatus={profileUserMock.onlineStatus}

@@ -13,7 +13,7 @@ vi.mock("react-router-dom", async () => {
 
 const defaultProps = {
     authorAvatarUrl: "",
-    authorName: profileUserMock.name,
+    authorName: profileUserMock.title,
     authorUUID: profileUserMock.UUID,
     imageUrl: "https://example.com/img.jpg",
     albumName: "Альбом",

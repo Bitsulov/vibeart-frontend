@@ -5,7 +5,7 @@ import type { CommentType } from "entities/comment";
 
 const expectedAuthor = createUser({
     UUID: principalUserSessionMock.UUID,
-    name: principalUserSessionMock.name,
+    title: principalUserSessionMock.name,
     username: principalUserSessionMock.username,
     description: "",
     worksCount: 0,

@@ -121,7 +121,7 @@ export const SettingsForm = ({
                     setLoadedFile={setLoadedFile}
                     id="avatar"
                     avatarUrl={userInfo.avatarUrl}
-                    avatarAlt={userInfo.name || t("avatar")}
+                    avatarAlt={userInfo.title || t("avatar")}
                     onAvatarDelete={() => onDeleteAvatarHandler(setIsDeleteAvatar)}
                 />
                 <SettingsItem

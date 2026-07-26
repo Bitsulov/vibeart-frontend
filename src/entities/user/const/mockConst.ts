@@ -13,7 +13,7 @@ import avatar from "shared/icons/img-CTA.jpg";
 
 export const principalUserMock = createUser({
     UUID: "00000000-0000-4000-8000-00000000000b",
-    name: "testUsergffdgfd",
+    title: "testUsergffdgfd",
     username: "testUser",
     description:
         "Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user",
@@ -32,7 +32,7 @@ export const principalUserMock = createUser({
 
 export const profileUserMock = createUser({
     UUID: "00000000-0000-4000-8000-000000000006",
-    name: "testUser",
+    title: "testUser",
     username: "testUser",
     description:
         "Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user",
@@ -84,7 +84,7 @@ export const userResponseMock: UserResponse = {
 export const communityAdminsMock = [
     createUser({
         UUID: "00000000-0000-4000-8000-000000000014",
-        name: "Alice Wonder",
+        title: "Alice Wonder",
         username: "alice.wonder",
         description: "",
         worksCount: 12,
@@ -101,7 +101,7 @@ export const communityAdminsMock = [
     }),
     createUser({
         UUID: "00000000-0000-4000-8000-00000000001b",
-        name: "Bob Rivers",
+        title: "Bob Rivers",
         username: "bob.rivers",
         description: "",
         worksCount: 7,

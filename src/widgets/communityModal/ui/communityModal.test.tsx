@@ -6,7 +6,7 @@ import type { UserType } from "entities/user";
 
 const owner: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
-    name: "Owner Name",
+    title: "Owner Name",
     username: "owner",
     description: "",
     worksCount: 0,
@@ -25,7 +25,7 @@ const owner: UserType = {
 const admin: UserType = {
     ...owner,
     UUID: "00000000-0000-4000-8000-000000000006",
-    name: "Admin Name",
+    title: "Admin Name",
     username: "admin"
 };
 

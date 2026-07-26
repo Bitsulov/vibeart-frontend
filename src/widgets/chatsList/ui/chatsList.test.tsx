@@ -36,6 +36,16 @@ describe("ChatsList - список чатов", () => {
         expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument();
     });
 
+    it("Отображает имя собеседника из поля companion.title", () => {
+        renderWithProviders(<ChatsList chatsList={chatsMock} />);
+
+        const headings = screen.getAllByRole("heading", {
+            level: 2,
+            name: chatsMock[0].companion.title
+        });
+        expect(headings.length).toBeGreaterThan(0);
+    });
+
     it("Ссылки ведут на страницы чатов по UUID", () => {
         renderWithProviders(<ChatsList chatsList={chatsMock} />);
 

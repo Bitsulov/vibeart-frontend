@@ -58,7 +58,7 @@ export const AddAdmins = ({
                         onClick={e => authorClickHandler(e)}
                         className={`${c.user} ${c.select}`}
                         imageUrl={author.avatarUrl}
-                        name={`${author.name} ${t("You")}`}
+                        name={`${author.title} ${t("You")}`}
                         UUID={author.UUID}
                     />
                 </li>
@@ -77,14 +77,14 @@ export const AddAdmins = ({
                                 selectedAdmins?.includes(user)
                                     ? "ariaLabel.deleteAdmin"
                                     : "ariaLabel.addAdmin",
-                                { name: user.name }
+                                { name: user.title }
                             )}
                             className={clsx(
                                 c.user,
                                 selectedAdmins?.includes(user) && c.select
                             )}
                             imageUrl={user.avatarUrl}
-                            name={user.name}
+                            name={user.title}
                             key={`add admin ${user.UUID}`}
                             UUID={user.UUID}
                         />

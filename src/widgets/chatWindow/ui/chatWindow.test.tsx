@@ -11,7 +11,7 @@ import { profileUserMock } from "entities/user";
 
 const defaultProps = {
     messages: messagesMock,
-    name: profileUserMock.name,
+    name: profileUserMock.title,
     UUID: profileUserMock.UUID,
     avatarUrl: profileUserMock.avatarUrl,
     onlineStatus: "ONLINE" as const
@@ -25,7 +25,7 @@ describe("ChatWindow - окно чата", () => {
 
     it("Отображает имя собеседника", () => {
         renderWithProviders(<ChatWindow {...defaultProps} />);
-        expect(screen.getByText(profileUserMock.name)).toBeInTheDocument();
+        expect(screen.getByText(profileUserMock.title)).toBeInTheDocument();
     });
 
     it("Отображает сообщения из списка", () => {

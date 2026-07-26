@@ -9,7 +9,7 @@ import * as toggleLikeHandlerModule from "../model/toggleLikeHandler";
 
 const mockAuthor: UserType = {
     UUID: "00000000-0000-4000-8000-00000000000b",
-    name: "Test User",
+    title: "Test User",
     username: "@test_user",
     description: "",
     worksCount: 0,
@@ -102,12 +102,12 @@ describe("Post - карточка поста", () => {
     it("При isShowAuthor=false имя автора не отображается", () => {
         renderWithProviders(<Post {...defaultProps} isShowAuthor={false} />);
 
-        expect(screen.queryByText(mockAuthor.name)).not.toBeInTheDocument();
+        expect(screen.queryByText(mockAuthor.title)).not.toBeInTheDocument();
     });
 
     it("При isShowAuthor=true (по умолчанию) имя автора отображается", () => {
         renderWithProviders(<Post {...defaultProps} />);
 
-        expect(screen.getByText(mockAuthor.name)).toBeInTheDocument();
+        expect(screen.getByText(mockAuthor.title)).toBeInTheDocument();
     });
 });

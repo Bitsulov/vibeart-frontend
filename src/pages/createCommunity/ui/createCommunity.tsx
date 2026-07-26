@@ -36,7 +36,7 @@ export const CreateCommunity = () => {
         description: data?.data.description || "",
         isAuthenticated: true,
         isBlocked: false,
-        name: data?.data.name || "",
+        title: data?.data.name || "",
         onlineStatus: "ONLINE",
         role: userInfo.role,
         subscribersCount: data?.data.subscribersCount || 0,

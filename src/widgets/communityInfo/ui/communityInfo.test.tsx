@@ -31,7 +31,7 @@ const communityInfo = createCommunity({
     UUID: "00000000-0000-4000-8000-00000000001d",
     owner: {
         UUID: owner.UUID,
-        name: "",
+        title: "",
         username: "",
         description: "",
         worksCount: 0,
