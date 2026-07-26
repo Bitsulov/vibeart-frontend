@@ -2,7 +2,7 @@ import c from "./createPost.module.scss";
 import { Layout } from "widgets/layout";
 import { BackLink } from "features/backLink";
 import { useEffect, useState } from "react";
-import type { PostType } from "entities/post";
+import { getPost, type PostType } from "entities/post";
 import { CreatePostWidget } from "widgets/createPostWidget";
 import { Post } from "features/post";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,14 +14,20 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { AppError } from "shared/lib/types";
 import { showToast } from "features/toast";
+import { useSearchParams } from "react-router";
 
 /**
- * Страница создания публикации.
+ * Страница создания или редактирования публикации.
  *
  * Отображает живой предпросмотр публикации рядом с формой создания.
  * Предпросмотр обновляется при изменении полей через общее состояние `postInfo`.
  * При попытке создать публикацию без изображения обновляется `isErrorImg`
  * и карточка предпросмотра подсвечивается как ошибочная.
+ *
+ * Если в адресе передан параметр `post`, страница переходит в режим
+ * редактирования: загружает данные публикации и предзаполняет ими форму.
+ * Если передан параметр `community`, публикация создаётся от имени
+ * указанного сообщества, а не текущего пользователя.
  */
 export const CreatePost = () => {
     const { t } = useTranslation();
@@ -43,6 +49,19 @@ export const CreatePost = () => {
         enabled: !!principalUser.UUID
     });
 
+    const [searchParams, _setSearchParams] = useSearchParams();
+
+    const [loadedTags, setLoadedTags] = useState<string[]>([]);
+
+    const loadedPost = useQuery({
+        queryKey: [`post ${searchParams.get("post")}`],
+        queryFn: () => getPost(searchParams.get("post") || ""),
+        enabled: !!searchParams.get("post")
+    });
+
+    const [createNewPost, setCreateNewPost] = useState<boolean>(true);
+    const communityId = searchParams.get("community");
+
     const user = createUser({
         UUID: principalUser.UUID,
         albumList: [],
@@ -51,7 +70,7 @@ export const CreatePost = () => {
         description: data?.data.description || "",
         isAuthenticated: true,
         isBlocked: false,
-        name: data?.data.name || "",
+        title: data?.data.name || "",
         onlineStatus: "ONLINE",
         role: principalUser.role,
         subscribersCount: data?.data.subscribersCount || 0,
@@ -81,6 +100,46 @@ export const CreatePost = () => {
         }
     }, [error, dispatch]);
 
+    useEffect(() => {
+        if (!loadedPost.data) return;
+
+        const post = loadedPost.data.data;
+
+        setPostInfo({
+            UUID: post.uuid,
+            name: post.title,
+            description: post.description,
+            likes: post.likesCount,
+            comments: post.commentsCount,
+            reports: post.reportsCount,
+            AIStatus: post.aiStatus,
+            imageUrl: post.imageUrl,
+            createdAt: post.createdAt,
+            isLiked: post.liked,
+            isReported: post.reported
+        });
+        setLoadedTags(post.tags);
+        setCreateNewPost(false);
+    }, [loadedPost.data]);
+
+    useEffect(() => {
+        if (!loadedPost.error) return;
+
+        if (axios.isAxiosError<AppError>(loadedPost.error)) {
+            if (!loadedPost.error.response) {
+                dispatch(showToast({ message: "api.networkError", type: "error" }));
+                return;
+            }
+            if (loadedPost.error.response.status === 404) {
+                dispatch(showToast({ message: "api.postNotFound", type: "error" }));
+                return;
+            }
+            dispatch(showToast({ message: "api.serverError", type: "error" }));
+        } else {
+            console.error(loadedPost.error);
+        }
+    }, [loadedPost.error, dispatch]);
+
     return (
         <Layout>
             <title>{t("titles.postCreate")}</title>
@@ -98,6 +157,7 @@ export const CreatePost = () => {
                             title={postInfo?.name ?? ""}
                             imageUrl={postInfo?.imageUrl ?? ""}
                             UUID={postInfo?.UUID ?? ""}
+                            isLiked={postInfo?.isLiked ?? false}
                             type="button"
                             enable={false}
                         />
@@ -109,6 +169,13 @@ export const CreatePost = () => {
                             setPagesDelta={setPagesDelta}
                             currentPage={currentPageTags}
                             setCurrentPage={setCurrentPageTags}
+                            postInfo={postInfo}
+                            postTags={loadedTags}
+                            postName={loadedPost.data?.data.title ?? ""}
+                            postDescription={loadedPost.data?.data.description ?? ""}
+                            UUID={user.UUID}
+                            isCreateNewPost={createNewPost}
+                            communityId={communityId}
                             loadedFile={loadedFile}
                             setLoadedFile={setLoadedFile}
                             onSubmit={() => onSubmitForm(loadedFile, setIsErrorImg)}

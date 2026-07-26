@@ -20,7 +20,7 @@ describe("EditButton - кнопка редактирования поста", ()
             <EditButton UUID={POST_UUID} type="post" ariaLabel="Редактировать пост" />
         );
         const link = screen.getByRole("link", { name: "Редактировать пост" });
-        expect(link).toHaveAttribute("href", `/post/${POST_UUID}/edit`);
+        expect(link).toHaveAttribute("href", `/post/add?post=${POST_UUID}`);
     });
 
     it("Вызывает onClick и onMouseLeave при клике", () => {
