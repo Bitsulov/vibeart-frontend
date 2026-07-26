@@ -39,6 +39,14 @@ describe("updateUserErrorHandler - показывает уведомление �
         expectErrorToast(dispatch, "api.forbiddenError");
     });
 
+    it("Показывает уведомление о занятом имени пользователя (409)", () => {
+        const dispatch = vi.fn();
+
+        updateUserErrorHandler(createError(409), dispatch);
+
+        expectErrorToast(dispatch, "api.conflictUsernameError");
+    });
+
     it("Показывает уведомление об ошибке сервера (500)", () => {
         const dispatch = vi.fn();
 
