@@ -4,13 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm, useWatch } from "react-hook-form";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
-import { type ComponentPropsWithoutRef, type Dispatch, type SetStateAction } from "react";
+import {
+    type ComponentPropsWithoutRef,
+    type Dispatch,
+    type SetStateAction,
+    useEffect
+} from "react";
 import { submitValidHandler } from "../model/submitValidHandler";
 import { submitInvalidHandler } from "../model/submitInvalidHandler";
+import { albumRequestSuccessHandler } from "../model/albumRequestSuccessHandler";
+import { albumRequestErrorHandler } from "../model/albumRequestErrorHandler";
 import { SettingsItem } from "features/settingsItem";
 import { StylizedButton } from "features/stylizedButton";
 import type { ICreateAlbumForm } from "../lib/types";
-import type { AlbumType } from "entities/album";
+import { addAlbum, type AlbumType, updateAlbum } from "entities/album";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link CreateAlbumWidget}. */
 interface CreateAlbumWidgetProps extends Omit<
@@ -19,33 +29,47 @@ interface CreateAlbumWidgetProps extends Omit<
 > {
     /** Дополнительный CSS-класс для корневого элемента формы. */
     className?: string;
+    /** Текущее состояние альбома для предпросмотра и отправки формы. */
+    albumInfo: Partial<AlbumType>;
     /** Функция обновления частичного состояния альбома — используется для обновления предпросмотра. */
     setAlbumInfo: Dispatch<SetStateAction<Partial<AlbumType>>>;
     /** Загруженный файл обложки альбома. */
     loadedFile: File | undefined;
     /** Функция обновления загруженного файла обложки. */
     setLoadedFile: Dispatch<SetStateAction<File | undefined>>;
-    /** Функция, вызываемая после успешной валидации формы. Получает функцию навигации как аргумент. */
-    onSubmit: (navigation: () => void) => void;
-    /** Функция обновления признака ошибки загрузки изображения. */
-    setIsErrorImg: Dispatch<SetStateAction<boolean>>;
+    /** Признак режима создания альбома; при `false` форма работает в режиме редактирования. */
+    isCreateNewAlbum: boolean;
+    /** Исходное название редактируемого альбома — используется для проверки, изменились ли данные. */
+    albumName: string;
+    /** Исходное описание редактируемого альбома — используется для проверки, изменились ли данные. */
+    albumDescription: string;
+    /** UUID текущего пользователя как автора альбома. */
+    UUID: string;
+    /** Функция, вызываемая после попытки отправки формы. По умолчанию — пустая функция. */
+    onSubmit?: () => void;
 }
 
 /**
- * Форма создания альбома с полями загрузки обложки, названия и описания.
+ * Форма создания или редактирования альбома с полями загрузки обложки, названия и описания.
  *
- * Использует react-hook-form для валидации: название обязательно (не более 15 символов),
- * описание — не более 200 символов. Подписи полей и кнопка отправки адаптируются
- * под ширину экрана. При успешной отправке вызывается {@link submitValidHandler},
+ * Режим определяется пропом `isCreateNewAlbum`: в режиме редактирования поля формы
+ * предзаполняются данными `albumInfo`. Использует react-hook-form для валидации:
+ * название обязательно (не более 15 символов), описание — не более 200 символов.
+ * Подписи полей и кнопка отправки адаптируются под ширину экрана.
+ * При успешной отправке вызывается {@link submitValidHandler},
  * при ошибке валидации — {@link submitInvalidHandler}.
  */
 export const CreateAlbumWidget = ({
     className = "",
+    albumInfo,
     setAlbumInfo,
     loadedFile,
     setLoadedFile,
-    onSubmit,
-    setIsErrorImg,
+    isCreateNewAlbum,
+    albumName,
+    albumDescription,
+    UUID,
+    onSubmit = () => {},
     ...props
 }: CreateAlbumWidgetProps) => {
     const { t } = useTranslation();
@@ -57,6 +81,7 @@ export const CreateAlbumWidget = ({
         register,
         handleSubmit,
         control,
+        setValue,
         formState: { isSubmitted, errors }
     } = useForm<ICreateAlbumForm>({
         shouldFocusError: false
@@ -84,15 +109,47 @@ export const CreateAlbumWidget = ({
             ? "createAlbum.textTitle"
             : "createAlbum.textPlaceholder";
 
+    const title = isCreateNewAlbum ? "createAlbum.titleCreate" : "createAlbum.titleEdit";
+
+    const albumUUID = albumInfo.UUID || "";
+
+    useEffect(() => {
+        setValue("title", albumInfo?.name ?? "");
+        setValue("description", albumInfo?.description ?? "");
+    }, [albumInfo, setValue]);
+
+    const createAlbumMutation = useMutation({
+        mutationFn: addAlbum,
+        onSuccess: data =>
+            albumRequestSuccessHandler(data, navigate, dispatch, isCreateNewAlbum),
+        onError: (error: AxiosError<AppError>) =>
+            albumRequestErrorHandler(error, dispatch)
+    });
+
+    const updateAlbumMutation = useMutation({
+        mutationFn: updateAlbum,
+        onSuccess: data =>
+            albumRequestSuccessHandler(data, navigate, dispatch, isCreateNewAlbum),
+        onError: (error: AxiosError<AppError>) =>
+            albumRequestErrorHandler(error, dispatch)
+    });
+
     return (
         <form
             onSubmit={handleSubmit(
-                () =>
+                data =>
                     submitValidHandler(
-                        navigate,
+                        data,
+                        createAlbumMutation.mutateAsync,
+                        updateAlbumMutation.mutateAsync,
+                        isCreateNewAlbum,
+                        UUID,
+                        albumUUID,
                         dispatch,
                         loadedFile,
-                        setIsErrorImg,
+                        albumInfo.imageUrl,
+                        albumName,
+                        albumDescription,
                         onSubmit
                     ),
                 errors => submitInvalidHandler(errors, dispatch)
@@ -100,7 +157,7 @@ export const CreateAlbumWidget = ({
             className={`${c.settings} ${className}`}
             {...props}
         >
-            <h1 className={c.title}>{t("createAlbum.title")}</h1>
+            <h1 className={c.title}>{t(title)}</h1>
             <div className={c.fields}>
                 <SettingsItem
                     title={t("createAlbum.imgTitle")}
@@ -140,7 +197,6 @@ export const CreateAlbumWidget = ({
                     isError={!!errors.description}
                     isSubmitted={isSubmitted}
                     maxLength={200}
-                    // minLength={}
                     registerProps={register("description", {
                         maxLength: { value: 200, message: "toast.longDescription" }
                     })}
