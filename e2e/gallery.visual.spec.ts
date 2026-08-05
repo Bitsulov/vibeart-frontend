@@ -69,7 +69,7 @@ test.describe("Gallery - визуальная проверка блоков", ()
                 })
             })
         );
-        await page.route("**/api/post", route =>
+        await page.route(/\/api\/post(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 200,
                 contentType: "application/json",
@@ -77,7 +77,7 @@ test.describe("Gallery - визуальная проверка блоков", ()
             })
         );
 
-        await page.goto(GALLERY_URL);
+        await page.goto(GALLERY_URL, { waitUntil: "networkidle" });
         await expect(page.getByRole("main")).toBeVisible();
         await page.evaluate(() =>
             Promise.race([

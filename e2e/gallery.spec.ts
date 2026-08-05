@@ -19,7 +19,7 @@ test.describe("Gallery - страница галереи", () => {
                 })
             })
         );
-        await page.route("**/api/post", route =>
+        await page.route(/\/api\/post(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 200,
                 contentType: "application/json",
@@ -136,7 +136,7 @@ test.describe("Gallery - список публикаций из API", () => {
     });
 
     test("Публикации из ответа API отображаются в списке", async ({ page }) => {
-        await page.route("**/api/post", route =>
+        await page.route(/\/api\/post(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 200,
                 contentType: "application/json",
@@ -190,7 +190,7 @@ test.describe("Gallery - список публикаций из API", () => {
     });
 
     test("Пустой ответ API не отображает публикации", async ({ page }) => {
-        await page.route("**/api/post", route =>
+        await page.route(/\/api\/post(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 200,
                 contentType: "application/json",
@@ -212,7 +212,7 @@ test.describe("Gallery - список публикаций из API", () => {
     });
 
     test("Ошибка загрузки публикаций не ломает страницу", async ({ page }) => {
-        await page.route("**/api/post", route =>
+        await page.route(/\/api\/post(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 500,
                 contentType: "application/json",
