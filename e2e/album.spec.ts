@@ -19,6 +19,52 @@ test.describe("Album - страница альбома", () => {
                 })
             })
         );
+        await page.route("**/api/album/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000000b",
+                    title: "Album title",
+                    description: "Description Description",
+                    worksCount: 5,
+                    authorUser: {
+                        uuid: "00000000-0000-4000-8000-000000000006",
+                        name: "testAuthor",
+                        username: "testAuthor",
+                        description: "",
+                        avatarUrl: "",
+                        worksCount: 0,
+                        subscribersCount: 0,
+                        subscribesCount: 0,
+                        createdAt: "2026-01-01T00:00:00.000Z",
+                        trustStatus: "UNTRUST",
+                        onlineStatus: "ONLINE",
+                        enabled: true
+                    },
+                    authorCommunity: null,
+                    imageUrl:
+                        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                    createdAt: "2026-01-01T00:00:00.000Z"
+                })
+            })
+        );
+        await page.route(/\/api\/post(\/author)?(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [],
+                    number: 0,
+                    size: 20,
+                    totalElements: 0,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: true
+                })
+            })
+        );
     });
 
     test("Контент страницы загружается", async ({ page }) => {
