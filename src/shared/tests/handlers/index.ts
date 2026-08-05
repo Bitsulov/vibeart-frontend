@@ -12,6 +12,7 @@ import {
     userResponseMock
 } from "entities/user";
 import { postResponseMock, postsPageResponseMock } from "entities/post";
+import { albumResponseMock } from "entities/album";
 
 export const handlers = [
     http.post("*/auth/register", () => HttpResponse.text("ok")),
@@ -30,8 +31,11 @@ export const handlers = [
     http.post("*/user/password/send", () => HttpResponse.text("ok")),
     http.post("*/user/password/confirm", () => HttpResponse.text("ok")),
     http.get("*/post", () => HttpResponse.json(postsPageResponseMock)),
+    http.get("*/post/author", () => HttpResponse.json(postsPageResponseMock)),
+    http.get("*/post/search", () => HttpResponse.json(postsPageResponseMock)),
     http.get("*/post/:UUID", () => HttpResponse.json(postResponseMock)),
     http.delete("*/post/:UUID", () => HttpResponse.text("ok")),
     http.post("*/post/:UUID/like", () => HttpResponse.text("ok")),
-    http.post("*/post/:UUID/report", () => HttpResponse.text("ok"))
+    http.post("*/post/:UUID/report", () => HttpResponse.text("ok")),
+    http.get("*/album/:UUID", () => HttpResponse.json(albumResponseMock))
 ];
