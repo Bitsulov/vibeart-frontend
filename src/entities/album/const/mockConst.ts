@@ -8,6 +8,7 @@
 import { createAlbum } from "../model/createAlbum";
 import { profileAlbum1PostsMock, profileAlbum2PostsMock } from "entities/post";
 import img from "shared/icons/img-CTA.jpg";
+import type { AlbumResponse } from "../lib/types";
 
 export const profileAlbumsMock = [
     createAlbum({
@@ -62,3 +63,28 @@ export const albumMock = createAlbum({
     imageUrl: img,
     createdAt: "2026-03-24T18:48:16.175Z"
 });
+
+export const albumResponseMock: AlbumResponse = {
+    uuid: "00000000-0000-4000-8000-00000000000b",
+    title: "Album title",
+    description:
+        "Description Description Description Description Description Description Description Description Description",
+    worksCount: 4,
+    authorUser: {
+        uuid: "00000000-0000-4000-8000-000000000006",
+        name: "testAuthor",
+        username: "testAuthor",
+        description: "",
+        avatarUrl: "",
+        worksCount: 0,
+        subscribersCount: 0,
+        subscribesCount: 0,
+        createdAt: "2026-01-01T00:00:00.000Z",
+        trustStatus: "UNTRUST",
+        onlineStatus: "ONLINE",
+        enabled: true
+    },
+    authorCommunity: null,
+    imageUrl: img,
+    createdAt: "2026-03-24T18:48:16.175Z"
+};

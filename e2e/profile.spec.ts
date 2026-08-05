@@ -39,6 +39,59 @@ test.describe("Profile - страница профиля", () => {
                 })
             })
         );
+        await page.route(/\/api\/album(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        {
+                            uuid: "00000000-0000-4000-8000-00000000000c",
+                            title: "test album",
+                            description: "",
+                            worksCount: 0,
+                            authorUser: null,
+                            authorCommunity: null,
+                            imageUrl: "",
+                            createdAt: "2026-01-01T00:00:00.000Z"
+                        },
+                        {
+                            uuid: "00000000-0000-4000-8000-00000000000d",
+                            title: "test album 2",
+                            description: "",
+                            worksCount: 0,
+                            authorUser: null,
+                            authorCommunity: null,
+                            imageUrl: "",
+                            createdAt: "2026-01-01T00:00:00.000Z"
+                        }
+                    ],
+                    number: 0,
+                    size: 5,
+                    totalElements: 2,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
+        await page.route(/\/api\/post\/author(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [],
+                    number: 0,
+                    size: 6,
+                    totalElements: 0,
+                    totalPages: 0,
+                    first: true,
+                    last: true,
+                    empty: true
+                })
+            })
+        );
     });
 
     test("Контент страницы загружается", async ({ page }) => {

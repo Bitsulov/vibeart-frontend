@@ -42,7 +42,6 @@ describe("submitValidHandler - обработчик валидной отпра�
                 title: "Заголовок",
                 description: "Описание",
                 authorUuid: "author-uuid",
-                userCreated: true,
                 tagsTitles: ["tag1"]
             },
             file
@@ -81,7 +80,6 @@ describe("submitValidHandler - обработчик валидной отпра�
                 title: "Заголовок",
                 description: "Описание",
                 authorUuid: "community-uuid",
-                userCreated: false,
                 tagsTitles: ["tag1"]
             },
             file

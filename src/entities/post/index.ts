@@ -15,10 +15,12 @@ export {
 } from "./const/mockConst";
 export {
     getPosts,
+    getPostsByAuthor,
     getPost,
     addPost,
     updatePostByUUID,
     deletePostById,
+    searchPosts,
     toggleLike,
     createReport
 } from "./api/postApi";

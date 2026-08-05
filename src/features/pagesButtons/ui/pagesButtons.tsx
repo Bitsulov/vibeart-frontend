@@ -23,7 +23,8 @@ interface PagesButtonsProps extends ComponentPropsWithoutRef<"div"> {
 /**
  * Блок постраничной навигации.
  *
- * Отображает кнопки с номерами страниц в окне ±`pagesDelta` вокруг текущей.
+ * Ничего не рендерит при `pagesCount <= 1`. Иначе отображает кнопки
+ * с номерами страниц в окне ±`pagesDelta` вокруг текущей.
  * Диапазон вычисляется через {@link getRangeNumbers} и не выходит за пределы `pagesCount`.
  */
 export const PagesButtons = ({
@@ -35,6 +36,8 @@ export const PagesButtons = ({
     ...props
 }: PagesButtonsProps) => {
     const { t } = useTranslation();
+
+    if (pagesCount <= 1) return null;
 
     const { start, end } = getRangeNumbers(currentPage, pagesCount, pagesDelta);
 

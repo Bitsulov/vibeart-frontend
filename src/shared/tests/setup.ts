@@ -13,6 +13,8 @@
  *   компоненты после каждого теста.
  * - Определяет заглушку `window.matchMedia`, отсутствующую в jsdom,
  *   чтобы компоненты, использующие медиазапросы, не вызывали ошибок.
+ * - Определяет заглушку `window.IntersectionObserver`, отсутствующую
+ *   в jsdom, чтобы компоненты с бесконечной подгрузкой не вызывали ошибок.
  */
 import "@testing-library/jest-dom";
 import { cleanup } from "@testing-library/react";
@@ -39,4 +41,20 @@ Object.defineProperty(window, "matchMedia", {
         removeEventListener: vi.fn(),
         dispatchEvent: vi.fn()
     }))
+});
+
+// Создание фейкового window.IntersectionObserver (jsdom не поддерживает)
+class IntersectionObserverMock {
+    root: Element | null = null;
+    rootMargin: string = "";
+    thresholds: ReadonlyArray<number> = [];
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+    takeRecords = vi.fn(() => []);
+}
+
+Object.defineProperty(window, "IntersectionObserver", {
+    writable: true,
+    value: IntersectionObserverMock
 });

@@ -2,12 +2,14 @@ import c from "./galleryPostList.module.scss";
 import { useTranslation } from "react-i18next";
 import { SearchInput } from "features/searchInput";
 import { useEffect, useState } from "react";
+import type { Ref } from "react";
 import { searchChangeHandler } from "../model/searchChangeHandler";
 import type { PostType } from "entities/post";
 import { GalleryAddButton } from "features/galleryAddButton";
 import Masonry, { type MasonryProps } from "react-masonry-css";
 import { Post } from "features/post";
 import { masonryBreakpointsConfig } from "../config/masonryBreakpointsConfig";
+import { useDebouncedValue } from "shared/hooks/useDebouncedValue";
 
 /** Свойства компонента {@link GalleryPostList}. */
 interface GalleryPostListProps {
@@ -15,8 +17,14 @@ interface GalleryPostListProps {
     postList: PostType[] | undefined;
     /** Конфигурация количества колонок Masonry для разных ширин экрана. По умолчанию используется {@link masonryBreakpointsConfig}. */
     masonryBreakpoints?: MasonryProps["breakpointCols"];
-    /** Признак загрузки списка публикаций — скрывает карточки до получения данных. По умолчанию `false`. */
+    /** Признак загрузки списка публикаций - скрывает карточки до получения данных. По умолчанию `false`. */
     isLoading?: boolean;
+    /** Ref невидимого элемента-триггера в конце списка - при появлении во viewport запускает подгрузку следующей страницы постов. */
+    loadMoreRef?: Ref<HTMLDivElement>;
+    /** Начальное значение поля поиска. По умолчанию `""`. */
+    initialSearchValue?: string;
+    /** Обработчик изменения текста поиска, выполняющийся после задержки. */
+    onSearchChange?: (value: string) => void;
 }
 
 /**
@@ -30,16 +38,19 @@ export const GalleryPostList = ({
     postList,
     masonryBreakpoints,
     isLoading = false,
+    loadMoreRef,
+    initialSearchValue = "",
+    onSearchChange,
     ...props
 }: GalleryPostListProps) => {
     const { t } = useTranslation();
 
-    const [searchValue, setSearchValue] = useState("");
-    const [resultPostList, setResultPostList] = useState<PostType[]>(postList ?? []);
+    const [searchValue, setSearchValue] = useState(initialSearchValue);
+    const debouncedSearchValue = useDebouncedValue(searchValue, 400);
 
     useEffect(() => {
-        setResultPostList(postList ?? []);
-    }, [postList]);
+        onSearchChange?.(debouncedSearchValue.trim());
+    }, [debouncedSearchValue, onSearchChange]);
 
     return (
         <section className={c.gallery_list} {...props}>
@@ -56,7 +67,7 @@ export const GalleryPostList = ({
                 columnClassName={c.column}
             >
                 {!isLoading &&
-                    resultPostList.map(post => (
+                    (postList ?? []).map(post => (
                         <Post
                             key={post.UUID}
                             date={post.createdAt}
@@ -69,6 +80,7 @@ export const GalleryPostList = ({
                         />
                     ))}
             </Masonry>
+            <div ref={loadMoreRef} aria-hidden="true" className={c.load_more} />
         </section>
     );
 };

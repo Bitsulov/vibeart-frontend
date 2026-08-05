@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { PostList } from "./postList";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { profileAlbum1PostsMock } from "entities/post";
 
 const setCurrentPage = vi.fn();
@@ -71,6 +71,22 @@ describe("PostList - список постов", () => {
         expect(
             screen.queryByRole("button", { name: "ariaLabel.addPostAlbum" })
         ).not.toBeInTheDocument();
+    });
+
+    it("Клик по кнопке добавления при пустом списке открывает модальное окно альбома", () => {
+        renderWithProviders(
+            <PostList
+                {...defaultProps}
+                postList={[]}
+                isShowAddButton={true}
+                currentPage={1}
+                pagesCount={1}
+            />
+        );
+
+        fireEvent.click(screen.getByRole("button", { name: "ariaLabel.addPostAlbum" }));
+
+        expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
 
     it("Кнопка добавления поста не отображается, если текущая страница не последняя", () => {

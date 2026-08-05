@@ -4,18 +4,21 @@ import { ProfileInfo } from "widgets/profileInfo";
 import { useTranslation } from "react-i18next";
 import { createUser, getUserByUUID, selectUserInfo } from "entities/user";
 import { AlbumSlider } from "widgets/albumSlider";
-import { profileAlbumsMock } from "entities/album";
+import { createAlbum, getAlbumsByAuthor } from "entities/album";
+import { createPost, getPosts, getPostsByAuthor } from "entities/post";
+import { createTag } from "entities/tag";
 import { Navigation } from "widgets/navigation";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { useEffect, useMemo, useState } from "react";
 import { PostList } from "widgets/postList";
 import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import axios from "axios";
 import type { AppError } from "shared/lib/types";
 import { showToast } from "features/toast";
 import { useNavigate } from "react-router-dom";
+import { loadMoreAlbumsHandler } from "../model/loadMoreAlbumsHandler";
 
 /**
  * Страница профиля пользователя с информационным блоком, слайдером альбомов и списком публикаций.
@@ -32,14 +35,12 @@ export const Profile = () => {
     const userInfo = useSelector(selectUserInfo);
 
     const [selectedAlbum, setSelectedAlbum] = useState<string>("all");
-    const pages = 12;
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pagesDelta, setPagesDelta] = useState<number>(2);
 
-    const currentAlbum = useMemo(
-        () => profileAlbumsMock.find(album => album.UUID === selectedAlbum),
-        [selectedAlbum]
-    );
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedAlbum]);
 
     const UUID = uuid || "";
 
@@ -49,6 +50,104 @@ export const Profile = () => {
         enabled: !!UUID
     });
 
+    const albumsPageSize = 5;
+
+    const albumsQuery = useInfiniteQuery({
+        queryKey: [`albums ${UUID}`],
+        queryFn: ({ pageParam }) =>
+            getAlbumsByAuthor(UUID, { page: pageParam, size: albumsPageSize }),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) =>
+            lastPage.data.last ? undefined : allPages.length,
+        enabled: !!UUID
+    });
+
+    const albumsList = useMemo(
+        () =>
+            (albumsQuery.data?.pages.flatMap(page => page.data.content) ?? []).map(
+                album =>
+                    createAlbum({
+                        UUID: album.uuid,
+                        name: album.title,
+                        description: album.description,
+                        postCount: album.worksCount,
+                        postsList: [],
+                        imageUrl: album.imageUrl,
+                        createdAt: album.createdAt
+                    })
+            ),
+        [albumsQuery.data]
+    );
+
+    const currentAlbum = useMemo(
+        () => albumsList.find(album => album.UUID === selectedAlbum),
+        [albumsList, selectedAlbum]
+    );
+
+    const postListTitle =
+        selectedAlbum === "all" ? t("profile.albumAll") : currentAlbum?.name;
+
+    const postsPageSize = 6;
+
+    const postsQuery = useQuery({
+        queryKey:
+            selectedAlbum === "all"
+                ? [`author posts ${UUID}`, currentPage]
+                : [`album posts ${selectedAlbum}`, currentPage],
+        queryFn: () =>
+            selectedAlbum === "all"
+                ? getPostsByAuthor(UUID, undefined, {
+                      page: currentPage - 1,
+                      size: postsPageSize
+                  })
+                : getPosts(selectedAlbum, { page: currentPage - 1, size: postsPageSize }),
+        enabled: !!UUID
+    });
+
+    const pages = postsQuery.data?.data.totalPages || 1;
+
+    const postList = useMemo(
+        () =>
+            (postsQuery.data?.data.content ?? []).map(post =>
+                createPost({
+                    UUID: post.uuid,
+                    name: post.title,
+                    description: post.description,
+                    likes: post.likesCount,
+                    comments: post.commentsCount,
+                    reports: post.reportsCount,
+                    tagsList: post.tags.map(title =>
+                        createTag({ title, createdAt: new Date().toISOString() })
+                    ),
+                    commentList: [],
+                    checkStatus: "checked",
+                    AIStatus: post.aiStatus,
+                    imageUrl: post.imageUrl,
+                    createdAt: post.createdAt,
+                    isLiked: post.liked,
+                    isReported: post.reported,
+                    author: createUser({
+                        UUID: post.author!.uuid,
+                        title: post.author!.name,
+                        username: post.author!.username,
+                        description: post.author!.description,
+                        worksCount: post.author!.worksCount,
+                        subscribersCount: post.author!.subscribersCount,
+                        subscribesCount: post.author!.subscribesCount,
+                        albumList: [],
+                        createdAt: post.author!.createdAt,
+                        trustStatus: post.author!.trustStatus,
+                        isAuthenticated: false,
+                        isBlocked: false,
+                        onlineStatus: post.author!.onlineStatus,
+                        role: "USER",
+                        avatarUrl: post.author!.avatarUrl
+                    })
+                })
+            ),
+        [postsQuery.data]
+    );
+
     const userData = createUser({
         UUID,
         title: data?.data.name || "",
@@ -57,7 +156,7 @@ export const Profile = () => {
         worksCount: data?.data.worksCount || 0,
         subscribersCount: data?.data.subscribersCount || 0,
         subscribesCount: data?.data.subscribesCount || 0,
-        albumList: profileAlbumsMock,
+        albumList: albumsList,
         createdAt: data?.data.createdAt || new Date().toISOString(),
         trustStatus: data?.data.trustStatus || "TRUST",
         isAuthenticated: false,
@@ -102,11 +201,18 @@ export const Profile = () => {
                         <AlbumSlider
                             selectedAlbum={selectedAlbum}
                             setSelectedAlbum={setSelectedAlbum}
-                            albumsList={profileAlbumsMock}
+                            albumsList={albumsList}
+                            onReachEnd={() =>
+                                loadMoreAlbumsHandler(
+                                    albumsQuery.hasNextPage,
+                                    albumsQuery.isFetchingNextPage,
+                                    albumsQuery.fetchNextPage
+                                )
+                            }
                         />
                         <PostList
-                            title={currentAlbum?.name}
-                            postList={currentAlbum?.postsList}
+                            title={postListTitle}
+                            postList={postList}
                             pagesCount={pages}
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}

@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { GalleryPostList } from "./galleryPostList";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent, act } from "@testing-library/react";
 import { galleryPostsMock } from "entities/post";
 
 describe("GalleryPostList - список постов галереи (masonic)", () => {
@@ -81,5 +81,70 @@ describe("GalleryPostList - список постов галереи (masonic)",
         expect(
             screen.getByRole("button", { name: "ariaLabel.unlike" })
         ).toBeInTheDocument();
+    });
+
+    it("Устанавливает loadMoreRef на элемент-триггер в конце списка", () => {
+        let refNode: HTMLDivElement | null = null;
+        const loadMoreRef = (node: HTMLDivElement | null) => {
+            refNode = node;
+        };
+
+        renderWithProviders(
+            <GalleryPostList postList={galleryPostsMock} loadMoreRef={loadMoreRef} />
+        );
+
+        expect(refNode).not.toBeNull();
+    });
+
+    it("Отображает initialSearchValue в поле поиска", () => {
+        renderWithProviders(
+            <GalleryPostList postList={galleryPostsMock} initialSearchValue="кот" />
+        );
+
+        expect(screen.getByRole("textbox")).toHaveValue("кот");
+    });
+
+    describe("onSearchChange", () => {
+        beforeEach(() => {
+            vi.useFakeTimers({ shouldAdvanceTime: true });
+        });
+
+        afterEach(() => {
+            vi.useRealTimers();
+        });
+
+        it("Вызывает onSearchChange с обрезанным значением после задержки ввода", async () => {
+            const onSearchChange = vi.fn();
+
+            renderWithProviders(
+                <GalleryPostList
+                    postList={galleryPostsMock}
+                    onSearchChange={onSearchChange}
+                />
+            );
+
+            fireEvent.change(screen.getByRole("textbox"), {
+                target: { value: "  кот  " }
+            });
+            await act(() => vi.advanceTimersByTimeAsync(400));
+
+            expect(onSearchChange).toHaveBeenCalledWith("кот");
+        });
+
+        it("Не вызывает onSearchChange раньше, чем истечёт задержка", async () => {
+            const onSearchChange = vi.fn();
+
+            renderWithProviders(
+                <GalleryPostList
+                    postList={galleryPostsMock}
+                    onSearchChange={onSearchChange}
+                />
+            );
+
+            fireEvent.change(screen.getByRole("textbox"), { target: { value: "кот" } });
+            await act(() => vi.advanceTimersByTimeAsync(300));
+
+            expect(onSearchChange).not.toHaveBeenCalledWith("кот");
+        });
     });
 });

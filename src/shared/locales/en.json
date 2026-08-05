@@ -71,9 +71,14 @@
         "confirmPasswordChangeAccess": "Password successfully changed.",
         "deleteUserSuccess": "Account successfully deleted",
         "postNotFound": "This post was not found",
+        "albumNotFound": "This album was not found",
         "tagNotFound": "Tag {{tag}} not found",
         "postCreatedSuccess": "Post successfully created.",
-        "postUpdatedSuccess": "Post successfully updated."
+        "postUpdatedSuccess": "Post successfully updated.",
+        "albumCreatedSuccess": "Album successfully created.",
+        "albumUpdatedSuccess": "Album successfully updated.",
+        "postsAddedToAlbumSuccess": "Posts successfully added to the album.",
+        "fileTooLarge": "The uploaded file size must not exceed 25 megabytes."
     },
     "ariaLabel": {
         "openBurgerMenu": "Open navigation menu",
@@ -145,7 +150,6 @@
         "createPost": "Create post",
         "createAlbum": "Create album",
         "chooseTag": "Choose tag {{name}}",
-        "confirmCreateAlbumModal": "Create album without cover",
         "saveUser": "Save entered data",
         "continue": "Continue",
         "backToChangeEmail": "Return to email change form",
@@ -208,8 +212,7 @@
         "deletePost": "Are you sure you want to delete this post? (irreversible)",
         "deleteAlbum": "Are you sure you want to delete this album? (irreversible, posts will remain)",
         "deleteChat": "Are you sure you want to delete all messages in this chat? (irreversible)",
-        "deleteCommunity": "Are you sure you want to delete this community? (irreversible)",
-        "confirmCreateAlbumEmptyImg": "Do you want to create an album without a cover?"
+        "deleteCommunity": "Are you sure you want to delete this community? (irreversible)"
     },
     "pages": {
         "home": "Home",
@@ -440,7 +443,8 @@
     },
 
     "createAlbum": {
-        "title": "Create album",
+        "titleCreate": "Create album",
+        "titleEdit": "Edit album",
         "imgTitle": "Image",
         "imgDescription": "The main cover image of the album.",
         "nameTitle": "Title",

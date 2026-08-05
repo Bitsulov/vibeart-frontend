@@ -87,7 +87,7 @@ $description-collapsed-height: 5rem;
                         &.description_collapsed {
                             max-height: $description-collapsed-height;
 
-                            &::before {
+                            &.description_overflowing::before {
                                 content: "";
                                 display: block;
                                 position: absolute;

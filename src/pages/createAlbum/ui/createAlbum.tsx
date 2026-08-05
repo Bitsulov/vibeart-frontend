@@ -4,25 +4,29 @@ import { useTranslation } from "react-i18next";
 import { BackLink } from "features/backLink";
 import { AlbumSlide } from "features/albumSlide";
 import { useEffect, useState } from "react";
-import type { AlbumType } from "entities/album";
+import { getAlbum, type AlbumType } from "entities/album";
 import { CreateAlbumWidget } from "widgets/createAlbumWidget";
 import { onSubmitForm } from "../model/onSubmitForm";
 import clsx from "clsx";
-import { ConfirmModal } from "widgets/confirmModal";
-import { openModalHandler } from "../model/openModalHandler";
-import { confirmModalHandler } from "../model/confirmModalHandler";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser } from "entities/user";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
+import axios from "axios";
+import type { AppError } from "shared/lib/types";
+import { showToast } from "features/toast";
 
 /**
- * Страница создания альбома с живым предпросмотром обложки и формой заполнения данных.
+ * Страница создания или редактирования альбома с живым предпросмотром обложки и формой заполнения данных.
  *
- * Если изображение не загружено, при отправке формы вместо создания альбома открывается
- * {@link ConfirmModal} с предложением продолжить без обложки.
- * Ошибка изображения (`isErrorImg`) сбрасывается автоматически при выборе файла.
+ * Если в адресе передан параметр `album`, страница переходит в режим
+ * редактирования: загружает данные альбома и предзаполняет ими форму.
  */
 export const CreateAlbum = () => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const principalUser = useSelector(selectUser);
 
     const [albumInfo, setAlbumInfo] = useState<Partial<AlbumType>>({});
 
@@ -31,16 +35,55 @@ export const CreateAlbum = () => {
     const [loadedFile, setLoadedFile] = useState<File>();
     const [isErrorImg, setIsErrorImg] = useState<boolean>(false);
 
+    const [searchParams, _setSearchParams] = useSearchParams();
+
+    const loadedAlbum = useQuery({
+        queryKey: [`album ${searchParams.get("album")}`],
+        queryFn: () => getAlbum(searchParams.get("album") || ""),
+        enabled: !!searchParams.get("album")
+    });
+
+    const [createNewAlbum, setCreateNewAlbum] = useState<boolean>(true);
+
     useEffect(() => {
         if (loadedFile) {
             setIsErrorImg(false);
         }
     }, [loadedFile]);
 
-    const [isShowConfirm, setIsShowConfirm] = useState<boolean>(false);
-    const submitFn = loadedFile
-        ? (navigation: () => void) => onSubmitForm(navigation, loadedFile, setIsErrorImg)
-        : (_navigation: () => void) => openModalHandler(setIsShowConfirm);
+    useEffect(() => {
+        if (!loadedAlbum.data) return;
+
+        const album = loadedAlbum.data.data;
+
+        setAlbumInfo({
+            UUID: album.uuid,
+            name: album.title,
+            description: album.description,
+            postCount: album.worksCount,
+            imageUrl: album.imageUrl,
+            createdAt: album.createdAt
+        });
+        setCreateNewAlbum(false);
+    }, [loadedAlbum.data]);
+
+    useEffect(() => {
+        if (!loadedAlbum.error) return;
+
+        if (axios.isAxiosError<AppError>(loadedAlbum.error)) {
+            if (!loadedAlbum.error.response) {
+                dispatch(showToast({ message: "api.networkError", type: "error" }));
+                return;
+            }
+            if (loadedAlbum.error.response.status === 404) {
+                dispatch(showToast({ message: "api.albumNotFound", type: "error" }));
+                return;
+            }
+            dispatch(showToast({ message: "api.serverError", type: "error" }));
+        } else {
+            console.error(loadedAlbum.error);
+        }
+    }, [loadedAlbum.error, dispatch]);
 
     return (
         <Layout>
@@ -49,13 +92,6 @@ export const CreateAlbum = () => {
             <meta property="og:title" content={t("titles.albumCreate")} />
             <meta property="og:description" content={t("description.albumCreate")} />
             <section className={c.content}>
-                <ConfirmModal
-                    text={t("modal.confirmCreateAlbumEmptyImg")}
-                    ariaLabelConfirm={t("ariaLabel.confirmCreateAlbumModal")}
-                    confirmFn={() => confirmModalHandler(navigate)}
-                    isShowModal={isShowConfirm}
-                    setIsShowModal={setIsShowConfirm}
-                />
                 <div className="container">
                     <div className={c.content_inner}>
                         <BackLink className={c.back} />
@@ -69,11 +105,16 @@ export const CreateAlbum = () => {
                             animateName
                         />
                         <CreateAlbumWidget
+                            className={c.form}
+                            albumInfo={albumInfo}
                             setAlbumInfo={setAlbumInfo}
                             setLoadedFile={setLoadedFile}
                             loadedFile={loadedFile}
-                            onSubmit={submitFn}
-                            setIsErrorImg={setIsErrorImg}
+                            albumName={loadedAlbum.data?.data.title ?? ""}
+                            albumDescription={loadedAlbum.data?.data.description ?? ""}
+                            isCreateNewAlbum={createNewAlbum}
+                            UUID={principalUser.UUID}
+                            onSubmit={() => onSubmitForm(loadedFile, setIsErrorImg)}
                         />
                     </div>
                 </div>

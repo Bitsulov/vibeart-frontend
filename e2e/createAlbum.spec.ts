@@ -90,7 +90,7 @@ test.describe("CreateAlbum - страница создания альбома", 
     test("Слишком длинное название показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_ALBUM_URL);
+        await page.goto(CREATE_ALBUM_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("A".repeat(16));
         await page.getByRole("button", { name: /create/i }).click();
@@ -100,7 +100,7 @@ test.describe("CreateAlbum - страница создания альбома", 
     test("Слишком длинное описание показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_ALBUM_URL);
+        await page.goto(CREATE_ALBUM_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Название");
         await page.getByLabel("description", { exact: false }).fill("A".repeat(201));

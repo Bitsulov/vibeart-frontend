@@ -4,6 +4,7 @@ import { EditButton } from "./editButton";
 import { screen, fireEvent } from "@testing-library/react";
 
 const POST_UUID = "00000000-0000-4000-8000-00000000000b";
+const ALBUM_UUID = "00000000-0000-4000-8000-00000000000c";
 
 describe("EditButton - кнопка редактирования поста", () => {
     it("Рендерится как ссылка", () => {
@@ -21,6 +22,14 @@ describe("EditButton - кнопка редактирования поста", ()
         );
         const link = screen.getByRole("link", { name: "Редактировать пост" });
         expect(link).toHaveAttribute("href", `/post/add?post=${POST_UUID}`);
+    });
+
+    it("Ссылка ведет на страницу редактирования альбома", () => {
+        renderWithProviders(
+            <EditButton UUID={ALBUM_UUID} type="album" ariaLabel="Редактировать альбом" />
+        );
+        const link = screen.getByRole("link", { name: "Редактировать альбом" });
+        expect(link).toHaveAttribute("href", `/album/add?album=${ALBUM_UUID}`);
     });
 
     it("Вызывает onClick и onMouseLeave при клике", () => {
