@@ -1,6 +1,6 @@
 import { api } from "shared/api/instance";
 import type { AxiosInstance, AxiosResponse } from "axios";
-import type { Page } from "shared/lib/types";
+import type { Page, Pageable } from "shared/lib/types";
 import type { CreatePostRequest, PostResponse, UpdatePostRequest } from "../lib/types";
 
 /** Эндпоинты запросов публикаций */
@@ -11,6 +11,12 @@ const urls = {
     },
     post: function (id: string) {
         return `${this.baseUrlPost}/${id}`;
+    },
+    postsByAuthor: function () {
+        return `${this.baseUrlPost}/author`;
+    },
+    search: function () {
+        return `${this.baseUrlPost}/search`;
     },
     addPost: function () {
         return `${this.baseUrlPost}`;
@@ -32,11 +38,37 @@ const urls = {
 /**
  * Получает постраничный список публикаций.
  *
+ * @param albumUUID - UUID альбома для фильтрации публикаций.
+ * @param pageable - Параметры постраничного запроса.
  * @returns Промис со страницей публикаций {@link PostResponse}.
  */
-export async function getPosts(): Promise<AxiosResponse<Page<PostResponse>>> {
+export async function getPosts(
+    albumUUID?: string,
+    pageable?: Pageable
+): Promise<AxiosResponse<Page<PostResponse>>> {
     console.log("Calling get posts");
-    return api.get(urls.posts());
+    return api.get(urls.posts(), {
+        params: { albumUuid: albumUUID, ...pageable }
+    });
+}
+
+/**
+ * Получает постраничный список публикаций автора.
+ *
+ * @param authorUUID - UUID автора публикаций.
+ * @param albumUUID - UUID альбома, публикации которого нужно исключить из результата.
+ * @param pageable - Параметры постраничного запроса.
+ * @returns Промис со страницей публикаций {@link PostResponse}.
+ */
+export async function getPostsByAuthor(
+    authorUUID: string,
+    albumUUID?: string,
+    pageable?: Pageable
+): Promise<AxiosResponse<Page<PostResponse>>> {
+    console.log(`Calling get posts by author ${authorUUID}`);
+    return api.get(urls.postsByAuthor(), {
+        params: { authorUuid: authorUUID, albumUuid: albumUUID, ...pageable }
+    });
 }
 
 /**
@@ -111,6 +143,27 @@ export async function updatePostByUUID({
 export async function deletePostById(UUID: string): Promise<AxiosResponse<string>> {
     console.log(`Calling delete post by UUID: ${UUID}`);
     return api.delete(urls.deletePost(UUID));
+}
+
+/**
+ * Ищет публикации по заголовку и описанию с постраничной выдачей.
+ *
+ * @param query - Поисковый запрос.
+ * @param authorUUID - UUID автора публикаций для ограничения поиска.
+ * @param albumUUID - UUID альбома, публикации которого нужно исключить из результата.
+ * @param pageable - Параметры постраничного запроса.
+ * @returns Промис со страницей найденных публикаций {@link PostResponse}.
+ */
+export async function searchPosts(
+    query: string,
+    authorUUID?: string,
+    albumUUID?: string,
+    pageable?: Pageable
+): Promise<AxiosResponse<Page<PostResponse>>> {
+    console.log(`Calling search posts by query: ${query}`);
+    return api.get(urls.search(), {
+        params: { query, authorUuid: authorUUID, albumUuid: albumUUID, ...pageable }
+    });
 }
 
 /**
