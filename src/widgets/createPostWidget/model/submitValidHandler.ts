@@ -65,7 +65,6 @@ export async function submitValidHandler(
                         title: data.title,
                         description: data.description,
                         authorUuid: communityUUID,
-                        userCreated: false,
                         tagsTitles: tags
                     },
                     file: loadedFile
@@ -76,7 +75,6 @@ export async function submitValidHandler(
                         title: data.title,
                         description: data.description,
                         authorUuid: authorUUID,
-                        userCreated: true,
                         tagsTitles: tags
                     },
                     file: loadedFile

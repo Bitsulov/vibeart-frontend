@@ -73,7 +73,6 @@ export interface CreatePostRequest {
         description: string;
         authorUuid: string;
         tagsTitles: string[];
-        userCreated: boolean;
     };
     file: File;
 }
