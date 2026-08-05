@@ -5,12 +5,14 @@ import { AlbumSlider } from "./albumSlider";
 import { createAlbum } from "entities/album";
 
 const mockSwiperState = vi.hoisted(() => ({
-    onSlideChange: null as ((swiper: any) => void) | null
+    onSlideChange: null as ((swiper: any) => void) | null,
+    onSwiper: null as ((swiper: any) => void) | null
 }));
 
 vi.mock("swiper/react", () => ({
-    Swiper: ({ children, onSlideChange }: any) => {
+    Swiper: ({ children, onSlideChange, onSwiper }: any) => {
         mockSwiperState.onSlideChange = onSlideChange;
+        mockSwiperState.onSwiper = onSwiper;
         return <div data-testid="swiper">{children}</div>;
     },
     SwiperSlide: ({ children }: any) => <div>{children}</div>
@@ -157,6 +159,74 @@ describe("AlbumSlider - слайдер альбомов пользователя
 
             expect(leftButton.className).not.toContain("disabled");
             expect(rightButton.className).not.toContain("disabled");
+        });
+    });
+
+    describe("Дозагрузка альбомов при получении новых данных", () => {
+        it("Запускает onReachEnd, если загруженных альбомов всё ещё меньше, чем видно слайдов", () => {
+            const onReachEnd = vi.fn();
+            const fakeSwiper = {
+                isBeginning: true,
+                isEnd: true,
+                activeIndex: 0,
+                params: { slidesPerView: 3 },
+                update: vi.fn()
+            };
+
+            const { rerender } = renderWithProviders(
+                <AlbumSlider
+                    {...defaultProps}
+                    albumsList={[mockAlbums[0]]}
+                    onReachEnd={onReachEnd}
+                />
+            );
+
+            act(() => {
+                mockSwiperState.onSwiper?.(fakeSwiper);
+            });
+
+            rerender(
+                <AlbumSlider
+                    {...defaultProps}
+                    albumsList={mockAlbums}
+                    onReachEnd={onReachEnd}
+                />
+            );
+
+            expect(onReachEnd).toHaveBeenCalled();
+        });
+
+        it("Не запускает onReachEnd, если видимые слоты уже заполнены загруженными альбомами", () => {
+            const onReachEnd = vi.fn();
+            const fakeSwiper = {
+                isBeginning: true,
+                isEnd: true,
+                activeIndex: 0,
+                params: { slidesPerView: 1 },
+                update: vi.fn()
+            };
+
+            const { rerender } = renderWithProviders(
+                <AlbumSlider
+                    {...defaultProps}
+                    albumsList={[mockAlbums[0]]}
+                    onReachEnd={onReachEnd}
+                />
+            );
+
+            act(() => {
+                mockSwiperState.onSwiper?.(fakeSwiper);
+            });
+
+            rerender(
+                <AlbumSlider
+                    {...defaultProps}
+                    albumsList={mockAlbums}
+                    onReachEnd={onReachEnd}
+                />
+            );
+
+            expect(onReachEnd).not.toHaveBeenCalled();
         });
     });
 });

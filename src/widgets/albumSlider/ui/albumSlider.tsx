@@ -8,12 +8,13 @@ import { useTranslation } from "react-i18next";
 import { AlbumSlide } from "features/albumSlide";
 import { AlbumsSliderNavigationButton } from "features/albumsSliderNavigationButton";
 import { AlbumAdd } from "features/albumAdd";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, Dispatch, SetStateAction } from "react";
 import clsx from "clsx";
 import { albumBreakpointsConfig } from "../config/albumBreakpointsConfig";
 import { initSliderHandler } from "../model/initSliderHandler";
 import { slideChangeHandler } from "../model/slideChangeHandler";
+import { reachEndSwiperHandler } from "../model/checkReachEndHandler";
 
 /** Свойства компонента {@link AlbumSlider}. */
 interface AlbumSliderProps extends ComponentPropsWithoutRef<"section"> {
@@ -23,6 +24,8 @@ interface AlbumSliderProps extends ComponentPropsWithoutRef<"section"> {
     setSelectedAlbum: Dispatch<SetStateAction<string>>;
     /** UUID выбранного альбома. Специальное значение `"all"` означает «все публикации». */
     selectedAlbum: string;
+    /** Функция загрузки следующей страницы альбомов, вызывается при приближении к концу списка. */
+    onReachEnd?: () => void;
 }
 
 /**
@@ -32,11 +35,13 @@ interface AlbumSliderProps extends ComponentPropsWithoutRef<"section"> {
  * Последним — кнопка добавления нового альбома через {@link AlbumAdd}.
  * Кнопки навигации блокируются при достижении начала или конца слайдера.
  * Точки остановок слайдера задаются через {@link albumBreakpointsConfig}.
+ * Вызывает `onReachEnd`, когда становится виден последний загруженный альбом.
  */
 export const AlbumSlider = ({
     selectedAlbum,
     setSelectedAlbum,
     albumsList,
+    onReachEnd = () => {},
     ...props
 }: AlbumSliderProps) => {
     const { t } = useTranslation();
@@ -44,6 +49,16 @@ export const AlbumSlider = ({
     const swiperRef = useRef<SwiperType>(null);
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState<boolean>(false);
+
+    useEffect(() => {
+        const swiper = swiperRef.current;
+        if (!swiper) return;
+
+        swiper.update();
+        setIsBeginning(swiper.isBeginning);
+        setIsEnd(swiper.isEnd);
+        reachEndSwiperHandler(swiper, albumsList.length, onReachEnd);
+    }, [albumsList, onReachEnd]);
 
     return (
         <section className={c.albums} {...props}>
@@ -66,7 +81,13 @@ export const AlbumSlider = ({
                         initSliderHandler(swiper, swiperRef, setIsBeginning, setIsEnd)
                     }
                     onSlideChange={swiper =>
-                        slideChangeHandler(swiper, setIsBeginning, setIsEnd)
+                        slideChangeHandler(
+                            swiper,
+                            setIsBeginning,
+                            setIsEnd,
+                            albumsList.length,
+                            onReachEnd
+                        )
                     }
                     spaceBetween={20}
                     slidesPerView={1}
