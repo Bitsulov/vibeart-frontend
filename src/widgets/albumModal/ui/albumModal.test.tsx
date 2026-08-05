@@ -1,13 +1,16 @@
 import { describe, it, expect, vi } from "vitest";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { AlbumModal } from "./albumModal";
-import { screen } from "@testing-library/react";
-import { profileAlbum1PostsMock } from "entities/post";
+import { fireEvent, screen } from "@testing-library/react";
+import { http, HttpResponse } from "msw";
+import { server } from "shared/tests/mswServer";
+import { postResponseMock, postsPageResponseMock } from "entities/post";
 
 const baseProps = {
     isShowModal: false,
     setIsShowModal: vi.fn(),
-    postList: profileAlbum1PostsMock
+    authorUUID: "00000000-0000-4000-8000-00000000000b",
+    albumUUID: "00000000-0000-4000-8000-00000000000a"
 };
 
 describe("AlbumModal - модальное окно добавления постов в альбом", () => {
@@ -31,5 +34,39 @@ describe("AlbumModal - модальное окно добавления пост
     it("Отображает поле поиска", () => {
         renderWithProviders(<AlbumModal {...baseProps} isShowModal={true} />);
         expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("Ищет публикации автора по введённому запросу с задержкой", async () => {
+        let receivedQuery: string | null = null;
+        let receivedAuthorUuid: string | null = null;
+        let receivedAlbumUuid: string | null = null;
+        server.use(
+            http.get("*/post/search", ({ request }) => {
+                const params = new URL(request.url).searchParams;
+                receivedQuery = params.get("query");
+                receivedAuthorUuid = params.get("authorUuid");
+                receivedAlbumUuid = params.get("albumUuid");
+                return HttpResponse.json({
+                    ...postsPageResponseMock,
+                    content: [{ ...postResponseMock, title: "найденный пост" }]
+                });
+            })
+        );
+
+        renderWithProviders(<AlbumModal {...baseProps} isShowModal={true} />);
+
+        fireEvent.change(screen.getByRole("textbox"), {
+            target: { value: "портрет" }
+        });
+
+        expect(await screen.findByText("найденный пост")).toBeInTheDocument();
+        expect(receivedQuery).toBe("портрет");
+        expect(receivedAuthorUuid).toBe(baseProps.authorUUID);
+        expect(receivedAlbumUuid).toBe(baseProps.albumUUID);
+    });
+
+    it("Без поискового запроса отображает все публикации автора", async () => {
+        renderWithProviders(<AlbumModal {...baseProps} isShowModal={true} />);
+        expect((await screen.findAllByText("post 1 name")).length).toBeGreaterThan(0);
     });
 });

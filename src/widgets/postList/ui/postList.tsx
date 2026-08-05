@@ -35,6 +35,10 @@ interface PostListProps extends ComponentPropsWithoutRef<"section"> {
     flexible?: boolean;
     /** Если `true`, в заголовке отображается `title`; иначе — локализованная строка `"Posts"`. По умолчанию `true`. */
     isUniqueTitle?: boolean;
+    /** UUID автора альбома — публикации которого предлагаются в {@link AlbumModal}. Обязателен при `isShowAddButton === true`. */
+    authorUUID?: string;
+    /** UUID альбома, в который добавляются публикации через {@link AlbumModal}. Обязателен при `isShowAddButton === true`. */
+    albumUUID?: string;
 }
 
 /**
@@ -57,6 +61,8 @@ export const PostList = ({
     isShowAddButton = false,
     flexible = false,
     isUniqueTitle = true,
+    authorUUID = "",
+    albumUUID = "",
     ...props
 }: PostListProps) => {
     const { t } = useTranslation();
@@ -92,7 +98,8 @@ export const PostList = ({
                 <AlbumModal
                     isShowModal={isShowAlbumModal}
                     setIsShowModal={setIsShowAlbumModal}
-                    postList={postList ?? []}
+                    authorUUID={authorUUID}
+                    albumUUID={albumUUID}
                 />
             )}
             {isPostsExists ? (
@@ -142,6 +149,7 @@ export const PostList = ({
                     <div className={c.list_wrapper}>
                         <div className={clsx(c.list, c.grid_3, flexible && c.flexible)}>
                             <button
+                                onClick={() => addPostsAlbumHandler(setIsShowAlbumModal)}
                                 aria-label={t("ariaLabel.addPostAlbum")}
                                 className={c.add_post}
                             >
