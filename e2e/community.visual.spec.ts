@@ -19,6 +19,73 @@ test.describe("Community - визуальная проверка блоков", 
                 })
             })
         );
+        await page.route("**/api/community/*", route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    uuid: "00000000-0000-4000-8000-00000000001d",
+                    owner: {
+                        uuid: "00000000-0000-4000-8000-000000000015",
+                        name: "testOwner",
+                        username: "testOwner",
+                        description: "",
+                        avatarUrl: "",
+                        worksCount: 0,
+                        subscribersCount: 0,
+                        subscribesCount: 0,
+                        createdAt: "2026-01-01T00:00:00.000Z",
+                        trustStatus: "TRUST",
+                        onlineStatus: "ONLINE",
+                        enabled: true
+                    },
+                    name: "Digital Art Club",
+                    username: "digital-art-club",
+                    description:
+                        "Community for digital artists sharing their works and techniques",
+                    avatarUrl: "",
+                    worksCount: 42,
+                    subscribersCount: 1200,
+                    subscribesCount: 5,
+                    createdAt: "2026-01-10T10:00:00.000Z",
+                    trustStatus: "TRUST",
+                    admins: [],
+                    tags: []
+                })
+            })
+        );
+        await page.route(/\/api\/album(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [],
+                    number: 0,
+                    size: 5,
+                    totalElements: 0,
+                    totalPages: 0,
+                    first: true,
+                    last: true,
+                    empty: true
+                })
+            })
+        );
+        await page.route(/\/api\/post\/author(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [],
+                    number: 0,
+                    size: 6,
+                    totalElements: 0,
+                    totalPages: 0,
+                    first: true,
+                    last: true,
+                    empty: true
+                })
+            })
+        );
 
         await page.goto(COMMUNITY_URL);
         await expect(page.getByRole("main")).toBeVisible();

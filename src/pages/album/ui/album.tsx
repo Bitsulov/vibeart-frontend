@@ -54,8 +54,8 @@ export const Album = () => {
             album?.authorCommunity?.admins.some(admin => admin.uuid === userInfo.UUID)) ??
         false;
 
-    const authorUUID =
-        album?.authorUser?.uuid ?? album?.authorCommunity?.owner.uuid ?? "";
+    const authorUUID = album?.authorUser?.uuid ?? album?.authorCommunity?.uuid ?? "";
+    const isCommunityAuthor = !!album?.authorCommunity;
 
     return (
         <Layout>
@@ -67,6 +67,7 @@ export const Album = () => {
                 isOwner={isOwner}
                 UUID={album?.uuid ?? ""}
                 authorUUID={authorUUID}
+                isCommunityAuthor={isCommunityAuthor}
                 title={album?.title ?? ""}
                 imageUrl={album?.imageUrl ?? ""}
                 description={album?.description ?? ""}

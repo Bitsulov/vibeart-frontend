@@ -8,7 +8,9 @@ import { hideHint } from "../model/hideHint";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteButtonClickHandler } from "../model/deleteButtonClickHandler";
 import { ConfirmModal } from "widgets/confirmModal";
-import { confirmDeletePost } from "../model/confirmDeletePost";
+import { confirmDeleteAlbum } from "../model/confirmDeleteAlbum";
+import { deleteAlbumSuccessHandler } from "../model/deleteAlbumSuccessHandler";
+import { deleteAlbumErrorHandler } from "../model/deleteAlbumErrorHandler";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { StatItem } from "features/statItem";
@@ -19,12 +21,15 @@ import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { createPost, getPosts } from "entities/post";
 import { createUser } from "entities/user";
 import { createCommunity } from "entities/community";
+import { deleteAlbum } from "entities/album";
 import { createTag } from "entities/tag";
 import { openDescriptionHandler } from "../model/openDescriptionHandler";
 import { PostList } from "widgets/postList";
 import { getLocalTimeNumbers } from "shared/lib/getLocalTimeNumbers";
 import { selectCurrentLanguage } from "entities/appConfig";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link AlbumCard}. */
 interface AlbumCardProps {
@@ -32,8 +37,10 @@ interface AlbumCardProps {
     isOwner: boolean;
     /** UUID альбома. */
     UUID: string;
-    /** UUID автора альбома — используется при удалении для перехода на его профиль. */
+    /** UUID автора альбома — используется при удалении для перехода на его страницу. */
     authorUUID: string;
+    /** Признак того, что автор альбома — сообщество, а не пользователь. */
+    isCommunityAuthor: boolean;
     /** Название альбома. */
     title: string;
     /** Текстовое описание альбома. */
@@ -60,6 +67,7 @@ export const AlbumCard = ({
     description,
     UUID,
     authorUUID,
+    isCommunityAuthor,
     imageUrl,
     worksCount,
     date,
@@ -90,6 +98,13 @@ export const AlbumCard = ({
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pagesDelta, setPagesDelta] = useState(2);
+
+    const deleteAlbumMutation = useMutation({
+        mutationFn: deleteAlbum,
+        onSuccess: () =>
+            deleteAlbumSuccessHandler(navigate, authorUUID, isCommunityAuthor),
+        onError: (error: AxiosError<AppError>) => deleteAlbumErrorHandler(error, dispatch)
+    });
 
     const postsQuery = useQuery({
         queryKey: [`album posts ${UUID}`, currentPage],
@@ -161,6 +176,7 @@ export const AlbumCard = ({
                               title: post.community!.name,
                               description: post.community!.description,
                               albumsList: [],
+                              admins: [],
                               imageUrl: post.community!.avatarUrl,
                               posts: post.community!.worksCount,
                               subscribers: post.community!.subscribersCount,
@@ -179,7 +195,9 @@ export const AlbumCard = ({
         <section className={c.album} {...props}>
             <div className="container">
                 <ConfirmModal
-                    confirmFn={() => confirmDeletePost(navigate, authorUUID)}
+                    confirmFn={() =>
+                        confirmDeleteAlbum(UUID, deleteAlbumMutation.mutateAsync)
+                    }
                     ariaLabelConfirm={t("ariaLabel.deleteAlbumModal", { name: title })}
                     text={t("modal.deleteAlbum")}
                     isShowModal={isShowConfirm}

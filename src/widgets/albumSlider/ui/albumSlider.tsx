@@ -26,6 +26,10 @@ interface AlbumSliderProps extends ComponentPropsWithoutRef<"section"> {
     selectedAlbum: string;
     /** Функция загрузки следующей страницы альбомов, вызывается при приближении к концу списка. */
     onReachEnd?: () => void;
+    /** UUID сообщества, от имени которого будет создан новый альбом через {@link AlbumAdd}. */
+    communityUUID?: string;
+    /** Признак отображения слайда добавления альбома. По умолчанию `true`. */
+    isShowAddAlbum?: boolean;
 }
 
 /**
@@ -42,6 +46,8 @@ export const AlbumSlider = ({
     setSelectedAlbum,
     albumsList,
     onReachEnd = () => {},
+    communityUUID,
+    isShowAddAlbum = true,
     ...props
 }: AlbumSliderProps) => {
     const { t } = useTranslation();
@@ -128,9 +134,11 @@ export const AlbumSlider = ({
                             />
                         </SwiperSlide>
                     ))}
-                    <SwiperSlide className={c.slide}>
-                        <AlbumAdd />
-                    </SwiperSlide>
+                    {isShowAddAlbum && (
+                        <SwiperSlide className={c.slide}>
+                            <AlbumAdd communityUUID={communityUUID} />
+                        </SwiperSlide>
+                    )}
                 </Swiper>
             </div>
         </section>

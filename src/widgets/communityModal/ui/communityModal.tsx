@@ -88,23 +88,27 @@ export const CommunityModal = ({
                                 <CommunityUserItem
                                     UUID={owner.UUID}
                                     imageUrl={owner.avatarUrl}
-                                    name={owner.title}
+                                    name={owner.title || owner.UUID}
                                     className={c.owner}
                                 />
                             </div>
-                            <div className={c.text}>
-                                <h3 className={c.text_title}>{t("community.admins")}</h3>
-                                <div className={c.admins}>
-                                    {admins.map(admin => (
-                                        <CommunityUserItem
-                                            key={`user ${admin.UUID}`}
-                                            imageUrl={admin.avatarUrl}
-                                            name={admin.title}
-                                            UUID={admin.UUID}
-                                        />
-                                    ))}
+                            {admins.length > 0 && (
+                                <div className={c.text}>
+                                    <h3 className={c.text_title}>
+                                        {t("community.admins")}
+                                    </h3>
+                                    <div className={c.admins}>
+                                        {admins.map(admin => (
+                                            <CommunityUserItem
+                                                key={`user ${admin.UUID}`}
+                                                imageUrl={admin.avatarUrl}
+                                                name={admin.title || admin.UUID}
+                                                UUID={admin.UUID}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className={c.date_wrapper}>
                                 <h3 className={c.date_sign}>{t("profile.createdAt")}</h3>
                                 <p className={c.date}>{resultDate}</p>

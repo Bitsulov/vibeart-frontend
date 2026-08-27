@@ -73,6 +73,32 @@ describe("AlbumSlider - слайдер альбомов пользователя
             ).toBeInTheDocument();
         });
 
+        it("Не отображает слайд добавления альбома при isShowAddAlbum=false", () => {
+            renderWithProviders(<AlbumSlider {...defaultProps} isShowAddAlbum={false} />);
+
+            expect(
+                screen.queryByRole("link", { name: "ariaLabel.goToCreateAlbumPage" })
+            ).not.toBeInTheDocument();
+        });
+
+        it("Передаёт communityUUID в ссылку добавления альбома", () => {
+            renderWithProviders(
+                <AlbumSlider
+                    {...defaultProps}
+                    communityUUID="00000000-0000-4000-8000-00000000001d"
+                />
+            );
+
+            const link = screen.getByRole("link", {
+                name: "ariaLabel.goToCreateAlbumPage"
+            });
+
+            expect(link).toHaveAttribute(
+                "href",
+                "/album/add?community=00000000-0000-4000-8000-00000000001d"
+            );
+        });
+
         it("Количество слайдов равно albumsList.length + 2 (все + добавить)", () => {
             renderWithProviders(<AlbumSlider {...defaultProps} />);
 

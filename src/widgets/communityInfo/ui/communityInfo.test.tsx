@@ -55,6 +55,7 @@ const communityInfo = createCommunity({
     createdAt: "2026-01-10T10:00:00.000Z",
     imageUrl: "",
     albumsList: [],
+    admins: [],
     isSubscribed: false,
     isBlocked: false,
     trustStatus: "TRUST"
@@ -145,8 +146,28 @@ describe("CommunityInfo - блок информации о сообществе"
 
             expect(link).toHaveAttribute(
                 "href",
-                `/communities/${communityInfo.UUID}/edit`
+                `/communities/add?community=${communityInfo.UUID}`
             );
+        });
+
+        it("Показывает кнопку подписки для чужого пользователя", () => {
+            renderWithProviders(<CommunityInfo communityInfo={communityInfo} />, {
+                preloadedState: { user: otherUser }
+            });
+
+            expect(
+                screen.getByRole("button", { name: "ariaLabel.subscribeCommunity" })
+            ).toBeInTheDocument();
+        });
+
+        it("Не показывает кнопку подписки для владельца", () => {
+            renderWithProviders(<CommunityInfo communityInfo={communityInfo} />, {
+                preloadedState: { user: owner }
+            });
+
+            expect(
+                screen.queryByRole("button", { name: "ariaLabel.subscribeCommunity" })
+            ).not.toBeInTheDocument();
         });
     });
 

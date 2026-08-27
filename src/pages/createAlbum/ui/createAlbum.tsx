@@ -21,6 +21,8 @@ import { showToast } from "features/toast";
  *
  * Если в адресе передан параметр `album`, страница переходит в режим
  * редактирования: загружает данные альбома и предзаполняет ими форму.
+ * Если передан параметр `community`, альбом создаётся от имени
+ * указанного сообщества, а не текущего пользователя.
  */
 export const CreateAlbum = () => {
     const { t } = useTranslation();
@@ -44,6 +46,7 @@ export const CreateAlbum = () => {
     });
 
     const [createNewAlbum, setCreateNewAlbum] = useState<boolean>(true);
+    const communityId = searchParams.get("community");
 
     useEffect(() => {
         if (loadedFile) {
@@ -113,7 +116,7 @@ export const CreateAlbum = () => {
                             albumName={loadedAlbum.data?.data.title ?? ""}
                             albumDescription={loadedAlbum.data?.data.description ?? ""}
                             isCreateNewAlbum={createNewAlbum}
-                            UUID={principalUser.UUID}
+                            UUID={communityId || principalUser.UUID}
                             onSubmit={() => onSubmitForm(loadedFile, setIsErrorImg)}
                         />
                     </div>
