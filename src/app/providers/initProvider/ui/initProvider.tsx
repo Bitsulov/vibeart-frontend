@@ -25,7 +25,7 @@ interface InitProviderProps {
  * <ol>
  *     <li>
  *         **Инициализация пользователя.** При монтировании получает данные текущего пользователя
- *         с сервера ({@link PrincipalUserState}) и записывает данные
+ *         с сервера ({@link UserDetailResponse}) и записывает данные
  *         авторизованного пользователя в Redux-хранилище через {@link setUserInfo}.
  *     </li>
  *    <li>
@@ -64,7 +64,7 @@ export const InitProvider = ({ children }: InitProviderProps) => {
     const { i18n } = useTranslation();
     const dispatch = useDispatch();
     const lang = useSelector(selectCurrentLanguage);
-    const { pathname } = useLocation();
+    const { pathname, search } = useLocation();
     const navigate = useNavigate();
 
     // Возвращает текущие активные маршруты
@@ -118,17 +118,18 @@ export const InitProvider = ({ children }: InitProviderProps) => {
     useEffect(() => {
         // Заход на сайт без определенного языка
         if (urlLangParam === undefined) {
-            navigate(`/${i18n.language}${pathname}`, { replace: true });
+            navigate(`/${i18n.language}${pathname}${search}`, { replace: true });
             // Язык не поддерживается
         } else if (!supportedLangs.includes(urlLangParam)) {
-            navigate(`/${defaultLang}${pathname.slice(1 + urlLangParam.length)}`, {
-                replace: true
-            });
+            navigate(
+                `/${defaultLang}${pathname.slice(1 + urlLangParam.length)}${search}`,
+                { replace: true }
+            );
             // Сохранённый язык не совпадает с URL
         } else if (urlLangParam !== lang) {
             // Смена языка в интерфейсе
             if (i18n.language === lang) {
-                navigate(`/${lang}${pathname.slice(1 + urlLangParam.length)}`, {
+                navigate(`/${lang}${pathname.slice(1 + urlLangParam.length)}${search}`, {
                     replace: true
                 });
                 // Первый заход, redux еще не синхронизирован
@@ -142,7 +143,7 @@ export const InitProvider = ({ children }: InitProviderProps) => {
         } else {
             document.documentElement.lang = lang;
         }
-    }, [pathname, urlLangParam, lang, dispatch, i18n, navigate]);
+    }, [pathname, search, urlLangParam, lang, dispatch, i18n, navigate]);
 
     return <>{children}</>;
 };
