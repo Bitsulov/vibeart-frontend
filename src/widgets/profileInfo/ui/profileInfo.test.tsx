@@ -217,6 +217,28 @@ describe("ProfileInfo - блок информации о профиле", () => 
                 screen.queryByRole("link", { name: "ariaLabel.goToSettings" })
             ).not.toBeInTheDocument();
         });
+
+        it("Показывает кнопку подписки для чужого профиля", () => {
+            renderWithProviders(
+                <ProfileInfo userInfo={{ ...userInfo, UUID: "uuid-a" }} />,
+                { preloadedState: { user: { ...principalUser, UUID: "uuid-b" } } }
+            );
+
+            expect(
+                screen.getByRole("button", { name: "ariaLabel.subscribeUser" })
+            ).toBeInTheDocument();
+        });
+
+        it("Не показывает кнопку подписки для своего профиля", () => {
+            renderWithProviders(
+                <ProfileInfo userInfo={{ ...userInfo, UUID: "same-uuid" }} />,
+                { preloadedState: { user: { ...principalUser, UUID: "same-uuid" } } }
+            );
+
+            expect(
+                screen.queryByRole("button", { name: "ariaLabel.subscribeUser" })
+            ).not.toBeInTheDocument();
+        });
     });
 
     describe("Статус онлайн", () => {

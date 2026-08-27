@@ -166,6 +166,8 @@ export const Profile = () => {
         avatarUrl: data?.data.avatarUrl || ""
     });
 
+    const isOwner = UUID === userInfo.UUID;
+
     useEffect(() => {
         if (!error) return;
 
@@ -197,11 +199,16 @@ export const Profile = () => {
                         <Navigation role={userInfo.role} UUID={userInfo.UUID} />
                     )}
                     <div className={c.content}>
-                        <ProfileInfo isLoadingData={isLoading} userInfo={userData} />
+                        <ProfileInfo
+                            isLoadingData={isLoading}
+                            userInfo={userData}
+                            isSubscribed={data?.data.subscribed ?? false}
+                        />
                         <AlbumSlider
                             selectedAlbum={selectedAlbum}
                             setSelectedAlbum={setSelectedAlbum}
                             albumsList={albumsList}
+                            isShowAddAlbum={isOwner}
                             onReachEnd={() =>
                                 loadMoreAlbumsHandler(
                                     albumsQuery.hasNextPage,

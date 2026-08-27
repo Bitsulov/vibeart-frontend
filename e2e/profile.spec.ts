@@ -35,8 +35,16 @@ test.describe("Profile - страница профиля", () => {
                     createdAt: "2026-01-01T00:00:00.000Z",
                     trustStatus: "UNTRUST",
                     onlineStatus: "ONLINE",
-                    enabled: true
+                    enabled: true,
+                    subscribed: false
                 })
+            })
+        );
+        await page.route(/\/api\/user\/.+\/subscribe$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "text/plain",
+                body: "Subscription toggled successfully"
             })
         );
         await page.route(/\/api\/album(\?[^/]*)?$/, route =>
@@ -148,5 +156,16 @@ test.describe("Profile - страница профиля", () => {
 
         await expect(page.getByText("Description", { exact: true })).toBeVisible();
         await expect(page.getByText("Created at:", { exact: true })).toBeVisible();
+    });
+
+    test("Кнопка подписки меняет состояние при клике", async ({ page }) => {
+        await page.goto(PROFILE_URL);
+
+        const subscribeButton = page.getByRole("button", { name: "Subscribe to" });
+        await expect(subscribeButton).toBeVisible();
+        await subscribeButton.click();
+        await expect(
+            page.getByRole("button", { name: "Unsubscribe from" })
+        ).toBeVisible();
     });
 });
