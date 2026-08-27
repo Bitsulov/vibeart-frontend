@@ -19,6 +19,8 @@ export interface CommunityType {
     description: string;
     /** Альбомы, опубликованные в данном сообществе. */
     albumsList: AlbumType[];
+    /** Администраторы сообщества. */
+    admins: UserType[];
     /** Общее количество публикаций в сообществе. */
     posts: number;
     /** Общее количество подписчиков. */
@@ -39,6 +41,7 @@ export interface CommunityType {
 
 /** Сообщество, возвращаемое сервером. */
 export interface CommunityResponse {
+    uuid: string;
     owner: UserResponse;
     name: string;
     username: string;
@@ -50,4 +53,32 @@ export interface CommunityResponse {
     createdAt: string;
     trustStatus: "TRUST" | "UNTRUST";
     admins: UserResponse[];
+    tags: string[];
+    subscribed: boolean | null;
+}
+
+/** Текстовая информация и, при наличии, файл аватара для создания сообщества. */
+export interface CommunityCreateRequest {
+    info: {
+        title: string;
+        description: string;
+        username?: string;
+        tagsTitles: string[];
+        adminsUuids: string[];
+        userId: string;
+    };
+    file?: File;
+}
+
+/** Текстовая информация и, при замене, новый файл аватара для обновления сообщества. */
+export interface CommunityUpdateRequest {
+    info: {
+        title: string;
+        description: string;
+        username?: string;
+        tagsTitles: string[];
+        adminsUuids: string[];
+        isDeleteAvatar: boolean;
+    };
+    file?: File;
 }

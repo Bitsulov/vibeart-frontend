@@ -9,6 +9,7 @@ import type {
     UserDetailResponse,
     UserResponse
 } from "../lib/types";
+import type { Page } from "shared/lib/types";
 import avatar from "shared/icons/img-CTA.jpg";
 
 export const principalUserMock = createUser({
@@ -79,7 +80,8 @@ export const userResponseMock: UserResponse = {
     createdAt: "2026-03-22T18:50:29.921Z",
     trustStatus: "TRUST",
     onlineStatus: "ONLINE",
-    enabled: true
+    enabled: true,
+    subscribed: false
 };
 
 export const communityAdminsMock = [
@@ -118,6 +120,50 @@ export const communityAdminsMock = [
         avatarUrl: avatar
     })
 ];
+
+export const friendsResponseMock: UserResponse[] = [
+    {
+        uuid: "00000000-0000-4000-8000-000000000014",
+        name: "Alice Wonder",
+        username: "alice.wonder",
+        description: "",
+        avatarUrl: avatar,
+        worksCount: 12,
+        subscribersCount: 450,
+        subscribesCount: 30,
+        createdAt: "2025-12-01T10:00:00.000Z",
+        trustStatus: "TRUST",
+        onlineStatus: "ONLINE",
+        enabled: true,
+        subscribed: false
+    },
+    {
+        uuid: "00000000-0000-4000-8000-00000000001b",
+        name: "Bob Rivers",
+        username: "bob.rivers",
+        description: "",
+        avatarUrl: avatar,
+        worksCount: 7,
+        subscribersCount: 210,
+        subscribesCount: 15,
+        createdAt: "2026-01-05T08:00:00.000Z",
+        trustStatus: "TRUST",
+        onlineStatus: "OFFLINE",
+        enabled: true,
+        subscribed: false
+    }
+];
+
+export const friendsPageResponseMock: Page<UserResponse> = {
+    content: friendsResponseMock,
+    number: 0,
+    size: 20,
+    totalElements: friendsResponseMock.length,
+    totalPages: 1,
+    first: true,
+    last: true,
+    empty: false
+};
 
 export const principalUserSessionMock: PrincipalUserState = {
     UUID: "00000000-0000-4000-8000-00000000001b",

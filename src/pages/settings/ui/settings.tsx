@@ -93,7 +93,8 @@ export const Settings = () => {
                 avatarUrl: "",
                 enabled: true,
                 trustStatus: "TRUST",
-                onlineStatus: "ONLINE"
+                onlineStatus: "ONLINE",
+                subscribed: false
             },
         [data]
     );

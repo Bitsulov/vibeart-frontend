@@ -6,7 +6,10 @@ import {
     login,
     refresh,
     getPrincipalUser,
-    getUserByUUID
+    getUserByUUID,
+    getFriends,
+    getFriendsBySearch,
+    toggleUserSubscription
 } from "./userApi";
 import { authResponseMock, userDetailResponseMock } from "../const/mockConst";
 import { http, HttpResponse } from "msw";
@@ -85,5 +88,53 @@ describe("userApi - запросы к API авторизации и регист
 
         expect(receivedAuth).toBe("Bearer server-token");
         expect(response.data).toEqual({ uuid: "test-uuid" });
+    });
+
+    it("getFriends отправляет параметры пагинации на /user/friends", async () => {
+        let receivedPage: string | null = null;
+        let receivedSize: string | null = null;
+        server.use(
+            http.get("*/user/friends", ({ request }) => {
+                const params = new URL(request.url).searchParams;
+                receivedPage = params.get("page");
+                receivedSize = params.get("size");
+                return HttpResponse.json({ content: [] });
+            })
+        );
+
+        await getFriends({ page: 1, size: 10 });
+
+        expect(receivedPage).toBe("1");
+        expect(receivedSize).toBe("10");
+    });
+
+    it("getFriendsBySearch отправляет query на /user/friends/search", async () => {
+        let receivedQuery: string | null = null;
+        server.use(
+            http.get("*/user/friends/search", ({ request }) => {
+                const params = new URL(request.url).searchParams;
+                receivedQuery = params.get("query");
+                return HttpResponse.json({ content: [] });
+            })
+        );
+
+        await getFriendsBySearch("Иван");
+
+        expect(receivedQuery).toBe("Иван");
+    });
+
+    it("toggleUserSubscription отправляет запрос на /user/:UUID/subscribe", async () => {
+        let receivedMethod: string | null = null;
+        server.use(
+            http.post("*/user/:UUID/subscribe", ({ request }) => {
+                receivedMethod = request.method;
+                return HttpResponse.text("ok");
+            })
+        );
+
+        const response = await toggleUserSubscription("test-uuid");
+
+        expect(receivedMethod).toBe("POST");
+        expect(response.data).toBe("ok");
     });
 });

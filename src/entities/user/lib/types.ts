@@ -123,6 +123,7 @@ export interface UserResponse {
     trustStatus: "TRUST" | "UNTRUST";
     onlineStatus: "ONLINE" | "OFFLINE";
     enabled: boolean;
+    subscribed: boolean | null;
 }
 
 /** Данные пользователя и файл изображения аватара */

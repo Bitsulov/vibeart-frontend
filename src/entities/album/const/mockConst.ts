@@ -82,7 +82,8 @@ export const albumResponseMock: AlbumResponse = {
         createdAt: "2026-01-01T00:00:00.000Z",
         trustStatus: "UNTRUST",
         onlineStatus: "ONLINE",
-        enabled: true
+        enabled: true,
+        subscribed: false
     },
     authorCommunity: null,
     imageUrl: img,

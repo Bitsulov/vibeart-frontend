@@ -19,7 +19,8 @@ const defaultProps = {
         createdAt: "",
         trustStatus: "TRUST",
         onlineStatus: "ONLINE",
-        enabled: true
+        enabled: true,
+        subscribed: false
     } satisfies UserResponse,
     setUserInfo: () => {}
 };

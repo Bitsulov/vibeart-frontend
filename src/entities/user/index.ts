@@ -27,7 +27,9 @@ export {
     authResponseMock,
     userDetailResponseMock,
     userResponseMock,
-    principalUserSessionMock
+    principalUserSessionMock,
+    friendsResponseMock,
+    friendsPageResponseMock
 } from "./const/mockConst";
 export {
     register,
@@ -42,5 +44,8 @@ export {
     sendCodePassword,
     confirmPassword,
     updateUserByUUID,
-    deleteUserByUUID
+    deleteUserByUUID,
+    getFriends,
+    getFriendsBySearch,
+    toggleUserSubscription
 } from "./api/userApi";
