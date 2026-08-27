@@ -3,13 +3,13 @@ import { registerErrorHandler } from "./registerErrorHandler";
 import type { AxiosError } from "axios";
 import type { AppError } from "shared/lib/types";
 
-function createError(statusCode?: number): AxiosError<AppError> {
+function createError(statusCode?: number, message = ""): AxiosError<AppError> {
     return {
         response:
             statusCode === undefined
                 ? undefined
                 : {
-                      data: { statusCode, message: "", path: "", timestamp: "" }
+                      data: { statusCode, message, path: "", timestamp: "" }
                   }
     } as AxiosError<AppError>;
 }
@@ -34,6 +34,20 @@ describe("registerErrorHandler - помечает поле email формы ре
         expect(setError).toHaveBeenCalledWith("email", {
             type: "client",
             message: "api.invalidData"
+        });
+    });
+
+    it("Помечает email слишком ранним запросом кода (400, повторная отправка формы)", () => {
+        const setError = vi.fn();
+
+        registerErrorHandler(
+            createError(400, "Please wait before requesting a new verification code"),
+            setError
+        );
+
+        expect(setError).toHaveBeenCalledWith("email", {
+            type: "client",
+            message: "api.earlyCodeRequest"
         });
     });
 
