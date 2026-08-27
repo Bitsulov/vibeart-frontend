@@ -58,4 +58,25 @@ describe("CommunityItem - Карточка сообщества", () => {
         await userEvent.click(screen.getByRole("button"));
         expect(screen.getByText("unscribe")).toBeInTheDocument();
     });
+
+    it("Увеличивает счётчик подписчиков при подписке", async () => {
+        renderWithProviders(
+            <CommunityItem {...defaultProps} subscribersCount={5} isSubscribed={false} />
+        );
+        await userEvent.click(screen.getByRole("button"));
+        expect(screen.getByText("6")).toBeInTheDocument();
+    });
+
+    it("Уменьшает счётчик подписчиков при отписке", async () => {
+        renderWithProviders(
+            <CommunityItem {...defaultProps} subscribersCount={5} isSubscribed={true} />
+        );
+        await userEvent.click(screen.getByRole("button"));
+        expect(screen.getByText("4")).toBeInTheDocument();
+    });
+
+    it("Не отображает кнопку подписки для своих сообществ", () => {
+        renderWithProviders(<CommunityItem {...defaultProps} isOwner={true} />);
+        expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
 });

@@ -4,45 +4,44 @@ import { userEvent } from "@testing-library/user-event";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { CommunitiesSubscribeButton } from "./communitiesSubscribeButton";
 
-const setIsSubscribed = vi.fn();
+const defaultProps = {
+    UUID: "00000000-0000-4000-8000-000000000015",
+    setIsSubscribed: vi.fn(),
+    setSubscribersCount: vi.fn()
+};
 
 describe("CommunitiesSubscribeButton - Кнопка подписки", () => {
     it("Отображается как кнопка", () => {
         renderWithProviders(
-            <CommunitiesSubscribeButton
-                isSubscribed={false}
-                setIsSubscribed={setIsSubscribed}
-            />
+            <CommunitiesSubscribeButton {...defaultProps} isSubscribed={false} />
         );
         expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
     it("Отображает ключ подписки когда не подписан", () => {
         renderWithProviders(
-            <CommunitiesSubscribeButton
-                isSubscribed={false}
-                setIsSubscribed={setIsSubscribed}
-            />
+            <CommunitiesSubscribeButton {...defaultProps} isSubscribed={false} />
         );
         expect(screen.getByText("subscribe")).toBeInTheDocument();
     });
 
     it("Отображает ключ отписки когда подписан", () => {
         renderWithProviders(
-            <CommunitiesSubscribeButton
-                isSubscribed={true}
-                setIsSubscribed={setIsSubscribed}
-            />
+            <CommunitiesSubscribeButton {...defaultProps} isSubscribed={true} />
         );
         expect(screen.getByText("unscribe")).toBeInTheDocument();
     });
 
     it("Вызывает setIsSubscribed при клике", async () => {
-        const handler = vi.fn();
+        const setIsSubscribed = vi.fn();
         renderWithProviders(
-            <CommunitiesSubscribeButton isSubscribed={false} setIsSubscribed={handler} />
+            <CommunitiesSubscribeButton
+                {...defaultProps}
+                isSubscribed={false}
+                setIsSubscribed={setIsSubscribed}
+            />
         );
         await userEvent.click(screen.getByRole("button"));
-        expect(handler).toHaveBeenCalledTimes(1);
+        expect(setIsSubscribed).toHaveBeenCalledWith(true);
     });
 });
