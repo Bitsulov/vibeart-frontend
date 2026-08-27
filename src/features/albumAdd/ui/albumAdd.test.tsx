@@ -34,4 +34,17 @@ describe("albumAdd - ссылка на страницу добавления а�
             expect(document.title).toBe("albumCreate");
         });
     });
+
+    it("Ведёт на создание альбома от имени сообщества, если передан communityUUID", () => {
+        renderWithProviders(
+            <AlbumAdd communityUUID="00000000-0000-4000-8000-00000000001d" />
+        );
+
+        const link = screen.getByRole("link", { name: "ariaLabel.goToCreateAlbumPage" });
+
+        expect(link).toHaveAttribute(
+            "href",
+            "/album/add?community=00000000-0000-4000-8000-00000000001d"
+        );
+    });
 });

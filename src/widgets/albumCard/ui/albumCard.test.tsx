@@ -8,6 +8,7 @@ import { galleryPostsMock } from "entities/post";
 const baseProps = {
     UUID: "00000000-0000-4000-8000-00000000000b",
     authorUUID: "00000000-0000-4000-8000-00000000000b",
+    isCommunityAuthor: false,
     title: "Test Album",
     description: "Album description",
     imageUrl: "/test-image.jpg",

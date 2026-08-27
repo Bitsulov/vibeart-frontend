@@ -20,7 +20,14 @@ export function registerErrorHandler(
             setError("email", { type: "client", message: "api.conflictUserEmailError" });
             break;
         case 400:
-            setError("email", { type: "client", message: "api.invalidData" });
+            if (
+                error.response?.data.message ===
+                "Please wait before requesting a new verification code"
+            ) {
+                setError("email", { type: "client", message: "api.earlyCodeRequest" });
+            } else {
+                setError("email", { type: "client", message: "api.invalidData" });
+            }
             break;
         case 403:
             setError("email", { type: "client", message: "api.forbiddenError" });

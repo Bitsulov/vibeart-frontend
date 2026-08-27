@@ -140,6 +140,7 @@ export const Gallery = () => {
                               title: post.community!.name,
                               description: post.community!.description,
                               albumsList: [],
+                              admins: [],
                               imageUrl: post.community!.avatarUrl,
                               posts: post.community!.worksCount,
                               subscribers: post.community!.subscribersCount,

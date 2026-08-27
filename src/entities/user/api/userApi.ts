@@ -1,5 +1,6 @@
 import { api } from "shared/api/instance";
 import type { AxiosInstance, AxiosResponse } from "axios";
+import type { Page, Pageable } from "shared/lib/types";
 import type {
     AuthResponse,
     ChangeEmailRequest,
@@ -65,6 +66,15 @@ const urls = {
     },
     deleteUserByUUID: function (UUID: string) {
         return `${this.baseUrlUser}/${UUID}`;
+    },
+    friends: function () {
+        return `${this.baseUrlUser}/friends`;
+    },
+    friendsSearch: function () {
+        return `${this.baseUrlUser}/friends/search`;
+    },
+    subscribeUser: function (UUID: string) {
+        return `${this.baseUrlUser}/${UUID}/subscribe`;
     }
 };
 
@@ -293,4 +303,45 @@ export async function confirmPassword(
 export async function deleteUserByUUID(UUID: string): Promise<AxiosResponse<string>> {
     console.log("Calling delete user with UUID: ", UUID);
     return api.delete(urls.deleteUserByUUID(UUID));
+}
+
+/**
+ * Получает постраничный список друзей текущего пользователя — тех, с кем оформлена взаимная подписка.
+ *
+ * @param pageable - Параметры постраничного запроса.
+ * @returns Промис со страницей друзей {@link UserResponse}.
+ */
+export async function getFriends(
+    pageable?: Pageable
+): Promise<AxiosResponse<Page<UserResponse>>> {
+    console.log("Calling get friends");
+    return api.get(urls.friends(), { params: pageable });
+}
+
+/**
+ * Ищет среди друзей текущего пользователя по имени или username.
+ *
+ * @param query - Поисковый запрос. Если начинается с `@`, поиск идёт по имени пользователя.
+ * @param pageable - Параметры постраничного запроса.
+ * @returns Промис со страницей найденных друзей {@link UserResponse}.
+ */
+export async function getFriendsBySearch(
+    query: string,
+    pageable?: Pageable
+): Promise<AxiosResponse<Page<UserResponse>>> {
+    console.log(`Calling search friends by query: ${query}`);
+    return api.get(urls.friendsSearch(), { params: { query, ...pageable } });
+}
+
+/**
+ * Переключает подписку текущего пользователя на другого пользователя.
+ *
+ * @param UUID - UUID пользователя, на которого оформляется или отменяется подписка.
+ * @returns Строка с описанием результата выполнения запроса.
+ */
+export async function toggleUserSubscription(
+    UUID: string
+): Promise<AxiosResponse<string>> {
+    console.log(`Calling toggle user subscription ${UUID}`);
+    return api.post(urls.subscribeUser(UUID));
 }

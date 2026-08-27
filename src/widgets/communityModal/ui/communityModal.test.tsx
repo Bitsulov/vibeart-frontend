@@ -57,6 +57,20 @@ describe("CommunityModal - модальное окно информации о �
         expect(screen.getByText("Admin Name")).toBeInTheDocument();
     });
 
+    it("Не отображает заголовок администраторов, если список пуст", () => {
+        renderWithProviders(<CommunityModal {...defaultProps} admins={[]} />);
+
+        expect(screen.queryByText("community.admins")).not.toBeInTheDocument();
+    });
+
+    it("Отображает UUID владельца, если у него нет имени", () => {
+        renderWithProviders(
+            <CommunityModal {...defaultProps} owner={{ ...owner, title: "" }} />
+        );
+
+        expect(screen.getByText(owner.UUID)).toBeInTheDocument();
+    });
+
     it("Не рендерится когда isShow=false", () => {
         renderWithProviders(<CommunityModal {...defaultProps} isShow={false} />);
 

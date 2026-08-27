@@ -72,11 +72,14 @@
         "deleteUserSuccess": "Account successfully deleted",
         "postNotFound": "This post was not found",
         "albumNotFound": "This album was not found",
+        "communityNotFound": "This community was not found",
         "tagNotFound": "Tag {{tag}} not found",
         "postCreatedSuccess": "Post successfully created.",
         "postUpdatedSuccess": "Post successfully updated.",
         "albumCreatedSuccess": "Album successfully created.",
         "albumUpdatedSuccess": "Album successfully updated.",
+        "communityCreatedSuccess": "Community successfully created.",
+        "communityUpdatedSuccess": "Community successfully updated.",
         "postsAddedToAlbumSuccess": "Posts successfully added to the album.",
         "fileTooLarge": "The uploaded file size must not exceed 25 megabytes."
     },
@@ -118,6 +121,8 @@
         "auth": "Authorize",
         "register": "Register",
         "writeUser": "Go to chat with {{name}}",
+        "subscribeUser": "Subscribe to {{name}}",
+        "unsubscribeUser": "Unsubscribe from {{name}}",
         "goToChat": "Go to chat {{name}}",
         "slideLeft": "Scroll slider left",
         "slideRight": "Scroll slider right",
@@ -143,6 +148,8 @@
         "deleteChat": "Delete chat",
         "deleteMessages": "Delete messages",
         "deleteCommunity": "Delete community",
+        "subscribeCommunity": "Subscribe to {{name}}",
+        "unsubscribeCommunity": "Unsubscribe from {{name}}",
         "sendMessage": "Send message",
         "goToCreateCommunityPage": "Go to create community page",
         "loadImg": "Upload image",
@@ -395,7 +402,9 @@
         "title": "Communities",
         "addCommunity": "+ Create community",
         "myCommunities": "My communities",
+        "mySubscriptions": "My subscriptions",
         "allCommunities": "All communities",
+        "emptyOwned": "You don't have any communities of your own yet",
         "emptyMy": "You are not subscribed to any communities yet",
         "emptyAll": "There are no communities here yet"
     },
@@ -403,7 +412,8 @@
     "community": {
         "owner": "Owner:",
         "admins": "Administrators:",
-        "emptyDescription": "No description yet"
+        "emptyDescription": "No description yet",
+        "addPost": "+ Create post"
     },
 
     "settings": {
@@ -460,6 +470,7 @@
 
     "createCommunity": {
         "title": "Create community",
+        "titleEdit": "Edit community",
         "avatarTitle": "Community photo",
         "avatarDescription": "Recommended size 400x400px in JPG or PNG format. It will be displayed as a circle across all community activities.",
         "nameTitle": "Name",
@@ -474,6 +485,8 @@
         "idPlaceholder": "Enter ID",
         "editDesktop": "Create community",
         "editMobile": "Create",
+        "saveDesktop": "Save changes",
+        "saveMobile": "Save",
         "adminsTitle": "Add administrators"
     },
 

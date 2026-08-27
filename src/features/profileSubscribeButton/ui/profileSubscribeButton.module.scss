@@ -1,0 +1,34 @@
+@use "@/variables.scss" as global;
+
+.button {
+    position: absolute;
+    top: 0;
+    right: 5.4rem;
+    width: 4.4rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: global.$bright-background;
+    padding: 0.6rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: global.$transition-time;
+
+    &:hover,
+    &.subscribed {
+        background-color: global.$active-color;
+
+        .icon {
+            fill: global.$active-color;
+            stroke: global.$bright-background;
+        }
+    }
+
+    .icon {
+        width: 3.1rem;
+        height: 3.1rem;
+        stroke-width: 0.2rem;
+        transition: global.$transition-time;
+    }
+}

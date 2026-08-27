@@ -16,11 +16,14 @@ import { ProfileIcons } from "features/profileIcons";
 import { StatItem } from "features/statItem";
 import { showHint } from "../model/showHint";
 import { hideHint } from "../model/hideHint";
+import { ProfileSubscribeButton } from "features/profileSubscribeButton";
 
 /** Свойства компонента {@link ProfileInfo}. */
 interface ProfileInfoProps {
     /** Объект пользователя, профиль которого отображается. */
     userInfo: UserType;
+    /** Признак подписки текущего пользователя на просматриваемый профиль. */
+    isSubscribed?: boolean;
     /** Статус загрузки данных */
     isLoadingData?: boolean;
 }
@@ -29,10 +32,15 @@ interface ProfileInfoProps {
  * Блок информации профиля: аватар, имя, имя пользователя, описание, статистика и статусные иконки.
  *
  * Определяет, является ли просматриваемый профиль собственным, и передаёт этот признак
- * в {@link ProfileLink}. На узких экранах (< 1200 px) описание сворачивается с кнопкой
- * раскрытия. Дата регистрации форматируется через {@link getLocalTimeString}.
+ * в {@link ProfileLink}. Для чужого профиля показывает кнопку подписки
+ * {@link ProfileSubscribeButton}. На узких экранах (< 1200 px) описание сворачивается
+ * с кнопкой раскрытия. Дата регистрации форматируется через {@link getLocalTimeString}.
  */
-export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProps) => {
+export const ProfileInfo = ({
+    userInfo,
+    isSubscribed = false,
+    isLoadingData = false
+}: ProfileInfoProps) => {
     const { t } = useTranslation();
     const language = useSelector(selectCurrentLanguage);
     const principalUserInfo = useSelector(selectUserInfo);
@@ -40,6 +48,12 @@ export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProp
     const windowWidth = useWindowWidth();
 
     const [isOpened, setIsOpened] = useState<boolean>(false);
+
+    const [isSubscribedState, setIsSubscribedState] = useState<boolean>(isSubscribed);
+
+    useEffect(() => {
+        setIsSubscribedState(isSubscribed);
+    }, [isSubscribed]);
 
     const [isExpandable, setIsExpandable] = useState<boolean>(false);
     const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -86,11 +100,21 @@ export const ProfileInfo = ({ userInfo, isLoadingData = false }: ProfileInfoProp
                         />
                     )}
                     {!isLoadingData && (
-                        <ProfileLink
-                            isPrincipalUser={isPrincipalUser}
-                            name={userInfo.title}
-                            UUID={userInfo.UUID}
-                        />
+                        <>
+                            {!isPrincipalUser && (
+                                <ProfileSubscribeButton
+                                    UUID={userInfo.UUID}
+                                    name={userInfo.title}
+                                    isSubscribed={isSubscribedState}
+                                    setIsSubscribed={setIsSubscribedState}
+                                />
+                            )}
+                            <ProfileLink
+                                isPrincipalUser={isPrincipalUser}
+                                name={userInfo.title}
+                                UUID={userInfo.UUID}
+                            />
+                        </>
                     )}
                     <div className={c.left}>
                         <div

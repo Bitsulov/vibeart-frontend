@@ -1,6 +1,6 @@
 import c from "./communityInfo.module.scss";
 import { selectUserInfo } from "entities/user";
-import { type CommunityType } from "entities/community";
+import { deleteCommunityByUUID, type CommunityType } from "entities/community";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
@@ -13,14 +13,19 @@ import { hideHint } from "../model/hideHint";
 import { Heart, Image, Settings, UsersRound } from "lucide-react";
 import { CopyButton } from "features/copyButton";
 import { openDescriptionHandler } from "../model/openDescriptionHandler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CommunityModal } from "widgets/communityModal";
-import { communityAdminsMock } from "entities/user";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteButton } from "features/deleteButton";
 import { ConfirmModal } from "../../confirmModal";
-import { deleteCommunityClickHandler } from "../model/deleteCommunityClickHandler";
+import { confirmDeleteCommunity } from "../model/confirmDeleteCommunity";
+import { deleteCommunitySuccessHandler } from "../model/deleteCommunitySuccessHandler";
+import { deleteCommunityErrorHandler } from "../model/deleteCommunityErrorHandler";
 import { openConfirmModalHandler } from "../model/openConfirmModalHandler";
+import { CommunitySubscribeButton } from "features/communitySubscribeButton";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link CommunityInfo}. */
 interface CommunityInfoProps {
@@ -45,6 +50,12 @@ export const CommunityInfo = ({ communityInfo }: CommunityInfoProps) => {
     const [isOpenedWindow, setIsOpenedWindow] = useState<boolean>(false);
     const [isShowConfirmModal, setIsShowConfirmModal] = useState<boolean>(false);
 
+    const [isSubscribed, setIsSubscribed] = useState<boolean>(communityInfo.isSubscribed);
+
+    useEffect(() => {
+        setIsSubscribed(communityInfo.isSubscribed);
+    }, [communityInfo.isSubscribed]);
+
     const avatarImg = communityInfo.imageUrl || defaultAvatar;
     const avatarAlt = `${t("profile.avatarAlt")} ${communityInfo.title}`;
     const isPrincipalUser = communityInfo.owner.UUID === principalUserInfo.UUID;
@@ -53,20 +64,32 @@ export const CommunityInfo = ({ communityInfo }: CommunityInfoProps) => {
 
     const dispatch = useDispatch();
 
+    const deleteCommunityMutation = useMutation({
+        mutationFn: deleteCommunityByUUID,
+        onSuccess: () => deleteCommunitySuccessHandler(navigate),
+        onError: (error: AxiosError<AppError>) =>
+            deleteCommunityErrorHandler(error, dispatch)
+    });
+
     return (
         <section className={c.info}>
             <CommunityModal
                 description={communityInfo.description || t("community.emptyDescription")}
                 createdAt={communityInfo.createdAt}
                 owner={communityInfo.owner}
-                admins={communityAdminsMock}
+                admins={communityInfo.admins}
                 isShow={isOpenedWindow}
                 setIsShow={setIsOpenedWindow}
             />
             <ConfirmModal
                 text={t("modal.deleteCommunity")}
                 ariaLabelConfirm={t("ariaLabel.deleteCommunity")}
-                confirmFn={() => deleteCommunityClickHandler(navigate)}
+                confirmFn={() =>
+                    confirmDeleteCommunity(
+                        communityInfo.UUID,
+                        deleteCommunityMutation.mutateAsync
+                    )
+                }
                 isShowModal={isShowConfirmModal}
                 setIsShowModal={setIsShowConfirmModal}
             />
@@ -84,7 +107,7 @@ export const CommunityInfo = ({ communityInfo }: CommunityInfoProps) => {
                         <div className={c.buttons}>
                             <Link
                                 aria-label={t("ariaLabel.goToSettings")}
-                                to={`/communities/${communityInfo.UUID}/edit`}
+                                to={`/communities/add?community=${communityInfo.UUID}`}
                                 className={c.settings_wrapper}
                                 onMouseEnter={() =>
                                     showHint(dispatch, t("hint.settings"))
@@ -105,6 +128,14 @@ export const CommunityInfo = ({ communityInfo }: CommunityInfoProps) => {
                                 className={c.delete}
                             />
                         </div>
+                    )}
+                    {!isPrincipalUser && (
+                        <CommunitySubscribeButton
+                            UUID={communityInfo.UUID}
+                            name={communityInfo.title}
+                            isSubscribed={isSubscribed}
+                            setIsSubscribed={setIsSubscribed}
+                        />
                     )}
                     <div className={c.left}>
                         <div className={c.avatar_wrapper}>

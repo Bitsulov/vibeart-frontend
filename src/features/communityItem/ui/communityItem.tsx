@@ -1,5 +1,5 @@
 import c from "./communityItem.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ComponentPropsWithoutRef } from "react";
 import { StatItem } from "../../statItem";
 import { UsersRound } from "lucide-react";
@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { hideHint } from "../model/hideHint";
 import defaultAvatar from "shared/icons/icon-user.svg";
+import clsx from "clsx";
 
 /** Свойства компонента {@link CommunityItem}. */
 interface CommunitiesItemProps extends ComponentPropsWithoutRef<"article"> {
@@ -25,6 +26,8 @@ interface CommunitiesItemProps extends ComponentPropsWithoutRef<"article"> {
     subscribersCount?: number;
     /** Признак подписки текущего пользователя на это сообщество. */
     isSubscribed?: boolean;
+    /** Признак того, что текущий пользователь — владелец сообщества. */
+    isOwner?: boolean;
 }
 
 /**
@@ -32,7 +35,7 @@ interface CommunitiesItemProps extends ComponentPropsWithoutRef<"article"> {
  *
  * Отображает обложку, счётчик подписчиков, название, описание,
  * ссылку на страницу сообщества и кнопку подписки/отписки.
- * Состояние подписки управляется локально.
+ * Подписка и счётчик подписчиков обновляются оптимистично через {@link CommunitiesSubscribeButton}.
  */
 export const CommunityItem = ({
     imageUrl,
@@ -41,6 +44,7 @@ export const CommunityItem = ({
     description = "",
     subscribersCount = 0,
     isSubscribed = false,
+    isOwner = false,
     ...props
 }: CommunitiesItemProps) => {
     const { t } = useTranslation();
@@ -48,6 +52,13 @@ export const CommunityItem = ({
 
     const [isSubscribedCommunity, setIsSubscribedCommunity] =
         useState<boolean>(isSubscribed);
+    const [subscribersCountState, setSubscribersCountState] =
+        useState<number>(subscribersCount);
+
+    useEffect(() => {
+        setIsSubscribedCommunity(isSubscribed);
+        setSubscribersCountState(subscribersCount);
+    }, [isSubscribed, subscribersCount]);
 
     return (
         <article className={c.community} {...props}>
@@ -58,7 +69,7 @@ export const CommunityItem = ({
                         onMouseEnter={() => showHint(dispatch, t("hint.subscribers"))}
                         onMouseLeave={() => hideHint(dispatch)}
                         Icon={UsersRound}
-                        number={subscribersCount}
+                        number={subscribersCountState}
                         className={c.subscribers}
                     />
                 </div>
@@ -68,14 +79,21 @@ export const CommunityItem = ({
                 </div>
             </div>
             <div className={c.buttons}>
-                <TransparentLink className={c.link} href={`/communities/${UUID}`}>
+                <TransparentLink
+                    className={clsx(c.link, isOwner && c.link_full)}
+                    href={`/communities/${UUID}`}
+                >
                     {t("goLink")}
                 </TransparentLink>
-                <CommunitiesSubscribeButton
-                    setIsSubscribed={setIsSubscribedCommunity}
-                    className={c.subscribe}
-                    isSubscribed={isSubscribedCommunity}
-                />
+                {!isOwner && (
+                    <CommunitiesSubscribeButton
+                        UUID={UUID}
+                        setIsSubscribed={setIsSubscribedCommunity}
+                        setSubscribersCount={setSubscribersCountState}
+                        className={c.subscribe}
+                        isSubscribed={isSubscribedCommunity}
+                    />
+                )}
             </div>
         </article>
     );

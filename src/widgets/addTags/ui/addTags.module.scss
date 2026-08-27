@@ -22,6 +22,10 @@
         .select {
             background-color: global.$active-color;
             color: global.$dark-background;
+
+            &:hover {
+                background-color: global.$active-color;
+            }
         }
     }
 }

@@ -4,18 +4,26 @@ import { useTranslation } from "react-i18next";
 import type { ICreateCommunityForm } from "../lib/types";
 import { submitValidHandler } from "../model/submitValidHandler";
 import { submitInvalidHandler } from "../model/submitInvalidHandler";
+import { communityRequestSuccessHandler } from "../model/communityRequestSuccessHandler";
+import { communityRequestErrorHandler } from "../model/communityRequestErrorHandler";
+import { onAvatarDeleteHandler } from "../model/onAvatarDeleteHandler";
 import type { UserType } from "entities/user";
 import {
     type ComponentPropsWithoutRef,
     type Dispatch,
     type SetStateAction,
+    useEffect,
     useState
 } from "react";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { SettingsItem } from "features/settingsItem";
-import type { CommunityType } from "entities/community";
+import { addCommunity, type CommunityType, updateCommunity } from "entities/community";
 import { StylizedButton } from "features/stylizedButton";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import type { AppError } from "shared/lib/types";
 import { AddTags } from "widgets/addTags";
 import type { TagType } from "entities/tag";
 import { AddAdmins } from "widgets/addAdmins";
@@ -31,29 +39,47 @@ interface CreateCommunityWidgetProps extends ComponentPropsWithoutRef<"form"> {
     communityInfo: Partial<CommunityType>;
     /** Сеттер состояния создаваемого сообщества. */
     setCommunityInfo: Dispatch<SetStateAction<Partial<CommunityType>>>;
+    /** Признак режима создания сообщества; при `false` форма работает в режиме редактирования. */
+    isCreateNewCommunity: boolean;
+    /** UUID редактируемого сообщества. */
+    communityUUID: string;
+    /** Исходное название редактируемого сообщества — используется для проверки, изменились ли данные. */
+    originalTitle: string;
+    /** Исходное описание редактируемого сообщества — используется для проверки, изменились ли данные. */
+    originalDescription: string;
+    /** Исходный username редактируемого сообщества — используется для проверки, изменились ли данные. */
+    originalUsername: string;
+    /** Исходные теги редактируемого сообщества, отмечаемые как выбранные при загрузке формы. */
+    originalTags: string[];
+    /** Исходные администраторы редактируемого сообщества, отмечаемые как выбранные при загрузке формы. */
+    originalAdmins: UserType[];
 }
 
 /**
- * Форма создания нового сообщества.
+ * Форма создания или редактирования сообщества.
  *
- * Объединяет поля аватара, названия, описания и короткого идентификатора
- * через {@link SettingsItem}, выбор тегов через {@link AddTags}
- * и выбор администраторов через {@link AddAdmins}.
- *
- * Валидация управляется react-hook-form. При ошибке первое невалидное сообщение
- * показывается через toast-уведомление ({@link submitInvalidHandler}).
- * При успехе поля формы сбрасываются ({@link submitValidHandler}).
- * Текст кнопки отправки адаптируется под ширину экрана (мобильный / десктоп).
+ * Совмещает поля аватара, названия, описания и короткого идентификатора,
+ * выбор тегов и выбор администраторов. В режиме редактирования поля формы,
+ * теги и администраторы предзаполняются данными сообщества. Валидация
+ * выполняется через react-hook-form, при ошибке показывается уведомление.
  */
 export const CreateCommunityWidget = ({
     communityInfo,
     setCommunityInfo,
     userInfo,
     tagsList,
+    isCreateNewCommunity,
+    communityUUID,
+    originalTitle,
+    originalDescription,
+    originalUsername,
+    originalTags,
+    originalAdmins,
     ...props
 }: CreateCommunityWidgetProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const windowWidth = useWindowWidth();
     const isDesktop = windowWidth >= 1200;
 
@@ -78,11 +104,20 @@ export const CreateCommunityWidget = ({
         ? "createCommunity.textDescriptionDesktop"
         : "createCommunity.textDescriptionMobile";
 
-    const submitText = isDesktop
-        ? "createCommunity.editDesktop"
-        : "createCommunity.editMobile";
+    const title = isCreateNewCommunity
+        ? "createCommunity.title"
+        : "createCommunity.titleEdit";
 
-    const [_loadedFile, setLoadedFile] = useState<File | undefined>(undefined);
+    const submitText = isCreateNewCommunity
+        ? isDesktop
+            ? "createCommunity.editDesktop"
+            : "createCommunity.editMobile"
+        : isDesktop
+          ? "createCommunity.saveDesktop"
+          : "createCommunity.saveMobile";
+
+    const [loadedFile, setLoadedFile] = useState<File | undefined>(undefined);
+    const [isDeleteAvatar, setIsDeleteAvatar] = useState<boolean>(false);
 
     const [tags, setTags] = useState<string[]>([]);
 
@@ -92,10 +127,65 @@ export const CreateCommunityWidget = ({
 
     const [selectedUsers, setSelectedUsers] = useState<UserType[]>([]);
 
+    useEffect(() => {
+        setValue("title", communityInfo?.title ?? "");
+        setValue("description", communityInfo?.description ?? "");
+        setValue("id", communityInfo?.username ?? "");
+        setTags(originalTags);
+        setSelectedUsers(originalAdmins);
+    }, [communityInfo, originalTags, originalAdmins, setValue]);
+
+    const createCommunityMutation = useMutation({
+        mutationFn: addCommunity,
+        onSuccess: data =>
+            communityRequestSuccessHandler(
+                data,
+                navigate,
+                dispatch,
+                isCreateNewCommunity
+            ),
+        onError: (error: AxiosError<AppError>) =>
+            communityRequestErrorHandler(error, dispatch)
+    });
+
+    const updateCommunityMutation = useMutation({
+        mutationFn: updateCommunity,
+        onSuccess: data =>
+            communityRequestSuccessHandler(
+                data,
+                navigate,
+                dispatch,
+                isCreateNewCommunity
+            ),
+        onError: (error: AxiosError<AppError>) =>
+            communityRequestErrorHandler(error, dispatch)
+    });
+
     return (
         <form
             onSubmit={handleSubmit(
-                () => submitValidHandler(setValue),
+                data =>
+                    submitValidHandler(
+                        data,
+                        createCommunityMutation.mutateAsync,
+                        updateCommunityMutation.mutateAsync,
+                        isCreateNewCommunity,
+                        tags,
+                        selectedUsers.map(user => user.UUID),
+                        userInfo.UUID,
+                        communityUUID,
+                        isDeleteAvatar,
+                        dispatch,
+                        loadedFile,
+                        {
+                            title: originalTitle,
+                            description: originalDescription,
+                            username: originalUsername,
+                            tags: originalTags,
+                            adminsUuids: originalAdmins.map(admin => admin.UUID)
+                        },
+                        () => {}
+                    ),
                 errors => submitInvalidHandler(errors, dispatch)
             )}
             className={c.form}
@@ -104,9 +194,7 @@ export const CreateCommunityWidget = ({
             <div className="container">
                 <div className={c.form_inner}>
                     <BackLink className={c.back} />
-                    {isDesktop && (
-                        <h1 className={c.title}>{t("createCommunity.title")}</h1>
-                    )}
+                    {isDesktop && <h1 className={c.title}>{t(title)}</h1>}
                     <div className={c.settings}>
                         <SettingsItem
                             title={t("createCommunity.avatarTitle")}
@@ -121,6 +209,9 @@ export const CreateCommunityWidget = ({
                             setEntityInfo={setCommunityInfo}
                             id="avatar"
                             avatarAlt={communityInfo.title || t("avatar")}
+                            onAvatarDelete={() =>
+                                onAvatarDeleteHandler(setIsDeleteAvatar)
+                            }
                         />
                         <SettingsItem
                             title={t("createCommunity.nameTitle")}

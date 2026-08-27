@@ -19,6 +19,51 @@ test.describe("CreateCommunity - визуальная проверка блок�
                 })
             })
         );
+        await page.route(/\/api\/user\/friends(\?[^/]*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        {
+                            uuid: "00000000-0000-4000-8000-000000000014",
+                            name: "Alice Wonder",
+                            username: "alice.wonder",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 12,
+                            subscribersCount: 450,
+                            subscribesCount: 30,
+                            createdAt: "2025-12-01T10:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true
+                        },
+                        {
+                            uuid: "00000000-0000-4000-8000-00000000001b",
+                            name: "Bob Rivers",
+                            username: "bob.rivers",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 7,
+                            subscribersCount: 210,
+                            subscribesCount: 15,
+                            createdAt: "2026-01-05T08:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "OFFLINE",
+                            enabled: true
+                        }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 2,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
 
         await page.goto(CREATE_COMMUNITY_URL);
         await expect(page.getByRole("main")).toBeVisible();
