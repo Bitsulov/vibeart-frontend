@@ -27,7 +27,6 @@ const appRoutes = [
     route("communities", "./routes/communities.tsx"),
     route("communities/add", "./routes/communities.add.tsx"),
     route("communities/:uuid", "./routes/communities.$uuid.tsx"),
-    route("communities/:uuid/edit", "./routes/communities.$uuid.edit.tsx"),
     route("settings", "./routes/settings.tsx"),
     route("notifications", "./routes/notifications.tsx"),
     route("agreement", "./routes/agreement.tsx"),
@@ -63,9 +62,6 @@ const langAppRoutes = [
     }),
     route("communities/:uuid", "./routes/communities.$uuid.tsx", {
         id: "lang-communities-item"
-    }),
-    route("communities/:uuid/edit", "./routes/communities.$uuid.edit.tsx", {
-        id: "lang-communities-edit"
     }),
     route("settings", "./routes/settings.tsx", { id: "lang-settings" }),
     route("notifications", "./routes/notifications.tsx", { id: "lang-notifications" }),

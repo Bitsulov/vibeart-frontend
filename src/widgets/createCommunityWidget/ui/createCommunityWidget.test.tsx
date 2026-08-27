@@ -2,14 +2,21 @@ import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { CreateCommunityWidget } from "./createCommunityWidget";
-import { principalUserMock } from "entities/user";
+import { communityAdminsMock, principalUserMock } from "entities/user";
 import { communityTagsMock } from "entities/tag";
 
 const defaultProps = {
     userInfo: principalUserMock,
     tagsList: communityTagsMock,
     communityInfo: {},
-    setCommunityInfo: vi.fn()
+    setCommunityInfo: vi.fn(),
+    isCreateNewCommunity: true,
+    communityUUID: "",
+    originalTitle: "",
+    originalDescription: "",
+    originalUsername: "",
+    originalTags: [],
+    originalAdmins: []
 };
 
 describe("CreateCommunityWidget - форма создания сообщества", () => {
@@ -55,5 +62,59 @@ describe("CreateCommunityWidget - форма создания сообществ
         renderWithProviders(<CreateCommunityWidget {...defaultProps} />);
 
         expect(screen.getByText("@")).toBeInTheDocument();
+    });
+
+    it("Кнопка отправки показывает текст создания в режиме создания", () => {
+        renderWithProviders(<CreateCommunityWidget {...defaultProps} />);
+
+        expect(screen.getByText("createCommunity.editMobile")).toBeInTheDocument();
+    });
+
+    it("Кнопка отправки показывает текст сохранения в режиме редактирования", () => {
+        renderWithProviders(
+            <CreateCommunityWidget {...defaultProps} isCreateNewCommunity={false} />
+        );
+
+        expect(screen.getByText("createCommunity.saveMobile")).toBeInTheDocument();
+    });
+
+    it("Предзаполняет название, описание и id данными редактируемого сообщества", () => {
+        renderWithProviders(
+            <CreateCommunityWidget
+                {...defaultProps}
+                isCreateNewCommunity={false}
+                communityInfo={{
+                    title: "Клуб художников",
+                    description: "Описание клуба",
+                    username: "art-club"
+                }}
+            />
+        );
+
+        expect(
+            screen.getByRole("textbox", { name: "createCommunity.namePlaceholder" })
+        ).toHaveValue("Клуб художников");
+        expect(
+            screen.getByRole("textbox", { name: "createCommunity.textPlaceholder" })
+        ).toHaveValue("Описание клуба");
+        expect(
+            screen.getByRole("textbox", { name: "createCommunity.idPlaceholder" })
+        ).toHaveValue("art-club");
+    });
+
+    it("Передаёт исходных администраторов в виджет выбора администраторов", async () => {
+        const [firstAdmin] = communityAdminsMock;
+
+        renderWithProviders(
+            <CreateCommunityWidget
+                {...defaultProps}
+                isCreateNewCommunity={false}
+                originalAdmins={[firstAdmin]}
+            />
+        );
+
+        expect(
+            await screen.findByRole("link", { name: "ariaLabel.deleteAdmin" })
+        ).toBeInTheDocument();
     });
 });

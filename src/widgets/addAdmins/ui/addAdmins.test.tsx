@@ -2,7 +2,11 @@ import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { AddAdmins } from "./addAdmins";
-import { principalUserMock, communityAdminsMock } from "entities/user";
+import {
+    principalUserMock,
+    communityAdminsMock,
+    friendsResponseMock
+} from "entities/user";
 
 const defaultProps = {
     author: principalUserMock,
@@ -22,12 +26,12 @@ describe("AddAdmins - виджет выбора администраторов",
         expect(screen.getByText(`${principalUserMock.title} You`)).toBeInTheDocument();
     });
 
-    it("Отображает всех пользователей из мок-данных", () => {
+    it("Отображает друзей, полученных с сервера", async () => {
         renderWithProviders(<AddAdmins {...defaultProps} />);
 
-        communityAdminsMock.forEach(user => {
-            expect(screen.getByText(user.title)).toBeInTheDocument();
-        });
+        for (const friend of friendsResponseMock) {
+            expect(await screen.findByText(friend.name)).toBeInTheDocument();
+        }
     });
 
     it("Отображает поле поиска с плейсхолдером", () => {
@@ -36,12 +40,25 @@ describe("AddAdmins - виджет выбора администраторов",
         expect(screen.getByPlaceholderText("searchPlaceholder")).toBeInTheDocument();
     });
 
-    it("Выбранные администраторы отображаются", () => {
+    it("Выбранный администратор подсвечен и помечен на снятие", async () => {
         const [firstAdmin] = communityAdminsMock;
         renderWithProviders(
             <AddAdmins {...defaultProps} selectedAdmins={[firstAdmin]} />
         );
 
-        expect(screen.getByText(firstAdmin.title)).toBeInTheDocument();
+        const link = await screen.findByRole("link", { name: "ariaLabel.deleteAdmin" });
+
+        expect(link).toHaveClass("select");
+    });
+
+    it("Невыбранные друзья помечены на добавление и не подсвечены", async () => {
+        renderWithProviders(<AddAdmins {...defaultProps} selectedAdmins={[]} />);
+
+        const links = await screen.findAllByRole("link", { name: "ariaLabel.addAdmin" });
+
+        links.forEach(link => expect(link).not.toHaveClass("select"));
+        expect(
+            screen.queryByRole("link", { name: "ariaLabel.deleteAdmin" })
+        ).not.toBeInTheDocument();
     });
 });

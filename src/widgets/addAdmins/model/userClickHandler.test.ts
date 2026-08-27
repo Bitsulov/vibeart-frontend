@@ -32,6 +32,17 @@ describe("userClickHandler - переключение выбора админи�
         expect(updater([principalUserMock])).toEqual([]);
     });
 
+    it("Удаляет пользователя по UUID, даже если это другой объект с теми же данными", () => {
+        const e = { preventDefault: vi.fn() } as unknown as MouseEvent;
+        const setSelectedAdmins = vi.fn();
+        const sameUserNewReference = { ...principalUserMock };
+
+        userClickHandler(e, [principalUserMock], setSelectedAdmins, sameUserNewReference);
+
+        const updater = setSelectedAdmins.mock.calls[0][0];
+        expect(updater([principalUserMock])).toEqual([]);
+    });
+
     it("Удаляет только нужного пользователя из списка", () => {
         const e = { preventDefault: vi.fn() } as unknown as MouseEvent;
         const setSelectedAdmins = vi.fn();

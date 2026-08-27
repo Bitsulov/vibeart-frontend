@@ -20,7 +20,7 @@ export function userClickHandler(
     selectedUser: UserType
 ) {
     e.preventDefault();
-    if (selectedAdmins.includes(selectedUser)) {
+    if (selectedAdmins.some(admin => admin.UUID === selectedUser.UUID)) {
         setSelectedAdmins(admins =>
             admins.filter(admin => admin.UUID !== selectedUser.UUID)
         );
