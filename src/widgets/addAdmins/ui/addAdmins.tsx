@@ -82,6 +82,12 @@ export const AddAdmins = ({
         [friendsQuery.data]
     );
 
+    const selectedAdminsNotInList = selectedAdmins.filter(
+        admin => !friends.some(friend => friend.UUID === admin.UUID)
+    );
+
+    const displayedFriends = [...selectedAdminsNotInList, ...friends];
+
     return (
         <div className={`${c.admins} ${className}`} {...props}>
             <h2 className={c.title}>{t("createCommunity.adminsTitle")}</h2>
@@ -100,7 +106,7 @@ export const AddAdmins = ({
                         UUID={author.UUID}
                     />
                 </li>
-                {friends.map(user => (
+                {displayedFriends.map(user => (
                     <li key={`add admin wrapper ${user.UUID}`} className={c.item}>
                         <CommunityUserItem
                             onClick={e =>
