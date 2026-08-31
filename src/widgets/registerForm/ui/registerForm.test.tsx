@@ -78,7 +78,7 @@ describe("RegisterForm - форма регистрации", () => {
 
     describe("Валидация", () => {
         it("Показывает ошибку пустого email при отправке пустой формы", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await user.click(screen.getByRole("button", { name: "ariaLabel.register" }));
@@ -87,7 +87,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Показывает ошибку невалидного email", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await user.type(
@@ -100,7 +100,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Показывает ошибку при несовпадении паролей", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await user.type(
@@ -121,7 +121,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Показывает ошибку, если чекбокс соглашения не отмечен", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await user.type(
@@ -142,7 +142,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Email помечается как невалидный после отправки с ошибкой", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await user.click(screen.getByRole("button", { name: "ariaLabel.register" }));
@@ -153,7 +153,7 @@ describe("RegisterForm - форма регистрации", () => {
 
     describe("Шаг 2 - подтверждение кода", () => {
         it("После успешной регистрации показывается форма ввода кода", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await fillAndSubmitStep1(user);
@@ -169,7 +169,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Кнопка 'назад' возвращает к форме регистрации", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await fillAndSubmitStep1(user);
@@ -183,7 +183,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("Показывает ошибку в ячейках при отправке неполного кода", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await fillAndSubmitStep1(user);
@@ -199,7 +199,7 @@ describe("RegisterForm - форма регистрации", () => {
         });
 
         it("При вводе валидного кода переходит на страницу профиля", async () => {
-            const user = userEvent.setup();
+            const user = userEvent.setup({ delay: null });
             renderWithProviders(<RegisterForm />);
 
             await fillAndSubmitStep1(user);
