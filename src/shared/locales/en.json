@@ -378,7 +378,8 @@
         "back": "Back",
         "inAlbum": "In album",
         "Comments": "Comments",
-        "placeholder": "Enter text"
+        "placeholder": "Enter text",
+        "emptyComments": "There are no comments here yet"
     },
 
     "album": {
@@ -504,7 +505,9 @@
         "textPlaceholder": "Enter description",
         "tagsTitle": "Add tags",
         "submitTextMobile": "Create",
-        "submitTextDesktop": "Create post"
+        "submitTextDesktop": "Create post",
+        "submitTextEditMobile": "Edit",
+        "submitTextEditDesktop": "Edit post"
     },
 
     "cookies": {
