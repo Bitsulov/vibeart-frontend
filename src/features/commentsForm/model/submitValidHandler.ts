@@ -1,49 +1,22 @@
 import type { ICommentsForm } from "../lib/types";
-import { type CommentType, createComment } from "entities/comment";
-import React from "react";
-import { createUser, type PrincipalUserState } from "entities/user";
-import type { UseFormSetValue } from "react-hook-form";
+import type { CommentResponse, CreateCommentRequest } from "entities/comment";
+import type { AxiosResponse } from "axios";
+
+type AddCommentFn = (
+    data: CreateCommentRequest
+) => Promise<AxiosResponse<CommentResponse>>;
 
 /**
- * Обрабатывает успешную отправку формы комментария.
- * Добавляет новый комментарий в начало списка и сбрасывает поле ввода.
+ * Обрабатывает успешную отправку формы комментария и отправляет запрос на создание комментария.
  *
  * @param data - Данные формы с текстом комментария.
- * @param setComments - Сеттер списка комментариев.
- * @param author - Объект текущего пользователя-автора.
- * @param setValue - Функция сброса поля формы (react-hook-form).
+ * @param postUUID - UUID публикации, к которой добавляется комментарий.
+ * @param addComment - Функция запроса на создание комментария.
  */
-export function submitValidHandler(
+export async function submitValidHandler(
     data: ICommentsForm,
-    setComments: React.Dispatch<React.SetStateAction<CommentType[]>>,
-    author: PrincipalUserState,
-    setValue: UseFormSetValue<ICommentsForm>
+    postUUID: string,
+    addComment: AddCommentFn
 ) {
-    const user = createUser({
-        UUID: author.UUID,
-        title: author.name,
-        username: author.username,
-        description: "",
-        worksCount: 0,
-        subscribersCount: 0,
-        subscribesCount: 0,
-        albumList: [],
-        createdAt: "",
-        trustStatus: author.trustStatus,
-        isAuthenticated: true,
-        isBlocked: author.isBlocked,
-        onlineStatus: "ONLINE",
-        role: author.role,
-        avatarUrl: ""
-    });
-
-    setComments(comments => [
-        createComment({
-            text: data.sendComment,
-            createdAt: new Date().toISOString(),
-            author: user
-        }),
-        ...comments
-    ]);
-    setValue("sendComment", "");
+    await addComment({ postUuid: postUUID, text: data.sendComment });
 }
