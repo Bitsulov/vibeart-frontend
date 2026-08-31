@@ -5,25 +5,20 @@ import {
     type ComponentPropsWithoutRef,
     type Dispatch,
     type SetStateAction,
-    useEffect
+    useEffect,
+    useState
 } from "react";
-import type { TagType } from "entities/tag";
+import { createTag, getTags, getTagsBySearch } from "entities/tag";
 import { PostTag } from "features/postTag";
 import { PagesButtons } from "features/pagesButtons";
 import { chooseTagClickHandler } from "../model/chooseTagClickHandler";
 import clsx from "clsx";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
+import { useDebouncedValue } from "shared/hooks/useDebouncedValue";
+import { useQuery } from "@tanstack/react-query";
 
 /** Свойства компонента {@link AddTags}. */
 interface AddTagsProps extends ComponentPropsWithoutRef<"div"> {
-    /** Список доступных тегов для выбора. */
-    tagsList: TagType[];
-    /** Общее количество страниц тегов. */
-    pages: number;
-    /** Номер текущей страницы. */
-    currentPage: number;
-    /** Функция обновления номера текущей страницы. */
-    setCurrentPage: Dispatch<SetStateAction<number>>;
     /** Количество кнопок страниц, отображаемых по обе стороны от текущей в {@link PagesButtons}. */
     pagesDelta: number;
     /** Функция обновления `pagesDelta`. Значение пересчитывается внутри компонента при изменении ширины экрана. */
@@ -37,14 +32,13 @@ interface AddTagsProps extends ComponentPropsWithoutRef<"div"> {
 /**
  * Виджет выбора тегов для публикации: поле поиска, список кнопок-тегов и постраничная навигация.
  *
+ * Загружает теги с сервера: без запроса в поле поиска — постраничный
+ * список всех тегов, с запросом — результаты поиска по подстроке.
+ * При изменении запроса возвращается на первую страницу.
  * Адаптирует значение `pagesDelta` в зависимости от ширины экрана, чтобы количество
  * кнопок страниц не переполняло панель. Выбранные теги подсвечиваются CSS-классом `c.select`.
  */
 export const AddTags = ({
-    tagsList,
-    pages,
-    currentPage,
-    setCurrentPage,
     pagesDelta,
     setPagesDelta,
     chosenTags,
@@ -67,12 +61,42 @@ export const AddTags = ({
         }
     }, [windowWidth, setPagesDelta]);
 
+    const [search, setSearch] = useState("");
+    const debouncedSearch = useDebouncedValue(search.trim(), 400);
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [debouncedSearch]);
+
+    const tagsQuery = useQuery({
+        queryKey: [`tags ${debouncedSearch}`, currentPage],
+        queryFn: () =>
+            debouncedSearch
+                ? getTagsBySearch(debouncedSearch, { page: currentPage - 1, size: 10 })
+                : getTags({ page: currentPage - 1, size: 10 })
+    });
+
+    const tagsList = (tagsQuery.data?.data.content ?? []).map(tag => createTag(tag));
+    const pages = tagsQuery.data?.data.totalPages || 1;
+
+    const selectedTagsList = chosenTags
+        .filter(title => !tagsList.some(tag => tag.title === title))
+        .map(title => createTag({ title, createdAt: "" }));
+
+    const displayedTagsList = [...selectedTagsList, ...tagsList];
+
     return (
         <div className={c.tags} {...props}>
             <h2 className={c.title}>{t("createPost.tagsTitle")}</h2>
-            <SearchInput className={c.search} />
+            <SearchInput
+                className={c.search}
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+            />
             <div className={c.tags_list}>
-                {tagsList.map((tag, i) => (
+                {displayedTagsList.map((tag, i) => (
                     <PostTag
                         type="button"
                         className={clsx(chosenTags.includes(tag.title) && c.select)}
