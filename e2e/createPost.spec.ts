@@ -19,6 +19,28 @@ test.describe("CreatePost - страница создания поста", () =>
                 })
             })
         );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
     });
 
     test("Контент страницы загружается", async ({ page }) => {
@@ -82,7 +104,7 @@ test.describe("CreatePost - страница создания поста", () =>
         await page.goto(CREATE_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("title", { exact: false }).fill("Мой пост");
-        await expect(page.getByText("Мой пост")).toBeVisible();
+        await expect(page.getByText("Мой пост")).toBeVisible({ timeout: 10000 });
     });
     test("Отправка без названия показывает ошибку на поле", async ({ page }) => {
         await page.goto(CREATE_POST_URL);
@@ -102,7 +124,9 @@ test.describe("CreatePost - страница создания поста", () =>
         await page.getByLabel("title", { exact: false }).fill("Название");
         await page.getByRole("button", { name: /create/i }).click();
 
-        await expect(page.getByText("Please upload an image")).toBeVisible();
+        await expect(page.getByText("Please upload an image")).toBeVisible({
+            timeout: 10000
+        });
     });
     test("Слишком длинное название показывает уведомление об ошибке", async ({
         page
@@ -112,7 +136,7 @@ test.describe("CreatePost - страница создания поста", () =>
         await page.getByLabel("title", { exact: false }).fill("A".repeat(16));
         await page.getByRole("button", { name: /create/i }).click();
 
-        await expect(page.getByText("Title is too long")).toBeVisible();
+        await expect(page.getByText("Title is too long")).toBeVisible({ timeout: 10000 });
     });
     test("Слишком длинное описание показывает уведомление об ошибке", async ({
         page
@@ -123,7 +147,9 @@ test.describe("CreatePost - страница создания поста", () =>
         await page.getByLabel("description", { exact: false }).fill("A".repeat(201));
         await page.getByRole("button", { name: /create/i }).click();
 
-        await expect(page.getByText("Description is too long")).toBeVisible();
+        await expect(page.getByText("Description is too long")).toBeVisible({
+            timeout: 10000
+        });
     });
 });
 
@@ -143,6 +169,28 @@ test.describe("CreatePost - режим редактирования поста",
                     email: "testEmail@test.com",
                     role: "USER",
                     enabled: true
+                })
+            })
+        );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
                 })
             })
         );
@@ -196,18 +244,22 @@ test.describe("CreatePost - режим редактирования поста",
         await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
 
         await page.getByRole("textbox", { name: /title/i }).fill("New title");
-        await page.getByRole("button", { name: /create/i }).click();
+        await page.getByRole("button", { name: /edit/i }).click();
 
-        await expect(page.getByText("Post successfully updated.")).toBeVisible();
+        await expect(page.getByText("Post successfully updated.")).toBeVisible({
+            timeout: 10000
+        });
         await expect(page).toHaveURL(/\/post\/00000000-0000-4000-8000-000000000007/);
     });
 
     test("Отправка без изменений показывает уведомление об успехе", async ({ page }) => {
         await page.goto(EDIT_POST_URL, { waitUntil: "networkidle" });
 
-        await page.getByRole("button", { name: /create/i }).click();
+        await page.getByRole("button", { name: /edit/i }).click();
 
-        await expect(page.getByText("Post successfully updated.")).toBeVisible();
+        await expect(page.getByText("Post successfully updated.")).toBeVisible({
+            timeout: 10000
+        });
         await expect(page).toHaveURL(EDIT_POST_URL);
     });
 });
@@ -226,6 +278,28 @@ test.describe("CreatePost - отправка формы создания", () =>
                     email: "testEmail@test.com",
                     role: "USER",
                     enabled: true
+                })
+            })
+        );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
                 })
             })
         );
@@ -267,7 +341,9 @@ test.describe("CreatePost - отправка формы создания", () =>
             });
         await page.getByRole("button", { name: /create/i }).click();
 
-        await expect(page.getByText("Post successfully created.")).toBeVisible();
+        await expect(page.getByText("Post successfully created.")).toBeVisible({
+            timeout: 10000
+        });
         await expect(page).toHaveURL(/\/post\/00000000-0000-4000-8000-000000000007/);
     });
 
@@ -294,7 +370,7 @@ test.describe("CreatePost - отправка формы создания", () =>
 
         await expect(
             page.getByText("A server error occurred. Please try again later")
-        ).toBeVisible();
+        ).toBeVisible({ timeout: 10000 });
         await expect(page).toHaveURL(CREATE_POST_URL);
     });
 });

@@ -6,6 +6,8 @@
  * тестируемой логики.
  */
 import { createTag } from "../model/createTag";
+import type { Page } from "shared/lib/types";
+import type { TagResponse } from "../lib/types";
 
 export const postTagsMock = [
     createTag({ title: "beauty", createdAt: "" }),
@@ -22,3 +24,20 @@ export const communityTagsMock = [
     createTag({ title: "beauty", createdAt: "" }),
     createTag({ title: "aaa", createdAt: "" })
 ];
+
+export const tagsPageResponseMock: Page<TagResponse> = {
+    content: [
+        { title: "beauty", createdAt: "" },
+        { title: "nature", createdAt: "" },
+        { title: "aaa", createdAt: "" },
+        { title: "beauty", createdAt: "" },
+        { title: "aaa", createdAt: "" }
+    ],
+    number: 0,
+    size: 20,
+    totalElements: 5,
+    totalPages: 1,
+    first: true,
+    last: true,
+    empty: false
+};

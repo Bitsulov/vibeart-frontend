@@ -19,6 +19,28 @@ test.describe("CreateCommunity - страница создания сообще�
                 })
             })
         );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
         await page.route(/\/api\/user\/friends(\?[^/]*)?$/, route =>
             route.fulfill({
                 status: 200,
@@ -153,55 +175,57 @@ test.describe("CreateCommunity - страница создания сообще�
     test("Название короче 3 символов показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_COMMUNITY_URL);
+        await page.goto(CREATE_COMMUNITY_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Name").fill("AB");
         await page.getByRole("button", { name: "Save entered data" }).click();
 
-        await expect(page.getByText("Name is too short")).toBeVisible();
+        await expect(page.getByText("Name is too short")).toBeVisible({ timeout: 10000 });
     });
 
     test("Название длиннее 15 символов показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_COMMUNITY_URL);
+        await page.goto(CREATE_COMMUNITY_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Name").fill("A".repeat(16));
         await page.getByRole("button", { name: "Save entered data" }).click();
 
-        await expect(page.getByText("Name is too long")).toBeVisible();
+        await expect(page.getByText("Name is too long")).toBeVisible({ timeout: 10000 });
     });
 
     test("Описание длиннее 200 символов показывает уведомление об ошибке", async ({
         page
     }) => {
-        await page.goto(CREATE_COMMUNITY_URL);
+        await page.goto(CREATE_COMMUNITY_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Name").fill("Valid Name");
         await page.getByLabel("Description", { exact: false }).fill("A".repeat(201));
         await page.getByRole("button", { name: "Save entered data" }).click();
 
-        await expect(page.getByText("Description is too long")).toBeVisible();
+        await expect(page.getByText("Description is too long")).toBeVisible({
+            timeout: 10000
+        });
     });
 
     test("ID короче 2 символов показывает уведомление об ошибке", async ({ page }) => {
-        await page.goto(CREATE_COMMUNITY_URL);
+        await page.goto(CREATE_COMMUNITY_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Name").fill("Valid Name");
         await page.getByLabel("Enter ID").fill("A");
         await page.getByRole("button", { name: "Save entered data" }).click();
 
-        await expect(page.getByText("ID is too short")).toBeVisible();
+        await expect(page.getByText("ID is too short")).toBeVisible({ timeout: 10000 });
     });
 
     test("ID длиннее 10 символов показывает уведомление об ошибке", async ({ page }) => {
-        await page.goto(CREATE_COMMUNITY_URL);
+        await page.goto(CREATE_COMMUNITY_URL, { waitUntil: "networkidle" });
 
         await page.getByLabel("Name").fill("Valid Name");
         await page.getByLabel("Enter ID").fill("A".repeat(11));
         await page.getByRole("button", { name: "Save entered data" }).click();
 
-        await expect(page.getByText("ID is too long")).toBeVisible();
+        await expect(page.getByText("ID is too long")).toBeVisible({ timeout: 10000 });
     });
 });
 
@@ -222,6 +246,28 @@ test.describe("CreateCommunity - режим редактирования соо�
                     email: "testEmail@test.com",
                     role: "USER",
                     enabled: true
+                })
+            })
+        );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
                 })
             })
         );

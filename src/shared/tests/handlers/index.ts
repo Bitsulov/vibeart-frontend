@@ -15,6 +15,8 @@ import {
 import { postResponseMock, postsPageResponseMock } from "entities/post";
 import { albumResponseMock } from "entities/album";
 import { communityResponseMock, communitiesPageResponseMock } from "entities/community";
+import { tagsPageResponseMock } from "entities/tag";
+import { commentResponseMock, commentsPageResponseMock } from "entities/comment";
 
 export const handlers = [
     http.post("*/auth/register", () => HttpResponse.text("ok")),
@@ -51,5 +53,11 @@ export const handlers = [
     http.get("*/community/search", () => HttpResponse.json(communitiesPageResponseMock)),
     http.get("*/community", () => HttpResponse.json(communitiesPageResponseMock)),
     http.post("*/community/:UUID/subscribe", () => HttpResponse.text("ok")),
-    http.get("*/community/:UUID", () => HttpResponse.json(communityResponseMock))
+    http.get("*/community/:UUID", () => HttpResponse.json(communityResponseMock)),
+    http.get("*/tag/search", () => HttpResponse.json(tagsPageResponseMock)),
+    http.get("*/tag", () => HttpResponse.json(tagsPageResponseMock)),
+    http.get("*/comment", () => HttpResponse.json(commentsPageResponseMock)),
+    http.post("*/comment", () => HttpResponse.json(commentResponseMock)),
+    http.put("*/comment/:id", () => HttpResponse.json(commentResponseMock)),
+    http.delete("*/comment/:id", () => HttpResponse.text("ok"))
 ];

@@ -10,7 +10,7 @@ import defaultAvatarUrl from "shared/icons/icon-user.svg";
 interface CommentProps {
     /** UUID автора для формирования ссылки `/profile/:uuid`. */
     authorUUID: string;
-    /** Отображаемое имя автора комментария. */
+    /** Отображаемое имя автора комментария. При пустом значении отображается `authorUUID`. */
     authorName: string;
     /** URL аватара автора. При отсутствии подставляется иконка-заглушка. */
     authorAvatarUrl: string;
@@ -38,22 +38,23 @@ export const Comment = ({
     const language = useSelector(selectCurrentLanguage);
 
     const avatar = authorAvatarUrl || defaultAvatarUrl;
+    const resultAuthorName = authorName || authorUUID;
 
     return (
         <div className={c.comment} {...props}>
             <Link
                 className={c.profile_link}
-                aria-label={t("ariaLabel.goToUserProfile", { name: authorName })}
+                aria-label={t("ariaLabel.goToUserProfile", { name: resultAuthorName })}
                 to={`/profile/${authorUUID}`}
             >
                 <img
                     width="35"
                     height="35"
                     src={avatar}
-                    alt={authorName}
+                    alt={resultAuthorName}
                     className={c.avatar}
                 />
-                <p className={c.name}>{authorName}</p>
+                <p className={c.name}>{resultAuthorName}</p>
             </Link>
             <div className={c.wrapper}>
                 <p className={c.text}>{text}</p>

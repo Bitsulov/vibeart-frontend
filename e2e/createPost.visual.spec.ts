@@ -19,6 +19,28 @@ test.describe("CreatePost - визуальная проверка блоков",
                 })
             })
         );
+        await page.route(/\/api\/tag(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [
+                        { title: "beauty", createdAt: "" },
+                        { title: "nature", createdAt: "" },
+                        { title: "aaa", createdAt: "" },
+                        { title: "beauty", createdAt: "" },
+                        { title: "aaa", createdAt: "" }
+                    ],
+                    number: 0,
+                    size: 10,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
 
         await page.goto(CREATE_POST_URL);
         await expect(page.getByRole("main")).toBeVisible();

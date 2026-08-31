@@ -5,9 +5,6 @@ import { screen } from "@testing-library/react";
 import { galleryPostsMock } from "entities/post";
 
 const defaultProps = {
-    pages: 1,
-    currentPage: 1,
-    setCurrentPage: () => {},
     pagesDelta: 1,
     setPagesDelta: () => {},
     setPostInfo: () => {},
@@ -79,5 +76,21 @@ describe("CreatePostWidget - форма создания и редактиров
         expect(
             screen.getByRole("button", { name: "ariaLabel.createPost" })
         ).toBeInTheDocument();
+    });
+
+    it("Показывает текст создания на кнопке в режиме создания", () => {
+        renderWithProviders(
+            <CreatePostWidget {...defaultProps} isCreateNewPost={true} />
+        );
+
+        expect(screen.getByText("createPost.submitTextMobile")).toBeInTheDocument();
+    });
+
+    it("Показывает текст изменения на кнопке в режиме редактирования", () => {
+        renderWithProviders(
+            <CreatePostWidget {...defaultProps} isCreateNewPost={false} />
+        );
+
+        expect(screen.getByText("createPost.submitTextEditMobile")).toBeInTheDocument();
     });
 });

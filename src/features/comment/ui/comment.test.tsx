@@ -42,4 +42,9 @@ describe("Comment - отображение комментария", () => {
         const img = screen.getByRole("img", { name: profileUserMock.title });
         expect(img).toBeInTheDocument();
     });
+
+    it("Отображает UUID автора, если имя не задано", () => {
+        renderWithProviders(<Comment {...defaultProps} authorName="" />);
+        expect(screen.getByText(profileUserMock.UUID)).toBeInTheDocument();
+    });
 });

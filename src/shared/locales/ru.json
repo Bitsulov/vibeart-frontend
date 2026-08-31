@@ -378,7 +378,8 @@
         "back": "Назад",
         "inAlbum": "В альбоме",
         "Comments": "Комментарии",
-        "placeholder": "Введите текст"
+        "placeholder": "Введите текст",
+        "emptyComments": "Здесь пока нет комментариев"
     },
 
     "album": {
@@ -466,7 +467,9 @@
         "textPlaceholder": "Введите описание",
         "tagsTitle": "Добавление тегов",
         "submitTextMobile": "Создать",
-        "submitTextDesktop": "Создать пост"
+        "submitTextDesktop": "Создать пост",
+        "submitTextEditMobile": "Изменить",
+        "submitTextEditDesktop": "Изменить пост"
     },
 
     "createAlbum": {

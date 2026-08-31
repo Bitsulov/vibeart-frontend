@@ -5,7 +5,6 @@ import { createUser, getUserByUUID, selectUserInfo, type UserType } from "entiti
 import { CreateCommunityWidget } from "widgets/createCommunityWidget";
 import { useEffect, useMemo, useState } from "react";
 import { getCommunity, type CommunityType } from "entities/community";
-import { communityTagsMock } from "entities/tag";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import axios from "axios";
@@ -145,7 +144,6 @@ export const CreateCommunity = () => {
             <meta property="og:title" content={t("titles.communityCreate")} />
             <meta property="og:description" content={t("description.communityCreate")} />
             <CreateCommunityWidget
-                tagsList={communityTagsMock}
                 communityInfo={communityInfo}
                 setCommunityInfo={setCommunityInfo}
                 userInfo={user}

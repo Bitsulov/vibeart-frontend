@@ -3,11 +3,9 @@ import { screen } from "@testing-library/react";
 import { renderWithProviders } from "shared/tests/renderWithProviders";
 import { CreateCommunityWidget } from "./createCommunityWidget";
 import { communityAdminsMock, principalUserMock } from "entities/user";
-import { communityTagsMock } from "entities/tag";
 
 const defaultProps = {
     userInfo: principalUserMock,
-    tagsList: communityTagsMock,
     communityInfo: {},
     setCommunityInfo: vi.fn(),
     isCreateNewCommunity: true,
