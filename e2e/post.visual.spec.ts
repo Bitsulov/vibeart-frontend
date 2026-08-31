@@ -56,6 +56,43 @@ test.describe("Post - визуальная проверка блоков", () =>
             })
         );
 
+        await page.route(/\/api\/comment(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: ["271", "272", "273", "274", "275"].map((suffix, i) => ({
+                        uuid: `00000000-0000-4000-8000-00000000010${i + 1}`,
+                        text: "Текст комментария Текст комментария Текст комментария",
+                        createdAt: `2026-04-05T08:52:55.${suffix}Z`,
+                        author: {
+                            uuid: "00000000-0000-4000-8000-000000000006",
+                            name: "testUser",
+                            username: "testUser",
+                            description:
+                                "Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user Description of first test user",
+                            avatarUrl: "/src/shared/icons/img-CTA.jpg",
+                            worksCount: 0,
+                            subscribersCount: 999100,
+                            subscribesCount: 0,
+                            createdAt: "2026-03-22T18:50:29.921Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true,
+                            subscribed: false
+                        }
+                    })),
+                    number: 0,
+                    size: 20,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
+
         await page.goto(POST_URL);
         await expect(page.getByRole("main")).toBeVisible();
         await page.evaluate(() =>

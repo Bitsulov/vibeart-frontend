@@ -58,6 +58,41 @@ test.describe("Post - страница поста", () => {
         await page.route("**/api/post/*/like", route =>
             route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
         );
+        await page.route(/\/api\/comment(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [1, 2, 3, 4, 5].map(i => ({
+                        uuid: `00000000-0000-4000-8000-00000000010${i}`,
+                        text: "Текст комментария Текст комментария Текст комментария",
+                        createdAt: `2026-04-05T08:52:55.27${i}Z`,
+                        author: {
+                            uuid: "00000000-0000-4000-8000-000000000006",
+                            name: "testUser",
+                            username: "testUser",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 0,
+                            subscribersCount: 0,
+                            subscribesCount: 0,
+                            createdAt: "2026-01-01T00:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true,
+                            subscribed: false
+                        }
+                    })),
+                    number: 0,
+                    size: 20,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
     });
 
     test("Контент страницы загружается", async ({ page }) => {
@@ -227,6 +262,41 @@ test.describe("Post - лайки и жалобы", () => {
         await page.route("**/api/post/*/report", route =>
             route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
         );
+        await page.route(/\/api\/comment(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [1, 2, 3, 4, 5].map(i => ({
+                        uuid: `00000000-0000-4000-8000-00000000010${i}`,
+                        text: "Текст комментария Текст комментария Текст комментария",
+                        createdAt: `2026-04-05T08:52:55.27${i}Z`,
+                        author: {
+                            uuid: "00000000-0000-4000-8000-000000000006",
+                            name: "testUser",
+                            username: "testUser",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 0,
+                            subscribersCount: 0,
+                            subscribesCount: 0,
+                            createdAt: "2026-01-01T00:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true,
+                            subscribed: false
+                        }
+                    })),
+                    number: 0,
+                    size: 20,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
     });
 
     test("Счётчики лайков и жалоб берутся из ответа API", async ({ page }) => {
@@ -340,6 +410,41 @@ test.describe("Post - публикация текущего пользовате
                 })
             })
         );
+        await page.route(/\/api\/comment(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [1, 2, 3, 4, 5].map(i => ({
+                        uuid: `00000000-0000-4000-8000-00000000010${i}`,
+                        text: "Текст комментария Текст комментария Текст комментария",
+                        createdAt: `2026-04-05T08:52:55.27${i}Z`,
+                        author: {
+                            uuid: "00000000-0000-4000-8000-000000000006",
+                            name: "testUser",
+                            username: "testUser",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 0,
+                            subscribersCount: 0,
+                            subscribesCount: 0,
+                            createdAt: "2026-01-01T00:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true,
+                            subscribed: false
+                        }
+                    })),
+                    number: 0,
+                    size: 20,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
+                })
+            })
+        );
     });
 
     test("Отображаются кнопки редактирования и удаления", async ({ page }) => {
@@ -429,6 +534,41 @@ test.describe("Post - публикация сообщества", () => {
                     tags: [],
                     liked: false,
                     reported: false
+                })
+            })
+        );
+        await page.route(/\/api\/comment(\?.*)?$/, route =>
+            route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    content: [1, 2, 3, 4, 5].map(i => ({
+                        uuid: `00000000-0000-4000-8000-00000000010${i}`,
+                        text: "Текст комментария Текст комментария Текст комментария",
+                        createdAt: `2026-04-05T08:52:55.27${i}Z`,
+                        author: {
+                            uuid: "00000000-0000-4000-8000-000000000006",
+                            name: "testUser",
+                            username: "testUser",
+                            description: "",
+                            avatarUrl: "",
+                            worksCount: 0,
+                            subscribersCount: 0,
+                            subscribesCount: 0,
+                            createdAt: "2026-01-01T00:00:00.000Z",
+                            trustStatus: "TRUST",
+                            onlineStatus: "ONLINE",
+                            enabled: true,
+                            subscribed: false
+                        }
+                    })),
+                    number: 0,
+                    size: 20,
+                    totalElements: 5,
+                    totalPages: 1,
+                    first: true,
+                    last: true,
+                    empty: false
                 })
             })
         );
