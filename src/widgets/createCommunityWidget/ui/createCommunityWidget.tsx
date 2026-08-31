@@ -25,7 +25,6 @@ import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import type { AppError } from "shared/lib/types";
 import { AddTags } from "widgets/addTags";
-import type { TagType } from "entities/tag";
 import { AddAdmins } from "widgets/addAdmins";
 import { BackLink } from "features/backLink";
 
@@ -33,8 +32,6 @@ import { BackLink } from "features/backLink";
 interface CreateCommunityWidgetProps extends ComponentPropsWithoutRef<"form"> {
     /** Данные текущего пользователя — отображается как автор и недоступный для снятия администратор. */
     userInfo: UserType;
-    /** Полный список тегов для выбора в виджете {@link AddTags}. */
-    tagsList: TagType[];
     /** Текущее частичное состояние создаваемого сообщества для предпросмотра. */
     communityInfo: Partial<CommunityType>;
     /** Сеттер состояния создаваемого сообщества. */
@@ -67,7 +64,6 @@ export const CreateCommunityWidget = ({
     communityInfo,
     setCommunityInfo,
     userInfo,
-    tagsList,
     isCreateNewCommunity,
     communityUUID,
     originalTitle,
@@ -121,8 +117,6 @@ export const CreateCommunityWidget = ({
 
     const [tags, setTags] = useState<string[]>([]);
 
-    const pagesTags = 15;
-    const [currentPageTags, setCurrentPageTags] = useState<number>(1);
     const [pagesDelta, setPagesDelta] = useState<number>(2);
 
     const [selectedUsers, setSelectedUsers] = useState<UserType[]>([]);
@@ -281,10 +275,6 @@ export const CreateCommunityWidget = ({
                         />
                     </div>
                     <AddTags
-                        tagsList={tagsList}
-                        pages={pagesTags}
-                        currentPage={currentPageTags}
-                        setCurrentPage={setCurrentPageTags}
                         pagesDelta={pagesDelta}
                         setPagesDelta={setPagesDelta}
                         chosenTags={tags}

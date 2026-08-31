@@ -14,7 +14,6 @@ import { submitValidHandler } from "../model/submitValidHandler";
 import { submitInvalidHandler } from "../model/submitInvalidHandler";
 import { useNavigate } from "react-router-dom";
 import { AddTags } from "widgets/addTags";
-import { postTagsMock } from "entities/tag";
 import { StylizedButton } from "features/stylizedButton";
 import { useWindowWidth } from "shared/hooks/useWindowWidth";
 import { addPost, type PostType, updatePostByUUID } from "entities/post";
@@ -27,13 +26,7 @@ import type { AppError } from "shared/lib/types";
 
 /** Свойства компонента {@link CreatePostWidget}. */
 interface CreatePostWidgetProps extends ComponentPropsWithoutRef<"form"> {
-    /** Общее количество страниц тегов для {@link AddTags}. */
-    pages: number;
-    /** Номер текущей страницы тегов. */
-    currentPage: number;
-    /** Функция обновления номера текущей страницы тегов. */
-    setCurrentPage: Dispatch<SetStateAction<number>>;
-    /** Количество кнопок страниц, отображаемых по обе стороны от текущей. */
+    /** Количество кнопок страниц, отображаемых по обе стороны от текущей в {@link AddTags}. */
     pagesDelta: number;
     /** Функция обновления `pagesDelta`. */
     setPagesDelta: Dispatch<SetStateAction<number>>;
@@ -73,13 +66,10 @@ interface CreatePostWidgetProps extends ComponentPropsWithoutRef<"form"> {
  *
  * Использует react-hook-form для валидации: название обязательно (не более 15 символов),
  * описание — не более 200 символов. Теги выбираются через {@link AddTags}.
- * Подписи полей и кнопка отправки адаптируются под ширину экрана.
+ * Подписи полей и текст кнопки адаптируются под ширину экрана и под режим.
  * При успешной отправке вызывается {@link submitValidHandler}, при ошибке — {@link submitInvalidHandler}.
  */
 export const CreatePostWidget = ({
-    pages,
-    currentPage,
-    setCurrentPage,
     pagesDelta,
     setPagesDelta,
     setPostInfo,
@@ -118,9 +108,16 @@ export const CreatePostWidget = ({
 
     const isDesktop = windowWidth >= 1200;
 
-    const submitText = isDesktop
-        ? "createPost.submitTextDesktop"
-        : "createPost.submitTextMobile";
+    const submitText = isCreateNewPost
+        ? isDesktop
+            ? "createPost.submitTextDesktop"
+            : "createPost.submitTextMobile"
+        : isDesktop
+          ? "createPost.submitTextEditDesktop"
+          : "createPost.submitTextEditMobile";
+    const submitAriaLabel = isCreateNewPost
+        ? "ariaLabel.createPost"
+        : "ariaLabel.editPost";
     const descriptionText = isDesktop
         ? "createPost.textDescriptionDesktop"
         : "createPost.textDescriptionMobile";
@@ -237,15 +234,11 @@ export const CreatePostWidget = ({
             <AddTags
                 pagesDelta={pagesDelta}
                 setPagesDelta={setPagesDelta}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                pages={pages}
                 chosenTags={chosenTags}
                 setChosenTags={setChosenTags}
-                tagsList={postTagsMock}
             />
             <StylizedButton
-                aria-label={t("ariaLabel.createPost")}
+                aria-label={t(submitAriaLabel)}
                 className={c.submit}
                 type="submit"
             >

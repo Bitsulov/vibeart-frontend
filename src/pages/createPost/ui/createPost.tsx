@@ -36,8 +36,6 @@ export const CreatePost = () => {
 
     const principalUser = useSelector(selectUser);
 
-    const pagesTags = 15;
-    const [currentPageTags, setCurrentPageTags] = useState<number>(1);
     const [pagesDelta, setPagesDelta] = useState<number>(2);
 
     const [loadedFile, setLoadedFile] = useState<File>();
@@ -164,11 +162,8 @@ export const CreatePost = () => {
                         <CreatePostWidget
                             className={c.form}
                             setPostInfo={setPostInfo}
-                            pages={pagesTags}
                             pagesDelta={pagesDelta}
                             setPagesDelta={setPagesDelta}
-                            currentPage={currentPageTags}
-                            setCurrentPage={setCurrentPageTags}
                             postInfo={postInfo}
                             postTags={loadedTags}
                             postName={loadedPost.data?.data.title ?? ""}
