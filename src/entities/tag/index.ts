@@ -1,3 +1,4 @@
-export type { TagType } from "./lib/types";
+export type { TagType, TagResponse } from "./lib/types";
 export { createTag } from "./model/createTag";
-export { postTagsMock, communityTagsMock } from "./const/mockConst";
+export { postTagsMock, communityTagsMock, tagsPageResponseMock } from "./const/mockConst";
+export { getTags, getTagsBySearch } from "./api/tagApi";

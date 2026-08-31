@@ -8,3 +8,9 @@ export interface TagType {
     /** Дата и время создания тега в формате ISO 8601. */
     createdAt: string;
 }
+
+/** Тег, возвращаемый сервером. */
+export interface TagResponse {
+    title: string;
+    createdAt: string;
+}
