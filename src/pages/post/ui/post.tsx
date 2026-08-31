@@ -5,7 +5,6 @@ import { getPost } from "entities/post";
 import { createTag } from "entities/tag";
 import { useDispatch, useSelector } from "react-redux";
 import { PostComments } from "widgets/postComments";
-import { commentsMock } from "entities/comment";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -91,11 +90,7 @@ export const Post = () => {
                 isOwner={isOwner}
                 isLoadingData={isLoading}
             />
-            <PostComments
-                userInfo={userInfo}
-                commentsCount={commentsMock.length}
-                commentsList={commentsMock}
-            />
+            <PostComments postUUID={postUUID} />
         </Layout>
     );
 };
